@@ -368,7 +368,7 @@ Tiryaki Hasan Paşa saldırmadı — savundu.
 
 ## Lisans
 
-[MIT](LICENSE) © 2024 Kanije Kalesi
+[MIT](LICENSE) © 2026 Kanije Kalesi
 
 <br>
 
