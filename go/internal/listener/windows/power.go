@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"runtime"
 	"unsafe"
 
 	"github.com/kanije-kalesi/kanije/internal/event"
@@ -15,10 +16,10 @@ import (
 
 const (
 	// WM_POWERBROADCAST power event codes
-	pbtApmSuspend              = 0x0004 // System is suspending
-	pbtApmResumeSuspend        = 0x0007 // Manual resume from suspend
-	pbtApmResumeAutomatic      = 0x0012 // Automatic resume (timer/network)
-	pbtPowersettingChange      = 0x8013 // Power setting change
+	pbtApmSuspend         = 0x0004 // System is suspending
+	pbtApmResumeSuspend   = 0x0007 // Manual resume from suspend
+	pbtApmResumeAutomatic = 0x0012 // Automatic resume (timer/network)
+	pbtPowersettingChange = 0x8013 // Power setting change
 
 	wmPowerBroadcast = 0x0218
 )
@@ -42,8 +43,8 @@ func (m *PowerMonitor) Start(ctx context.Context, bus *event.Bus) error {
 	done := make(chan result, 1)
 
 	go func() {
-		runtime_LockOSThread()
-		defer runtime_UnlockOSThread()
+		runtime.LockOSThread()
+		defer runtime.UnlockOSThread()
 
 		hwnd, err := createPowerWindow()
 		if err != nil {

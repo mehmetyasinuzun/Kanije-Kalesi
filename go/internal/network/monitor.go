@@ -76,10 +76,10 @@ func (m *Monitor) tick(bus *event.Bus) {
 	switch {
 	case online && !m.lastOnline:
 		ev := event.New(event.TypeNetworkUp, "NetworkMonitor")
-		ev.Hostname    = m.hostname
+		ev.Hostname = m.hostname
 		ev.NetworkSSID = ssid
 		ev.NetworkType = inferNetworkType(iface)
-		ev.LocalIP     = getLocalIP(iface)
+		ev.LocalIP = getLocalIP(iface)
 		m.log.Info("İnternet bağlantısı kuruldu", "ağ", ssid, "ip", ev.LocalIP)
 		bus.Publish(ev)
 
@@ -91,17 +91,17 @@ func (m *Monitor) tick(bus *event.Bus) {
 
 	case online && (ssid != m.lastSSID) && m.lastSSID != "":
 		ev := event.New(event.TypeNetworkChanged, "NetworkMonitor")
-		ev.Hostname    = m.hostname
+		ev.Hostname = m.hostname
 		ev.NetworkSSID = ssid
 		ev.NetworkType = inferNetworkType(iface)
-		ev.LocalIP     = getLocalIP(iface)
+		ev.LocalIP = getLocalIP(iface)
 		m.log.Info("Ağ değişti", "önceki", m.lastSSID, "yeni", ssid)
 		bus.Publish(ev)
 	}
 
 	m.lastOnline = online
-	m.lastSSID   = ssid
-	m.lastIface  = iface
+	m.lastSSID = ssid
+	m.lastIface = iface
 }
 
 // checkConnectivity tests TCP connectivity to the configured target.
@@ -173,11 +173,6 @@ func getLinuxNetwork() (ssid, iface string) {
 
 	// Default route interface
 	if out, err := exec.Command("ip", "route", "show", "default").Output(); err == nil {
-		for _, field := range strings.Fields(string(out)) {
-			if iface != "" {
-				break
-			}
-		}
 		parts := strings.Fields(string(out))
 		for i, p := range parts {
 			if p == "dev" && i+1 < len(parts) {

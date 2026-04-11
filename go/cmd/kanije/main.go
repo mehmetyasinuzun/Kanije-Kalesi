@@ -1,4 +1,4 @@
-// Command kanije is the main entry point for Kanije Kalesi Kanije Kalesi.
+// Command kanije is the main entry point for Kanije Kalesi.
 //
 // Usage:
 //

@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 	"unsafe"
@@ -19,18 +20,18 @@ import (
 // ---- Windows Device Notification API bindings ----
 
 var (
-	user32                    = windows.NewLazySystemDLL("user32.dll")
-	procRegisterClassExW      = user32.NewProc("RegisterClassExW")
-	procCreateWindowExW       = user32.NewProc("CreateWindowExW")
-	procDefWindowProcW        = user32.NewProc("DefWindowProcW")
-	procGetMessageW           = user32.NewProc("GetMessageW")
-	procDispatchMessageW      = user32.NewProc("DispatchMessageW")
-	procDestroyWindow         = user32.NewProc("DestroyWindow")
-	procRegisterDeviceNotification = user32.NewProc("RegisterDeviceNotification")
+	user32                           = windows.NewLazySystemDLL("user32.dll")
+	procRegisterClassExW             = user32.NewProc("RegisterClassExW")
+	procCreateWindowExW              = user32.NewProc("CreateWindowExW")
+	procDefWindowProcW               = user32.NewProc("DefWindowProcW")
+	procGetMessageW                  = user32.NewProc("GetMessageW")
+	procDispatchMessageW             = user32.NewProc("DispatchMessageW")
+	procDestroyWindow                = user32.NewProc("DestroyWindow")
+	procRegisterDeviceNotification   = user32.NewProc("RegisterDeviceNotification")
 	procUnregisterDeviceNotification = user32.NewProc("UnregisterDeviceNotification")
-	procPostMessageW          = user32.NewProc("PostMessageW")
-	kernel32                  = windows.NewLazySystemDLL("kernel32.dll")
-	procGetModuleHandleW      = kernel32.NewProc("GetModuleHandleW")
+	procPostMessageW                 = user32.NewProc("PostMessageW")
+	kernel32                         = windows.NewLazySystemDLL("kernel32.dll")
+	procGetModuleHandleW             = kernel32.NewProc("GetModuleHandleW")
 )
 
 const (
@@ -39,9 +40,9 @@ const (
 	dbtDeviceRemoveCom = 0x8004
 	dbtDevTypVolume    = 0x00000002
 
-	dbccSizeVolume = 16
-	deviceNotifyWindowHandle  = 0
-	deviceNotifyAllInterface  = 4
+	dbccSizeVolume           = 16
+	deviceNotifyWindowHandle = 0
+	deviceNotifyAllInterface = 4
 
 	wmClose = 0x0010
 	wmQuit  = 0x0012
@@ -65,25 +66,25 @@ type devBroadcastVolume struct {
 }
 
 type wndClassExW struct {
-	Size        uint32
-	Style       uint32
-	WndProc     uintptr
-	ClsExtra    int32
-	WndExtra    int32
-	Instance    uintptr
-	Icon        uintptr
-	Cursor      uintptr
-	Background  uintptr
-	MenuName    *uint16
-	ClassName   *uint16
-	IconSm      uintptr
+	Size       uint32
+	Style      uint32
+	WndProc    uintptr
+	ClsExtra   int32
+	WndExtra   int32
+	Instance   uintptr
+	Icon       uintptr
+	Cursor     uintptr
+	Background uintptr
+	MenuName   *uint16
+	ClassName  *uint16
+	IconSm     uintptr
 }
 
 type msg struct {
 	Hwnd    uintptr
 	Message uint32
 	WParam  uintptr
-	LParam  uintptr
+	LParam  unsafe.Pointer
 	Time    uint32
 	Pt      struct{ X, Y int32 }
 }
@@ -112,8 +113,8 @@ func (m *USBMonitor) Start(ctx context.Context, bus *event.Bus) error {
 
 	go func() {
 		// Lock this goroutine to the OS thread (message loop requirement)
-		runtime_LockOSThread()
-		defer runtime_UnlockOSThread()
+		runtime.LockOSThread()
+		defer runtime.UnlockOSThread()
 
 		hwnd, err := createMessageWindow()
 		if err != nil {
@@ -176,33 +177,33 @@ func (m *USBMonitor) Start(ctx context.Context, bus *event.Bus) error {
 }
 
 // handleDeviceChange processes WM_DEVICECHANGE messages.
-func (m *USBMonitor) handleDeviceChange(wParam, lParam uintptr, bus *event.Bus) {
-	if lParam == 0 {
+func (m *USBMonitor) handleDeviceChange(wParam uintptr, lParam unsafe.Pointer, bus *event.Bus) {
+	if lParam == nil {
 		return
 	}
-	hdr := (*devBroadcastHdr)(unsafe.Pointer(lParam))
+	hdr := (*devBroadcastHdr)(lParam)
 	if hdr.DeviceType != dbtDevTypVolume {
 		return
 	}
 
-	vol := (*devBroadcastVolume)(unsafe.Pointer(lParam))
+	vol := (*devBroadcastVolume)(lParam)
 	driveLetter := unitMaskToDriveLetter(vol.UnitMask)
 
 	switch wParam {
 	case dbtDeviceArrival:
 		ev := event.New(event.TypeUSBInserted, "USBMonitor")
-		ev.Hostname    = m.hostname
-		ev.DevicePath  = driveLetter + `:\`
+		ev.Hostname = m.hostname
+		ev.DevicePath = driveLetter + `:\`
 		ev.DeviceLabel = getDriveLabel(driveLetter)
-		ev.DeviceName  = ev.DeviceLabel
-		ev.DeviceFS    = getDriveFS(driveLetter)
-		ev.DeviceSize  = getDriveSize(driveLetter)
+		ev.DeviceName = ev.DeviceLabel
+		ev.DeviceFS = getDriveFS(driveLetter)
+		ev.DeviceSize = getDriveSize(driveLetter)
 		m.log.Info("USB takıldı", "sürücü", driveLetter, "etiket", ev.DeviceLabel)
 		bus.Publish(ev)
 
 	case dbtDeviceRemoveCom:
 		ev := event.New(event.TypeUSBRemoved, "USBMonitor")
-		ev.Hostname   = m.hostname
+		ev.Hostname = m.hostname
 		ev.DevicePath = driveLetter + `:\`
 		ev.DeviceName = driveLetter
 		m.log.Info("USB çıkarıldı", "sürücü", driveLetter)
@@ -237,8 +238,8 @@ func getDriveLabel(letter string) string {
 
 func getDriveFS(letter string) string {
 	path := letter + `:\`
-	volBuf  := make([]uint16, 256)
-	fsBuf   := make([]uint16, 256)
+	volBuf := make([]uint16, 256)
+	fsBuf := make([]uint16, 256)
 	err := windows.GetVolumeInformation(
 		windows.StringToUTF16Ptr(path),
 		&volBuf[0], uint32(len(volBuf)),
@@ -306,14 +307,6 @@ func getDriveLetterFromPath(p string) string {
 	}
 	return "?"
 }
-
-// runtime_LockOSThread and runtime_UnlockOSThread are linked from the runtime.
-// They must be called to keep a goroutine on the same OS thread for COM/Win32 message loops.
-//go:linkname runtime_LockOSThread runtime.LockOSThread
-func runtime_LockOSThread()
-
-//go:linkname runtime_UnlockOSThread runtime.UnlockOSThread
-func runtime_UnlockOSThread()
 
 // volumeInfo holds cached info about a USB volume.
 type volumeInfo struct {
