@@ -323,7 +323,7 @@ KATMAN 5 — Ağ
 KATMAN 6 — Kimlik / Hesap
   Standart hesap · UAC max · FIDO2 · hesap kilitleme
 
-KATMAN 7 — Denetim / İzleme  ← Sentinel burada devreye girer
+KATMAN 7 — Denetim / İzleme  ← Kanije Kalesi burada devreye girer
   Sysmon · gelişmiş denetim · PowerShell günlükleme
   Gözcü kulesinden her hareket görünür.
 ```
@@ -351,7 +351,7 @@ Format mı attın?
   → HAYAT_KURTARAN_YAZILIMLAR.md  (tek scriptle her şeyi kur)
 
 Sistemi izlemek mi istiyorsun?
-  → go/  (Sentinel — Telegram bildirim + kamera)
+  → go/  (Kanije Kalesi — Telegram bildirim + kamera)
 ```
 
 <br>
