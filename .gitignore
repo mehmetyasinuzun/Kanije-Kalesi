@@ -1,0 +1,40 @@
+# ═══════════════════════════════════════
+# 🏰 Kanije Kalesi — .gitignore
+# ═══════════════════════════════════════
+
+# ── Hassas Dosyalar (TOKEN, ŞİFRE İÇERİR) ──
+app/config.yaml
+app/.env
+
+# ── Python ──
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# ── Sanal Ortam ──
+venv/
+.venv/
+env/
+
+# ── Log ve Geçici Dosyalar ──
+*.log
+app/captures/
+*.tmp
+
+# ── IDE ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS ──
+Thumbs.db
+Desktop.ini
+.DS_Store

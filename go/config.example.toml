@@ -1,0 +1,194 @@
+# ═══════════════════════════════════════════════════════════════
+# Kanije Kalesi Sentinel — Yapılandırma Dosyası
+# ═══════════════════════════════════════════════════════════════
+#
+# Bu dosyayı config.toml olarak kaydedin.
+# Telegram üzerinden /kurulum komutuyla da yapılandırabilirsiniz —
+# config dosyasına manuel müdahale gerekmez.
+#
+# Ortam değişkenleri tüm değerleri ezebilir:
+#   KANIJE_BOT_TOKEN  →  telegram.bot_token
+#   KANIJE_CHAT_ID    →  telegram.chat_id
+#   KANIJE_LOG_LEVEL  →  logging.level
+#   KANIJE_DB_PATH    →  storage.db_path
+# ═══════════════════════════════════════════════════════════════
+
+[telegram]
+# BotFather'dan aldığınız token. Güvenli saklama için ortam değişkeni önerilir:
+# export KANIJE_BOT_TOKEN=1234567890:AABBcc...
+bot_token = ""
+
+# Telegram hesabınızın chat ID'si. @userinfobot ile öğrenebilirsiniz.
+chat_id = 0
+
+# Ek yetki verilen chat ID'leri (opsiyonel)
+allowed_chat_ids = []
+
+# API zaman aşımı (saniye)
+send_timeout_sec = 15
+
+# Hata durumunda yeniden deneme sayısı
+retry_count = 3
+
+# Denemeler arası bekleme süresi (saniye)
+retry_delay_sec = 5
+
+
+# ─── Tetikleyiciler ─────────────────────────────────────────────
+# Her olay türü için bildirim ve medya yakalama ayarları.
+# Telegram'da /kurulum → Tetikleyiciler menüsünden de yapılabilir.
+
+[triggers.login_success]
+enabled            = true
+capture_camera     = false
+capture_screenshot = false
+
+[triggers.login_failed]
+enabled              = true
+capture_camera       = true   # Başarısız girişte fotoğraf çek
+capture_screenshot   = false
+max_photos_per_minute = 3     # Çok fazla deneme olursa sınırla
+
+[triggers.screen_lock]
+enabled = true
+
+[triggers.screen_unlock]
+enabled        = true
+capture_camera = false
+
+[triggers.system_boot]
+enabled = true
+
+[triggers.system_shutdown]
+enabled = true
+
+[triggers.system_sleep]
+enabled = true
+
+[triggers.system_wake]
+enabled = true
+
+[triggers.usb_inserted]
+enabled = true
+
+[triggers.usb_removed]
+enabled = true
+
+[triggers.network_changed]
+enabled = true
+
+
+# ─── Kamera ─────────────────────────────────────────────────────
+
+[camera]
+# ffmpeg programının yolu. PATH'de varsa sadece "ffmpeg" yeterli.
+# İndirme: https://ffmpeg.org/download.html
+ffmpeg_path = "ffmpeg"
+
+# Linux: /dev/video indeksi (0 = ilk kamera)
+device_index = 0
+
+# Windows: DirectShow cihaz adı
+# ffmpeg -f dshow -list_devices true -i dummy  komutuyla listeleyin
+device_name = ""
+
+# Çözünürlük
+width  = 640
+height = 480
+
+# İlk N kare atlanır (kamera ısınması — karanlık kareler önlenir)
+warmup_frames = 5
+
+# JPEG kalitesi (1-100)
+jpeg_quality = 85
+
+# Yerel kayıt
+save_local = false
+local_path = "./captures/"
+
+
+# ─── Ekran Görüntüsü ─────────────────────────────────────────────
+
+[screenshot]
+jpeg_quality = 75
+save_local   = false
+local_path   = "./captures/"
+
+
+# ─── Heartbeat ───────────────────────────────────────────────────
+# Periyodik "yaşıyorum" bildirimi — sistem durumunu içerir.
+
+[heartbeat]
+enabled        = true
+interval_hours = 6     # Her 6 saatte bir gönder
+include_uptime = true
+include_disk   = true
+
+
+# ─── Depolama ────────────────────────────────────────────────────
+
+[storage]
+# SQLite veritabanı dosyası yolu
+db_path = "./kanije.db"
+
+# Bellekte tutulan maksimum son olay sayısı (/olaylar komutu için)
+max_recent_events = 100
+
+# SQLite'daki olaylar bu kadar gün sonra silinir
+event_retention_days = 30
+
+
+# ─── Loglama ─────────────────────────────────────────────────────
+
+[logging]
+# debug | info | warn | error
+level = "info"
+
+# Log dosyası yolu (boş = sadece konsol)
+file = "./kanije.log"
+
+# Tek log dosyasının maksimum boyutu (MB)
+max_size_mb = 10
+
+# Saklanan eski log dosyası sayısı
+backup_count = 3
+
+# Konsolda da göster
+console_output = true
+
+# JSON format (makineler için) veya human-readable
+json_format = false
+
+
+# ─── Güvenlik ────────────────────────────────────────────────────
+
+[security]
+# Telegram'a gönderilen fotoğrafları otomatik sil
+delete_captures_after_send = true
+
+# Dakikada maksimum işlenecek olay sayısı (her tür için)
+max_events_per_minute = 10
+
+# Aynı olay N saniye içinde tekrar gelirse atla (duplikasyon önleme)
+dedup_window_sec = 3
+
+# Tek örnek kontrolü — aynı anda iki instance çalışmasını engeller
+single_instance = true
+
+
+# ─── Sistem Tepsisi ──────────────────────────────────────────────
+
+[tray]
+# Windows/Linux masaüstünde sistem tepsisi ikonu göster
+enabled = true
+
+
+# ─── Ağ İzleme ───────────────────────────────────────────────────
+
+[network]
+# Bağlantı kontrol aralığı (saniye)
+check_interval_sec = 5
+
+# Hangi sunucuya bağlanarak internet kontrolü yapılır
+check_host = "api.telegram.org"
+check_port = 443

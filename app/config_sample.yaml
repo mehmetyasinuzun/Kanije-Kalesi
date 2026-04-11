@@ -1,0 +1,82 @@
+# ═══════════════════════════════════════
+# 🏰 Kanije Kalesi — Yapılandırma Dosyası
+# ═══════════════════════════════════════
+# Bu dosyayı düzenleyerek tüm davranışları kontrol edebilirsin.
+# Satır başındaki # ile yorum satırı ekleyebilirsin.
+
+# ── Telegram Bot Ayarları ──
+# Bot oluşturmak için: Telegram'da @BotFather'ı bul → /newbot
+telegram:
+  bot_token: ""          # BotFather'dan aldığın token buraya
+  chat_id: ""            # Senin Telegram chat ID'n buraya
+  send_timeout: 10       # Gönderim zaman aşımı (saniye)
+  retry_count: 3         # Başarısızlıkta kaç kez tekrar dene
+  retry_delay: 5         # Denemeler arası bekleme (saniye)
+
+# ── Tetikleyiciler (Olaylar) ──
+triggers:
+  # Birisi başarıyla giriş yaptığında
+  login_success:
+    enabled: true
+    capture_camera: false      # Başarılı girişte kamera çekme (opsiyonel)
+    capture_screenshot: false
+
+  # Yanlış şifre girildiğinde
+  login_failed:
+    enabled: true
+    capture_camera: true       # ← KAMERA ÇEK (en kritik özellik)
+    capture_screenshot: false
+    max_photos_per_minute: 3   # Spam koruması
+
+  # Ekran kilidi açıldığında
+  screen_unlock:
+    enabled: true
+    capture_camera: false
+
+  # Bilgisayar açıldığında
+  system_boot:
+    enabled: true
+
+  # USB cihazı takıldığında
+  usb_inserted:
+    enabled: true
+
+# ── Kamera Ayarları ──
+camera:
+  device_index: 0           # 0 = varsayılan kamera
+  resolution: [640, 480]    # [genişlik, yükseklik]
+  warmup_frames: 5          # İlk 5 kare atılır (karanlık olur)
+  jpeg_quality: 85          # JPEG kalitesi (1-100)
+  save_local: false         # Fotoğrafları yerel olarak da sakla mı?
+  local_path: "./captures/"
+
+# ── Ekran Görüntüsü Ayarları ──
+screenshot:
+  jpeg_quality: 70
+  save_local: false
+  local_path: "./captures/"
+
+# ── Periyodik Durum Raporu ──
+heartbeat:
+  enabled: true
+  interval_hours: 6          # Her 6 saatte bir "aktif" mesajı
+  include_uptime: true
+  include_disk_usage: true
+
+# ── Loglama ──
+logging:
+  level: "INFO"              # DEBUG = çok detaylı, INFO = normal, WARNING = az
+  file: "./kanije.log"
+  max_size_mb: 10            # Log dosyası max boyutu
+  backup_count: 3            # Eski log dosyası sayısı
+  console_output: true       # Konsola da yazdır mı?
+
+# ── Güvenlik ──
+security:
+  delete_photos_after_send: true    # Gönderilen fotoğrafı sil (izot)
+  max_events_per_minute: 10        # Flood koruması
+
+# ── System Tray ──
+tray:
+  enabled: true
+  show_notifications: true

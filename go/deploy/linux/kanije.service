@@ -1,0 +1,69 @@
+[Unit]
+Description=Kanije Kalesi Security Sentinel
+Documentation=https://github.com/kanije-kalesi/sentinel
+After=network-online.target systemd-journald.service
+Wants=network-online.target
+# Restart if the network goes away temporarily
+PartOf=network.target
+
+[Service]
+Type=simple
+# Run as a dedicated unprivileged user for security
+# Create with: sudo useradd -r -s /sbin/nologin -d /var/lib/kanije kanije
+User=kanije
+Group=kanije
+
+ExecStart=/usr/local/bin/kanije start --config /etc/kanije/config.toml
+ExecReload=/bin/kill -HUP $MAINPID
+
+WorkingDirectory=/var/lib/kanije
+
+# Restart policy: always restart on failure, with increasing delay
+Restart=on-failure
+RestartSec=5s
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+# Logging: captured by journald, queryable with: journalctl -u kanije
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=kanije-kalesi
+
+# Environment — override config values without editing the file
+# Environment=KANIJE_BOT_TOKEN=your_token_here
+# Environment=KANIJE_CHAT_ID=your_chat_id
+
+# EnvironmentFile is more secure (not visible in ps output)
+# EnvironmentFile=/etc/kanije/secrets.env
+
+# ---- Hardening (systemd 232+) ----
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/var/lib/kanije
+
+# Allow reading from /dev/video* for camera capture
+DeviceAllow=/dev/video0 rw
+DeviceAllow=/dev/video1 rw
+
+# Allow network access (Telegram API + connectivity check)
+RestrictAddressFamilies=AF_INET AF_INET6 AF_NETLINK
+IPAddressAllow=any
+
+# Prevent acquiring new capabilities
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+RestrictNamespaces=true
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+
+[Install]
+WantedBy=multi-user.target
