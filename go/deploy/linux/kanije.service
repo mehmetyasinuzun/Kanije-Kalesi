@@ -1,6 +1,6 @@
 [Unit]
-Description=Kanije Kalesi Security Sentinel
-Documentation=https://github.com/kanije-kalesi/sentinel
+Description=Kanije Kalesi Kanije Kalesi
+Documentation=https://github.com/kanije-kalesi/kanije
 After=network-online.target systemd-journald.service
 Wants=network-online.target
 # Restart if the network goes away temporarily

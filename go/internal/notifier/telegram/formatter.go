@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kanije-kalesi/sentinel/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/event"
 )
 
 // version is embedded at build time via ldflags.

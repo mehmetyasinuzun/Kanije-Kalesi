@@ -9,7 +9,7 @@ import (
 	"context"
 	"log/slog"
 
-	"github.com/kanije-kalesi/sentinel/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/event"
 )
 
 // NopListener is a Listener that immediately returns nil.

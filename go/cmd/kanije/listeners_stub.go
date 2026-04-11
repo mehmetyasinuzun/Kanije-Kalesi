@@ -5,8 +5,8 @@ package main
 import (
 	"log/slog"
 
-	"github.com/kanije-kalesi/sentinel/internal/listener"
-	"github.com/kanije-kalesi/sentinel/internal/listener/stub"
+	"github.com/kanije-kalesi/kanije/internal/listener"
+	"github.com/kanije-kalesi/kanije/internal/listener/stub"
 )
 
 func buildListeners(log *slog.Logger) []listener.Listener {

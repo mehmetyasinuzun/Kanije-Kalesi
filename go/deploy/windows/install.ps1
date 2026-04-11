@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Kanije Kalesi Sentinel - Windows Kurulum Scripti
+    Kanije Kalesi - Windows Kurulum Scripti
 
 .DESCRIPTION
     Go binary'sini Windows Task Scheduler'a kaydeder.
@@ -32,7 +32,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$TaskName   = "KanijeKalesiSentinel"
+$TaskName   = "KanijeKalesi"
 $TaskDesc   = "Kanije Kalesi güvenlik izleme aracı — otomatik başlatma"
 $BinaryName = "kanije.exe"
 
@@ -73,7 +73,7 @@ if ($Remove) {
 
 # ---- Install ----
 
-Write-Host "🏰 Kanije Kalesi Sentinel kurulum başlatılıyor..." -ForegroundColor Cyan
+Write-Host "🏰 Kanije Kalesi kurulum başlatılıyor..." -ForegroundColor Cyan
 Write-Host "   Binary : $BinaryPath"
 Write-Host "   Config : $ConfigPath"
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Kanije Kalesi Sentinel — Linux/Raspberry Pi Kurulum Scripti
+# Kanije Kalesi — Linux/Raspberry Pi Kurulum Scripti
 # Desteklenen: Ubuntu, Debian, Raspberry Pi OS, Arch Linux
 #
 # Kullanım:
@@ -149,7 +149,7 @@ systemctl daemon-reload
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-ok "Kanije Kalesi Sentinel kurulumu tamamlandı!"
+ok "Kanije Kalesi kurulumu tamamlandı!"
 echo ""
 echo "Sıradaki adımlar:"
 echo ""

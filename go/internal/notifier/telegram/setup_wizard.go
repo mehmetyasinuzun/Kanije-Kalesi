@@ -17,7 +17,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/kanije-kalesi/sentinel/internal/config"
+	"github.com/kanije-kalesi/kanije/internal/config"
 )
 
 // conversationState tracks what we're waiting for from a given chat.

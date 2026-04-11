@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/kanije-kalesi/sentinel/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/event"
 	_ "modernc.org/sqlite" // Pure-Go SQLite driver (no CGo — works in cross-compiled binaries)
 )
 

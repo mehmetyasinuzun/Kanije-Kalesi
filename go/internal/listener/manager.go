@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/kanije-kalesi/sentinel/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/event"
 	"golang.org/x/sync/errgroup"
 )
 

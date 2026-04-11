@@ -5,7 +5,7 @@ package listener
 import (
 	"context"
 
-	"github.com/kanije-kalesi/sentinel/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/event"
 )
 
 // Listener watches a source of security events and publishes them to the bus.

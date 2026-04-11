@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kanije-kalesi/sentinel/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/event"
 )
 
 // LogindListener monitors screen lock/unlock and sleep/wake events from

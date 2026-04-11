@@ -5,7 +5,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/kanije-kalesi/sentinel/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/event"
 )
 
 // Storage is the interface for all persistent data operations.

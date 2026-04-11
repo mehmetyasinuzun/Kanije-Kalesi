@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kanije-kalesi/sentinel/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/event"
 )
 
 // MonitorConfig holds network monitoring settings.

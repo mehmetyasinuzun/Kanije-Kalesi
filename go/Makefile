@@ -1,8 +1,8 @@
-# Kanije Kalesi Sentinel — Makefile
+# Kanije Kalesi — Makefile
 # Tüm hedefler: make help
 
 BINARY     := kanije
-MODULE     := github.com/kanije-kalesi/sentinel
+MODULE     := github.com/kanije-kalesi/kanije
 VERSION    := $(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
 BUILD_DATE := $(shell date -u '+%Y-%m-%dT%H:%M:%SZ')
 LDFLAGS    := -s -w -X main.Version=$(VERSION) -X main.BuildDate=$(BUILD_DATE)

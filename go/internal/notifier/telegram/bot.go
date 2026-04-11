@@ -5,9 +5,9 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/kanije-kalesi/sentinel/internal/config"
-	"github.com/kanije-kalesi/sentinel/internal/event"
-	"github.com/kanije-kalesi/sentinel/internal/storage"
+	"github.com/kanije-kalesi/kanije/internal/config"
+	"github.com/kanije-kalesi/kanije/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/storage"
 )
 
 // ActionState tracks a pending dangerous action (shutdown/restart).

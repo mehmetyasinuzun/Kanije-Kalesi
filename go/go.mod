@@ -1,4 +1,4 @@
-module github.com/kanije-kalesi/sentinel
+module github.com/kanije-kalesi/kanije
 
 go 1.21
 

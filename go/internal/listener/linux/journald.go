@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kanije-kalesi/sentinel/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/event"
 )
 
 // JournaldListener monitors the systemd journal for security-relevant entries.

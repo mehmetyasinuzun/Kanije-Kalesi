@@ -14,7 +14,7 @@
 
 <br>
 
-[![Go](https://img.shields.io/badge/Sentinel-Go_1.21+-00ADD8?style=flat-square&logo=go)](go/)
+[![Go](https://img.shields.io/badge/Kanije_Kalesi-Go_1.21+-00ADD8?style=flat-square&logo=go)](go/)
 [![Python](https://img.shields.io/badge/Legacy-Python_3.11+-3776AB?style=flat-square&logo=python)](app/)
 [![Platform](https://img.shields.io/badge/Platform-Windows_%7C_Linux_%7C_Raspberry_Pi-555?style=flat-square)](#)
 [![License](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square)](LICENSE)
@@ -31,16 +31,16 @@ Bu depo iki bölümden oluşur:
 
 | Bölüm | Klasör | Ne Yapar? |
 |-------|--------|-----------|
-| **Sentinel Uygulaması** | [`go/`](go/) | Gerçek zamanlı güvenlik izleme + Telegram bot |
+| **Kanije Kalesi Uygulaması** | [`go/`](go/) | Gerçek zamanlı güvenlik izleme + Telegram bot |
 | **Sertleştirme Rehberleri** | Kök dizin `.md` dosyaları | Windows / Linux güvenlik sertleştirme kılavuzları |
 
-> Her bölüm **tamamen bağımsızdır.** Sentinel olmadan rehberleri okuyabilir, rehberlere bakmadan Sentinel'i kurabilirsiniz.
+> Her bölüm **tamamen bağımsızdır.** Kanije Kalesi olmadan rehberleri okuyabilir, rehberlere bakmadan Kanije Kalesi'i kurabilirsiniz.
 
 ---
 
 <br>
 
-# 🏰 Bölüm I — Sentinel Güvenlik İzleme Aracı
+# 🏰 Bölüm I — Kanije Kalesi Güvenlik İzleme Aracı
 
 Sisteminize bağlı bir bekçi gibi çalışır. Şüpheli bir şey olduğunda — birisi yanlış şifre girdiğinde, USB takıldığında, bilgisayar uykudan uyandığında — **anında Telegram'a bildirir.**
 

@@ -9,7 +9,7 @@ import (
 	"os"
 	"unsafe"
 
-	"github.com/kanije-kalesi/sentinel/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/event"
 	"golang.org/x/sys/windows"
 )
 

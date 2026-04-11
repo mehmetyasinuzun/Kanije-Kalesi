@@ -1,4 +1,4 @@
-// Command kanije is the main entry point for Kanije Kalesi Security Sentinel.
+// Command kanije is the main entry point for Kanije Kalesi Kanije Kalesi.
 //
 // Usage:
 //
@@ -17,9 +17,9 @@ import (
 	"runtime"
 	"strconv"
 
-	"github.com/kanije-kalesi/sentinel/internal/config"
-	"github.com/kanije-kalesi/sentinel/internal/lock"
-	"github.com/kanije-kalesi/sentinel/internal/notifier/telegram"
+	"github.com/kanije-kalesi/kanije/internal/config"
+	"github.com/kanije-kalesi/kanije/internal/lock"
+	"github.com/kanije-kalesi/kanije/internal/notifier/telegram"
 	"github.com/lmittmann/tint"
 )
 
@@ -53,7 +53,7 @@ func run(args []string) error {
 	case "setup":
 		return cmdSetup(rest)
 	case "version", "--version", "-v":
-		fmt.Printf("Kanije Kalesi Sentinel %s (%s) — %s/%s\n",
+		fmt.Printf("Kanije Kalesi %s (%s) — %s/%s\n",
 			Version, BuildDate, runtime.GOOS, runtime.GOARCH)
 		return nil
 	case "help", "--help", "-h":
@@ -77,7 +77,7 @@ func cmdStart(args []string) error {
 
 	log = buildLogger(cfg.Logging.Level)
 
-	log.Info("🏰 Kanije Kalesi Sentinel başlatılıyor",
+	log.Info("🏰 Kanije Kalesi başlatılıyor",
 		"versiyon", Version,
 		"platform", runtime.GOOS+"/"+runtime.GOARCH,
 		"config", cfgPath,
@@ -180,7 +180,7 @@ func cmdSetup(args []string) error {
 
 func printUsage() {
 	fmt.Print(`
-🏰 Kanije Kalesi Sentinel — Güvenlik İzleme Aracı
+🏰 Kanije Kalesi — Güvenlik İzleme Aracı
 
 Kullanım:
   kanije start [--config <yol>]               İzlemeyi başlat

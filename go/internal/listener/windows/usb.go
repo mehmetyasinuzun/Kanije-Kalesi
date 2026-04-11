@@ -12,7 +12,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/kanije-kalesi/sentinel/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/event"
 	"golang.org/x/sys/windows"
 )
 
@@ -46,7 +46,7 @@ const (
 	wmClose = 0x0010
 	wmQuit  = 0x0012
 
-	// Sentinel WM message to signal graceful shutdown
+	// Kanije WM message to signal graceful shutdown
 	wmShutdownMsg = 0x0400 + 1
 )
 

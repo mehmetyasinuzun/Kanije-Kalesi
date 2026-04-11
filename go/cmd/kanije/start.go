@@ -3,8 +3,8 @@ package main
 import (
 	"log/slog"
 
-	"github.com/kanije-kalesi/sentinel/internal/app"
-	"github.com/kanije-kalesi/sentinel/internal/config"
+	"github.com/kanije-kalesi/kanije/internal/app"
+	"github.com/kanije-kalesi/kanije/internal/config"
 )
 
 // startApp creates and runs the full application.
