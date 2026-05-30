@@ -58,6 +58,18 @@ func triggerLabel(key string) string {
 	return key
 }
 
+// askPrompts maps a config key to the prompt shown when the wizard asks the user
+// to type a value. Kept server-side so the inline-button callback_data stays well
+// under Telegram's 64-byte limit (embedding the prompt made these buttons fail
+// silently and the menu looked frozen).
+var askPrompts = map[string]string{
+	"camera.device_name":             "Kamera cihaz adını girin (Windows'ta dshow adı, örn: Integrated Camera)",
+	"camera.device_index":            "Kamera indeksini girin (0, 1, 2...)",
+	"camera.ffmpeg_path":             "ffmpeg program yolunu girin (PATH'de varsa sadece 'ffmpeg')",
+	"heartbeat.interval_hours":       "Heartbeat aralığını saat cinsinden girin (örn: 6)",
+	"security.max_events_per_minute": "Dakikada maksimum kaç olay işlensin? (örn: 10)",
+}
+
 // SetupWizard manages the interactive Telegram configuration menus.
 type SetupWizard struct {
 	cfg    *config.Config
@@ -157,13 +169,14 @@ func (w *SetupWizard) HandleCallback(ctx context.Context, chatID, messageID int6
 		w.editLoggingMenu(ctx, chatID, messageID)
 
 	case "ask":
-		// wizard:ask:<key>:<prompt>
-		if len(parts) < 4 {
+		// wizard:ask:<key> — the prompt is looked up server-side so callback_data
+		// stays under Telegram's 64-byte limit (embedding it made these buttons
+		// silently fail and the menu appeared frozen).
+		if len(parts) < 3 {
 			return
 		}
-		key := parts[2]
-		prompt := strings.Join(parts[3:], ":")
-		w.askForInput(ctx, chatID, key, prompt)
+		key := strings.Join(parts[2:], ":")
+		w.askForInput(ctx, chatID, key, askPrompts[key])
 
 	case "toggle":
 		// wizard:toggle:<key>
@@ -320,15 +333,15 @@ func (w *SetupWizard) editCameraMenu(ctx context.Context, chatID, messageID int6
 		InlineKeyboard: [][]InlineKeyboardButton{
 			{{
 				Text:         "🎬 Kamera cihazı (Windows'ta isim girin)",
-				CallbackData: "wizard:ask:camera.device_name:Kamera cihaz adını girin (Windows'ta dshow adı, örn: Integrated Camera)",
+				CallbackData: "wizard:ask:camera.device_name",
 			}},
 			{{
 				Text:         "📹 Kamera indeksi (Linux için)",
-				CallbackData: "wizard:ask:camera.device_index:Kamera indeksini girin (0, 1, 2...)",
+				CallbackData: "wizard:ask:camera.device_index",
 			}},
 			{{
 				Text:         "🎞️ ffmpeg yolu",
-				CallbackData: "wizard:ask:camera.ffmpeg_path:ffmpeg program yolunu girin (PATH'de varsa sadece 'ffmpeg')",
+				CallbackData: "wizard:ask:camera.ffmpeg_path",
 			}},
 			{{Text: "◀️ Geri", CallbackData: "wizard:main"}},
 		},
@@ -352,7 +365,7 @@ func (w *SetupWizard) editHeartbeatMenu(ctx context.Context, chatID, messageID i
 		InlineKeyboard: [][]InlineKeyboardButton{
 			{{
 				Text:         "⏱️ Aralığı değiştir (saat)",
-				CallbackData: "wizard:ask:heartbeat.interval_hours:Heartbeat aralığını saat cinsinden girin (örn: 6)",
+				CallbackData: "wizard:ask:heartbeat.interval_hours",
 			}},
 			{{
 				Text:         boolEmoji(enabled) + " Heartbeat'i aç/kapat",
@@ -379,7 +392,7 @@ func (w *SetupWizard) editSecurityMenu(ctx context.Context, chatID, messageID in
 		InlineKeyboard: [][]InlineKeyboardButton{
 			{{
 				Text:         "📊 Dakikalık olay limiti",
-				CallbackData: "wizard:ask:security.max_events_per_minute:Dakikada maksimum kaç olay işlensin? (örn: 10)",
+				CallbackData: "wizard:ask:security.max_events_per_minute",
 			}},
 			{{
 				Text:         boolEmoji(delCaptures) + " Fotoğrafları gönder ve sil",

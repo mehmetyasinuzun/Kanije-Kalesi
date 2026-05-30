@@ -317,6 +317,31 @@ func (s *SQLiteStorage) QueryEvents(ctx context.Context, filter EventFilter) ([]
 	return scanEvents(rows)
 }
 
+// EventStats returns per-type counts for events at or after since, busiest first.
+func (s *SQLiteStorage) EventStats(ctx context.Context, since time.Time) ([]TypeCount, int64, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT type, COUNT(*) AS n FROM events
+		WHERE timestamp >= ?
+		GROUP BY type ORDER BY n DESC`,
+		since.UTC().Format(time.RFC3339Nano))
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+
+	var counts []TypeCount
+	var total int64
+	for rows.Next() {
+		var tc TypeCount
+		if err := rows.Scan((*string)(&tc.Type), &tc.Count); err != nil {
+			return nil, 0, err
+		}
+		counts = append(counts, tc)
+		total += tc.Count
+	}
+	return counts, total, rows.Err()
+}
+
 // CountEvents returns the total event count.
 func (s *SQLiteStorage) CountEvents(ctx context.Context) (int64, error) {
 	var n int64

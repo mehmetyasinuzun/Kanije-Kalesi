@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -208,7 +209,9 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 	case "/ekran", "/screenshot":
 		b.cmdEkran(ctx, chatID)
 	case "/olaylar", "/events":
-		b.cmdOlaylar(ctx, chatID)
+		b.cmdOlaylar(ctx, chatID, text)
+	case "/ozet", "/summary":
+		b.cmdOzet(ctx, chatID)
 	case "/ayarlar", "/config":
 		b.cmdAyarlar(ctx, chatID)
 	case "/kurulum", "/setup":
@@ -316,13 +319,59 @@ func (b *Bot) cmdEkran(ctx context.Context, chatID int64) {
 	}
 }
 
-func (b *Bot) cmdOlaylar(ctx context.Context, chatID int64) {
-	events, err := b.store.RecentEvents(ctx, b.cfg.MaxRecentEvents())
+// cmdOlaylar lists recent events. Optional arg: a number (count, capped at 50)
+// or an event type to filter by (e.g. "/olaylar login_failed").
+func (b *Bot) cmdOlaylar(ctx context.Context, chatID int64, text string) {
+	arg := commandArg(text)
+	limit := b.cfg.MaxRecentEvents()
+
+	var events []event.Event
+	var err error
+	switch {
+	case arg == "":
+		events, err = b.store.RecentEvents(ctx, limit)
+	case isNumeric(arg):
+		n, _ := strconv.Atoi(arg)
+		if n < 1 {
+			n = 1
+		}
+		if n > 50 {
+			n = 50
+		}
+		events, err = b.store.RecentEvents(ctx, n)
+	default:
+		events, err = b.store.QueryEvents(ctx, storage.EventFilter{Type: event.Type(arg), Limit: limit})
+	}
+
 	if err != nil {
 		b.reply(ctx, chatID, "❌ Olaylar alınamadı: "+safeHTML(err.Error()))
 		return
 	}
 	b.reply(ctx, chatID, FormatRecentEvents(events))
+}
+
+// cmdOzet sends a per-type summary of events from the last 7 days.
+func (b *Bot) cmdOzet(ctx context.Context, chatID int64) {
+	const days = 7
+	since := time.Now().AddDate(0, 0, -days)
+	counts, total, err := b.store.EventStats(ctx, since)
+	if err != nil {
+		b.reply(ctx, chatID, "❌ Özet alınamadı: "+safeHTML(err.Error()))
+		return
+	}
+	b.reply(ctx, chatID, FormatSummary(counts, total, days))
+}
+
+func isNumeric(s string) bool {
+	if s == "" {
+		return false
+	}
+	for _, r := range s {
+		if r < '0' || r > '9' {
+			return false
+		}
+	}
+	return true
 }
 
 func (b *Bot) cmdAyarlar(ctx context.Context, chatID int64) {

@@ -44,6 +44,10 @@ type Storage interface {
 	// event ID whose stored hash no longer matches. total is the event count.
 	VerifyChain(ctx context.Context) (ok bool, brokenAt int64, total int64, err error)
 
+	// EventStats returns per-type counts for events at or after since, busiest
+	// type first, plus the overall total.
+	EventStats(ctx context.Context, since time.Time) (counts []TypeCount, total int64, err error)
+
 	// Close releases all resources.
 	Close() error
 }
@@ -62,4 +66,10 @@ type PendingMessage struct {
 	ID        int64
 	Text      string
 	CreatedAt time.Time
+}
+
+// TypeCount is a per-event-type count, used by the /ozet summary.
+type TypeCount struct {
+	Type  event.Type
+	Count int64
 }

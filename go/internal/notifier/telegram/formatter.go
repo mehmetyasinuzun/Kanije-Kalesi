@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/storage"
 )
 
 // version is the application version shown in message footers. It is set once
@@ -276,9 +277,40 @@ func FormatRecentEvents(events []event.Event) string {
 
 		b.WriteString("\n   <i>")
 		b.WriteString(ev.Timestamp.Format("02.01 15:04:05"))
-		b.WriteString("</i>\n")
+		b.WriteString("</i>")
+		if ev.SourceIP != "" {
+			b.WriteString(" · 🌐 <code>")
+			b.WriteString(safeHTML(ev.SourceIP))
+			b.WriteString("</code>")
+		}
+		if ev.DeviceLabel != "" {
+			b.WriteString(" · 💾 ")
+			b.WriteString(safeHTML(ev.DeviceLabel))
+		}
+		b.WriteString("\n")
 	}
 
+	b.WriteString("\n<i>İpucu: /olaylar &lt;tip&gt; ile filtrele (örn. /olaylar login_failed), /ozet ile özet.</i>")
+	return b.String()
+}
+
+// FormatSummary renders a per-type event summary (the /ozet command).
+func FormatSummary(counts []storage.TypeCount, total int64, days int) string {
+	if total == 0 {
+		return fmt.Sprintf("📭 Son %d günde kayıtlı olay yok.", days)
+	}
+
+	var b strings.Builder
+	b.WriteString(fmt.Sprintf("📊 <b>Son %d Gün — Olay Özeti</b>\n\n", days))
+	for _, c := range counts {
+		b.WriteString(c.Type.Emoji())
+		b.WriteString(" ")
+		b.WriteString(safeHTML(c.Type.Label()))
+		b.WriteString(": <b>")
+		b.WriteString(fmt.Sprintf("%d", c.Count))
+		b.WriteString("</b>\n")
+	}
+	b.WriteString(fmt.Sprintf("\n<b>Toplam: %d olay</b>", total))
 	return b.String()
 }
 
@@ -288,7 +320,8 @@ func FormatHelp() string {
 
 <b>📊 İzleme</b>
 /status — Sistem durumu (CPU, RAM, disk)
-/olaylar — Son güvenlik olayları
+/olaylar — Son olaylar (/olaylar &lt;tip&gt; veya &lt;sayı&gt; ile filtrele)
+/ozet — Son 7 günün olay özeti (tip bazlı)
 /dogrula — Olay günlüğü bütünlüğünü doğrula
 /ping — Bağlantı kontrolü
 
