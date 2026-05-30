@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
+	"github.com/kanije-kalesi/kanije/internal/secret"
 )
 
 // Config is the root configuration structure.
@@ -346,7 +347,7 @@ func (c *Config) SetField(key, value string) error {
 
 	switch strings.ToLower(key) {
 	case "telegram.bot_token":
-		c.Telegram.BotToken = value
+		c.Telegram.BotToken = secret.Protect(value)
 	case "telegram.chat_id":
 		id, err := strconv.ParseInt(value, 10, 64)
 		if err != nil {
@@ -463,6 +464,20 @@ func (c *Config) ChatID() int64 {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.Telegram.ChatID
+}
+
+// BotToken returns the decrypted Telegram bot token. The stored value may be
+// DPAPI-encrypted (Windows); decryption happens here at point of use.
+func (c *Config) BotToken() string {
+	c.mu.RLock()
+	stored := c.Telegram.BotToken
+	c.mu.RUnlock()
+
+	tok, err := secret.Unprotect(stored)
+	if err != nil {
+		return ""
+	}
+	return tok
 }
 
 // AllowedChatIDs returns a copy of the additional authorized chat IDs.

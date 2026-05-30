@@ -20,6 +20,7 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/config"
 	"github.com/kanije-kalesi/kanije/internal/lock"
 	"github.com/kanije-kalesi/kanije/internal/notifier/telegram"
+	"github.com/kanije-kalesi/kanije/internal/secret"
 	"github.com/kanije-kalesi/kanije/internal/totp"
 	"github.com/lmittmann/tint"
 )
@@ -123,7 +124,7 @@ func cmdTest(args []string) error {
 	fmt.Println("Telegram bağlantısı test ediliyor…")
 
 	log := buildLogger("error")
-	client := telegram.NewClient(cfg.Telegram.BotToken, cfg.Telegram.SendTimeoutSec, log)
+	client := telegram.NewClient(cfg.BotToken(), cfg.Telegram.SendTimeoutSec, log)
 
 	user, err := client.GetMe(context.Background())
 	if err != nil {
@@ -163,7 +164,7 @@ func cmdSetup(args []string) error {
 	}
 
 	cfg := config.Defaults()
-	cfg.Telegram.BotToken = token
+	cfg.Telegram.BotToken = secret.Protect(token) // DPAPI on Windows, plaintext elsewhere
 	cfg.Telegram.ChatID = id
 	cfg.SetFilePath(cfgPath)
 

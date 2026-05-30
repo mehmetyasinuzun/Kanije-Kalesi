@@ -77,7 +77,7 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 
 	// Telegram client
 	tgClient := telegram.NewClient(
-		cfg.Telegram.BotToken,
+		cfg.BotToken(),
 		cfg.Telegram.SendTimeoutSec,
 		log.With("module", "telegram"),
 	)

@@ -16,6 +16,8 @@
 [telegram]
 # BotFather'dan aldığınız token. Güvenli saklama için ortam değişkeni önerilir:
 # export KANIJE_BOT_TOKEN=1234567890:AABBcc...
+# Windows'ta "kanije setup" ile kaydedilirse token DPAPI ile şifrelenir
+# (dosyada "dpapi:" önekli görünür) — config çalınsa bile başka hesapta açılmaz.
 bot_token = ""
 
 # Telegram hesabınızın chat ID'si. @userinfobot ile öğrenebilirsiniz.
