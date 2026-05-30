@@ -17,10 +17,10 @@ import (
 // ---- Windows Device Notification API bindings ----
 
 var (
-	user32                           = windows.NewLazySystemDLL("user32.dll")
-	procRegisterClassExW             = user32.NewProc("RegisterClassExW")
-	procCreateWindowExW              = user32.NewProc("CreateWindowExW")
-	procDefWindowProcW               = user32.NewProc("DefWindowProcW")
+	user32               = windows.NewLazySystemDLL("user32.dll")
+	procRegisterClassExW = user32.NewProc("RegisterClassExW")
+	procCreateWindowExW  = user32.NewProc("CreateWindowExW")
+	procDefWindowProcW   = user32.NewProc("DefWindowProcW")
 	procGetMessageW      = user32.NewProc("GetMessageW")
 	procDispatchMessageW = user32.NewProc("DispatchMessageW")
 	procDestroyWindow    = user32.NewProc("DestroyWindow")
@@ -80,11 +80,11 @@ type msg struct {
 }
 
 // USBMonitor detects USB drive insertion and removal via WM_DEVICECHANGE.
-// It creates a hidden message-only window to receive Windows device notifications.
+// It creates a hidden top-level window to receive Windows volume broadcasts.
 type USBMonitor struct {
 	hostname string
 	log      *slog.Logger
-	hwnd     uintptr // message-only window handle
+	hwnd     uintptr // hidden top-level window handle
 }
 
 func NewUSBMonitor(log *slog.Logger) *USBMonitor {
@@ -94,8 +94,8 @@ func NewUSBMonitor(log *slog.Logger) *USBMonitor {
 
 func (m *USBMonitor) Name() string { return "USBMonitor" }
 
-// Start creates a hidden window, registers for device notifications, and
-// pumps messages until ctx is canceled.
+// Start creates a hidden top-level window and pumps its message loop until ctx
+// is canceled, translating volume WM_DEVICECHANGE messages into events.
 func (m *USBMonitor) Start(ctx context.Context, bus *event.Bus) error {
 	// We need to run the message loop on the same OS thread that creates the window.
 	type result struct{ err error }

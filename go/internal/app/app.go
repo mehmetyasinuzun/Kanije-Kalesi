@@ -390,7 +390,8 @@ func (a *App) sendHeartbeat(ctx context.Context) {
 	}
 
 	total, _ := a.store.CountEvents(ctx)
-	text := telegram.FormatHeartbeat(uptime, diskFree, diskTotal, total, info.Platform)
+	hostname, _ := os.Hostname()
+	text := telegram.FormatHeartbeat(uptime, diskFree, diskTotal, total, hostname, a.osName, info.Platform)
 
 	timeoutCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()

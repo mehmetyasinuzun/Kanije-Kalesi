@@ -162,10 +162,22 @@ func FormatEvent(ev event.Event) string {
 }
 
 // FormatHeartbeat creates the periodic status message.
-func FormatHeartbeat(uptime time.Duration, diskFree, diskTotal uint64, evCount int64, platform string) string {
+func FormatHeartbeat(uptime time.Duration, diskFree, diskTotal uint64, evCount int64, hostname, osName, platform string) string {
 	var b strings.Builder
 
 	b.WriteString("💓 <b>Sistem Nabzı</b>\n\n")
+
+	if hostname != "" {
+		b.WriteString("💻 <code>")
+		b.WriteString(safeHTML(hostname))
+		b.WriteString("</code>")
+		if osName != "" {
+			b.WriteString(" · ")
+			b.WriteString(safeHTML(osName))
+		}
+		b.WriteString("\n")
+	}
+
 	b.WriteString("⏱️ Çalışma süresi: <b>")
 	b.WriteString(formatDuration(uptime))
 	b.WriteString("</b>\n")

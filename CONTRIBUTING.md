@@ -36,8 +36,13 @@ GOOS=linux  GOARCH=amd64 CGO_ENABLED=0 go build ./...
 GOOS=linux  GOARCH=arm64 CGO_ENABLED=0 go build ./...   # Raspberry Pi 4/5
 GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build ./...
 go test ./...
-go test -race ./...     # Linux + CGO gerektirir
+go test -race ./...     # CGo (C derleyici) gerektirir
 ```
+
+> **Yerelde `-race`:** Race dedektörü CGo ister. Windows'ta bir C derleyici yoksa
+> kuramazsınız — en kolayı [TDM-GCC](https://jmeubank.github.io/tdm-gcc/) veya MSYS2.
+> Kurulduktan sonra `CGO_ENABLED=1 go test -race ./...` çalışır. (Yoksa CI'ın Linux
+> job'ı zaten `-race` koşar.)
 
 Linter:
 

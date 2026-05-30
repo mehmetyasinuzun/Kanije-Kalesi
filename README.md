@@ -70,13 +70,30 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 /status    →  CPU, RAM, disk, çalışma süresi
 /foto      →  Anlık kamera fotoğrafı
 /ekran     →  Ekran görüntüsü
-/olaylar   →  Son 10 güvenlik olayı
+/olaylar   →  Son güvenlik olayları
+/dogrula   →  Olay günlüğü bütünlüğünü doğrula (hash-chain)
+/guncelle  →  Yeni sürümü kontrol et ve kur
 /kilitle   →  Ekranı kilitle
 /yeniden   →  Sistemi yeniden başlat (onay gerekli)
 /kapat     →  Sistemi kapat (onay gerekli)
 /kurulum   →  ⚙️ Etkileşimli ayar menüsü
 /yardim    →  Tüm komutlar
 ```
+
+<br>
+
+## Gelişmiş Özellikler
+
+| Özellik | Açıklama |
+|---------|----------|
+| 🔐 **Token şifreleme** | Windows'ta bot token DPAPI ile şifrelenir — config çalınsa bile başka hesapta açılmaz |
+| 🌍 **IP konum + dış IP** | Başarısız girişte kaynak IP ülke/şehir/ISP ile zenginleşir (🇷🇺); ağ olaylarında dış IP gösterilir |
+| 🔗 **Kurcalama tespiti** | Olay günlüğü hash-chain ile imzalı; `/dogrula` ile bütünlük kontrolü |
+| 🔄 **Otomatik güncelleme** | `/guncelle` ya da günlük kontrol → indirir, gizli kurar, yeniden başlar (Windows) |
+| 📣 **Çoklu hedef** | Telegram + Discord/webhook'a aynı anda bildirim (`[[webhooks]]`) |
+| 🔇 **Sessiz saatler** | Gece penceresinde yalnız kritik olaylar (`[quiet_hours]`) |
+| 🛡️ **Anti-abuse** | Komut hız sınırı + opsiyonel 2FA (TOTP) hassas komutlarda |
+| 📊 **Prometheus** | Opsiyonel `/metrics` endpoint (homelab izleme) |
 
 <br>
 
