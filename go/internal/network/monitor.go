@@ -40,7 +40,7 @@ func NewMonitor(cfg MonitorConfig, log *slog.Logger) *Monitor {
 	return &Monitor{cfg: cfg, hostname: h, log: log}
 }
 
-// Run starts the monitoring loop and blocks until ctx is cancelled.
+// Run starts the monitoring loop and blocks until ctx is canceled.
 func (m *Monitor) Run(ctx context.Context, bus *event.Bus) error {
 	interval := time.Duration(m.cfg.CheckIntervalSec) * time.Second
 	if interval <= 0 {

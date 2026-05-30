@@ -86,7 +86,7 @@ func NewEventLogListener(log *slog.Logger) *EventLogListener {
 func (l *EventLogListener) Name() string { return "EventLog" }
 
 // Start subscribes to the Security Event Log and dispatches events until ctx
-// is cancelled. The XPath query selects only the event IDs we care about.
+// is canceled. The XPath query selects only the event IDs we care about.
 func (l *EventLogListener) Start(ctx context.Context, bus *event.Bus) error {
 	// Create a Windows manual-reset event object to signal us when new events arrive
 	hSignal, err := windows.CreateEvent(nil, 0, 0, nil)

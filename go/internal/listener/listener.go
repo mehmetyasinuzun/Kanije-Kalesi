@@ -9,13 +9,13 @@ import (
 )
 
 // Listener watches a source of security events and publishes them to the bus.
-// Implementations must be goroutine-safe and honour context cancellation.
+// Implementations must be goroutine-safe and honor context cancellation.
 type Listener interface {
 	// Name returns a short human-readable identifier for logging.
 	// Example: "EventLog", "USBMonitor", "PowerMonitor"
 	Name() string
 
-	// Start begins monitoring and blocks until ctx is cancelled or a fatal
+	// Start begins monitoring and blocks until ctx is canceled or a fatal
 	// error occurs. It must not leak goroutines after returning.
 	// Transient errors should be handled internally with back-off;
 	// only unrecoverable errors should be returned.

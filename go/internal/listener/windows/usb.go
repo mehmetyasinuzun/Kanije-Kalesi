@@ -96,7 +96,7 @@ func NewUSBMonitor(log *slog.Logger) *USBMonitor {
 func (m *USBMonitor) Name() string { return "USBMonitor" }
 
 // Start creates a hidden window, registers for device notifications, and
-// pumps messages until ctx is cancelled.
+// pumps messages until ctx is canceled.
 func (m *USBMonitor) Start(ctx context.Context, bus *event.Bus) error {
 	// We need to run the message loop on the same OS thread that creates the window.
 	type result struct{ err error }

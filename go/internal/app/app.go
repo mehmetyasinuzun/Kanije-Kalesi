@@ -144,7 +144,7 @@ func (a *App) Run() error {
 		}
 	}
 
-	// Root context — cancelled on SIGINT/SIGTERM
+	// Root context — canceled on SIGINT/SIGTERM
 	ctx, stop := signal.NotifyContext(context.Background(),
 		os.Interrupt, syscall.SIGTERM)
 	defer stop()

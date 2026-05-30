@@ -114,7 +114,7 @@ func (b *Bot) TestConnection(ctx context.Context) error {
 	return err
 }
 
-// Poll runs the long-polling update loop until ctx is cancelled.
+// Poll runs the long-polling update loop until ctx is canceled.
 // Each incoming update is dispatched in a short-lived goroutine.
 func (b *Bot) Poll(ctx context.Context) error {
 	var offset int64
@@ -420,7 +420,7 @@ func (b *Bot) executeShutdown(ctx context.Context, chatID int64) {
 // ---- Pending-action state (mutex-guarded) ----
 
 // armPendingAction registers a dangerous action and schedules its auto-expiry.
-// Any previously pending action is cancelled.
+// Any previously pending action is canceled.
 func (b *Bot) armPendingAction(kind string) {
 	actionCtx, cancelAction := context.WithTimeout(context.Background(), pendingActionTTL)
 	state := &ActionState{

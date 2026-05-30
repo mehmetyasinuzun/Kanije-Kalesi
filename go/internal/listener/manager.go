@@ -29,7 +29,7 @@ func NewManager(log *slog.Logger, listeners ...Listener) *Manager {
 	}
 }
 
-// Run starts all listeners concurrently and blocks until ctx is cancelled.
+// Run starts all listeners concurrently and blocks until ctx is canceled.
 // It returns when all supervised goroutines have exited.
 func (m *Manager) Run(ctx context.Context, bus *event.Bus) error {
 	g, ctx := errgroup.WithContext(ctx)
@@ -53,7 +53,7 @@ func (m *Manager) supervise(ctx context.Context, l Listener, bus *event.Bus) err
 		err := l.Start(ctx, bus)
 
 		if ctx.Err() != nil {
-			// Context cancelled — normal shutdown, not an error
+			// Context canceled — normal shutdown, not an error
 			m.log.Info("listener durduruldu", "listener", l.Name())
 			return nil
 		}
