@@ -2,12 +2,20 @@
 
 package telegram
 
-import "os/exec"
+import (
+	"os/exec"
+
+	"github.com/kanije-kalesi/kanije/internal/sysproc"
+)
 
 func systemRestart() {
-	exec.Command("shutdown", "/r", "/t", "5").Start()
+	cmd := exec.Command("shutdown", "/r", "/t", "5")
+	sysproc.Hide(cmd)
+	cmd.Start()
 }
 
 func systemShutdown() {
-	exec.Command("shutdown", "/s", "/t", "5").Start()
+	cmd := exec.Command("shutdown", "/s", "/t", "5")
+	sysproc.Hide(cmd)
+	cmd.Start()
 }

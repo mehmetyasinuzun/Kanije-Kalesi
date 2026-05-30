@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/sysproc"
 )
 
 // MonitorConfig holds network monitoring settings.
@@ -136,8 +137,11 @@ func (m *Monitor) getNetworkInfo() (ssid, iface string) {
 }
 
 func getWindowsNetwork() (ssid, iface string) {
-	// Use UTF-8 output explicitly: netsh outputs in system locale by default
-	out, err := exec.Command("netsh", "wlan", "show", "interfaces").Output()
+	// This runs every poll on a -H=windowsgui binary, so the console window must
+	// be suppressed (sysproc.Hide) or netsh would flash a window each time.
+	cmd := exec.Command("netsh", "wlan", "show", "interfaces")
+	sysproc.Hide(cmd)
+	out, err := cmd.Output()
 	if err != nil {
 		return "", "Ethernet"
 	}
@@ -166,13 +170,17 @@ func getWindowsNetwork() (ssid, iface string) {
 }
 
 func getLinuxNetwork() (ssid, iface string) {
-	// WiFi SSID via iwgetid
-	if out, err := exec.Command("iwgetid", "-r").Output(); err == nil {
+	// WiFi SSID via iwgetid (sysproc.Hide is a no-op on Linux).
+	wlanCmd := exec.Command("iwgetid", "-r")
+	sysproc.Hide(wlanCmd)
+	if out, err := wlanCmd.Output(); err == nil {
 		ssid = strings.TrimSpace(string(out))
 	}
 
 	// Default route interface
-	if out, err := exec.Command("ip", "route", "show", "default").Output(); err == nil {
+	routeCmd := exec.Command("ip", "route", "show", "default")
+	sysproc.Hide(routeCmd)
+	if out, err := routeCmd.Output(); err == nil {
 		parts := strings.Fields(string(out))
 		for i, p := range parts {
 			if p == "dev" && i+1 < len(parts) {

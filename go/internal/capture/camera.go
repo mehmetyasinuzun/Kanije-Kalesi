@@ -15,6 +15,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/kanije-kalesi/kanije/internal/sysproc"
 )
 
 // CameraConfig holds camera capture settings.
@@ -55,6 +57,7 @@ func (c *Camera) Capture(ctx context.Context) ([]byte, error) {
 	c.log.Debug("kamera komutu", "args", args)
 
 	cmd := exec.CommandContext(captureCtx, c.cfg.FFmpegPath, args...)
+	sysproc.Hide(cmd) // GUI binary'de ffmpeg konsol penceresi parlatmasın
 
 	var stdout, stderr bytes.Buffer
 	cmd.Stdout = &stdout
@@ -155,6 +158,7 @@ func ListDevices(ffmpegPath string) ([]string, error) {
 
 	var stderr bytes.Buffer
 	cmd := exec.Command(ffmpegPath, args...)
+	sysproc.Hide(cmd)
 	cmd.Stderr = &stderr
 
 	cmd.Run() // Expected to fail (no input)
