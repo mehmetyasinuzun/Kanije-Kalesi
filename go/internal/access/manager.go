@@ -99,6 +99,10 @@ func (m *Manager) Bootstrap(ctx context.Context, ownerChatID int64, allowed []in
 		if m.rootID == 0 {
 			m.rootID = ownerChatID
 		}
+		// Self-heal: the owner must always hold EVERY capability, including any
+		// added by a newer version (e.g. terminal). The stored set can predate
+		// new caps, which is why /terminal could report "yetki yok" after an update.
+		m.grantOwnerFullCapsLocked(ctx, ownerChatID)
 		return nil
 	}
 
@@ -125,6 +129,24 @@ func (m *Manager) Bootstrap(ctx context.Context, ownerChatID int64, allowed []in
 		}
 	}
 	return nil
+}
+
+// grantOwnerFullCapsLocked ensures the owner row exists and holds every current
+// capability. Must hold the write lock. Idempotent — only writes on change.
+func (m *Manager) grantOwnerFullCapsLocked(ctx context.Context, ownerChatID int64) {
+	root, ok := m.users[m.rootID]
+	if !ok {
+		root = &User{ChatID: ownerChatID, Name: "Sahip", InvitedBy: 0, Caps: AllCapabilities(), AddedAt: time.Now().UTC()}
+		m.users[ownerChatID] = root
+		m.rootID = ownerChatID
+		_ = m.store.SaveUser(ctx, *root)
+		return
+	}
+	full := AllCapabilities()
+	if !sameCaps(root.Caps, full) {
+		root.Caps = full
+		_ = m.store.SaveUser(ctx, *root)
+	}
 }
 
 // RootID returns the owner chat ID.

@@ -100,6 +100,23 @@ func TestBootstrapMigratesAllowlist(t *testing.T) {
 	}
 }
 
+func TestBootstrapHealsOwnerCaps(t *testing.T) {
+	store := newFakeStore()
+	// Simulate a DB written by an older version: owner predates newer caps.
+	store.users[1] = User{ChatID: 1, Name: "Sahip", InvitedBy: 0, Caps: []Capability{CapStatus, CapEvents}}
+
+	m := NewManager(store, discardLogger())
+	if err := m.Bootstrap(context.Background(), 1, nil); err != nil {
+		t.Fatal(err)
+	}
+	if !m.Can(1, CapTerminal) {
+		t.Fatal("owner güncellemeden sonra yeni yetkileri (terminal) otomatik almalı")
+	}
+	if root := mustGet(t, m, 1); len(root.Caps) != len(AllCaps) {
+		t.Fatalf("owner tüm yetkilere sahip olmalı, %d/%d", len(root.Caps), len(AllCaps))
+	}
+}
+
 func TestInviteNoEscalation(t *testing.T) {
 	m := newTestMgr(t, 1)
 	// A(=1, root) invites B(=2) with a subset that includes invite+manage.

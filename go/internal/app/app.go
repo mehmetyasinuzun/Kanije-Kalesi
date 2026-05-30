@@ -704,6 +704,10 @@ func (a *App) collectStatus() telegram.StatusInfo {
 		LastEvent:   a.lastEvent.Load(),
 	}
 
+	if a.netMon != nil {
+		info.PublicIP = a.netMon.PublicIP(context.Background())
+	}
+
 	for _, d := range si.Disks {
 		info.Disks = append(info.Disks, telegram.DiskInfo{
 			Path:  d.Path,

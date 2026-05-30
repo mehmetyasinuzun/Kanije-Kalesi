@@ -238,7 +238,13 @@ func FormatStatus(info StatusInfo) string {
 
 	b.WriteString("  Çalışma süresi: <b>")
 	b.WriteString(formatDuration(info.Uptime))
-	b.WriteString("</b>\n\n")
+	b.WriteString("</b>\n")
+	if info.PublicIP != "" {
+		b.WriteString("  🌍 Dış IP: <code>")
+		b.WriteString(safeHTML(info.PublicIP))
+		b.WriteString("</code>\n")
+	}
+	b.WriteString("\n")
 
 	// Bus stats
 	b.WriteString("📨 <b>Olaylar</b>\n")
@@ -454,7 +460,13 @@ func FormatDeviceCard(label, osName string, info StatusInfo) string {
 	}
 	b.WriteString("⏱️ Çalışma süresi: <b>")
 	b.WriteString(formatDuration(info.Uptime))
-	b.WriteString("</b>\n<i>Bu cihaza komut: /foto ")
+	b.WriteString("</b>\n")
+	if info.PublicIP != "" {
+		b.WriteString("🌍 Dış IP: <code>")
+		b.WriteString(safeHTML(info.PublicIP))
+		b.WriteString("</code>\n")
+	}
+	b.WriteString("<i>Bu cihaza komut: /foto ")
 	b.WriteString(safeHTML(label))
 	b.WriteString("</i>")
 	return b.String()
@@ -471,6 +483,7 @@ type StatusInfo struct {
 	BusReceived int64
 	BusDropped  int64
 	LastEvent   *event.Event
+	PublicIP    string // external/public IP (best-effort)
 }
 
 // DiskInfo holds disk usage for one mount point.

@@ -151,6 +151,12 @@ func networkLabel(medium, ssid string) string {
 	}
 }
 
+// PublicIP returns the device's external/public IP (cached up to 5 minutes).
+// Exposed for /status and /cihazlar.
+func (m *Monitor) PublicIP(ctx context.Context) string {
+	return m.publicIP(ctx)
+}
+
 // publicIP returns the cached external IP, refreshing it at most every 5 minutes.
 func (m *Monitor) publicIP(ctx context.Context) string {
 	m.pubMu.Lock()
