@@ -266,7 +266,8 @@ func FormatHelp() string {
 
 <b>📊 İzleme</b>
 /status — Sistem durumu (CPU, RAM, disk)
-/olaylar — Son 10 güvenlik olayı
+/olaylar — Son güvenlik olayları
+/dogrula — Olay günlüğü bütünlüğünü doğrula
 /ping — Bağlantı kontrolü
 
 <b>📷 Medya</b>

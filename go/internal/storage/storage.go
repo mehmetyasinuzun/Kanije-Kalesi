@@ -39,6 +39,11 @@ type Storage interface {
 	// Prune removes events older than retentionDays. Called periodically.
 	Prune(ctx context.Context, retentionDays int) (int64, error)
 
+	// VerifyChain recomputes the tamper-evident hash chain over all events.
+	// ok=true (brokenAt=0) means intact; otherwise brokenAt is the first
+	// event ID whose stored hash no longer matches. total is the event count.
+	VerifyChain(ctx context.Context) (ok bool, brokenAt int64, total int64, err error)
+
 	// Close releases all resources.
 	Close() error
 }

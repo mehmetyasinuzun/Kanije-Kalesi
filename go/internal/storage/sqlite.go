@@ -2,9 +2,12 @@ package storage
 
 import (
 	"context"
+	"crypto/sha256"
 	"database/sql"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
@@ -33,7 +36,9 @@ CREATE TABLE IF NOT EXISTS events (
     device_fs   TEXT,
     device_path TEXT,
     wake_type   TEXT,
-    extra       TEXT
+    extra       TEXT,
+    hash        TEXT,
+    prev_hash   TEXT
 );
 
 CREATE INDEX IF NOT EXISTS idx_events_timestamp ON events(timestamp DESC);
@@ -80,56 +85,177 @@ func NewSQLite(dbPath string) (*SQLiteStorage, error) {
 		return nil, fmt.Errorf("şema oluşturma hatası: %w", err)
 	}
 
+	// Migrate older databases that predate the tamper-evident hash chain.
+	if err := ensureColumns(db); err != nil {
+		db.Close()
+		return nil, fmt.Errorf("şema geçişi hatası: %w", err)
+	}
+
 	return &SQLiteStorage{db: db}, nil
 }
 
-// SaveEvent writes an event to the database.
-// All string values are stored as UTF-8 (SQLite's native encoding).
+// ensureColumns adds columns introduced after the initial schema to existing
+// databases (SQLite has no "ADD COLUMN IF NOT EXISTS", so we probe first).
+func ensureColumns(db *sql.DB) error {
+	rows, err := db.Query("PRAGMA table_info(events)")
+	if err != nil {
+		return err
+	}
+	defer rows.Close()
+
+	have := make(map[string]bool)
+	for rows.Next() {
+		var cid, notnull, pk int
+		var name, ctype string
+		var dflt sql.NullString
+		if err := rows.Scan(&cid, &name, &ctype, &notnull, &dflt, &pk); err != nil {
+			return err
+		}
+		have[name] = true
+	}
+	if err := rows.Err(); err != nil {
+		return err
+	}
+
+	for _, col := range []string{"hash", "prev_hash"} {
+		if !have[col] {
+			if _, err := db.Exec("ALTER TABLE events ADD COLUMN " + col + " TEXT"); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
+// SaveEvent writes an event to the database, linking it into a tamper-evident
+// hash chain: each row's hash = SHA256(previous-row-hash · canonical-fields).
+// Modifying or deleting any stored row breaks the chain, which VerifyChain
+// detects. All string values are stored as UTF-8 (SQLite's native encoding).
 func (s *SQLiteStorage) SaveEvent(ctx context.Context, ev event.Event) error {
 	var extraJSON []byte
 	if len(ev.Extra) > 0 {
-		var err error
-		extraJSON, err = json.Marshal(ev.Extra)
-		if err != nil {
-			extraJSON = nil
+		if b, err := json.Marshal(ev.Extra); err == nil {
+			extraJSON = b
 		}
 	}
 
-	_, err := s.db.ExecContext(ctx, `
+	tsStr := ev.Timestamp.UTC().Format(time.RFC3339Nano)
+	canonical := canonicalRow(
+		string(ev.Type), int(ev.Severity), tsStr, ev.Source, ev.Hostname, ev.Username,
+		ev.SourceIP, ev.NetworkSSID, ev.NetworkType, ev.LocalIP, int(ev.LogonType), ev.Domain,
+		ev.DeviceName, ev.DeviceLabel, ev.DeviceSize, ev.DeviceFS, ev.DevicePath, ev.WakeType,
+		string(extraJSON),
+	)
+
+	tx, err := s.db.BeginTx(ctx, nil)
+	if err != nil {
+		return err
+	}
+	defer tx.Rollback()
+
+	// Chain head: the most recent row's hash (empty for the genesis event).
+	var prevHash sql.NullString
+	_ = tx.QueryRowContext(ctx, "SELECT hash FROM events ORDER BY id DESC LIMIT 1").Scan(&prevHash)
+
+	thisHash := chainHash(prevHash.String, canonical)
+
+	if _, err := tx.ExecContext(ctx, `
 		INSERT INTO events (
 			type, severity, timestamp, source, hostname, username,
 			source_ip, network_ssid, network_type, local_ip,
 			logon_type, domain,
 			device_name, device_label, device_size, device_fs, device_path,
-			wake_type, extra
+			wake_type, extra, hash, prev_hash
 		) VALUES (
 			?, ?, ?, ?, ?, ?,
 			?, ?, ?, ?,
 			?, ?,
 			?, ?, ?, ?, ?,
-			?, ?
+			?, ?, ?, ?
 		)`,
-		string(ev.Type),
-		int(ev.Severity),
-		ev.Timestamp.UTC().Format(time.RFC3339Nano),
-		ev.Source,
-		ev.Hostname,
-		ev.Username,
-		ev.SourceIP,
-		ev.NetworkSSID,
-		ev.NetworkType,
-		ev.LocalIP,
-		int(ev.LogonType),
-		ev.Domain,
-		ev.DeviceName,
-		ev.DeviceLabel,
-		ev.DeviceSize,
-		ev.DeviceFS,
-		ev.DevicePath,
-		ev.WakeType,
-		string(extraJSON),
-	)
-	return err
+		string(ev.Type), int(ev.Severity), tsStr, ev.Source, ev.Hostname, ev.Username,
+		ev.SourceIP, ev.NetworkSSID, ev.NetworkType, ev.LocalIP, int(ev.LogonType), ev.Domain,
+		ev.DeviceName, ev.DeviceLabel, ev.DeviceSize, ev.DeviceFS, ev.DevicePath, ev.WakeType,
+		string(extraJSON), thisHash, prevHash.String,
+	); err != nil {
+		return err
+	}
+	return tx.Commit()
+}
+
+// canonicalRow builds the deterministic field representation that is hashed.
+// The order and separator must never change, or old hashes stop verifying.
+func canonicalRow(typ string, severity int, ts, source, hostname, username, sourceIP, ssid, ntype, localIP string, logonType int, domain, devName, devLabel string, devSize int64, devFS, devPath, wakeType, extra string) string {
+	return strings.Join([]string{
+		typ, strconv.Itoa(severity), ts, source, hostname, username,
+		sourceIP, ssid, ntype, localIP, strconv.Itoa(logonType), domain,
+		devName, devLabel, strconv.FormatInt(devSize, 10), devFS, devPath, wakeType, extra,
+	}, "\x1f")
+}
+
+// chainHash returns the hex SHA-256 of (prevHash · canonical).
+func chainHash(prevHash, canonical string) string {
+	sum := sha256.Sum256([]byte(prevHash + "\x1f" + canonical))
+	return hex.EncodeToString(sum[:])
+}
+
+// VerifyChain recomputes the hash chain and reports the first row whose stored
+// hash doesn't match — evidence of tampering or deletion. ok=true with
+// brokenAt=0 means the chain is intact. Rows predating the chain (NULL hash)
+// are counted but skipped.
+func (s *SQLiteStorage) VerifyChain(ctx context.Context) (ok bool, brokenAt int64, total int64, err error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT id, type, severity, timestamp, source, hostname, username,
+		       source_ip, network_ssid, network_type, local_ip,
+		       logon_type, domain,
+		       device_name, device_label, device_size, device_fs, device_path,
+		       wake_type, extra, hash, prev_hash
+		FROM events ORDER BY id ASC`)
+	if err != nil {
+		return false, 0, 0, err
+	}
+	defer rows.Close()
+
+	prev := ""
+	first := true // the first hashed row's predecessor may have been pruned
+	for rows.Next() {
+		var id, devSize int64
+		var severity, logonType int
+		var typ, ts, source, hostname, username, sourceIP, ssid, ntype, localIP string
+		var domain, devName, devLabel, devFS, devPath, wakeType, extra string
+		var storedHash, storedPrev sql.NullString
+
+		if err := rows.Scan(&id, &typ, &severity, &ts, &source, &hostname, &username,
+			&sourceIP, &ssid, &ntype, &localIP, &logonType, &domain,
+			&devName, &devLabel, &devSize, &devFS, &devPath, &wakeType, &extra,
+			&storedHash, &storedPrev); err != nil {
+			return false, 0, 0, err
+		}
+
+		total++
+		if !storedHash.Valid || storedHash.String == "" {
+			prev, first = "", true // pre-chain row; the next hashed row re-anchors
+			continue
+		}
+
+		canonical := canonicalRow(typ, severity, ts, source, hostname, username,
+			sourceIP, ssid, ntype, localIP, logonType, domain,
+			devName, devLabel, devSize, devFS, devPath, wakeType, extra)
+
+		// 1) Internal consistency: hash = H(stored prev · fields). Catches any
+		//    modification of a row's fields or its hash.
+		if chainHash(storedPrev.String, canonical) != storedHash.String {
+			return false, id, total, nil
+		}
+		// 2) Linkage: each row links to the actual previous hash. Skipped for the
+		//    first hashed row, so pruning the oldest events stays valid while a
+		//    deletion in the middle still breaks the link.
+		if !first && storedPrev.String != prev {
+			return false, id, total, nil
+		}
+		prev, first = storedHash.String, false
+	}
+	return true, 0, total, rows.Err()
 }
 
 // RecentEvents returns the last n events, newest first.

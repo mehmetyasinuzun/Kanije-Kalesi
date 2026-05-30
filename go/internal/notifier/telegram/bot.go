@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
 	"sync"
 	"time"
@@ -222,6 +223,8 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdIptal(ctx, chatID)
 	case "/guncelle", "/update":
 		b.cmdGuncelle(ctx, chatID)
+	case "/dogrula", "/verify":
+		b.cmdDogrula(ctx, chatID)
 	default:
 		if text != "" && isCommand(text) {
 			b.reply(ctx, chatID, "❓ Bilinmeyen komut. /yardim yazın.")
@@ -344,6 +347,23 @@ func (b *Bot) cmdGuncelle(ctx context.Context, chatID int64) {
 	}
 	b.reply(ctx, chatID, "🔍 Güncelleme kontrol ediliyor…")
 	b.reply(ctx, chatID, b.checkUpdate(ctx))
+}
+
+func (b *Bot) cmdDogrula(ctx context.Context, chatID int64) {
+	b.reply(ctx, chatID, "🔍 Olay günlüğü bütünlüğü kontrol ediliyor…")
+	ok, brokenAt, total, err := b.store.VerifyChain(ctx)
+	if err != nil {
+		b.reply(ctx, chatID, "❌ Doğrulama hatası: "+safeHTML(err.Error()))
+		return
+	}
+	if ok {
+		b.reply(ctx, chatID, fmt.Sprintf(
+			"✅ <b>Bütünlük doğrulandı</b>\n%d olay · hash zinciri sağlam — kayıtlar kurcalanmamış.", total))
+		return
+	}
+	b.reply(ctx, chatID, fmt.Sprintf(
+		"⚠️ <b>KURCALAMA TESPİT EDİLDİ</b>\nOlay #%d'de hash zinciri bozuk — kayıtlar değiştirilmiş veya silinmiş olabilir. (Taranan: %d)",
+		brokenAt, total))
 }
 
 func (b *Bot) cmdPing(ctx context.Context, chatID int64) {

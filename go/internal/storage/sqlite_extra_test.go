@@ -9,6 +9,49 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/event"
 )
 
+func TestSQLiteHashChainDetectsTampering(t *testing.T) {
+	ctx := context.Background()
+	s, err := NewSQLite(filepath.Join(t.TempDir(), "chain.db"))
+	if err != nil {
+		t.Fatalf("NewSQLite() hata: %v", err)
+	}
+	defer s.Close()
+
+	names := []string{"ali", "veli", "ayşe", "fatma", "mehmet"}
+	for _, n := range names {
+		ev := event.New(event.TypeLoginFailed, "test")
+		ev.Username = n
+		ev.SourceIP = "203.0.113.9"
+		if err := s.SaveEvent(ctx, ev); err != nil {
+			t.Fatalf("SaveEvent(%q) hata: %v", n, err)
+		}
+	}
+
+	ok, broken, total, err := s.VerifyChain(ctx)
+	if err != nil {
+		t.Fatalf("VerifyChain() hata: %v", err)
+	}
+	if !ok || total != int64(len(names)) {
+		t.Fatalf("zincir sağlam olmalı: ok=%v broken=%d total=%d", ok, broken, total)
+	}
+
+	// Veritabanında doğrudan bir kaydı kurcala (saldırgan senaryosu).
+	if _, err := s.db.Exec("UPDATE events SET username='hacked' WHERE id=3"); err != nil {
+		t.Fatalf("tamper UPDATE hata: %v", err)
+	}
+
+	ok, broken, _, err = s.VerifyChain(ctx)
+	if err != nil {
+		t.Fatalf("ikinci VerifyChain() hata: %v", err)
+	}
+	if ok {
+		t.Fatal("kurcalama tespit edilmeliydi ama zincir sağlam göründü")
+	}
+	if broken != 3 {
+		t.Fatalf("kırılan kayıt id=3 olmalı: got=%d", broken)
+	}
+}
+
 func TestSQLiteQueryEventsWithFilters(t *testing.T) {
 	ctx := context.Background()
 	s, err := NewSQLite(filepath.Join(t.TempDir(), "test.db"))
