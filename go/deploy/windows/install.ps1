@@ -107,13 +107,18 @@ Write-Host ""
 
 New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
 
-# ---- 1) Binary'yi temin et ----
-function Resolve-Binary {
-    if (Test-Path $BinaryPath) { return $true }
+# Mevcut kurulumu durdur — hem binary kilidini açar (guncelleme icin) hem temiz baslar.
+Stop-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue | Out-Null
+Get-Process -Name "kanije" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+Start-Sleep -Milliseconds 500
 
+# ---- 1) Binary'yi temin et ----
+# Oncelik: repodaki yerel derleme -> en son GitHub Release (guncelleme) -> mevcut kurulu (cevrimdisi) -> Go ile derle.
+function Resolve-Binary {
     $scriptDir = Split-Path -Parent $PSCommandPath
     $goRoot    = Split-Path -Parent (Split-Path -Parent $scriptDir)  # .../go
 
+    # a) Repoda yerel derleme (gelistirici / cift-tik yolu)
     $candidates = @(
         (Join-Path $goRoot "kanije.exe"),
         (Join-Path $goRoot "dist\$AssetName"),
@@ -127,7 +132,8 @@ function Resolve-Binary {
         }
     }
 
-    Write-Step "Hazir binary indiriliyor (GitHub Release)..."
+    # b) En son surumu indir (tek-satir yolu + her calistirmada guncelleme)
+    Write-Step "En son binary indiriliyor (GitHub Release)..."
     try {
         $rel = Invoke-RestMethod -Uri "https://api.github.com/repos/$RepoOwner/$RepoName/releases/latest" `
             -Headers @{ "User-Agent" = "kanije-installer" }
@@ -142,6 +148,13 @@ function Resolve-Binary {
         Write-WarnMsg "Indirme basarisiz: $($_.Exception.Message)"
     }
 
+    # c) Internet yoksa, zaten kurulu olani kullan
+    if (Test-Path $BinaryPath) {
+        Write-Ok "Mevcut binary kullaniliyor (cevrimdisi yedek)"
+        return $true
+    }
+
+    # d) Go ile derle
     if (Get-Command go -ErrorAction SilentlyContinue) {
         if (Test-Path (Join-Path $goRoot "cmd\kanije")) {
             Write-Step "Go ile derleniyor..."
