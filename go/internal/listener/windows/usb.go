@@ -21,14 +21,12 @@ var (
 	procRegisterClassExW             = user32.NewProc("RegisterClassExW")
 	procCreateWindowExW              = user32.NewProc("CreateWindowExW")
 	procDefWindowProcW               = user32.NewProc("DefWindowProcW")
-	procGetMessageW                  = user32.NewProc("GetMessageW")
-	procDispatchMessageW             = user32.NewProc("DispatchMessageW")
-	procDestroyWindow                = user32.NewProc("DestroyWindow")
-	procRegisterDeviceNotification   = user32.NewProc("RegisterDeviceNotification")
-	procUnregisterDeviceNotification = user32.NewProc("UnregisterDeviceNotification")
-	procPostMessageW                 = user32.NewProc("PostMessageW")
-	kernel32                         = windows.NewLazySystemDLL("kernel32.dll")
-	procGetModuleHandleW             = kernel32.NewProc("GetModuleHandleW")
+	procGetMessageW      = user32.NewProc("GetMessageW")
+	procDispatchMessageW = user32.NewProc("DispatchMessageW")
+	procDestroyWindow    = user32.NewProc("DestroyWindow")
+	procPostMessageW     = user32.NewProc("PostMessageW")
+	kernel32             = windows.NewLazySystemDLL("kernel32.dll")
+	procGetModuleHandleW = kernel32.NewProc("GetModuleHandleW")
 )
 
 const (
@@ -37,9 +35,10 @@ const (
 	dbtDeviceRemoveCom = 0x8004
 	dbtDevTypVolume    = 0x00000002
 
-	deviceNotifyAllInterface = 4
-
 	wmQuit = 0x0012
+
+	// wsExToolWindow keeps the (never-shown) window off the taskbar.
+	wsExToolWindow = 0x00000080
 )
 
 type devBroadcastHdr struct {
@@ -115,26 +114,11 @@ func (m *USBMonitor) Start(ctx context.Context, bus *event.Bus) error {
 		m.hwnd = hwnd
 		defer procDestroyWindow.Call(hwnd)
 
-		// Register for volume change notifications
-		var notifyFilter struct {
-			Size       uint32
-			DeviceType uint32
-			Reserved   uint32
-			ClassGUID  [16]byte
-			Name       [1]uint16
-		}
-		notifyFilter.Size = uint32(unsafe.Sizeof(notifyFilter))
-		notifyFilter.DeviceType = dbtDevTypVolume
-
-		hNotify, _, _ := procRegisterDeviceNotification.Call(
-			hwnd,
-			uintptr(unsafe.Pointer(&notifyFilter)),
-			deviceNotifyAllInterface,
-		)
-		if hNotify != 0 {
-			defer procUnregisterDeviceNotification.Call(hNotify)
-		}
-
+		// A top-level (but invisible) window receives the broadcast WM_DEVICECHANGE
+		// volume arrival/removal messages automatically — no RegisterDeviceNotification
+		// is needed (and DBT_DEVTYP_VOLUME isn't even a valid filter for it). A
+		// message-only window would NOT receive these broadcasts, which is why the
+		// window is created top-level (see createMessageWindow).
 		m.log.Info("USB izleme başlatıldı")
 
 		// Context watcher: post WM_QUIT to unblock GetMessage when ctx is done
@@ -254,6 +238,10 @@ func getDriveSize(letter string) int64 {
 	return int64(totalBytes)
 }
 
+// createMessageWindow creates a hidden TOP-LEVEL window. It must be top-level
+// (not message-only) to receive the broadcast WM_DEVICECHANGE volume messages
+// that signal USB drive insertion/removal. It is never shown and carries the
+// tool-window ex-style so it never appears on screen or in the taskbar.
 func createMessageWindow() (uintptr, error) {
 	hInstance, _, _ := procGetModuleHandleW.Call(0)
 	className, _ := windows.UTF16PtrFromString("KanijeUSBWatcher")
@@ -272,12 +260,15 @@ func createMessageWindow() (uintptr, error) {
 	}
 
 	hwnd, _, createErr := procCreateWindowExW.Call(
-		0,
+		wsExToolWindow, // ex-style: no taskbar button
 		uintptr(unsafe.Pointer(className)),
 		0,
-		0, 0, 0, 0, 0,
-		0xFFFF, // HWND_MESSAGE — message-only window
-		0, hInstance, 0,
+		0,          // style: not WS_VISIBLE → stays hidden
+		0, 0, 0, 0, // x, y, w, h
+		0,         // top-level (no parent) — required to receive volume broadcasts
+		0,         // menu
+		hInstance, // instance
+		0,         // lpParam
 	)
 	if hwnd == 0 {
 		return 0, fmt.Errorf("CreateWindowEx hatası: %v", createErr)

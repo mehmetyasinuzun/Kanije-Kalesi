@@ -1,5 +1,7 @@
 //go:build !windows
 
+// Package sysproc provides subprocess helpers. On non-Windows platforms hiding
+// the console window is a no-op (there is no console-window concept).
 package sysproc
 
 import "os/exec"
