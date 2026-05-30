@@ -149,6 +149,7 @@ func (b *Bot) Poll(ctx context.Context) error {
 	maxBackoff := 60 * time.Second
 
 	b.log.Info("Telegram bot polling başlatıldı")
+	b.registerCommands(ctx) // populate the "/" autocomplete menu
 
 	for {
 		if ctx.Err() != nil {
@@ -302,7 +303,7 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 	}
 
 	switch cmd {
-	case "/start", "/yardim", "/help":
+	case "/start", "/yardim", "/help", "/komutlar", "/komut", "/menu":
 		b.cmdHelp(ctx, chatID)
 	case "/status", "/durum":
 		b.cmdStatus(ctx, chatID)
@@ -344,7 +345,8 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdCihazlar(ctx, chatID)
 	default:
 		if text != "" && isCommand(text) {
-			b.reply(ctx, chatID, "❓ Bilinmeyen komut. /yardim yazın.")
+			b.reply(ctx, chatID, "❓ <b>Bilinmeyen komut:</b> <code>"+safeHTML(cmd)+"</code>\n\n"+
+				"Tüm komutlar için /yardim yaz. İpucu: giriş kutusuna <b>/</b> yazınca menü açılır.")
 		}
 	}
 }
@@ -392,6 +394,34 @@ func (b *Bot) handleCallback(ctx context.Context, cq *CallbackQuery) {
 
 func (b *Bot) cmdHelp(ctx context.Context, chatID int64) {
 	b.reply(ctx, chatID, FormatHelp())
+}
+
+// registerCommands publishes the command list to Telegram so users get a "/"
+// autocomplete menu and a Menu button. Best-effort; failure is non-fatal.
+func (b *Bot) registerCommands(ctx context.Context) {
+	cmds := []BotCommand{
+		{"yardim", "📜 Komut listesi"},
+		{"status", "📊 Sistem durumu (CPU/RAM/disk)"},
+		{"olaylar", "📋 Son olaylar (tip/sayı ile filtre)"},
+		{"ozet", "📈 Son 7 günün olay özeti"},
+		{"foto", "📷 Kameradan anlık fotoğraf"},
+		{"ekran", "🖥️ Ekran görüntüsü"},
+		{"seskayit", "🎤 Mikrofon kaydı (saniye)"},
+		{"cihazlar", "🛰️ Tüm cihazları listele"},
+		{"terminal", "💻 Uzak komut çalıştır"},
+		{"kilitle", "🔒 Ekranı kilitle"},
+		{"dogrula", "🛡️ Olay günlüğü bütünlüğü"},
+		{"guncelle", "⬆️ Güncelleme kontrol/kur"},
+		{"yeniden", "🔄 Yeniden başlat (onaylı)"},
+		{"kapat", "⏻ Kapat (onaylı)"},
+		{"ekle", "➕ Kişi ekle"},
+		{"yonetim", "👥 Kişi yönetimi"},
+		{"loglar", "🧾 İşlem günlüğü"},
+		{"kurulum", "⚙️ Ayar menüsü"},
+	}
+	if err := b.client.SetMyCommands(ctx, cmds); err != nil {
+		b.log.Debug("setMyCommands başarısız (önemsiz)", "err", err)
+	}
 }
 
 func (b *Bot) cmdStatus(ctx context.Context, chatID int64) {

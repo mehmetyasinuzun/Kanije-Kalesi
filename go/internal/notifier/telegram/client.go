@@ -128,6 +128,18 @@ func (c *Client) GetMe(ctx context.Context) (*User, error) {
 	return &user, nil
 }
 
+// BotCommand is one entry in the Telegram "/" command menu.
+type BotCommand struct {
+	Command     string `json:"command"`     // without the leading slash, lowercase, ≤32 chars
+	Description string `json:"description"` // 1–256 chars
+}
+
+// SetMyCommands registers the bot's command list so Telegram shows an
+// autocomplete menu (and a "Menu" button) when the user types "/".
+func (c *Client) SetMyCommands(ctx context.Context, cmds []BotCommand) error {
+	return c.call(ctx, "setMyCommands", map[string]any{"commands": cmds}, nil)
+}
+
 // SendMessage sends a UTF-8 text message.
 // parseMode: "MarkdownV2", "HTML", or "" (plain text).
 func (c *Client) SendMessage(ctx context.Context, chatID int64, text, parseMode string) (*Message, error) {
