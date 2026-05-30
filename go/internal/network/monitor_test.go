@@ -3,23 +3,44 @@ package network
 import "testing"
 
 func TestInferNetworkType(t *testing.T) {
-	tests := []struct {
-		name  string
-		iface string
-		want  string
-	}{
-		{name: "windows wifi", iface: "Wi-Fi", want: "WiFi"},
-		{name: "linux wifi", iface: "wlan0", want: "WiFi"},
-		{name: "ethernet", iface: "Ethernet 2", want: "Ethernet"},
-		{name: "eth short", iface: "eth0", want: "Ethernet"},
-		{name: "unknown", iface: "tun0", want: "Bilinmiyor"},
+	cases := map[string]string{
+		"Wi-Fi":                        "WiFi",
+		"wlan0":                        "WiFi",
+		"wlp3s0":                       "WiFi",
+		"Ethernet 2":                   "Ethernet",
+		"eth0":                         "Ethernet",
+		"enp0s3":                       "Ethernet",
+		"bnep0":                        "Bluetooth",
+		"Bluetooth Network Connection": "Bluetooth",
+		"usb0":                         "USB tethering",
+		"wwan0":                        "Hücresel",
+		"ppp0":                         "Hücresel",
+		"tun0":                         "VPN",
+		"wg0":                          "VPN",
+		"tailscale0":                   "VPN",
+		"":                             "Bilinmiyor",
+		"weirdadapter":                 "Bilinmiyor",
 	}
+	for in, want := range cases {
+		if got := inferNetworkType(in); got != want {
+			t.Errorf("inferNetworkType(%q) = %q, want %q", in, got, want)
+		}
+	}
+}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := inferNetworkType(tt.iface); got != tt.want {
-				t.Fatalf("inferNetworkType(%q) = %q, want %q", tt.iface, got, tt.want)
-			}
-		})
+func TestNetworkLabel(t *testing.T) {
+	cases := []struct {
+		medium, ssid, want string
+	}{
+		{"WiFi", "EvAğı", "WiFi (EvAğı)"},
+		{"Ethernet", "", "Ethernet"},
+		{"", "GizliSSID", "GizliSSID"},
+		{"USB tethering", "", "USB tethering"},
+		{"", "", "bilinmiyor"},
+	}
+	for _, c := range cases {
+		if got := networkLabel(c.medium, c.ssid); got != c.want {
+			t.Errorf("networkLabel(%q,%q) = %q, want %q", c.medium, c.ssid, got, c.want)
+		}
 	}
 }

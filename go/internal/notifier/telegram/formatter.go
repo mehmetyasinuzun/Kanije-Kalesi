@@ -122,16 +122,21 @@ func FormatEvent(ev event.Event) string {
 		}
 
 	case event.TypeNetworkUp, event.TypeNetworkChanged:
-		if ev.NetworkSSID != "" {
-			b.WriteString("📶 Ağ: <b>")
-			b.WriteString(safeHTML(ev.NetworkSSID))
+		// Show the medium for EVERY connection type (USB tethering / Bluetooth /
+		// Ethernet have no SSID), with the WiFi SSID appended when present.
+		if ev.NetworkType != "" {
+			b.WriteString("📡 Bağlantı: <b>")
+			b.WriteString(safeHTML(ev.NetworkType))
 			b.WriteString("</b>")
-			if ev.NetworkType != "" {
-				b.WriteString(" (")
-				b.WriteString(safeHTML(ev.NetworkType))
-				b.WriteString(")")
+			if ev.NetworkSSID != "" {
+				b.WriteString(" · 📶 ")
+				b.WriteString(safeHTML(ev.NetworkSSID))
 			}
 			b.WriteString("\n")
+		} else if ev.NetworkSSID != "" {
+			b.WriteString("📶 Ağ: <b>")
+			b.WriteString(safeHTML(ev.NetworkSSID))
+			b.WriteString("</b>\n")
 		}
 		if ev.LocalIP != "" {
 			b.WriteString("🔌 İç IP: <code>")

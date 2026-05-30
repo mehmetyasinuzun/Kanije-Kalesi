@@ -36,6 +36,7 @@ type Monitor struct {
 	lastOnline bool
 	lastSSID   string
 	lastIface  string
+	lastMedium string
 
 	// Cached public (external) IP — refreshed at most every few minutes.
 	pubMu   sync.Mutex
@@ -61,7 +62,7 @@ func (m *Monitor) Run(ctx context.Context, bus *event.Bus) error {
 
 	// Capture initial state without publishing
 	m.lastOnline = m.checkConnectivity()
-	m.lastSSID, m.lastIface = m.getNetworkInfo()
+	m.lastSSID, m.lastIface, m.lastMedium = m.getNetworkInfo()
 
 	m.log.Info("Ağ izleme başlatıldı",
 		"hedef", fmt.Sprintf("%s:%d", m.cfg.CheckHost, m.cfg.CheckPort),
@@ -80,39 +81,74 @@ func (m *Monitor) Run(ctx context.Context, bus *event.Bus) error {
 
 func (m *Monitor) tick(ctx context.Context, bus *event.Bus) {
 	online := m.checkConnectivity()
-	ssid, iface := m.getNetworkInfo()
+	ssid, iface, medium := m.getNetworkInfo()
 
 	switch {
 	case online && !m.lastOnline:
 		ev := event.New(event.TypeNetworkUp, "NetworkMonitor")
-		ev.Hostname = m.hostname
-		ev.NetworkSSID = ssid
-		ev.NetworkType = inferNetworkType(iface)
-		ev.LocalIP = getLocalIP(iface)
-		ev.PublicIP = m.publicIP(ctx)
-		m.log.Info("İnternet bağlantısı kuruldu", "ağ", ssid, "ip", ev.LocalIP)
+		m.fillNetwork(ctx, &ev, ssid, iface, medium)
+		m.log.Info("İnternet bağlantısı kuruldu", "medium", medium, "ağ", ssid, "ip", ev.LocalIP)
 		bus.Publish(ev)
 
 	case !online && m.lastOnline:
 		ev := event.New(event.TypeNetworkDown, "NetworkMonitor")
 		ev.Hostname = m.hostname
-		m.log.Warn("İnternet bağlantısı kesildi")
+		if m.lastMedium != "" {
+			ev.Extra = map[string]string{"📡 Kesilen": networkLabel(m.lastMedium, m.lastSSID)}
+		}
+		m.log.Warn("İnternet bağlantısı kesildi", "önceki", m.lastMedium)
 		bus.Publish(ev)
 
-	case online && (ssid != m.lastSSID) && m.lastSSID != "":
+	case online && m.connectionChanged(ssid, iface, medium):
 		ev := event.New(event.TypeNetworkChanged, "NetworkMonitor")
-		ev.Hostname = m.hostname
-		ev.NetworkSSID = ssid
-		ev.NetworkType = inferNetworkType(iface)
-		ev.LocalIP = getLocalIP(iface)
-		ev.PublicIP = m.publicIP(ctx)
-		m.log.Info("Ağ değişti", "önceki", m.lastSSID, "yeni", ssid)
+		m.fillNetwork(ctx, &ev, ssid, iface, medium)
+		ev.Extra["🔀 Değişim"] = networkLabel(m.lastMedium, m.lastSSID) + " → " + networkLabel(medium, ssid)
+		m.log.Info("Ağ değişti", "önceki", networkLabel(m.lastMedium, m.lastSSID), "yeni", networkLabel(medium, ssid))
 		bus.Publish(ev)
 	}
 
 	m.lastOnline = online
 	m.lastSSID = ssid
 	m.lastIface = iface
+	m.lastMedium = medium
+}
+
+// connectionChanged reports whether the active connection's medium, SSID, or
+// interface differs from the last observed state. Requires a prior observation
+// so the first online sample doesn't spuriously fire.
+func (m *Monitor) connectionChanged(ssid, iface, medium string) bool {
+	if m.lastIface == "" && m.lastMedium == "" {
+		return false
+	}
+	return ssid != m.lastSSID || iface != m.lastIface || medium != m.lastMedium
+}
+
+// fillNetwork populates the common network fields (medium, SSID, IPs, interface)
+// on a network event.
+func (m *Monitor) fillNetwork(ctx context.Context, ev *event.Event, ssid, iface, medium string) {
+	ev.Hostname = m.hostname
+	ev.NetworkSSID = ssid
+	ev.NetworkType = medium
+	ev.LocalIP = getLocalIP(iface)
+	ev.PublicIP = m.publicIP(ctx)
+	ev.Extra = map[string]string{}
+	if iface != "" {
+		ev.Extra["🔌 Arayüz"] = iface
+	}
+}
+
+// networkLabel renders a compact "medium (SSID)" description for logs/events.
+func networkLabel(medium, ssid string) string {
+	switch {
+	case medium == "" && ssid == "":
+		return "bilinmiyor"
+	case ssid != "" && medium != "":
+		return medium + " (" + ssid + ")"
+	case ssid != "":
+		return ssid
+	default:
+		return medium
+	}
 }
 
 // publicIP returns the cached external IP, refreshing it at most every 5 minutes.
@@ -179,15 +215,24 @@ func (m *Monitor) checkConnectivity() bool {
 	return true
 }
 
-// getNetworkInfo returns the active WiFi SSID and interface name.
-func (m *Monitor) getNetworkInfo() (ssid, iface string) {
+// getNetworkInfo returns the active connection's WiFi SSID, interface name, and
+// medium (WiFi/Ethernet/USB tethering/Bluetooth/Hücresel/VPN).
+func (m *Monitor) getNetworkInfo() (ssid, iface, medium string) {
 	switch runtime.GOOS {
 	case "windows":
-		return getWindowsNetwork()
+		// IP Helper gives the precise active adapter + medium (incl. USB
+		// tethering / Bluetooth / cellular). netsh gives the WiFi SSID.
+		if friendly, med := activeAdapter(); friendly != "" {
+			ssid, _ = getWindowsNetwork()
+			return ssid, friendly, med
+		}
+		ssid, iface = getWindowsNetwork()
+		return ssid, iface, inferNetworkType(iface)
 	case "linux":
-		return getLinuxNetwork()
+		ssid, iface = getLinuxNetwork()
+		return ssid, iface, inferNetworkType(iface)
 	default:
-		return "", ""
+		return "", "", ""
 	}
 }
 
@@ -248,16 +293,25 @@ func getLinuxNetwork() (ssid, iface string) {
 }
 
 func inferNetworkType(iface string) string {
-	lower := strings.ToLower(iface)
+	l := strings.ToLower(iface)
 	switch {
-	case strings.Contains(lower, "wi-fi"),
-		strings.Contains(lower, "wifi"),
-		strings.Contains(lower, "wlan"),
-		strings.Contains(lower, "wireless"):
+	case strings.Contains(l, "wi-fi"), strings.Contains(l, "wifi"),
+		strings.HasPrefix(l, "wlan"), strings.HasPrefix(l, "wlp"),
+		strings.Contains(l, "wireless"):
 		return "WiFi"
-	case strings.Contains(lower, "eth"),
-		strings.Contains(lower, "ethernet"),
-		strings.Contains(lower, "lan"):
+	case strings.HasPrefix(l, "bnep"), strings.Contains(l, "bluetooth"):
+		return "Bluetooth"
+	case strings.HasPrefix(l, "usb"), strings.Contains(l, "rndis"), strings.Contains(l, "ncm"):
+		return "USB tethering"
+	case strings.HasPrefix(l, "wwan"), strings.HasPrefix(l, "ppp"),
+		strings.Contains(l, "cellular"), strings.Contains(l, "mobile"):
+		return "Hücresel"
+	case strings.HasPrefix(l, "tun"), strings.HasPrefix(l, "tap"),
+		strings.HasPrefix(l, "wg"), strings.Contains(l, "vpn"),
+		strings.Contains(l, "wireguard"), strings.Contains(l, "tailscale"):
+		return "VPN"
+	case strings.HasPrefix(l, "eth"), strings.HasPrefix(l, "en"),
+		strings.Contains(l, "ethernet"), strings.Contains(l, "lan"):
 		return "Ethernet"
 	}
 	return "Bilinmiyor"
