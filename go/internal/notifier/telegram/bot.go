@@ -357,8 +357,20 @@ func (b *Bot) handleCallback(ctx context.Context, cq *CallbackQuery) {
 		return
 	}
 
-	chatID := cq.Message.Chat.ID
-	if !b.isAuthorized(chatID) {
+	chatID := cq.Message.Chat.ID // reply target (group or private)
+	actorID := cq.From.ID        // the human; authorize by this in groups too
+	if !b.isAuthorized(actorID) {
+		return
+	}
+
+	// Event drill-down: olay:<id> — show the full stored detail of one event.
+	if strings.HasPrefix(cq.Data, "olay:") {
+		if b.acl != nil && !b.acl.Can(actorID, access.CapEvents) {
+			b.client.AnswerCallbackQuery(ctx, cq.ID, "Yetki yok")
+			return
+		}
+		b.client.AnswerCallbackQuery(ctx, cq.ID, "")
+		b.showEventDetail(ctx, chatID, strings.TrimPrefix(cq.Data, "olay:"))
 		return
 	}
 
@@ -545,7 +557,50 @@ func (b *Bot) cmdOlaylar(ctx context.Context, chatID int64, text string) {
 		b.reply(ctx, chatID, "❌ Olaylar alınamadı: "+safeHTML(err.Error()))
 		return
 	}
-	b.reply(ctx, chatID, FormatRecentEvents(events))
+	if len(events) == 0 {
+		b.reply(ctx, chatID, FormatRecentEvents(events))
+		return
+	}
+	// Each event gets a button → tap for the full CTI detail (olay:<id>).
+	b.client.SendMessageWithKeyboard(ctx, chatID, FormatRecentEvents(events), eventsKeyboard(events))
+}
+
+// eventsKeyboard builds a numbered button per event for the drill-down.
+func eventsKeyboard(events []event.Event) InlineKeyboardMarkup {
+	var rows [][]InlineKeyboardButton
+	var row []InlineKeyboardButton
+	for i, ev := range events {
+		row = append(row, InlineKeyboardButton{
+			Text:         fmt.Sprintf("%d %s", i+1, ev.Type.Emoji()),
+			CallbackData: "olay:" + strconv.FormatInt(ev.ID, 10),
+		})
+		if len(row) == 5 {
+			rows = append(rows, row)
+			row = nil
+		}
+	}
+	if len(row) > 0 {
+		rows = append(rows, row)
+	}
+	return InlineKeyboardMarkup{InlineKeyboard: rows}
+}
+
+// showEventDetail fetches one event by ID and sends its full detail.
+func (b *Bot) showEventDetail(ctx context.Context, chatID int64, idStr string) {
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		return
+	}
+	ev, ok, err := b.store.EventByID(ctx, id)
+	if err != nil {
+		b.reply(ctx, chatID, "❌ Olay alınamadı: "+safeHTML(err.Error()))
+		return
+	}
+	if !ok {
+		b.reply(ctx, chatID, "❌ Olay bulunamadı.")
+		return
+	}
+	b.reply(ctx, chatID, FormatEventDetail(ev))
 }
 
 // cmdOzet sends a per-type summary of events from the last 7 days.

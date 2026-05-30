@@ -295,8 +295,83 @@ func FormatRecentEvents(events []event.Event) string {
 		b.WriteString("\n")
 	}
 
-	b.WriteString("\n<i>İpucu: /olaylar &lt;tip&gt; ile filtrele (örn. /olaylar login_failed), /ozet ile özet.</i>")
+	b.WriteString("\n<i>İpucu: aşağıdaki butonla bir olayın tüm detayını aç. /olaylar &lt;tip&gt; ile filtrele, /ozet ile özet.</i>")
 	return b.String()
+}
+
+// FormatEventDetail renders every populated field of a single event for the
+// /olaylar drill-down. This is a CTI tool — detail is the point.
+func FormatEventDetail(ev event.Event) string {
+	var b strings.Builder
+	b.WriteString(ev.Type.Emoji())
+	b.WriteString(" <b>")
+	b.WriteString(safeHTML(ev.Type.Label()))
+	b.WriteString("</b>\n🕐 ")
+	b.WriteString(ev.Timestamp.Local().Format("02.01.2006 15:04:05"))
+	b.WriteString("\n\n")
+
+	row := func(label, val string) {
+		if val == "" {
+			return
+		}
+		b.WriteString(label)
+		b.WriteString(": ")
+		b.WriteString(safeHTML(val))
+		b.WriteString("\n")
+	}
+	codeRow := func(label, val string) {
+		if val == "" {
+			return
+		}
+		b.WriteString(label)
+		b.WriteString(": <code>")
+		b.WriteString(safeHTML(val))
+		b.WriteString("</code>\n")
+	}
+
+	row("🖥️ Cihaz", ev.Hostname)
+	row("💿 OS", ev.OS)
+	row("👤 Kullanıcı", ev.Username)
+	row("🏢 Domain", ev.Domain)
+	if ev.LogonType != 0 {
+		row("🔑 Oturum tipi", ev.LogonType.String())
+	}
+	codeRow("🌐 Kaynak IP", ev.SourceIP)
+
+	if ev.NetworkType != "" || ev.NetworkSSID != "" {
+		row("📡 Bağlantı", networkLabelText(ev.NetworkType, ev.NetworkSSID))
+	}
+	codeRow("🔌 İç IP", ev.LocalIP)
+	codeRow("🌍 Dış IP", ev.PublicIP)
+
+	row("💾 Aygıt", ev.DeviceName)
+	row("🏷️ Etiket", ev.DeviceLabel)
+	if ev.DeviceSize > 0 {
+		row("📦 Boyut", formatBytes(ev.DeviceSize))
+	}
+	row("🗂️ Dosya sistemi", ev.DeviceFS)
+	codeRow("📂 Yol", ev.DevicePath)
+	row("⚡ Uyanış", ev.WakeType)
+
+	// Extras: geo location, interface, transition, etc.
+	for k, v := range ev.Extra {
+		row("• "+k, v)
+	}
+
+	b.WriteString(fmt.Sprintf("\n<i>Olay #%d</i>", ev.ID))
+	return b.String()
+}
+
+// networkLabelText renders "medium · SSID" for the detail view.
+func networkLabelText(medium, ssid string) string {
+	switch {
+	case medium != "" && ssid != "":
+		return medium + " · " + ssid
+	case ssid != "":
+		return ssid
+	default:
+		return medium
+	}
 }
 
 // FormatSummary renders a per-type event summary (the /ozet command).

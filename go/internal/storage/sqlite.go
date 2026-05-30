@@ -299,6 +299,30 @@ func (s *SQLiteStorage) RecentEvents(ctx context.Context, n int) ([]event.Event,
 	return scanEvents(rows)
 }
 
+// EventByID returns one event by ID for the drill-down detail view.
+func (s *SQLiteStorage) EventByID(ctx context.Context, id int64) (event.Event, bool, error) {
+	rows, err := s.db.QueryContext(ctx, `
+		SELECT id, type, severity, timestamp, source, hostname, username,
+		       source_ip, network_ssid, network_type, local_ip,
+		       logon_type, domain,
+		       device_name, device_label, device_size, device_fs, device_path,
+		       wake_type, extra
+		FROM events WHERE id = ? LIMIT 1`, id)
+	if err != nil {
+		return event.Event{}, false, err
+	}
+	defer rows.Close()
+
+	evs, err := scanEvents(rows)
+	if err != nil {
+		return event.Event{}, false, err
+	}
+	if len(evs) == 0 {
+		return event.Event{}, false, nil
+	}
+	return evs[0], true, nil
+}
+
 // QueryEvents returns events matching the filter.
 func (s *SQLiteStorage) QueryEvents(ctx context.Context, filter EventFilter) ([]event.Event, error) {
 	query := `SELECT id, type, severity, timestamp, source, hostname, username,

@@ -18,6 +18,9 @@ type Storage interface {
 	// RecentEvents returns the last n events, newest first.
 	RecentEvents(ctx context.Context, n int) ([]event.Event, error)
 
+	// EventByID returns a single event by its ID. ok is false if not found.
+	EventByID(ctx context.Context, id int64) (ev event.Event, ok bool, err error)
+
 	// QueryEvents returns events matching the filter, newest first.
 	QueryEvents(ctx context.Context, filter EventFilter) ([]event.Event, error)
 
