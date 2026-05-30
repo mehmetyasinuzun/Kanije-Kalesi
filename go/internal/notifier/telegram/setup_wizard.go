@@ -66,6 +66,7 @@ var askPrompts = map[string]string{
 	"camera.device_name":             "Kamera cihaz adını girin (Windows'ta dshow adı, örn: Integrated Camera)",
 	"camera.device_index":            "Kamera indeksini girin (0, 1, 2...)",
 	"camera.ffmpeg_path":             "ffmpeg program yolunu girin (PATH'de varsa sadece 'ffmpeg')",
+	"audio.device_name":              "Mikrofon cihaz adını girin (Windows dshow adı; boş = otomatik. Linux'ta 'default')",
 	"heartbeat.interval_hours":       "Heartbeat aralığını saat cinsinden girin (örn: 6)",
 	"security.max_events_per_minute": "Dakikada maksimum kaç olay işlensin? (örn: 10)",
 }
@@ -342,6 +343,10 @@ func (w *SetupWizard) editCameraMenu(ctx context.Context, chatID, messageID int6
 			{{
 				Text:         "🎞️ ffmpeg yolu",
 				CallbackData: "wizard:ask:camera.ffmpeg_path",
+			}},
+			{{
+				Text:         "🎤 Mikrofon cihazı (/seskayit için)",
+				CallbackData: "wizard:ask:audio.device_name",
 			}},
 			{{Text: "◀️ Geri", CallbackData: "wizard:main"}},
 		},

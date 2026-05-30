@@ -39,6 +39,7 @@ type Bot struct {
 	lockScreen    func() error
 	capturePhoto  func(ctx context.Context) ([]byte, error)
 	captureScreen func(ctx context.Context) ([]byte, error)
+	captureAudio  func(ctx context.Context, seconds int) ([]byte, error)
 	getStatus     func() StatusInfo
 	checkUpdate   func(ctx context.Context) string
 
@@ -62,6 +63,7 @@ type BotConfig struct {
 	LockScreen    func() error
 	CapturePhoto  func(ctx context.Context) ([]byte, error)
 	CaptureScreen func(ctx context.Context) ([]byte, error)
+	CaptureAudio  func(ctx context.Context, seconds int) ([]byte, error)
 	GetStatus     func() StatusInfo
 	CheckUpdate   func(ctx context.Context) string
 }
@@ -77,6 +79,7 @@ func NewBot(cfg BotConfig) *Bot {
 		lockScreen:    cfg.LockScreen,
 		capturePhoto:  cfg.CapturePhoto,
 		captureScreen: cfg.CaptureScreen,
+		captureAudio:  cfg.CaptureAudio,
 		getStatus:     cfg.GetStatus,
 		checkUpdate:   cfg.CheckUpdate,
 		cmdLimiter:    newCmdRateLimiter(cfg.Config.MaxCommandsPerMinute()),
@@ -208,6 +211,8 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdFoto(ctx, chatID)
 	case "/ekran", "/screenshot":
 		b.cmdEkran(ctx, chatID)
+	case "/seskayit", "/record":
+		b.cmdSesKayit(ctx, chatID, text)
 	case "/olaylar", "/events":
 		b.cmdOlaylar(ctx, chatID, text)
 	case "/ozet", "/summary":
@@ -316,6 +321,46 @@ func (b *Bot) cmdEkran(ctx context.Context, chatID int64) {
 
 	if err := b.client.SendPhoto(ctx, chatID, data, "🖥️ Anlık ekran görüntüsü"); err != nil {
 		b.reply(ctx, chatID, "❌ Ekran görüntüsü gönderilemedi: "+safeHTML(err.Error()))
+	}
+}
+
+// cmdSesKayit records microphone audio. Optional arg: duration in seconds
+// (default 30, capped at 600). Example: "/seskayit 60".
+func (b *Bot) cmdSesKayit(ctx context.Context, chatID int64, text string) {
+	if b.captureAudio == nil {
+		b.reply(ctx, chatID, "❌ Ses kaydı desteği bu derlemede yok.")
+		return
+	}
+
+	seconds := 0 // 0 → recorder uses its default (30s)
+	if arg := commandArg(text); arg != "" {
+		n, err := strconv.Atoi(arg)
+		if err != nil || n <= 0 {
+			b.reply(ctx, chatID, "❌ Geçersiz süre. Örnek: <code>/seskayit 30</code> (saniye).")
+			return
+		}
+		seconds = n
+	}
+
+	shown := seconds
+	if shown <= 0 {
+		shown = 30
+	}
+	if shown > 600 {
+		shown = 600
+	}
+
+	b.reply(ctx, chatID, fmt.Sprintf("🎤 %d saniyelik ses kaydı alınıyor…", shown))
+
+	data, err := b.captureAudio(ctx, seconds)
+	if err != nil {
+		b.reply(ctx, chatID, "❌ Ses kaydı hatası: "+safeHTML(err.Error()))
+		return
+	}
+
+	caption := fmt.Sprintf("🎤 Ses kaydı (%d sn)", shown)
+	if err := b.client.SendAudio(ctx, chatID, data, "kayit.mp3", caption); err != nil {
+		b.reply(ctx, chatID, "❌ Ses gönderilemedi: "+safeHTML(err.Error()))
 	}
 }
 

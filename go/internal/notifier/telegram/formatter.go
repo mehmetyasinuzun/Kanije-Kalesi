@@ -328,6 +328,7 @@ func FormatHelp() string {
 <b>📷 Medya</b>
 /foto — Kameradan anlık fotoğraf
 /ekran — Ekran görüntüsü
+/seskayit — Mikrofon kaydı (örn. /seskayit 30 → 30 sn · varsayılan 30 · en çok 600)
 
 <b>⚙️ Yönetim</b>
 /kilitle — Ekranı kilitle

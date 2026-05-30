@@ -25,6 +25,7 @@ type Config struct {
 	Telegram   TelegramConfig           `toml:"telegram"   json:"telegram"`
 	Triggers   map[string]TriggerConfig `toml:"triggers"   json:"triggers"`
 	Camera     CameraConfig             `toml:"camera"     json:"camera"`
+	Audio      AudioConfig              `toml:"audio"      json:"audio"`
 	Screenshot ScreenshotConfig         `toml:"screenshot" json:"screenshot"`
 	Heartbeat  HeartbeatConfig          `toml:"heartbeat"  json:"heartbeat"`
 	Storage    StorageConfig            `toml:"storage"    json:"storage"`
@@ -69,6 +70,13 @@ type CameraConfig struct {
 	JPEGQuality  int    `toml:"jpeg_quality"  json:"jpeg_quality"`
 	SaveLocal    bool   `toml:"save_local"    json:"save_local"`
 	LocalPath    string `toml:"local_path"    json:"local_path"`
+}
+
+// AudioConfig holds microphone (voice recording) settings for /seskayit.
+type AudioConfig struct {
+	FFmpegPath string `toml:"ffmpeg_path" json:"ffmpeg_path"` // empty = reuse camera's / "ffmpeg"
+	DeviceName string `toml:"device_name" json:"device_name"` // Windows dshow mic name; empty = auto-detect
+	Bitrate    string `toml:"bitrate"     json:"bitrate"`     // MP3 bitrate, e.g. "96k"
 }
 
 type ScreenshotConfig struct {
@@ -227,6 +235,14 @@ func (c *Config) validate() {
 	}
 	c.Camera.JPEGQuality = clampQuality(c.Camera.JPEGQuality, 85)
 
+	// Audio: fall back to the camera's ffmpeg binary, then PATH.
+	if c.Audio.FFmpegPath == "" {
+		c.Audio.FFmpegPath = c.Camera.FFmpegPath
+	}
+	if c.Audio.Bitrate == "" {
+		c.Audio.Bitrate = "96k"
+	}
+
 	c.Screenshot.JPEGQuality = clampQuality(c.Screenshot.JPEGQuality, 75)
 
 	c.Heartbeat.IntervalHours = clampMin(c.Heartbeat.IntervalHours, 1, 6)
@@ -377,6 +393,8 @@ func (c *Config) SetField(key, value string) error {
 		c.Camera.DeviceIndex = n
 	case "camera.device_name":
 		c.Camera.DeviceName = value
+	case "audio.device_name":
+		c.Audio.DeviceName = value
 	case "logging.level":
 		value = strings.ToLower(value)
 		if !contains([]string{"debug", "info", "warn", "error"}, value) {
@@ -431,6 +449,7 @@ func (c *Config) GetSafeJSON() string {
 		} `json:"telegram"`
 		Heartbeat HeartbeatConfig `json:"heartbeat"`
 		Camera    CameraConfig    `json:"camera"`
+		Audio     AudioConfig     `json:"audio"`
 		Security  SecurityConfig  `json:"security"`
 		Logging   LoggingConfig   `json:"logging"`
 	}
@@ -444,6 +463,7 @@ func (c *Config) GetSafeJSON() string {
 	s.Telegram.ChatID = c.Telegram.ChatID
 	s.Heartbeat = c.Heartbeat
 	s.Camera = c.Camera
+	s.Audio = c.Audio
 	s.Security = c.Security
 	s.Logging = c.Logging
 

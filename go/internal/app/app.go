@@ -98,6 +98,13 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		JPEGQuality:  cfg.Camera.JPEGQuality,
 	}, log.With("module", "camera"))
 
+	// Audio recorder (microphone via ffmpeg) — on-demand /seskayit
+	audioRec := capture.NewAudioRecorder(capture.AudioConfig{
+		FFmpegPath: cfg.Audio.FFmpegPath,
+		DeviceName: cfg.Audio.DeviceName,
+		Bitrate:    cfg.Audio.Bitrate,
+	}, log.With("module", "audio"))
+
 	// Screenshot
 	screen := capture.NewScreenshotter(cfg.Screenshot.JPEGQuality, log.With("module", "screenshot"))
 
@@ -131,6 +138,7 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		LockScreen:    lockScreen,
 		CapturePhoto:  cam.Capture,
 		CaptureScreen: screen.Capture,
+		CaptureAudio:  audioRec.Record,
 		GetStatus:     app.collectStatus,
 		CheckUpdate:   func(ctx context.Context) string { return app.checkForUpdate(ctx, true) },
 	})

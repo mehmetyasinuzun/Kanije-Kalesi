@@ -194,6 +194,15 @@ func (c *Client) SendPhoto(ctx context.Context, chatID int64, data []byte, capti
 	return c.sendMedia(ctx, "sendPhoto", "photo", "photo.jpg", chatID, data, caption)
 }
 
+// SendAudio sends an MP3 audio clip (e.g. a microphone recording) with an
+// optional caption. Telegram renders it with an inline player.
+func (c *Client) SendAudio(ctx context.Context, chatID int64, data []byte, filename, caption string) error {
+	if filename == "" {
+		filename = "kayit.mp3"
+	}
+	return c.sendMedia(ctx, "sendAudio", "audio", filename, chatID, data, caption)
+}
+
 // AnswerCallbackQuery acknowledges a callback query (clears the button's loading state).
 func (c *Client) AnswerCallbackQuery(ctx context.Context, callbackID, text string) error {
 	params := map[string]any{
