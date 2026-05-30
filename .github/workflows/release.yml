@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write # GitHub Release oluşturmak/varlık yüklemek için
+
+defaults:
+  run:
+    working-directory: go
+
+jobs:
+  release:
+    name: Derle ve yayınla
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go/go.mod
+          cache-dependency-path: go/go.sum
+
+      - name: Tüm platformları derle
+        run: |
+          VERSION="${GITHUB_REF_NAME}"
+          DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          LD="-s -w -X main.Version=${VERSION} -X main.BuildDate=${DATE}"
+          mkdir -p dist
+          # Windows: -H=windowsgui → konsol penceresi açmaz (gizli çalışma)
+          GOOS=windows GOARCH=amd64       CGO_ENABLED=0 go build -ldflags="${LD} -H=windowsgui" -o dist/kanije-windows-amd64.exe ./cmd/kanije/
+          GOOS=linux   GOARCH=amd64       CGO_ENABLED=0 go build -ldflags="${LD}" -o dist/kanije-linux-amd64 ./cmd/kanije/
+          GOOS=linux   GOARCH=arm64       CGO_ENABLED=0 go build -ldflags="${LD}" -o dist/kanije-linux-arm64 ./cmd/kanije/
+          GOOS=linux   GOARCH=arm GOARM=7 CGO_ENABLED=0 go build -ldflags="${LD}" -o dist/kanije-linux-arm ./cmd/kanije/
+          (cd dist && sha256sum kanije-* > SHA256SUMS.txt)
+          ls -lh dist
+
+      - name: GitHub Release oluştur
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            go/dist/kanije-windows-amd64.exe
+            go/dist/kanije-linux-amd64
+            go/dist/kanije-linux-arm64
+            go/dist/kanije-linux-arm
+            go/dist/SHA256SUMS.txt
+          generate_release_notes: true

@@ -234,6 +234,12 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 		return
 	}
 
+	// Quiet hours: during the configured window only alert/critical events are
+	// pushed; everything else is stored silently (no notify, no media capture).
+	if ev.Severity < event.SeverityAlert && a.cfg.InQuietHours(ev.Timestamp) {
+		return
+	}
+
 	// Capture media if configured
 	if trig.CaptureCamera {
 		if data, err := a.camera.Capture(ctx); err == nil {
@@ -292,7 +298,7 @@ func (a *App) heartbeat(ctx context.Context) error {
 		case <-ctx.Done():
 			return nil
 		case <-ticker.C:
-			if a.cfg.HeartbeatEnabled() {
+			if a.cfg.HeartbeatEnabled() && !a.cfg.InQuietHours(time.Now()) {
 				a.sendHeartbeat(ctx)
 			}
 		}

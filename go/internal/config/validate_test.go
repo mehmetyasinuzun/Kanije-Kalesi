@@ -112,6 +112,45 @@ func TestThreadSafeGetters(t *testing.T) {
 	}
 }
 
+func TestInQuietHours(t *testing.T) {
+	at := func(h int) time.Time { return time.Date(2026, 1, 1, h, 0, 0, 0, time.Local) }
+
+	c := Defaults()
+	c.QuietHours.Enabled = true
+	c.QuietHours.StartHour = 23
+	c.QuietHours.EndHour = 7 // gece yarısını aşan pencere
+
+	if !c.InQuietHours(at(2)) {
+		t.Error("02:00 sessiz olmalı (gece yarısı aşımı)")
+	}
+	if !c.InQuietHours(at(23)) {
+		t.Error("23:00 sessiz olmalı (başlangıç dahil)")
+	}
+	if c.InQuietHours(at(7)) {
+		t.Error("07:00 sessiz olmamalı (bitiş hariç)")
+	}
+	if c.InQuietHours(at(12)) {
+		t.Error("12:00 sessiz olmamalı")
+	}
+
+	// Kapalıyken hiçbir saat sessiz değil.
+	c.QuietHours.Enabled = false
+	if c.InQuietHours(at(2)) {
+		t.Error("kapalıyken sessiz saat olmamalı")
+	}
+
+	// Aynı gün içindeki pencere.
+	c.QuietHours.Enabled = true
+	c.QuietHours.StartHour = 9
+	c.QuietHours.EndHour = 17
+	if !c.InQuietHours(at(12)) {
+		t.Error("09-17 arası 12:00 sessiz olmalı")
+	}
+	if c.InQuietHours(at(20)) {
+		t.Error("20:00 sessiz olmamalı")
+	}
+}
+
 func TestNetworkTriggersMigratedOnLoad(t *testing.T) {
 	dir := t.TempDir()
 	path := filepath.Join(dir, "old.toml")

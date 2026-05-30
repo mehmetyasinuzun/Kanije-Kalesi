@@ -42,6 +42,9 @@ type Bot struct {
 	// touch pendingAction concurrently.
 	mu            sync.Mutex
 	pendingAction *ActionState
+
+	// Per-chat command rate limiter (anti-abuse).
+	cmdLimiter *cmdRateLimiter
 }
 
 // BotConfig holds dependencies for the Bot.
@@ -69,6 +72,7 @@ func NewBot(cfg BotConfig) *Bot {
 		capturePhoto:  cfg.CapturePhoto,
 		captureScreen: cfg.CaptureScreen,
 		getStatus:     cfg.GetStatus,
+		cmdLimiter:    newCmdRateLimiter(cfg.Config.MaxCommandsPerMinute()),
 	}
 }
 
@@ -168,6 +172,13 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.log.Warn("yetkisiz mesaj alındı",
 			"chat_id", m.Chat.ID,
 			"from", m.From.Username)
+		return
+	}
+
+	// Per-chat command rate limit (anti-abuse — bir saldırgan /foto spam'i ile
+	// kamerayı kilitleyemesin). Aşımda mesaj sessizce düşürülür.
+	if !b.cmdLimiter.allow(m.Chat.ID) {
+		b.log.Debug("komut hız sınırı aşıldı, mesaj atlanıyor", "chat_id", m.Chat.ID)
 		return
 	}
 

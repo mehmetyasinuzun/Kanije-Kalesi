@@ -82,7 +82,33 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 
 ## Kurulum
 
-### Ön Gereksinimler
+### ⚡ Hızlı Kurulum — ~10 saniye, Go gerekmez (önerilen)
+
+Hazır binary indirilir, **gizli** (masaüstünde ikon/pencere yok) ve **yükseltilmiş**
+(giriş denemelerini görebilmek için) bir otomatik-başlatma görevi olarak kurulur. Tek onay.
+
+**Windows** — Yönetici PowerShell'de tek satır:
+```powershell
+irm https://raw.githubusercontent.com/mehmetyasinuzun/Kanije-Kalesi/master/go/deploy/windows/get.ps1 | iex
+```
+Bot Token ve Chat ID sorulur, gerisi otomatik. Alternatif: [Releases](../../releases)'tan
+`kanije-windows-amd64.exe` + `install.bat`'ı indirip **install.bat'a çift tıklayın**.
+
+**Linux / Raspberry Pi** — tek satır:
+```bash
+curl -fsSL https://raw.githubusercontent.com/mehmetyasinuzun/Kanije-Kalesi/master/go/deploy/linux/get.sh | sudo bash -s -- --token "BOT_TOKEN" --chat "CHAT_ID"
+```
+
+Kurulumdan sonra Telegram botunuza **/kurulum** yazın — gerisi oradan.
+
+> 🔇 **Gizli çalışma:** Ajan masaüstünde hiçbir iz bırakmaz (konsol penceresi yok,
+> sistem tepsisi ikonu yok). Bilgisayara izinsiz erişmek isteyen biri uygulamayı göremez.
+
+<br>
+
+### Manuel / Geliştirici Kurulumu (Go ile)
+
+#### Ön Gereksinimler
 
 | | Gereksinim | Kontrol |
 |-|-----------|---------|

@@ -47,11 +47,20 @@ func Defaults() *Config {
 		Security: SecurityConfig{
 			DeleteCapturesAfterSend: true,
 			MaxEventsPerMinute:      10,
+			MaxCommandsPerMinute:    20,
 			DedupWindowSec:          3,
 			SingleInstance:          true,
 		},
+		QuietHours: QuietHoursConfig{
+			Enabled:   false,
+			StartHour: 23,
+			EndHour:   7,
+		},
 		Tray: TrayConfig{
-			Enabled: true,
+			// Stealth by default: no system-tray icon. Combined with the
+			// -H=windowsgui build (no console window), the agent runs fully
+			// hidden — an intruder sees nothing on the desktop.
+			Enabled: false,
 		},
 		Network: NetworkConfig{
 			CheckIntervalSec: 5,

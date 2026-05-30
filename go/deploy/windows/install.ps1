@@ -1,128 +1,237 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Kanije Kalesi - Windows Kurulum Scripti
+    Kanije Kalesi - Windows tek-tik, gizli kurulum.
 
 .DESCRIPTION
-    Go binary'sini Windows Task Scheduler'a kaydeder.
-    Sisteme giriş yapıldığında otomatik olarak arka planda başlar.
-    Konsol penceresi açmaz (-H=windowsgui ile derlenmiştir).
+    Tek bir UAC onayiyla her seyi yapar:
+      1. Kendini yonetici olarak yukseltir (gereken tum izinler bastan alinir).
+      2. kanije.exe'yi bulur -> yoksa GitHub Release'ten indirir -> o da yoksa Go ile derler.
+      3. Telegram token + chat ID'yi alir (parametre verilmezse sorar).
+      4. Gizli (pencere/ikon yok) ve YUKSELTILMIS bir zamanlanmis gorev kurar.
+         Yukseltilmis gorev sayesinde Guvenlik olay gunlugu (giris denemeleri)
+         okunabilir ve bir daha UAC sorulmaz.
+      5. Ajani hemen baslatir.
 
-.PARAMETER Remove
-    Zamanlanmış görevi kaldırır.
+    Kurulduktan sonra masaustunde HICBIR sey gorunmez. Yonetim Telegram'dan yapilir.
 
-.PARAMETER Status
-    Görev durumunu gösterir.
+.PARAMETER Token   Telegram bot token (verilmezse sorulur)
+.PARAMETER Chat    Telegram chat ID (verilmezse sorulur)
+.PARAMETER Remove  Kurulumu kaldirir (config korunur)
+.PARAMETER Status  Gorev durumunu gosterir
+.PARAMETER NoStart Kurar ama hemen baslatmaz
 
 .EXAMPLE
-    .\install.ps1              # Kur
-    .\install.ps1 -Remove      # Kaldır
-    .\install.ps1 -Status      # Durum
-
-.NOTES
-    Yönetici hakları gerekmez (kullanıcı Task Scheduler kullanılır).
-    Binary'nin aynı dizinde olması veya PATH'de bulunması gerekir.
+    .\install.ps1
+    .\install.ps1 -Token "123:ABC" -Chat "987654321"
+    .\install.ps1 -Remove
 #>
-
 param(
+    [string]$Token,
+    [string]$Chat,
     [switch]$Remove,
-    [switch]$Status
+    [switch]$Status,
+    [switch]$NoStart
 )
 
-Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
+# Turkce karakterler konsolda dogru gorunsun.
+try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
+
+# ---- Sabitler ----
 $TaskName   = "KanijeKalesi"
-$TaskDesc   = "Kanije Kalesi güvenlik izleme aracı — otomatik başlatma"
-$BinaryName = "kanije.exe"
+$AppName    = "KanijeKalesi"
+$InstallDir = Join-Path $env:LOCALAPPDATA $AppName
+$BinaryPath = Join-Path $InstallDir "kanije.exe"
+$ConfigPath = Join-Path $InstallDir "config.toml"
+$RepoOwner  = "mehmetyasinuzun"
+$RepoName   = "Kanije-Kalesi"
+$AssetName  = "kanije-windows-amd64.exe"
 
-# Locate the binary
-$ScriptDir  = Split-Path -Parent $MyInvocation.MyCommand.Path
-$BinaryPath = Join-Path (Split-Path -Parent $ScriptDir) $BinaryName
+function Write-Step($msg)    { Write-Host "  > $msg" -ForegroundColor Cyan }
+function Write-Ok($msg)      { Write-Host "[OK] $msg" -ForegroundColor Green }
+function Write-WarnMsg($msg) { Write-Host "[!]  $msg" -ForegroundColor Yellow }
 
-if (-not (Test-Path $BinaryPath)) {
-    # Try PATH
-    $found = Get-Command $BinaryName -ErrorAction SilentlyContinue
-    if ($found) {
-        $BinaryPath = $found.Source
-    } else {
-        Write-Error "kanije.exe bulunamadı. Binary'nin PATH'de veya proje dizininde olduğundan emin olun."
-        exit 1
-    }
+# ---- Yonetici kontrolu ve kendini yukseltme ----
+function Test-Admin {
+    $id = [Security.Principal.WindowsIdentity]::GetCurrent()
+    (New-Object Security.Principal.WindowsPrincipal($id)).IsInRole(
+        [Security.Principal.WindowsBuiltInRole]::Administrator)
 }
 
-$ConfigPath = Join-Path (Split-Path -Parent $BinaryPath) "config.toml"
+if (-not (Test-Admin)) {
+    if (-not $PSCommandPath) {
+        Write-WarnMsg "Bu betik bir dosyadan calistirilmali. Yonetici PowerShell'de tekrar deneyin."
+        exit 1
+    }
+    Write-Host "Yonetici haklari isteniyor (tek seferlik)..." -ForegroundColor Yellow
+    $argList = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "`"$PSCommandPath`"")
+    if ($Token)   { $argList += @("-Token", "`"$Token`"") }
+    if ($Chat)    { $argList += @("-Chat", "`"$Chat`"") }
+    if ($Remove)  { $argList += "-Remove" }
+    if ($Status)  { $argList += "-Status" }
+    if ($NoStart) { $argList += "-NoStart" }
+    Start-Process powershell.exe -Verb RunAs -ArgumentList $argList
+    exit
+}
 
+# ---- Durum ----
 if ($Status) {
     $task = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
     if ($task) {
-        Write-Host "✅ Görev kayıtlı: $TaskName" -ForegroundColor Green
-        Write-Host "   Durum : $($task.State)"
+        Write-Ok "Kurulu: $TaskName ($($task.State))"
         Write-Host "   Binary: $BinaryPath"
+        Write-Host "   Config: $ConfigPath"
     } else {
-        Write-Host "❌ Görev bulunamadı: $TaskName" -ForegroundColor Red
+        Write-WarnMsg "Kurulu degil."
     }
+    Read-Host "`nKapatmak icin Enter"
     exit 0
 }
 
+# ---- Kaldirma ----
 if ($Remove) {
+    Stop-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
     Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false -ErrorAction SilentlyContinue
-    Write-Host "✅ Görev kaldırıldı: $TaskName" -ForegroundColor Green
+    Get-Process -Name "kanije" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+    Write-Ok "Kaldirildi. Yapilandirma korundu: $ConfigPath"
+    Read-Host "`nKapatmak icin Enter"
     exit 0
 }
 
-# ---- Install ----
+Write-Host ""
+Write-Host "=== Kanije Kalesi - Kurulum ===" -ForegroundColor Cyan
+Write-Host ""
 
-Write-Host "🏰 Kanije Kalesi kurulum başlatılıyor..." -ForegroundColor Cyan
-Write-Host "   Binary : $BinaryPath"
-Write-Host "   Config : $ConfigPath"
+New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
 
-# Build task arguments
-$Arguments = "start"
-if (Test-Path $ConfigPath) {
-    $Arguments += " --config `"$ConfigPath`""
+# ---- 1) Binary'yi temin et ----
+function Resolve-Binary {
+    if (Test-Path $BinaryPath) { return $true }
+
+    $scriptDir = Split-Path -Parent $PSCommandPath
+    $goRoot    = Split-Path -Parent (Split-Path -Parent $scriptDir)  # .../go
+
+    $candidates = @(
+        (Join-Path $goRoot "kanije.exe"),
+        (Join-Path $goRoot "dist\$AssetName"),
+        (Join-Path $scriptDir "kanije.exe")
+    )
+    foreach ($c in $candidates) {
+        if (Test-Path $c) {
+            Copy-Item $c $BinaryPath -Force
+            Write-Ok "Yerel binary kullanildi: $c"
+            return $true
+        }
+    }
+
+    Write-Step "Hazir binary indiriliyor (GitHub Release)..."
+    try {
+        $rel = Invoke-RestMethod -Uri "https://api.github.com/repos/$RepoOwner/$RepoName/releases/latest" `
+            -Headers @{ "User-Agent" = "kanije-installer" }
+        $asset = $rel.assets | Where-Object { $_.name -eq $AssetName } | Select-Object -First 1
+        if ($asset) {
+            Invoke-WebRequest -Uri $asset.browser_download_url -OutFile $BinaryPath -UseBasicParsing
+            Write-Ok "Indirildi: $($rel.tag_name)"
+            return $true
+        }
+        Write-WarnMsg "Release varligi bulunamadi: $AssetName"
+    } catch {
+        Write-WarnMsg "Indirme basarisiz: $($_.Exception.Message)"
+    }
+
+    if (Get-Command go -ErrorAction SilentlyContinue) {
+        if (Test-Path (Join-Path $goRoot "cmd\kanije")) {
+            Write-Step "Go ile derleniyor..."
+            Push-Location $goRoot
+            try {
+                & go build -ldflags="-s -w -H=windowsgui" -o $BinaryPath ./cmd/kanije/
+                if (Test-Path $BinaryPath) { Write-Ok "Derlendi"; return $true }
+            } finally { Pop-Location }
+        }
+    }
+
+    return $false
 }
 
-# Create the task action
-$Action  = New-ScheduledTaskAction -Execute $BinaryPath -Argument $Arguments -WorkingDirectory (Split-Path $BinaryPath)
+if (-not (Resolve-Binary)) {
+    Write-WarnMsg "kanije.exe temin edilemedi (indirme ve derleme basarisiz)."
+    Write-Host "   Internet baglantinizi kontrol edin veya Go kurun: https://go.dev/dl/"
+    Read-Host "`nKapatmak icin Enter"
+    exit 1
+}
 
-# Trigger: At user logon
+# ---- 2) Telegram bilgilerini al ----
+if (-not (Test-Path $ConfigPath)) {
+    if (-not $Token) {
+        Write-Host ""
+        Write-Host "Telegram bot bilgileri gerekli:" -ForegroundColor Yellow
+        Write-Host "  - Token: @BotFather -> /newbot"
+        Write-Host "  - Chat ID: @userinfobot -> /start"
+        Write-Host ""
+        $Token = Read-Host "Bot Token"
+    }
+    if (-not $Chat) {
+        $Chat = Read-Host "Chat ID"
+    }
+
+    Write-Step "Yapilandirma kaydediliyor..."
+    & $BinaryPath setup --token "$Token" --chat "$Chat" --config "$ConfigPath" | Out-Null
+    if (-not (Test-Path $ConfigPath)) {
+        Write-WarnMsg "Yapilandirma olusturulamadi (token/chat gecersiz olabilir)."
+        Read-Host "`nKapatmak icin Enter"
+        exit 1
+    }
+
+    Write-Step "Telegram baglantisi test ediliyor..."
+    & $BinaryPath test --config "$ConfigPath"
+} else {
+    Write-Ok "Mevcut yapilandirma kullaniliyor: $ConfigPath"
+}
+
+# ---- 3) Gizli + yukseltilmis zamanlanmis gorev ----
+Write-Step "Otomatik baslatma gorevi kuruluyor (gizli, yukseltilmis)..."
+
+$Action = New-ScheduledTaskAction -Execute $BinaryPath `
+    -Argument "start --config `"$ConfigPath`"" -WorkingDirectory $InstallDir
+
 $Trigger = New-ScheduledTaskTrigger -AtLogOn
 
-# Settings: restart on failure, allow running on battery, no UI
 $Settings = New-ScheduledTaskSettingsSet `
-    -ExecutionTimeLimit (New-TimeSpan -Hours 0) `
+    -AllowStartIfOnBatteries `
+    -DontStopIfGoingOnBatteries `
+    -StartWhenAvailable `
     -RestartCount 3 `
     -RestartInterval (New-TimeSpan -Minutes 1) `
-    -StartWhenAvailable `
-    -RunOnlyIfNetworkAvailable:$false `
-    -DisallowHardTerminate:$false
+    -ExecutionTimeLimit (New-TimeSpan -Seconds 0) `
+    -Hidden
 
-# Principal: current user, no elevation needed
+# RunLevel Highest -> yukseltilmis calisir, calisma zamaninda UAC sorulmaz.
 $Principal = New-ScheduledTaskPrincipal `
-    -UserId $env:USERNAME `
+    -UserId "$env:USERDOMAIN\$env:USERNAME" `
     -LogonType Interactive `
-    -RunLevel Limited
+    -RunLevel Highest
 
-# Remove existing task if present
-Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false -ErrorAction SilentlyContinue
+Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger `
+    -Settings $Settings -Principal $Principal `
+    -Description "Kanije Kalesi - gizli guvenlik izleme" -Force | Out-Null
 
-# Register
-Register-ScheduledTask `
-    -TaskName   $TaskName `
-    -Action     $Action `
-    -Trigger    $Trigger `
-    -Settings   $Settings `
-    -Principal  $Principal `
-    -Description $TaskDesc | Out-Null
+Write-Ok "Gorev kuruldu (oturum acilisinda otomatik, gizli)"
+
+# ---- 4) Baslat ----
+if (-not $NoStart) {
+    Start-ScheduledTask -TaskName $TaskName
+    Write-Ok "Ajan baslatildi - arka planda, gorunmez calisiyor"
+}
 
 Write-Host ""
-Write-Host "✅ Kurulum tamamlandı!" -ForegroundColor Green
+Write-Host "===============================================" -ForegroundColor Green
+Write-Ok "Kurulum tamamlandi!"
 Write-Host ""
-Write-Host "Yapılandırma (henüz yapılmadıysa):"
-Write-Host "  kanije.exe setup --token <BOT_TOKEN> --chat <CHAT_ID>"
-Write-Host ""
-Write-Host "Şimdi başlatmak için:"
-Write-Host "  Start-ScheduledTask -TaskName $TaskName"
-Write-Host ""
-Write-Host "Sistemi yeniden başlattığınızda otomatik olarak çalışacak."
+Write-Host "  - Masaustunde hicbir ikon/pencere gorunmez."
+Write-Host "  - Telegram botunuza /kurulum yazarak ayarlayin."
+Write-Host "  - Kaldirmak icin: install.ps1 -Remove"
+Write-Host "===============================================" -ForegroundColor Green
+Start-Sleep -Seconds 1

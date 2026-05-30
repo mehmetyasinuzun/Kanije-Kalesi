@@ -175,6 +175,10 @@ delete_captures_after_send = true
 # Dakikada maksimum işlenecek olay sayısı (her tür için)
 max_events_per_minute = 10
 
+# Bir sohbetten dakikada işlenecek maksimum bot komutu (anti-abuse).
+# Yetkili bile olsa /foto spam'i ile kamerayı kilitlemeyi engeller.
+max_commands_per_minute = 20
+
 # Aynı olay N saniye içinde tekrar gelirse atla (duplikasyon önleme)
 dedup_window_sec = 3
 
@@ -185,8 +189,10 @@ single_instance = true
 # ─── Sistem Tepsisi ──────────────────────────────────────────────
 
 [tray]
-# Windows/Linux masaüstünde sistem tepsisi ikonu göster
-enabled = true
+# Sistem tepsisi ikonu. Varsayılan KAPALI — gizli (stealth) çalışma için.
+# Konsol penceresi -H=windowsgui derlemesiyle zaten açılmaz; ikon da olmayınca
+# ajan masaüstünde tamamen görünmez kalır. Sadece görünür olmasını istiyorsanız açın.
+enabled = false
 
 
 # ─── Ağ İzleme ───────────────────────────────────────────────────
@@ -198,3 +204,14 @@ check_interval_sec = 5
 # Hangi sunucuya bağlanarak internet kontrolü yapılır
 check_host = "api.telegram.org"
 check_port = 443
+
+
+# ─── Sessiz Saatler (DND) ────────────────────────────────────────
+# Belirlenen saat aralığında yalnızca KRİTİK olaylar (başarısız giriş gibi)
+# bildirilir; diğerleri sessizce kaydedilir. Heartbeat de bu aralıkta susar.
+# Gece yarısını aşan aralık desteklenir (örn. 23 → 7).
+
+[quiet_hours]
+enabled    = false
+start_hour = 23   # 0-23, dahil
+end_hour   = 7    # 0-23, hariç

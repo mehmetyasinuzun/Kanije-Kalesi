@@ -27,10 +27,11 @@ type Config struct {
 	Screenshot ScreenshotConfig         `toml:"screenshot" json:"screenshot"`
 	Heartbeat  HeartbeatConfig          `toml:"heartbeat"  json:"heartbeat"`
 	Storage    StorageConfig            `toml:"storage"    json:"storage"`
-	Logging    LoggingConfig            `toml:"logging"    json:"logging"`
-	Security   SecurityConfig           `toml:"security"   json:"security"`
-	Tray       TrayConfig               `toml:"tray"       json:"tray"`
-	Network    NetworkConfig            `toml:"network"    json:"network"`
+	Logging    LoggingConfig            `toml:"logging"     json:"logging"`
+	Security   SecurityConfig           `toml:"security"    json:"security"`
+	Tray       TrayConfig               `toml:"tray"        json:"tray"`
+	Network    NetworkConfig            `toml:"network"     json:"network"`
+	QuietHours QuietHoursConfig         `toml:"quiet_hours" json:"quiet_hours"`
 
 	// Runtime path — where to save changes
 	filePath string `toml:"-" json:"-"`
@@ -96,8 +97,17 @@ type LoggingConfig struct {
 type SecurityConfig struct {
 	DeleteCapturesAfterSend bool `toml:"delete_captures_after_send" json:"delete_captures_after_send"`
 	MaxEventsPerMinute      int  `toml:"max_events_per_minute"      json:"max_events_per_minute"`
+	MaxCommandsPerMinute    int  `toml:"max_commands_per_minute"    json:"max_commands_per_minute"`
 	DedupWindowSec          int  `toml:"dedup_window_sec"           json:"dedup_window_sec"`
 	SingleInstance          bool `toml:"single_instance"            json:"single_instance"`
+}
+
+// QuietHoursConfig suppresses non-critical notifications during a daily window
+// (e.g. overnight). Alert/critical events always get through.
+type QuietHoursConfig struct {
+	Enabled   bool `toml:"enabled"    json:"enabled"`
+	StartHour int  `toml:"start_hour" json:"start_hour"` // 0-23, dahil
+	EndHour   int  `toml:"end_hour"   json:"end_hour"`   // 0-23, hariç
 }
 
 type TrayConfig struct {
@@ -194,8 +204,16 @@ func (c *Config) validate() {
 	c.Storage.EventRetentionDays = clampMin(c.Storage.EventRetentionDays, 1, 30)
 
 	c.Security.MaxEventsPerMinute = clampMin(c.Security.MaxEventsPerMinute, 1, 10)
+	c.Security.MaxCommandsPerMinute = clampMin(c.Security.MaxCommandsPerMinute, 1, 20)
 	if c.Security.DedupWindowSec < 0 {
 		c.Security.DedupWindowSec = 0 // 0 disables dedup
+	}
+
+	if c.QuietHours.StartHour < 0 || c.QuietHours.StartHour > 23 {
+		c.QuietHours.StartHour = 23
+	}
+	if c.QuietHours.EndHour < 0 || c.QuietHours.EndHour > 23 {
+		c.QuietHours.EndHour = 7
 	}
 
 	c.Network.CheckIntervalSec = clampMin(c.Network.CheckIntervalSec, 1, 5)
@@ -461,6 +479,32 @@ func (c *Config) MaxRecentEvents() int {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.Storage.MaxRecentEvents
+}
+
+// MaxCommandsPerMinute returns the per-chat bot-command rate limit.
+func (c *Config) MaxCommandsPerMinute() int {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Security.MaxCommandsPerMinute
+}
+
+// InQuietHours reports whether the given time falls inside the configured quiet
+// window. Handles overnight wraparound (e.g. 23:00–07:00). During quiet hours
+// only alert/critical events notify; everything else is stored silently.
+func (c *Config) InQuietHours(now time.Time) bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	if !c.QuietHours.Enabled {
+		return false
+	}
+	s, e, h := c.QuietHours.StartHour, c.QuietHours.EndHour, now.Hour()
+	if s == e {
+		return false
+	}
+	if s < e {
+		return h >= s && h < e // aynı gün içinde
+	}
+	return h >= s || h < e // gece yarısını aşan pencere
 }
 
 // FilePath returns the config file path in use.

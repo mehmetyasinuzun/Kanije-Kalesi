@@ -1,0 +1,21 @@
+# Satır sonlarını platformdan bağımsız sabitle.
+# Özellikle *.sh LF olmalı — CRLF olursa Linux'ta "bash\r" hatası verir.
+* text=auto
+
+*.go   text eol=lf
+*.sh   text eol=lf
+*.toml text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.md   text eol=lf
+Makefile text eol=lf
+
+# Windows betikleri CRLF kalsın (yerel araçlarla uyum).
+*.bat  text eol=crlf
+*.ps1  text eol=crlf
+
+# İkili dosyalar.
+*.exe  binary
+*.png  binary
+*.jpg  binary
+*.db   binary
