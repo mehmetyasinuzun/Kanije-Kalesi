@@ -12,6 +12,7 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/access"
 	"github.com/kanije-kalesi/kanije/internal/config"
 	"github.com/kanije-kalesi/kanije/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/shell"
 	"github.com/kanije-kalesi/kanije/internal/storage"
 	"github.com/kanije-kalesi/kanije/internal/totp"
 )
@@ -35,6 +36,7 @@ type Bot struct {
 	wizard *SetupWizard
 	store  storage.Storage
 	acl    *access.Manager
+	term   *shell.Runner
 	log    *slog.Logger
 
 	// System services provided by the app layer
@@ -66,6 +68,7 @@ type BotConfig struct {
 	Wizard        *SetupWizard
 	Store         storage.Storage
 	Access        *access.Manager
+	Shell         *shell.Runner
 	Log           *slog.Logger
 	DeviceLabel   string
 	OSName        string
@@ -85,6 +88,7 @@ func NewBot(cfg BotConfig) *Bot {
 		wizard:        cfg.Wizard,
 		store:         cfg.Store,
 		acl:           cfg.Access,
+		term:          cfg.Shell,
 		log:           cfg.Log,
 		deviceLabel:   cfg.DeviceLabel,
 		osName:        cfg.OSName,
@@ -210,6 +214,7 @@ var commandCaps = map[string]access.Capability{
 	"/ekle": access.CapInvite, "/davet": access.CapInvite,
 	"/yonetim": access.CapInvite, "/kisiler": access.CapInvite,
 	"/loglar": access.CapManage, "/audit": access.CapManage,
+	"/terminal": access.CapTerminal, "/terminalix": access.CapTerminal,
 }
 
 // groupBroadcastCmds run on every device in a shared group (no device target).
@@ -343,6 +348,10 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdLoglar(ctx, chatID)
 	case "/cihazlar", "/devices":
 		b.cmdCihazlar(ctx, chatID)
+	case "/terminal":
+		b.cmdTerminal(ctx, chatID, text, false)
+	case "/terminalix":
+		b.cmdTerminal(ctx, chatID, text, true)
 	default:
 		if text != "" && isCommand(text) {
 			b.reply(ctx, chatID, "❓ <b>Bilinmeyen komut:</b> <code>"+safeHTML(cmd)+"</code>\n\n"+
@@ -449,6 +458,51 @@ func (b *Bot) cmdCihazlar(ctx context.Context, chatID int64) {
 		info = b.getStatus()
 	}
 	b.reply(ctx, chatID, FormatDeviceCard(b.deviceLabel, b.osName, info))
+}
+
+// cmdTerminal runs a remote shell command. The session's working directory
+// persists between calls (so `cd` works like an interactive shell). Gated by
+// CapTerminal; every invocation is recorded in the audit log.
+func (b *Bot) cmdTerminal(ctx context.Context, chatID int64, text string, elevated bool) {
+	if b.term == nil {
+		b.reply(ctx, chatID, "❌ Terminal bu derlemede yok.")
+		return
+	}
+	command := commandRest(text)
+	if command == "" {
+		b.reply(ctx, chatID, fmt.Sprintf(
+			"💻 <b>Terminal</b>\nKullanım: <code>/terminal &lt;komut&gt;</code>\n"+
+				"Örn: <code>/terminal whoami</code> · <code>/terminal cd C:\\</code> (kalıcı)\n\n📂 Dizin: <code>%s</code>",
+			safeHTML(b.term.Cwd(chatID))))
+		return
+	}
+
+	out := b.term.Run(ctx, chatID, command)
+	if b.acl != nil {
+		b.acl.Log(ctx, chatID, "terminal", firstWord(command))
+	}
+
+	header := "💻 <code>" + safeHTML(command) + "</code>"
+	if elevated {
+		header = "💻🛡️ <b>[admin]</b> <code>" + safeHTML(command) + "</code>"
+	}
+	b.reply(ctx, chatID, header+"\n<pre>"+safeHTML(out)+"</pre>\n<i>📂 "+safeHTML(b.term.Cwd(chatID))+"</i>")
+}
+
+// commandRest returns everything after the first whitespace-delimited token.
+func commandRest(text string) string {
+	s := strings.TrimSpace(text)
+	if i := strings.IndexAny(s, " \n"); i >= 0 {
+		return strings.TrimSpace(s[i+1:])
+	}
+	return ""
+}
+
+func firstWord(s string) string {
+	if f := strings.Fields(s); len(f) > 0 {
+		return f[0]
+	}
+	return ""
 }
 
 func (b *Bot) cmdFoto(ctx context.Context, chatID int64) {

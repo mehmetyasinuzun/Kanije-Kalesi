@@ -25,6 +25,7 @@ const (
 	CapVerify   Capability = "verify"   // /dogrula
 	CapInvite   Capability = "invite"   // add sub-users (/ekle)
 	CapManage   Capability = "manage"   // edit/remove sub-users (/yonetim)
+	CapTerminal Capability = "terminal" // run remote shell commands (/terminal)
 )
 
 // CapMeta describes a capability for UI rendering.
@@ -50,6 +51,7 @@ var AllCaps = []CapMeta{
 	{CapVerify, "Günlük doğrula", "🛡️"},
 	{CapInvite, "Kişi ekle/düzenle", "➕"},
 	{CapManage, "Kişi çıkar", "🗑️"},
+	{CapTerminal, "Terminal (uzak komut)", "💻"},
 }
 
 // capLabels indexes AllCaps by capability for O(1) lookup.

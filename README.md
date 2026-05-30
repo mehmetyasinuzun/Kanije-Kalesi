@@ -79,6 +79,7 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 /yeniden   →  Sistemi yeniden başlat (onay gerekli)
 /kapat     →  Sistemi kapat (onay gerekli)
 /cihazlar  →  🛰️ Tüm cihazları listele (fleet)
+/terminal  →  💻 Uzak komut çalıştır (cd kalıcı; /terminalix yönetici)
 /ekle      →  👥 Kişi ekle (/ekle <chat_id> [isim])
 /yonetim   →  👥 Eklediklerini gör/düzenle/çıkar
 /loglar    →  🧾 Son işlemler (kim ne yaptı)
@@ -103,6 +104,8 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 | 🎤 **Ses kaydı** | `/seskayit [saniye]` — mikrofondan kayıt, Telegram'a MP3 (varsayılan 30 sn) |
 | 👥 **Çok kullanıcı** | Yetki devri ağacı: kişi ekle/çıkar, rol + komut-bazlı yetki, yükseltme yok, herkes kendi alt-ağacını görür, `/loglar` denetim izi |
 | 🛰️ **Fleet (çok cihaz)** | Tek grup, N cihaz: her cihaza ayrı bot, komutlar cihaz adıyla yönlenir (`/foto dizustu`), `/cihazlar` listeler |
+| 💻 **Uzak terminal** | `/terminal <komut>` etkileşimli shell (cwd kalıcı), `/terminalix` yönetici; `terminal` yetkisiyle korunur, denetlenir |
+| 📋 **Derin olay detayı (CTI)** | Her olayda ağ medium'u (WiFi/USB tethering/Bluetooth/Hücresel/VPN), SSID, iç/dış IP; `/olaylar`'da olay başına butonla tam detay |
 
 <br>
 

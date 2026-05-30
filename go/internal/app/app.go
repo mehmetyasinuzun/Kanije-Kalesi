@@ -24,6 +24,7 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/network"
 	"github.com/kanije-kalesi/kanije/internal/notifier/telegram"
 	"github.com/kanije-kalesi/kanije/internal/notifier/webhook"
+	"github.com/kanije-kalesi/kanije/internal/shell"
 	"github.com/kanije-kalesi/kanije/internal/storage"
 	"github.com/kanije-kalesi/kanije/internal/sysinfo"
 	"github.com/kanije-kalesi/kanije/internal/updater"
@@ -154,6 +155,7 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		Wizard:        wizard,
 		Store:         store,
 		Access:        acl,
+		Shell:         shell.New(),
 		Log:           log.With("module", "bot"),
 		DeviceLabel:   deviceLabel,
 		OSName:        app.osName,

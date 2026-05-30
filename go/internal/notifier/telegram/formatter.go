@@ -411,6 +411,8 @@ func FormatHelp() string {
 /seskayit — Mikrofon kaydı (örn. /seskayit 30 → 30 sn · varsayılan 30 · en çok 600)
 
 <b>⚙️ Yönetim</b>
+/terminal — Uzak komut çalıştır (/terminal whoami · cd kalıcı)
+/terminalix — Yönetici terminali
 /kilitle — Ekranı kilitle
 /yeniden — Sistemi yeniden başlat
 /kapat — Sistemi kapat
