@@ -215,3 +215,15 @@ check_port = 443
 enabled    = false
 start_hour = 23   # 0-23, dahil
 end_hour   = 7    # 0-23, hariç
+
+
+# ─── Otomatik Güncelleme ─────────────────────────────────────────
+# GitHub Releases'i periyodik kontrol eder. Yeni sürüm bulununca:
+#   auto_install = false → sadece Telegram'a bildirir (/guncelle ile kurarsınız)
+#   auto_install = true  → otomatik indirip kurar (yalnız Windows; ajan yeniden başlar)
+# /guncelle komutuyla her zaman elle tetikleyebilirsiniz.
+
+[update]
+enabled              = true
+check_interval_hours = 24
+auto_install         = false

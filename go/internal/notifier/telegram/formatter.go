@@ -278,6 +278,7 @@ func FormatHelp() string {
 /yeniden — Sistemi yeniden başlat
 /kapat — Sistemi kapat
 /iptal — Bekleyen işlemi iptal et
+/guncelle — Yeni sürümü kontrol et ve kur
 
 <b>🔧 Ayarlar</b>
 /ayarlar — Mevcut yapılandırma

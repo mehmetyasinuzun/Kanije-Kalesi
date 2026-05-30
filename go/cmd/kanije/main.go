@@ -98,7 +98,7 @@ func cmdStart(args []string) error {
 	}
 
 	// Import app here to keep the binary small when running other subcommands
-	return startApp(cfg, log)
+	return startApp(cfg, log, Version)
 }
 
 // cmdTest validates the Telegram configuration by calling getMe.

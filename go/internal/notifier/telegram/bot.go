@@ -36,6 +36,7 @@ type Bot struct {
 	capturePhoto  func(ctx context.Context) ([]byte, error)
 	captureScreen func(ctx context.Context) ([]byte, error)
 	getStatus     func() StatusInfo
+	checkUpdate   func(ctx context.Context) string
 
 	// Pending action state. Guarded by mu because Poll dispatches each update
 	// in its own goroutine, so the menu, confirm, cancel, and expiry paths all
@@ -58,6 +59,7 @@ type BotConfig struct {
 	CapturePhoto  func(ctx context.Context) ([]byte, error)
 	CaptureScreen func(ctx context.Context) ([]byte, error)
 	GetStatus     func() StatusInfo
+	CheckUpdate   func(ctx context.Context) string
 }
 
 // NewBot creates a fully wired Bot.
@@ -72,6 +74,7 @@ func NewBot(cfg BotConfig) *Bot {
 		capturePhoto:  cfg.CapturePhoto,
 		captureScreen: cfg.CaptureScreen,
 		getStatus:     cfg.GetStatus,
+		checkUpdate:   cfg.CheckUpdate,
 		cmdLimiter:    newCmdRateLimiter(cfg.Config.MaxCommandsPerMinute()),
 	}
 }
@@ -217,6 +220,8 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdKapat(ctx, chatID)
 	case "/iptal", "/cancel":
 		b.cmdIptal(ctx, chatID)
+	case "/guncelle", "/update":
+		b.cmdGuncelle(ctx, chatID)
 	default:
 		if text != "" && isCommand(text) {
 			b.reply(ctx, chatID, "❓ Bilinmeyen komut. /yardim yazın.")
@@ -330,6 +335,15 @@ func (b *Bot) cmdKilitle(ctx context.Context, chatID int64) {
 		return
 	}
 	b.reply(ctx, chatID, "🔒 Ekran kilitlendi.")
+}
+
+func (b *Bot) cmdGuncelle(ctx context.Context, chatID int64) {
+	if b.checkUpdate == nil {
+		b.reply(ctx, chatID, "❌ Güncelleme bu derlemede desteklenmiyor.")
+		return
+	}
+	b.reply(ctx, chatID, "🔍 Güncelleme kontrol ediliyor…")
+	b.reply(ctx, chatID, b.checkUpdate(ctx))
 }
 
 func (b *Bot) cmdPing(ctx context.Context, chatID int64) {

@@ -32,6 +32,7 @@ type Config struct {
 	Tray       TrayConfig               `toml:"tray"        json:"tray"`
 	Network    NetworkConfig            `toml:"network"     json:"network"`
 	QuietHours QuietHoursConfig         `toml:"quiet_hours" json:"quiet_hours"`
+	Update     UpdateConfig             `toml:"update"      json:"update"`
 
 	// Runtime path — where to save changes
 	filePath string `toml:"-" json:"-"`
@@ -108,6 +109,15 @@ type QuietHoursConfig struct {
 	Enabled   bool `toml:"enabled"    json:"enabled"`
 	StartHour int  `toml:"start_hour" json:"start_hour"` // 0-23, dahil
 	EndHour   int  `toml:"end_hour"   json:"end_hour"`   // 0-23, hariç
+}
+
+// UpdateConfig controls automatic update checks against GitHub Releases.
+type UpdateConfig struct {
+	Enabled            bool `toml:"enabled"              json:"enabled"`
+	CheckIntervalHours int  `toml:"check_interval_hours" json:"check_interval_hours"`
+	// AutoInstall, when true, installs a newer version unattended (Windows only).
+	// When false (default) the agent only notifies; the user runs /guncelle.
+	AutoInstall bool `toml:"auto_install" json:"auto_install"`
 }
 
 type TrayConfig struct {
@@ -228,6 +238,8 @@ func (c *Config) validate() {
 	if !contains([]string{"debug", "info", "warn", "error"}, c.Logging.Level) {
 		c.Logging.Level = "info"
 	}
+
+	c.Update.CheckIntervalHours = clampMin(c.Update.CheckIntervalHours, 1, 24)
 }
 
 // applyEnvOverrides reads KANIJE_* environment variables and overrides config.
@@ -486,6 +498,27 @@ func (c *Config) MaxCommandsPerMinute() int {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.Security.MaxCommandsPerMinute
+}
+
+// UpdateEnabled reports whether periodic update checks are enabled.
+func (c *Config) UpdateEnabled() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Update.Enabled
+}
+
+// UpdateInterval returns how often to check for updates.
+func (c *Config) UpdateInterval() time.Duration {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return time.Duration(c.Update.CheckIntervalHours) * time.Hour
+}
+
+// UpdateAutoInstall reports whether newer versions install unattended.
+func (c *Config) UpdateAutoInstall() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Update.AutoInstall
 }
 
 // InQuietHours reports whether the given time falls inside the configured quiet

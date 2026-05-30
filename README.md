@@ -87,12 +87,18 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 Hazır binary indirilir, **gizli** (masaüstünde ikon/pencere yok) ve **yükseltilmiş**
 (giriş denemelerini görebilmek için) bir otomatik-başlatma görevi olarak kurulur. Tek onay.
 
-**Windows** — Yönetici PowerShell'de tek satır:
+**Windows** — PowerShell'de tek satır (token/chat sorulur):
 ```powershell
 irm https://raw.githubusercontent.com/mehmetyasinuzun/Kanije-Kalesi/master/go/deploy/windows/get.ps1 | iex
 ```
-Bot Token ve Chat ID sorulur, gerisi otomatik. Alternatif: [Releases](../../releases)'tan
-`kanije-windows-amd64.exe` + `install.bat`'ı indirip **install.bat'a çift tıklayın**.
+
+Ya da token/chat'i **baştan vererek** (hiçbir şey sorulmaz):
+```powershell
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/mehmetyasinuzun/Kanije-Kalesi/master/go/deploy/windows/get.ps1))) -Token "BOT_TOKEN" -Chat "CHAT_ID"
+```
+
+Alternatif: [Releases](../../releases)'tan `kanije-windows-amd64.exe` + `install.bat`'ı indirip
+**install.bat'a çift tıklayın**.
 
 **Linux / Raspberry Pi** — tek satır:
 ```bash

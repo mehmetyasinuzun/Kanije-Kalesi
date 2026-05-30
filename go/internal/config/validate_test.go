@@ -151,6 +151,22 @@ func TestInQuietHours(t *testing.T) {
 	}
 }
 
+func TestUpdateDefaultsAndClamp(t *testing.T) {
+	c := Defaults()
+	if !c.UpdateEnabled() {
+		t.Error("update varsayılan olarak açık olmalı")
+	}
+	if c.UpdateAutoInstall() {
+		t.Error("auto_install varsayılan olarak kapalı olmalı (güvenli)")
+	}
+
+	c.Update.CheckIntervalHours = 0
+	c.validate()
+	if c.UpdateInterval() <= 0 {
+		t.Errorf("geçersiz interval clamp edilmeli: %v", c.UpdateInterval())
+	}
+}
+
 func TestNetworkTriggersMigratedOnLoad(t *testing.T) {
 	dir := t.TempDir()
 	path := filepath.Join(dir, "old.toml")

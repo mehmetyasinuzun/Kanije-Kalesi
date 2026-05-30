@@ -56,6 +56,11 @@ func Defaults() *Config {
 			StartHour: 23,
 			EndHour:   7,
 		},
+		Update: UpdateConfig{
+			Enabled:            true,
+			CheckIntervalHours: 24,
+			AutoInstall:        false, // güvenli varsayılan: sadece bildir, /guncelle ile kur
+		},
 		Tray: TrayConfig{
 			// Stealth by default: no system-tray icon. Combined with the
 			// -H=windowsgui build (no console window), the agent runs fully

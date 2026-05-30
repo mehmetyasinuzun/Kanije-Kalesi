@@ -8,6 +8,8 @@ import (
 	"log/slog"
 	"os"
 	"os/signal"
+	"path/filepath"
+	"strings"
 	"sync/atomic"
 	"syscall"
 	"time"
@@ -20,7 +22,13 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/notifier/telegram"
 	"github.com/kanije-kalesi/kanije/internal/storage"
 	"github.com/kanije-kalesi/kanije/internal/sysinfo"
+	"github.com/kanije-kalesi/kanije/internal/updater"
 	"golang.org/x/sync/errgroup"
+)
+
+const (
+	repoOwner = "mehmetyasinuzun"
+	repoName  = "Kanije-Kalesi"
 )
 
 // App is the top-level application object. Create with New(), run with Run().
@@ -34,6 +42,11 @@ type App struct {
 	netMon  *network.Monitor
 	camera  *capture.Camera
 	screen  *capture.Screenshotter
+	updater *updater.Updater
+
+	version  string
+	cancel   context.CancelFunc // triggers graceful shutdown (used by self-update)
+	updating atomic.Bool        // true while a self-update restart is in progress
 
 	// Metrics
 	startedAt time.Time
@@ -41,7 +54,8 @@ type App struct {
 }
 
 // New creates and wires the application. Call Run() to start.
-func New(cfg *config.Config, log *slog.Logger) (*App, error) {
+// version is the build version (e.g. "v1.1.2"), used for self-update checks.
+func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 	// Note: the single-instance guard is acquired and released in main.cmdStart.
 
 	// Storage
@@ -82,12 +96,14 @@ func New(cfg *config.Config, log *slog.Logger) (*App, error) {
 	screen := capture.NewScreenshotter(cfg.Screenshot.JPEGQuality, log.With("module", "screenshot"))
 
 	app := &App{
-		cfg:    cfg,
-		log:    log,
-		store:  store,
-		bus:    bus,
-		camera: cam,
-		screen: screen,
+		cfg:     cfg,
+		log:     log,
+		store:   store,
+		bus:     bus,
+		camera:  cam,
+		screen:  screen,
+		version: version,
+		updater: updater.New(repoOwner, repoName, version, log.With("module", "updater")),
 	}
 
 	// Bot
@@ -101,6 +117,7 @@ func New(cfg *config.Config, log *slog.Logger) (*App, error) {
 		CapturePhoto:  cam.Capture,
 		CaptureScreen: screen.Capture,
 		GetStatus:     app.collectStatus,
+		CheckUpdate:   func(ctx context.Context) string { return app.checkForUpdate(ctx, true) },
 	})
 	app.bot = bot
 
@@ -144,12 +161,15 @@ func (a *App) Run() error {
 		}
 	}
 
-	// Root context — canceled on SIGINT/SIGTERM
-	ctx, stop := signal.NotifyContext(context.Background(),
+	// Root context — canceled on SIGINT/SIGTERM or programmatically (self-update).
+	sigCtx, stop := signal.NotifyContext(context.Background(),
 		os.Interrupt, syscall.SIGTERM)
 	defer stop()
+	rootCtx, cancel := context.WithCancel(sigCtx)
+	a.cancel = cancel
+	defer cancel()
 
-	g, ctx := errgroup.WithContext(ctx)
+	g, ctx := errgroup.WithContext(rootCtx)
 
 	// Listener supervisor
 	g.Go(func() error {
@@ -190,8 +210,14 @@ func (a *App) Run() error {
 		return a.prune(ctx)
 	})
 
-	// Announce boot
+	// Periodic update checker
+	g.Go(func() error {
+		return a.updateChecker(ctx)
+	})
+
+	// Announce boot (and report if we just self-updated)
 	a.announceBoot()
+	a.notifyIfUpdated()
 
 	a.log.Info("🏰 Kanije Kalesi hazır — bekçi göreve başladı")
 
@@ -400,6 +426,102 @@ func (a *App) prune(ctx context.Context) error {
 	}
 }
 
+// updateChecker periodically checks GitHub Releases for a newer version. On a
+// match it either self-installs (Windows, when auto_install) or notifies.
+func (a *App) updateChecker(ctx context.Context) error {
+	if !a.cfg.UpdateEnabled() {
+		<-ctx.Done()
+		return nil
+	}
+	interval := a.cfg.UpdateInterval()
+	if interval <= 0 {
+		interval = 24 * time.Hour
+	}
+
+	// Small initial delay so the check doesn't run at the exact moment of boot.
+	timer := time.NewTimer(5 * time.Minute)
+	defer timer.Stop()
+
+	for {
+		select {
+		case <-ctx.Done():
+			return nil
+		case <-timer.C:
+			if msg, newer := a.runUpdateCheck(ctx, false); newer && a.cfg.IsConfigured() {
+				sendCtx, cancel := context.WithTimeout(ctx, 15*time.Second)
+				a.bot.SendMessage(sendCtx, msg)
+				cancel()
+			}
+			timer.Reset(interval)
+		}
+	}
+}
+
+// checkForUpdate runs an on-demand check (e.g. the /guncelle command) and
+// returns a user-facing message.
+func (a *App) checkForUpdate(ctx context.Context, force bool) string {
+	msg, _ := a.runUpdateCheck(ctx, force)
+	return msg
+}
+
+// runUpdateCheck performs one check. When force (or auto_install) is set and the
+// platform supports it, the newer version is downloaded and applied — the app
+// then shuts down so the swap helper can restart it. Returns (message, isNewer).
+func (a *App) runUpdateCheck(ctx context.Context, force bool) (string, bool) {
+	rel, newer, err := a.updater.LatestNewer(ctx)
+	if err != nil {
+		return "❌ Güncelleme kontrolü başarısız: " + telegram.SafeText(err.Error()), false
+	}
+	if !newer {
+		return "✅ Zaten en güncel sürümü kullanıyorsunuz (" + telegram.SafeText(a.version) + ").", false
+	}
+
+	if (force || a.cfg.UpdateAutoInstall()) && updater.CanSelfInstall() {
+		if err := a.updater.SelfInstall(ctx, rel); err != nil {
+			return "❌ Güncelleme indirilemedi: " + telegram.SafeText(err.Error()), true
+		}
+		a.updating.Store(true) // shutdown() bunu görüp "kapatılıyor" bildirimi atmaz
+		// Let the reply send, then trigger graceful shutdown so the helper can
+		// replace the binary and restart the scheduled task.
+		go func() {
+			time.Sleep(3 * time.Second)
+			if a.cancel != nil {
+				a.cancel()
+			}
+		}()
+		return "🔄 <b>" + telegram.SafeText(rel.Version) + "</b> indirildi. Güncelleniyor — birazdan yeni sürümle döneceğim…", true
+	}
+
+	hint := "Kurmak için /guncelle yazın."
+	if !updater.CanSelfInstall() {
+		hint = "Güncellemek için sunucuda kurulum betiğini yeniden çalıştırın."
+	}
+	return "🆕 Yeni sürüm mevcut: <b>" + telegram.SafeText(rel.Version) + "</b>\n" + hint, true
+}
+
+// notifyIfUpdated compares the running version with the last recorded one and,
+// if it changed, reports a successful update. The marker lives next to the config.
+func (a *App) notifyIfUpdated() {
+	if a.version == "dev" || a.version == "" {
+		return
+	}
+	dir := filepath.Dir(a.cfg.FilePath())
+	if dir == "" {
+		dir = "."
+	}
+	marker := filepath.Join(dir, "version.txt")
+
+	prev, _ := os.ReadFile(marker)
+	prevVer := strings.TrimSpace(string(prev))
+
+	if prevVer != "" && prevVer != a.version && a.cfg.IsConfigured() {
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		a.bot.SendMessage(ctx, "✅ Güncellendi: <b>"+telegram.SafeText(prevVer)+"</b> → <b>"+telegram.SafeText(a.version)+"</b>")
+		cancel()
+	}
+	_ = os.WriteFile(marker, []byte(a.version), 0o600)
+}
+
 // announceBoot sends a system boot notification.
 func (a *App) announceBoot() {
 	if !a.cfg.IsConfigured() {
@@ -420,7 +542,7 @@ func (a *App) announceBoot() {
 func (a *App) shutdown() {
 	a.log.Info("Kapatılıyor…")
 
-	if a.cfg.IsConfigured() {
+	if a.cfg.IsConfigured() && !a.updating.Load() {
 		hostname, _ := os.Hostname()
 		ev := event.New(event.TypeSystemShutdown, "App")
 		ev.Hostname = hostname
