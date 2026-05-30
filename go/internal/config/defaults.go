@@ -61,6 +61,9 @@ func Defaults() *Config {
 			CheckIntervalHours: 24,
 			AutoInstall:        false, // güvenli varsayılan: sadece bildir, /guncelle ile kur
 		},
+		GeoIP: GeoIPConfig{
+			Enabled: true,
+		},
 		Tray: TrayConfig{
 			// Stealth by default: no system-tray icon. Combined with the
 			// -H=windowsgui build (no console window), the agent runs fully

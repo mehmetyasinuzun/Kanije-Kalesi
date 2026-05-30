@@ -227,3 +227,12 @@ end_hour   = 7    # 0-23, hariç
 enabled              = true
 check_interval_hours = 24
 auto_install         = false
+
+
+# ─── IP Coğrafi Konum (GeoIP) ────────────────────────────────────
+# Giriş olaylarının kaynak IP'sini ülke/şehir/sağlayıcı ile zenginleştirir
+# (örn. "🚨 Başarısız Giriş ... 📍 🇷🇺 Moscow, Russia"). Ücretsiz, anahtarsız
+# ipwho.is HTTPS API'si kullanılır; sonuçlar önbelleğe alınır.
+
+[geoip]
+enabled = true

@@ -17,6 +17,7 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/capture"
 	"github.com/kanije-kalesi/kanije/internal/config"
 	"github.com/kanije-kalesi/kanije/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/geoip"
 	"github.com/kanije-kalesi/kanije/internal/listener"
 	"github.com/kanije-kalesi/kanije/internal/network"
 	"github.com/kanije-kalesi/kanije/internal/notifier/telegram"
@@ -43,6 +44,7 @@ type App struct {
 	camera  *capture.Camera
 	screen  *capture.Screenshotter
 	updater *updater.Updater
+	geo     *geoip.Resolver
 
 	version  string
 	cancel   context.CancelFunc // triggers graceful shutdown (used by self-update)
@@ -104,6 +106,7 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		screen:  screen,
 		version: version,
 		updater: updater.New(repoOwner, repoName, version, log.With("module", "updater")),
+		geo:     geoip.New(),
 	}
 
 	// Bot
@@ -264,6 +267,22 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 	// pushed; everything else is stored silently (no notify, no media capture).
 	if ev.Severity < event.SeverityAlert && a.cfg.InQuietHours(ev.Timestamp) {
 		return
+	}
+
+	// GeoIP enrichment: annotate events carrying a public source IP with the
+	// country/city/ISP so a failed login reads e.g. "🇷🇺 Moscow, Russia".
+	if ev.SourceIP != "" && a.cfg.GeoIPEnabled() {
+		gctx, gcancel := context.WithTimeout(ctx, 4*time.Second)
+		if info, ok := a.geo.Lookup(gctx, ev.SourceIP); ok {
+			if ev.Extra == nil {
+				ev.Extra = make(map[string]string, 2)
+			}
+			ev.Extra["📍 Konum"] = info.Summary()
+			if info.ISP != "" {
+				ev.Extra["🌐 Sağlayıcı"] = info.ISP
+			}
+		}
+		gcancel()
 	}
 
 	// Capture media if configured

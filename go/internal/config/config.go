@@ -33,6 +33,7 @@ type Config struct {
 	Network    NetworkConfig            `toml:"network"     json:"network"`
 	QuietHours QuietHoursConfig         `toml:"quiet_hours" json:"quiet_hours"`
 	Update     UpdateConfig             `toml:"update"      json:"update"`
+	GeoIP      GeoIPConfig              `toml:"geoip"       json:"geoip"`
 
 	// Runtime path — where to save changes
 	filePath string `toml:"-" json:"-"`
@@ -118,6 +119,13 @@ type UpdateConfig struct {
 	// AutoInstall, when true, installs a newer version unattended (Windows only).
 	// When false (default) the agent only notifies; the user runs /guncelle.
 	AutoInstall bool `toml:"auto_install" json:"auto_install"`
+}
+
+// GeoIPConfig controls IP geolocation enrichment of login events.
+type GeoIPConfig struct {
+	// Enabled, when true, looks up the source IP of login events and adds the
+	// country/city/ISP to the notification. Uses the free ipwho.is HTTPS API.
+	Enabled bool `toml:"enabled" json:"enabled"`
 }
 
 type TrayConfig struct {
@@ -519,6 +527,13 @@ func (c *Config) UpdateAutoInstall() bool {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.Update.AutoInstall
+}
+
+// GeoIPEnabled reports whether login events are enriched with IP geolocation.
+func (c *Config) GeoIPEnabled() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.GeoIP.Enabled
 }
 
 // InQuietHours reports whether the given time falls inside the configured quiet
