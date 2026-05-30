@@ -103,6 +103,9 @@ type SecurityConfig struct {
 	MaxCommandsPerMinute    int  `toml:"max_commands_per_minute"    json:"max_commands_per_minute"`
 	DedupWindowSec          int  `toml:"dedup_window_sec"           json:"dedup_window_sec"`
 	SingleInstance          bool `toml:"single_instance"            json:"single_instance"`
+	// TOTPSecret, when set (base32), requires a valid 2FA code for dangerous
+	// commands (/kapat, /yeniden). Empty disables 2FA.
+	TOTPSecret string `toml:"totp_secret" json:"-"`
 }
 
 // QuietHoursConfig suppresses non-critical notifications during a daily window
@@ -514,6 +517,20 @@ func (c *Config) MaxCommandsPerMinute() int {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.Security.MaxCommandsPerMinute
+}
+
+// TOTPSecret returns the configured 2FA secret (base32), or "" if disabled.
+func (c *Config) TOTPSecret() string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Security.TOTPSecret
+}
+
+// TOTPEnabled reports whether dangerous commands require a 2FA code.
+func (c *Config) TOTPEnabled() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Security.TOTPSecret != ""
 }
 
 // UpdateEnabled reports whether periodic update checks are enabled.

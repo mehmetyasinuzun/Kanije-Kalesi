@@ -20,6 +20,7 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/config"
 	"github.com/kanije-kalesi/kanije/internal/lock"
 	"github.com/kanije-kalesi/kanije/internal/notifier/telegram"
+	"github.com/kanije-kalesi/kanije/internal/totp"
 	"github.com/lmittmann/tint"
 )
 
@@ -55,6 +56,8 @@ func run(args []string) error {
 		return cmdTest(rest)
 	case "setup":
 		return cmdSetup(rest)
+	case "totp":
+		return cmdTOTP(rest)
 	case "version", "--version", "-v":
 		fmt.Printf("Kanije Kalesi %s (%s) — %s/%s\n",
 			Version, BuildDate, runtime.GOOS, runtime.GOARCH)
@@ -177,6 +180,26 @@ func cmdSetup(args []string) error {
 	return nil
 }
 
+// cmdTOTP generates a new 2FA secret and prints enrollment instructions.
+func cmdTOTP(_ []string) error {
+	secret := totp.GenerateSecret()
+	uri := totp.URI(secret, "Kanije Kalesi", "kanije")
+
+	fmt.Println("🔐 İki adımlı doğrulama (2FA) kurulumu")
+	fmt.Println()
+	fmt.Println("1. Bu secret'ı config.toml içindeki [security] bölümüne ekleyin:")
+	fmt.Println()
+	fmt.Printf("   [security]\n   totp_secret = \"%s\"\n", secret)
+	fmt.Println()
+	fmt.Println("2. Authenticator uygulamanıza (Google Authenticator, Authy, vb.) ekleyin:")
+	fmt.Println()
+	fmt.Printf("   %s\n", uri)
+	fmt.Println()
+	fmt.Println("Artık /kapat ve /yeniden komutları 6 haneli kod ister:")
+	fmt.Println("   /kapat 123456")
+	return nil
+}
+
 // ---- Helpers ----
 
 func printUsage() {
@@ -187,6 +210,7 @@ Kullanım:
   kanije start [--config <yol>]               İzlemeyi başlat
   kanije test  [--config <yol>]               Telegram bağlantısını test et
   kanije setup --token <T> --chat <C>         Telegram yapılandırmasını kaydet
+  kanije totp                                 2FA secret'ı oluştur (opsiyonel)
   kanije version                              Versiyon bilgisi
 
 Hızlı başlangıç:

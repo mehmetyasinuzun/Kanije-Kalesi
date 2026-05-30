@@ -4,12 +4,14 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"strings"
 	"sync"
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/config"
 	"github.com/kanije-kalesi/kanije/internal/event"
 	"github.com/kanije-kalesi/kanije/internal/storage"
+	"github.com/kanije-kalesi/kanije/internal/totp"
 )
 
 // pendingActionTTL is how long a dangerous action (restart/shutdown) waits for
@@ -216,9 +218,9 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 	case "/ping":
 		b.cmdPing(ctx, chatID)
 	case "/yeniden", "/restart":
-		b.cmdYeniden(ctx, chatID)
+		b.cmdYeniden(ctx, chatID, text)
 	case "/kapat", "/shutdown":
-		b.cmdKapat(ctx, chatID)
+		b.cmdKapat(ctx, chatID, text)
 	case "/iptal", "/cancel":
 		b.cmdIptal(ctx, chatID)
 	case "/guncelle", "/update":
@@ -372,7 +374,10 @@ func (b *Bot) cmdPing(ctx context.Context, chatID int64) {
 }
 
 // cmdYeniden sends a confirmation keyboard before actually rebooting.
-func (b *Bot) cmdYeniden(ctx context.Context, chatID int64) {
+func (b *Bot) cmdYeniden(ctx context.Context, chatID int64, text string) {
+	if !b.checkTOTP(ctx, chatID, text, "/yeniden") {
+		return
+	}
 	kb := InlineKeyboardMarkup{
 		InlineKeyboard: [][]InlineKeyboardButton{
 			{
@@ -390,7 +395,10 @@ func (b *Bot) cmdYeniden(ctx context.Context, chatID int64) {
 }
 
 // cmdKapat sends a confirmation keyboard before shutting down.
-func (b *Bot) cmdKapat(ctx context.Context, chatID int64) {
+func (b *Bot) cmdKapat(ctx context.Context, chatID int64, text string) {
+	if !b.checkTOTP(ctx, chatID, text, "/kapat") {
+		return
+	}
 	kb := InlineKeyboardMarkup{
 		InlineKeyboard: [][]InlineKeyboardButton{
 			{
@@ -405,6 +413,29 @@ func (b *Bot) cmdKapat(ctx context.Context, chatID int64) {
 		kb)
 
 	b.armPendingAction("kapat")
+}
+
+// checkTOTP enforces two-factor confirmation for dangerous commands when a TOTP
+// secret is configured. Returns true if the command may proceed.
+func (b *Bot) checkTOTP(ctx context.Context, chatID int64, text, cmd string) bool {
+	if !b.cfg.TOTPEnabled() {
+		return true
+	}
+	if totp.Validate(b.cfg.TOTPSecret(), commandArg(text)) {
+		return true
+	}
+	b.reply(ctx, chatID,
+		"🔐 Bu işlem iki adımlı doğrulama gerektiriyor.\n"+
+			"Komutu doğrulama kodunuzla gönderin: <code>"+cmd+" 123456</code>")
+	return false
+}
+
+// commandArg returns the first argument after a command, e.g. "/kapat 123456" → "123456".
+func commandArg(text string) string {
+	if fields := strings.Fields(text); len(fields) >= 2 {
+		return fields[1]
+	}
+	return ""
 }
 
 func (b *Bot) cmdIptal(ctx context.Context, chatID int64) {

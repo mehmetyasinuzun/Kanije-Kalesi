@@ -185,6 +185,10 @@ dedup_window_sec = 3
 # Tek örnek kontrolü — aynı anda iki instance çalışmasını engeller
 single_instance = true
 
+# İki adımlı doğrulama (2FA). Boş = kapalı. Secret oluşturmak için: kanije totp
+# Ayarlanırsa /kapat ve /yeniden komutları 6 haneli kod ister: "/kapat 123456"
+totp_secret = ""
+
 
 # ─── Sistem Tepsisi ──────────────────────────────────────────────
 
