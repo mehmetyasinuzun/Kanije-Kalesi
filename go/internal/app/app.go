@@ -49,6 +49,7 @@ type App struct {
 	webhooks *webhook.Sender
 
 	version  string
+	osName   string             // cached friendly OS name (e.g. "Windows 11")
 	cancel   context.CancelFunc // triggers graceful shutdown (used by self-update)
 	updating atomic.Bool        // true while a self-update restart is in progress
 
@@ -113,6 +114,7 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		camera:   cam,
 		screen:   screen,
 		version:  version,
+		osName:   sysinfo.OSName(),
 		updater:  updater.New(repoOwner, repoName, version, log.With("module", "updater")),
 		geo:      geoip.New(),
 		webhooks: webhook.New(hooks, log.With("module", "webhook")),
@@ -261,6 +263,11 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 	// Store event
 	if err := a.store.SaveEvent(ctx, ev); err != nil {
 		a.log.Warn("olay kaydedilemedi", "err", err, "type", ev.Type)
+	}
+
+	// Stamp the OS for the notification (e.g. "💻 DESKTOP-X · Windows 11").
+	if ev.OS == "" {
+		ev.OS = a.osName
 	}
 
 	// Track last event for /status

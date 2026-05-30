@@ -4,12 +4,15 @@ package network
 import (
 	"context"
 	"fmt"
+	"io"
 	"log/slog"
 	"net"
+	"net/http"
 	"os"
 	"os/exec"
 	"runtime"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/event"
@@ -33,6 +36,11 @@ type Monitor struct {
 	lastOnline bool
 	lastSSID   string
 	lastIface  string
+
+	// Cached public (external) IP — refreshed at most every few minutes.
+	pubMu   sync.Mutex
+	pubIP   string
+	pubTime time.Time
 }
 
 // NewMonitor creates a Monitor with the given configuration.
@@ -65,12 +73,12 @@ func (m *Monitor) Run(ctx context.Context, bus *event.Bus) error {
 		case <-ctx.Done():
 			return nil
 		case <-ticker.C:
-			m.tick(bus)
+			m.tick(ctx, bus)
 		}
 	}
 }
 
-func (m *Monitor) tick(bus *event.Bus) {
+func (m *Monitor) tick(ctx context.Context, bus *event.Bus) {
 	online := m.checkConnectivity()
 	ssid, iface := m.getNetworkInfo()
 
@@ -81,6 +89,7 @@ func (m *Monitor) tick(bus *event.Bus) {
 		ev.NetworkSSID = ssid
 		ev.NetworkType = inferNetworkType(iface)
 		ev.LocalIP = getLocalIP(iface)
+		ev.PublicIP = m.publicIP(ctx)
 		m.log.Info("İnternet bağlantısı kuruldu", "ağ", ssid, "ip", ev.LocalIP)
 		bus.Publish(ev)
 
@@ -96,6 +105,7 @@ func (m *Monitor) tick(bus *event.Bus) {
 		ev.NetworkSSID = ssid
 		ev.NetworkType = inferNetworkType(iface)
 		ev.LocalIP = getLocalIP(iface)
+		ev.PublicIP = m.publicIP(ctx)
 		m.log.Info("Ağ değişti", "önceki", m.lastSSID, "yeni", ssid)
 		bus.Publish(ev)
 	}
@@ -103,6 +113,51 @@ func (m *Monitor) tick(bus *event.Bus) {
 	m.lastOnline = online
 	m.lastSSID = ssid
 	m.lastIface = iface
+}
+
+// publicIP returns the cached external IP, refreshing it at most every 5 minutes.
+func (m *Monitor) publicIP(ctx context.Context) string {
+	m.pubMu.Lock()
+	if m.pubIP != "" && time.Since(m.pubTime) < 5*time.Minute {
+		ip := m.pubIP
+		m.pubMu.Unlock()
+		return ip
+	}
+	m.pubMu.Unlock()
+
+	ip := fetchPublicIP(ctx)
+	if ip != "" {
+		m.pubMu.Lock()
+		m.pubIP, m.pubTime = ip, time.Now()
+		m.pubMu.Unlock()
+	}
+	return ip
+}
+
+// fetchPublicIP queries api.ipify.org for the external IP. Returns "" on error.
+func fetchPublicIP(ctx context.Context) string {
+	reqCtx, cancel := context.WithTimeout(ctx, 4*time.Second)
+	defer cancel()
+
+	req, err := http.NewRequestWithContext(reqCtx, http.MethodGet, "https://api.ipify.org", nil)
+	if err != nil {
+		return ""
+	}
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(io.LimitReader(resp.Body, 64))
+	if err != nil {
+		return ""
+	}
+	ip := strings.TrimSpace(string(body))
+	if net.ParseIP(ip) == nil {
+		return ""
+	}
+	return ip
 }
 
 // checkConnectivity tests TCP connectivity to the configured target.

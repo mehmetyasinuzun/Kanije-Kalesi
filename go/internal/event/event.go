@@ -152,12 +152,14 @@ type Event struct {
 	// System context
 	Hostname string `json:"hostname,omitempty"`
 	Username string `json:"username,omitempty"`
+	OS       string `json:"os,omitempty"` // friendly OS name, e.g. "Windows 11"
 
 	// Network context
 	SourceIP    string `json:"source_ip,omitempty"`
 	NetworkSSID string `json:"network_ssid,omitempty"`
 	NetworkType string `json:"network_type,omitempty"` // "WiFi" | "Ethernet"
 	LocalIP     string `json:"local_ip,omitempty"`
+	PublicIP    string `json:"public_ip,omitempty"` // external/public IP (network events)
 
 	// Authentication context
 	LogonType LogonType `json:"logon_type,omitempty"`

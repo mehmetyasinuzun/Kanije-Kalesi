@@ -4,6 +4,7 @@ package sysinfo
 
 import (
 	"runtime"
+	"strings"
 	"time"
 
 	"github.com/shirou/gopsutil/v3/cpu"
@@ -11,6 +12,16 @@ import (
 	"github.com/shirou/gopsutil/v3/host"
 	"github.com/shirou/gopsutil/v3/mem"
 )
+
+// OSName returns a friendly operating-system name (e.g. "Windows 11 Pro"),
+// falling back to the Go runtime OS identifier if it can't be determined.
+func OSName() string {
+	hi, err := host.Info()
+	if err != nil || hi.Platform == "" {
+		return runtime.GOOS
+	}
+	return strings.TrimPrefix(hi.Platform, "Microsoft ")
+}
 
 // Info holds a snapshot of system resource usage.
 type Info struct {

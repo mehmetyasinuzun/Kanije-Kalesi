@@ -44,7 +44,12 @@ func FormatEvent(ev event.Event) string {
 	if ev.Hostname != "" {
 		b.WriteString("💻 <code>")
 		b.WriteString(safeHTML(ev.Hostname))
-		b.WriteString("</code>\n")
+		b.WriteString("</code>")
+		if ev.OS != "" {
+			b.WriteString(" · ")
+			b.WriteString(safeHTML(ev.OS))
+		}
+		b.WriteString("\n")
 	}
 	if ev.Username != "" {
 		u := safeHTML(ev.Username)
@@ -128,8 +133,13 @@ func FormatEvent(ev event.Event) string {
 			b.WriteString("\n")
 		}
 		if ev.LocalIP != "" {
-			b.WriteString("🔌 IP: <code>")
+			b.WriteString("🔌 İç IP: <code>")
 			b.WriteString(safeHTML(ev.LocalIP))
+			b.WriteString("</code>\n")
+		}
+		if ev.PublicIP != "" {
+			b.WriteString("🌍 Dış IP: <code>")
+			b.WriteString(safeHTML(ev.PublicIP))
 			b.WriteString("</code>\n")
 		}
 	}
@@ -144,7 +154,7 @@ func FormatEvent(ev event.Event) string {
 	}
 
 	// Footer
-	b.WriteString("\n<i>🏰 Kanije Kalesi v")
+	b.WriteString("\n<i>🏰 Kanije Kalesi ")
 	b.WriteString(version)
 	b.WriteString("</i>")
 
@@ -177,7 +187,7 @@ func FormatHeartbeat(uptime time.Duration, diskFree, diskTotal uint64, evCount i
 	b.WriteString(fmt.Sprintf("%d", evCount))
 	b.WriteString("</b>\n")
 
-	b.WriteString("\n<i>🏰 Kanije Kalesi v")
+	b.WriteString("\n<i>🏰 Kanije Kalesi ")
 	b.WriteString(version)
 	b.WriteString("</i>")
 
@@ -225,7 +235,7 @@ func FormatStatus(info StatusInfo) string {
 		b.WriteString(")</i>\n")
 	}
 
-	b.WriteString("\n<i>🏰 Kanije Kalesi v")
+	b.WriteString("\n<i>🏰 Kanije Kalesi ")
 	b.WriteString(version)
 	b.WriteString("</i>")
 
