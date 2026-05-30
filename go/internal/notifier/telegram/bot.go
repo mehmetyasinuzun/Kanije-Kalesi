@@ -6,7 +6,6 @@ import (
 	"log/slog"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/access"
@@ -16,17 +15,6 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/storage"
 	"github.com/kanije-kalesi/kanije/internal/totp"
 )
-
-// pendingActionTTL is how long a dangerous action (restart/shutdown) waits for
-// confirmation before auto-expiring.
-const pendingActionTTL = 15 * time.Second
-
-// ActionState tracks a pending dangerous action (shutdown/restart).
-type ActionState struct {
-	kind    string // "kapat" | "yeniden"
-	expires time.Time
-	cancel  context.CancelFunc
-}
 
 // Bot handles all Telegram interactions: event notifications, commands,
 // callback queries, and the setup wizard.
@@ -47,11 +35,9 @@ type Bot struct {
 	getStatus     func() StatusInfo
 	checkUpdate   func(ctx context.Context) string
 
-	// Pending action state. Guarded by mu because Poll dispatches each update
-	// in its own goroutine, so the menu, confirm, cancel, and expiry paths all
-	// touch pendingAction concurrently.
-	mu            sync.Mutex
-	pendingAction *ActionState
+	// Dangerous-action confirm/undo flow (/kapat, /yeniden, …). The manager owns
+	// its own locking; Poll dispatches each update in its own goroutine.
+	danger *dangerManager
 
 	// Per-chat command rate limiter (anti-abuse).
 	cmdLimiter *cmdRateLimiter
@@ -82,7 +68,7 @@ type BotConfig struct {
 
 // NewBot creates a fully wired Bot.
 func NewBot(cfg BotConfig) *Bot {
-	return &Bot{
+	b := &Bot{
 		cfg:           cfg.Config,
 		client:        cfg.Client,
 		wizard:        cfg.Wizard,
@@ -100,6 +86,10 @@ func NewBot(cfg BotConfig) *Bot {
 		checkUpdate:   cfg.CheckUpdate,
 		cmdLimiter:    newCmdRateLimiter(cfg.Config.MaxCommandsPerMinute()),
 	}
+	b.danger = newDangerManager()
+	b.danger.onExpire = b.onDangerExpire
+	b.danger.onFire = b.onDangerFire
+	return b
 }
 
 // SendEvent sends a formatted event notification to the configured chat.
@@ -395,20 +385,13 @@ func (b *Bot) handleCallback(ctx context.Context, cq *CallbackQuery) {
 		return
 	}
 
-	// Handle confirmation callbacks for dangerous operations
-	switch cq.Data {
-	case "confirm:yeniden":
-		b.executeRestart(ctx, chatID)
-		b.client.AnswerCallbackQuery(ctx, cq.ID, "Yeniden başlatılıyor...")
-	case "confirm:kapat":
-		b.executeShutdown(ctx, chatID)
-		b.client.AnswerCallbackQuery(ctx, cq.ID, "Kapatılıyor...")
-	case "confirm:iptal":
-		b.cancelPendingAction(ctx, chatID)
-		b.client.AnswerCallbackQuery(ctx, cq.ID, "İptal edildi")
-	default:
-		b.client.AnswerCallbackQuery(ctx, cq.ID, "")
+	// Dangerous-action confirm/undo buttons (op:ok / op:no / op:undo)
+	if strings.HasPrefix(cq.Data, "op:") {
+		b.handleDangerCallback(ctx, chatID, cq.Message.MessageID, cq.ID, cq.Data)
+		return
 	}
+
+	b.client.AnswerCallbackQuery(ctx, cq.ID, "")
 }
 
 // ---- Command handlers ----
@@ -729,46 +712,28 @@ func (b *Bot) cmdPing(ctx context.Context, chatID int64) {
 	b.reply(ctx, chatID, "🏓 Pong! Çalışma süresi: <b>"+formatDuration(info.Uptime)+"</b>")
 }
 
-// cmdYeniden sends a confirmation keyboard before actually rebooting.
+// cmdYeniden asks for confirmation, then reboots after a 15s undo window.
 func (b *Bot) cmdYeniden(ctx context.Context, chatID int64, text string) {
 	if !b.checkTOTP(ctx, chatID, text, "/yeniden") {
 		return
 	}
-	kb := InlineKeyboardMarkup{
-		InlineKeyboard: [][]InlineKeyboardButton{
-			{
-				{Text: "✅ Evet, yeniden başlat", CallbackData: "confirm:yeniden"},
-				{Text: "❌ İptal", CallbackData: "confirm:iptal"},
-			},
-		},
-	}
-	b.client.SendMessageWithKeyboard(ctx, chatID,
-		"⚠️ <b>Sistemi yeniden başlatmak istediğinizden emin misiniz?</b>\n\n"+
-			"Bu işlem geri alınamaz. 15 saniye içinde onaylamazsanız iptal olur.",
-		kb)
-
-	b.armPendingAction("yeniden")
+	b.requestDanger(ctx, chatID, "yeniden", "Sistemi yeniden başlat", undoWindowSystem,
+		func(c context.Context) {
+			b.reply(c, chatID, "🔄 Sistem yeniden başlatılıyor… İyi günler!")
+			systemRestart()
+		})
 }
 
-// cmdKapat sends a confirmation keyboard before shutting down.
+// cmdKapat asks for confirmation, then shuts down after a 15s undo window.
 func (b *Bot) cmdKapat(ctx context.Context, chatID int64, text string) {
 	if !b.checkTOTP(ctx, chatID, text, "/kapat") {
 		return
 	}
-	kb := InlineKeyboardMarkup{
-		InlineKeyboard: [][]InlineKeyboardButton{
-			{
-				{Text: "✅ Evet, kapat", CallbackData: "confirm:kapat"},
-				{Text: "❌ İptal", CallbackData: "confirm:iptal"},
-			},
-		},
-	}
-	b.client.SendMessageWithKeyboard(ctx, chatID,
-		"⚠️ <b>Sistemi kapatmak istediğinizden emin misiniz?</b>\n\n"+
-			"15 saniye içinde onaylamazsanız iptal olur.",
-		kb)
-
-	b.armPendingAction("kapat")
+	b.requestDanger(ctx, chatID, "kapat", "Sistemi kapat", undoWindowSystem,
+		func(c context.Context) {
+			b.reply(c, chatID, "🔴 Sistem kapatılıyor… Güle güle!")
+			systemShutdown()
+		})
 }
 
 // checkTOTP enforces two-factor confirmation for dangerous commands when a TOTP
@@ -795,7 +760,10 @@ func commandArg(text string) string {
 }
 
 func (b *Bot) cmdIptal(ctx context.Context, chatID int64) {
-	if b.cancelPendingAction(ctx, chatID) {
+	if op, ok := b.danger.cancelChat(chatID); ok {
+		b.client.EditMessageText(ctx, chatID, op.messageID,
+			"✅ <b>"+safeHTML(op.title)+"</b> iptal edildi.", nil)
+		b.reply(ctx, chatID, "✅ Bekleyen işlem iptal edildi.")
 		return
 	}
 	// Also cancel wizard input state
@@ -804,97 +772,6 @@ func (b *Bot) cmdIptal(ctx context.Context, chatID int64) {
 		return
 	}
 	b.reply(ctx, chatID, "ℹ️ İptal edilecek bekleyen işlem yok.")
-}
-
-func (b *Bot) cancelPendingAction(ctx context.Context, chatID int64) bool {
-	state, ok := b.clearPendingAction()
-	if !ok {
-		return false
-	}
-	state.cancel()
-	b.reply(ctx, chatID, "✅ İşlem iptal edildi.")
-	return true
-}
-
-func (b *Bot) executeRestart(ctx context.Context, chatID int64) {
-	state, ok := b.takePendingAction("yeniden")
-	if !ok {
-		b.reply(ctx, chatID, "⚠️ Onaylanacak işlem bulunamadı. /yeniden yazın.")
-		return
-	}
-	state.cancel()
-	b.reply(ctx, chatID, "🔄 Sistem yeniden başlatılıyor… İyi günler!")
-	systemRestart()
-}
-
-func (b *Bot) executeShutdown(ctx context.Context, chatID int64) {
-	state, ok := b.takePendingAction("kapat")
-	if !ok {
-		b.reply(ctx, chatID, "⚠️ Onaylanacak işlem bulunamadı. /kapat yazın.")
-		return
-	}
-	state.cancel()
-	b.reply(ctx, chatID, "🔴 Sistem kapatılıyor… Güle güle!")
-	systemShutdown()
-}
-
-// ---- Pending-action state (mutex-guarded) ----
-
-// armPendingAction registers a dangerous action and schedules its auto-expiry.
-// Any previously pending action is canceled.
-func (b *Bot) armPendingAction(kind string) {
-	actionCtx, cancelAction := context.WithTimeout(context.Background(), pendingActionTTL)
-	state := &ActionState{
-		kind:    kind,
-		expires: time.Now().Add(pendingActionTTL),
-		cancel:  cancelAction,
-	}
-	b.setPendingAction(state)
-
-	// Expire by identity: only clear the slot if it still holds *this* action,
-	// so a newer action started within the TTL is not wrongly cleared.
-	go func() {
-		<-actionCtx.Done()
-		b.mu.Lock()
-		if b.pendingAction == state {
-			b.pendingAction = nil
-		}
-		b.mu.Unlock()
-	}()
-}
-
-func (b *Bot) setPendingAction(s *ActionState) {
-	b.mu.Lock()
-	old := b.pendingAction
-	b.pendingAction = s
-	b.mu.Unlock()
-	if old != nil {
-		old.cancel() // release the previous action's expiry goroutine
-	}
-}
-
-// takePendingAction atomically consumes the pending action if it matches kind.
-func (b *Bot) takePendingAction(kind string) (*ActionState, bool) {
-	b.mu.Lock()
-	defer b.mu.Unlock()
-	if b.pendingAction == nil || b.pendingAction.kind != kind {
-		return nil, false
-	}
-	s := b.pendingAction
-	b.pendingAction = nil
-	return s, true
-}
-
-// clearPendingAction atomically consumes any pending action.
-func (b *Bot) clearPendingAction() (*ActionState, bool) {
-	b.mu.Lock()
-	defer b.mu.Unlock()
-	if b.pendingAction == nil {
-		return nil, false
-	}
-	s := b.pendingAction
-	b.pendingAction = nil
-	return s, true
 }
 
 // ---- Authorization ----
