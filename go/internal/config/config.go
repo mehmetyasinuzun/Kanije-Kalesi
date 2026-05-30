@@ -35,6 +35,7 @@ type Config struct {
 	QuietHours QuietHoursConfig         `toml:"quiet_hours" json:"quiet_hours"`
 	Update     UpdateConfig             `toml:"update"      json:"update"`
 	GeoIP      GeoIPConfig              `toml:"geoip"       json:"geoip"`
+	Metrics    MetricsConfig            `toml:"metrics"     json:"metrics"`
 	Webhooks   []WebhookConfig          `toml:"webhooks"    json:"webhooks"`
 
 	// Runtime path — where to save changes
@@ -131,6 +132,12 @@ type GeoIPConfig struct {
 	// Enabled, when true, looks up the source IP of login events and adds the
 	// country/city/ISP to the notification. Uses the free ipwho.is HTTPS API.
 	Enabled bool `toml:"enabled" json:"enabled"`
+}
+
+// MetricsConfig controls the optional Prometheus /metrics HTTP endpoint.
+type MetricsConfig struct {
+	Enabled bool   `toml:"enabled" json:"enabled"`
+	Addr    string `toml:"addr"    json:"addr"` // listen address, e.g. "127.0.0.1:9099"
 }
 
 // WebhookConfig is one outgoing webhook destination (Discord or generic JSON).
@@ -574,6 +581,23 @@ func (c *Config) GeoIPEnabled() bool {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.GeoIP.Enabled
+}
+
+// MetricsEnabled reports whether the Prometheus endpoint is enabled.
+func (c *Config) MetricsEnabled() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Metrics.Enabled
+}
+
+// MetricsAddr returns the metrics listen address.
+func (c *Config) MetricsAddr() string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	if c.Metrics.Addr == "" {
+		return "127.0.0.1:9099"
+	}
+	return c.Metrics.Addr
 }
 
 // WebhookTargets returns a copy of the configured outgoing webhook destinations.

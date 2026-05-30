@@ -6,6 +6,7 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"net/http"
 	"os"
 	"os/signal"
 	"path/filepath"
@@ -227,6 +228,11 @@ func (a *App) Run() error {
 	// Periodic update checker
 	g.Go(func() error {
 		return a.updateChecker(ctx)
+	})
+
+	// Optional Prometheus /metrics endpoint
+	g.Go(func() error {
+		return a.metricsServer(ctx)
 	})
 
 	// Announce boot (and report if we just self-updated)
@@ -558,6 +564,58 @@ func (a *App) notifyIfUpdated() {
 		cancel()
 	}
 	_ = os.WriteFile(marker, []byte(a.version), 0o600)
+}
+
+// metricsServer serves the optional Prometheus /metrics endpoint until ctx ends.
+func (a *App) metricsServer(ctx context.Context) error {
+	if !a.cfg.MetricsEnabled() {
+		<-ctx.Done()
+		return nil
+	}
+
+	mux := http.NewServeMux()
+	mux.HandleFunc("/metrics", a.metricsHandler)
+	srv := &http.Server{
+		Addr:              a.cfg.MetricsAddr(),
+		Handler:           mux,
+		ReadHeaderTimeout: 5 * time.Second,
+	}
+
+	go func() {
+		<-ctx.Done()
+		sc, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+		_ = srv.Shutdown(sc)
+		cancel()
+	}()
+
+	a.log.Info("Prometheus /metrics yayında", "adres", a.cfg.MetricsAddr())
+	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		a.log.Warn("metrics sunucu hatası", "err", err)
+	}
+	return nil
+}
+
+// metricsHandler writes the Prometheus text exposition format.
+func (a *App) metricsHandler(w http.ResponseWriter, r *http.Request) {
+	st := a.bus.Stats()
+	uptime := int64(time.Since(a.startedAt).Seconds())
+	total, _ := a.store.CountEvents(r.Context())
+
+	w.Header().Set("Content-Type", "text/plain; version=0.0.4; charset=utf-8")
+	fmt.Fprintf(w, "# HELP kanije_events_received_total Bus'a kabul edilen toplam olay\n")
+	fmt.Fprintf(w, "# TYPE kanije_events_received_total counter\nkanije_events_received_total %d\n", st.Received)
+	fmt.Fprintf(w, "# HELP kanije_events_dropped_total Hiz limiti veya dolu buffer nedeniyle dusen olaylar\n")
+	fmt.Fprintf(w, "# TYPE kanije_events_dropped_total counter\nkanije_events_dropped_total %d\n", st.Dropped)
+	fmt.Fprintf(w, "# HELP kanije_events_deduped_total Yinelenme nedeniyle atlanan olaylar\n")
+	fmt.Fprintf(w, "# TYPE kanije_events_deduped_total counter\nkanije_events_deduped_total %d\n", st.Deduped)
+	fmt.Fprintf(w, "# HELP kanije_bus_pending Bus buffer'inda bekleyen olay\n")
+	fmt.Fprintf(w, "# TYPE kanije_bus_pending gauge\nkanije_bus_pending %d\n", st.Pending)
+	fmt.Fprintf(w, "# HELP kanije_events_stored_total Veritabanindaki toplam olay\n")
+	fmt.Fprintf(w, "# TYPE kanije_events_stored_total gauge\nkanije_events_stored_total %d\n", total)
+	fmt.Fprintf(w, "# HELP kanije_uptime_seconds Calisma suresi\n")
+	fmt.Fprintf(w, "# TYPE kanije_uptime_seconds gauge\nkanije_uptime_seconds %d\n", uptime)
+	fmt.Fprintf(w, "# HELP kanije_build_info Surum bilgisi\n")
+	fmt.Fprintf(w, "# TYPE kanije_build_info gauge\nkanije_build_info{version=%q} 1\n", a.version)
 }
 
 // announceBoot sends a system boot notification.

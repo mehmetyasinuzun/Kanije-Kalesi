@@ -64,6 +64,10 @@ func Defaults() *Config {
 		GeoIP: GeoIPConfig{
 			Enabled: true,
 		},
+		Metrics: MetricsConfig{
+			Enabled: false, // opt-in: açıldığında bir port dinler
+			Addr:    "127.0.0.1:9099",
+		},
 		Tray: TrayConfig{
 			// Stealth by default: no system-tray icon. Combined with the
 			// -H=windowsgui build (no console window), the agent runs fully

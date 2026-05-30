@@ -244,6 +244,16 @@ auto_install         = false
 enabled = true
 
 
+# ─── Prometheus /metrics ─────────────────────────────────────────
+# Açılırsa belirtilen adreste /metrics endpoint'i sunar (olay sayıları,
+# drop/dedup oranı, uptime, sürüm). Homelab izleme için. Varsayılan kapalı.
+# Güvenlik için yalnız 127.0.0.1'e bağlanır; ağa açmak istersen "0.0.0.0:9099".
+
+[metrics]
+enabled = false
+addr    = "127.0.0.1:9099"
+
+
 # ─── Ek Bildirim Hedefleri (Webhook / Discord) ───────────────────
 # Telegram'a ek olarak olayları Discord'a veya herhangi bir webhook'a
 # da gönderebilirsiniz. İstediğiniz kadar [[webhooks]] bloğu ekleyin.
