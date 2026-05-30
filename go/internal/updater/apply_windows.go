@@ -4,6 +4,11 @@ package updater
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -63,4 +68,85 @@ func buildSwapScript(pid int, newPath, exePath string) string {
 // psQuote wraps s in a PowerShell single-quoted literal, escaping embedded quotes.
 func psQuote(s string) string {
 	return "'" + strings.ReplaceAll(s, "'", "''") + "'"
+}
+
+// ---- download + verify (only the Windows self-installer needs these) ----
+
+// downloadVerified downloads the platform asset to destPath and verifies its
+// SHA-256 against the release's SHA256SUMS.txt. If sums are unavailable the
+// download still succeeds (best effort) but is logged.
+func (u *Updater) downloadVerified(ctx context.Context, rel *Release, destPath string) error {
+	got, err := u.download(ctx, rel.AssetURL, destPath)
+	if err != nil {
+		return fmt.Errorf("binary indirilemedi: %w", err)
+	}
+
+	if rel.SumsURL == "" {
+		u.log.Warn("SHA256SUMS bulunamadı, doğrulama atlanıyor")
+		return nil
+	}
+
+	want, err := u.expectedSum(ctx, rel.SumsURL)
+	if err != nil {
+		os.Remove(destPath)
+		return fmt.Errorf("sağlama listesi alınamadı: %w", err)
+	}
+	if !strings.EqualFold(got, want) {
+		os.Remove(destPath)
+		return fmt.Errorf("SHA-256 uyuşmuyor — indirme bozuk veya kurcalanmış olabilir")
+	}
+	return nil
+}
+
+// download writes url to destPath and returns the file's SHA-256 hex digest.
+func (u *Updater) download(ctx context.Context, url, destPath string) (string, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("User-Agent", "kanije-updater")
+
+	resp, err := u.http.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("indirme durumu %d", resp.StatusCode)
+	}
+
+	f, err := os.OpenFile(destPath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0o755)
+	if err != nil {
+		return "", err
+	}
+	h := sha256.New()
+	if _, err := io.Copy(io.MultiWriter(f, h), resp.Body); err != nil {
+		f.Close()
+		os.Remove(destPath)
+		return "", err
+	}
+	if err := f.Close(); err != nil {
+		os.Remove(destPath)
+		return "", err
+	}
+	return hex.EncodeToString(h.Sum(nil)), nil
+}
+
+// expectedSum fetches SHA256SUMS.txt and returns the hash for this platform asset.
+func (u *Updater) expectedSum(ctx context.Context, sumsURL string) (string, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, sumsURL, nil)
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("User-Agent", "kanije-updater")
+	resp, err := u.http.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	body, err := io.ReadAll(io.LimitReader(resp.Body, 1<<16))
+	if err != nil {
+		return "", err
+	}
+	return sumFor(string(body), u.asset)
 }
