@@ -50,6 +50,26 @@ CREATE TABLE IF NOT EXISTS pending_messages (
     created_at TEXT NOT NULL
 );
 
+-- Multi-user delegation tree (capability-based access control).
+CREATE TABLE IF NOT EXISTS users (
+    chat_id    INTEGER PRIMARY KEY,
+    name       TEXT NOT NULL,
+    invited_by INTEGER NOT NULL DEFAULT 0,
+    caps       TEXT NOT NULL DEFAULT '',
+    added_at   TEXT NOT NULL
+);
+
+-- Privileged-action audit trail (/loglar).
+CREATE TABLE IF NOT EXISTS audit_log (
+    id      INTEGER PRIMARY KEY AUTOINCREMENT,
+    chat_id INTEGER NOT NULL,
+    actor   TEXT,
+    action  TEXT NOT NULL,
+    target  TEXT,
+    at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_audit_at ON audit_log(at DESC);
+
 -- Enable WAL mode for better concurrent read/write performance
 PRAGMA journal_mode=WAL;
 PRAGMA synchronous=NORMAL;

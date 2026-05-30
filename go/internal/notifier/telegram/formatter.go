@@ -341,6 +341,13 @@ func FormatHelp() string {
 /ayarlar — Mevcut yapılandırma
 /kurulum — Etkileşimli kurulum menüsü
 
+<b>👥 Çok Kullanıcı</b>
+/ekle — Kişi ekle (/ekle &lt;chat_id&gt; [isim])
+/yonetim — Eklediklerini gör/düzenle/çıkar
+/loglar — Son işlemler (kim ne yaptı)
+
+<i>Not: Her komut yetkiye bağlıdır. Eklediğin kişiye yalnızca sendeki yetkileri verebilirsin; kişi kendi alt ağacını görür.</i>
+
 <i>🏰 Kanije Kalesi — Siber kale muhafızı</i>`
 }
 

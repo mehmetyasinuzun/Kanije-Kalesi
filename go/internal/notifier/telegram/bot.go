@@ -9,6 +9,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/kanije-kalesi/kanije/internal/access"
 	"github.com/kanije-kalesi/kanije/internal/config"
 	"github.com/kanije-kalesi/kanije/internal/event"
 	"github.com/kanije-kalesi/kanije/internal/storage"
@@ -33,6 +34,7 @@ type Bot struct {
 	client *Client
 	wizard *SetupWizard
 	store  storage.Storage
+	acl    *access.Manager
 	log    *slog.Logger
 
 	// System services provided by the app layer
@@ -59,6 +61,7 @@ type BotConfig struct {
 	Client        *Client
 	Wizard        *SetupWizard
 	Store         storage.Storage
+	Access        *access.Manager
 	Log           *slog.Logger
 	LockScreen    func() error
 	CapturePhoto  func(ctx context.Context) ([]byte, error)
@@ -75,6 +78,7 @@ func NewBot(cfg BotConfig) *Bot {
 		client:        cfg.Client,
 		wizard:        cfg.Wizard,
 		store:         cfg.Store,
+		acl:           cfg.Access,
 		log:           cfg.Log,
 		lockScreen:    cfg.LockScreen,
 		capturePhoto:  cfg.CapturePhoto,
@@ -172,6 +176,28 @@ func (b *Bot) handleUpdate(ctx context.Context, u Update) {
 }
 
 // handleMessage processes incoming text messages.
+// commandCaps maps a command to the capability required to run it. Commands
+// absent from this map (e.g. /yardim, /ping, /iptal) are open to any authorized
+// tree member. Both Turkish and English aliases are listed.
+var commandCaps = map[string]access.Capability{
+	"/status": access.CapStatus, "/durum": access.CapStatus,
+	"/olaylar": access.CapEvents, "/events": access.CapEvents,
+	"/ozet": access.CapEvents, "/summary": access.CapEvents,
+	"/foto": access.CapPhoto, "/photo": access.CapPhoto,
+	"/ekran": access.CapScreen, "/screenshot": access.CapScreen,
+	"/seskayit": access.CapAudio, "/record": access.CapAudio,
+	"/kilitle": access.CapLock, "/lock": access.CapLock,
+	"/yeniden": access.CapRestart, "/restart": access.CapRestart,
+	"/kapat": access.CapShutdown, "/shutdown": access.CapShutdown,
+	"/ayarlar": access.CapConfig, "/config": access.CapConfig,
+	"/kurulum": access.CapConfig, "/setup": access.CapConfig,
+	"/guncelle": access.CapUpdate, "/update": access.CapUpdate,
+	"/dogrula": access.CapVerify, "/verify": access.CapVerify,
+	"/ekle": access.CapInvite, "/davet": access.CapInvite,
+	"/yonetim": access.CapInvite, "/kisiler": access.CapInvite,
+	"/loglar": access.CapManage, "/audit": access.CapManage,
+}
+
 func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 	if m.From == nil || m.Chat == nil {
 		return
@@ -202,6 +228,18 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 
 	// Route commands
 	cmd := extractCommand(text)
+
+	// Capability gate: gated commands require the matching permission. Ungated
+	// commands (help/ping/cancel) are open to any tree member. Enforced entirely
+	// server-side — the only trusted input is the Telegram-authenticated chat ID.
+	if reqCap, gated := commandCaps[cmd]; gated && b.acl != nil {
+		if !b.acl.Can(chatID, reqCap) {
+			b.reply(ctx, chatID, "⛔ <b>Yetki yok.</b> Bu komut için gerekli izne sahip değilsin.")
+			return
+		}
+		b.acl.Log(ctx, chatID, strings.TrimPrefix(cmd, "/"), "")
+	}
+
 	switch cmd {
 	case "/start", "/yardim", "/help":
 		b.cmdHelp(ctx, chatID)
@@ -235,6 +273,12 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdGuncelle(ctx, chatID)
 	case "/dogrula", "/verify":
 		b.cmdDogrula(ctx, chatID)
+	case "/yonetim", "/kisiler":
+		b.cmdYonetim(ctx, chatID)
+	case "/ekle", "/davet":
+		b.cmdEkle(ctx, chatID, text)
+	case "/loglar", "/audit":
+		b.cmdLoglar(ctx, chatID)
 	default:
 		if text != "" && isCommand(text) {
 			b.reply(ctx, chatID, "❓ Bilinmeyen komut. /yardim yazın.")
@@ -250,6 +294,12 @@ func (b *Bot) handleCallback(ctx context.Context, cq *CallbackQuery) {
 
 	chatID := cq.Message.Chat.ID
 	if !b.isAuthorized(chatID) {
+		return
+	}
+
+	// Delegate to the multi-user management UI for mng: callbacks
+	if strings.HasPrefix(cq.Data, "mng:") {
+		b.handleManageCallback(ctx, chatID, cq.Message.MessageID, cq.ID, cq.Data)
 		return
 	}
 
@@ -638,6 +688,12 @@ func (b *Bot) clearPendingAction() (*ActionState, bool) {
 // ---- Authorization ----
 
 func (b *Bot) isAuthorized(chatID int64) bool {
+	// The delegation tree is the source of truth: a chat is authorized iff it is
+	// a member. The owner and any migrated allowlist entries are seeded at boot.
+	if b.acl != nil {
+		return b.acl.Known(chatID)
+	}
+	// Fallback only if the manager was never wired (defensive).
 	if chatID == b.cfg.ChatID() {
 		return true
 	}

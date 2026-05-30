@@ -15,6 +15,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/kanije-kalesi/kanije/internal/access"
 	"github.com/kanije-kalesi/kanije/internal/capture"
 	"github.com/kanije-kalesi/kanije/internal/config"
 	"github.com/kanije-kalesi/kanije/internal/event"
@@ -68,6 +69,14 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 	store, err := storage.NewSQLite(cfg.Storage.DBPath)
 	if err != nil {
 		return nil, fmt.Errorf("veritabanı açılamadı: %w", err)
+	}
+
+	// Access control — capability-based delegation tree for multi-user control.
+	// Seeds the owner as root (all caps) and migrates any prior allowlist on first run.
+	acl := access.NewManager(store, log.With("module", "access"))
+	if err := acl.Bootstrap(context.Background(), cfg.ChatID(), cfg.AllowedChatIDs()); err != nil {
+		store.Close()
+		return nil, fmt.Errorf("erişim yöneticisi başlatılamadı: %w", err)
 	}
 
 	// Event bus
@@ -134,6 +143,7 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		Client:        tgClient,
 		Wizard:        wizard,
 		Store:         store,
+		Access:        acl,
 		Log:           log.With("module", "bot"),
 		LockScreen:    lockScreen,
 		CapturePhoto:  cam.Capture,
