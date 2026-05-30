@@ -137,6 +137,16 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		webhooks: webhook.New(hooks, log.With("module", "webhook")),
 	}
 
+	// Fleet identity — friendly device label (falls back to hostname).
+	deviceLabel := cfg.DeviceLabel()
+	if deviceLabel == "" {
+		if h, err := os.Hostname(); err == nil && h != "" {
+			deviceLabel = h
+		} else {
+			deviceLabel = "cihaz"
+		}
+	}
+
 	// Bot
 	bot := telegram.NewBot(telegram.BotConfig{
 		Config:        cfg,
@@ -145,6 +155,8 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		Store:         store,
 		Access:        acl,
 		Log:           log.With("module", "bot"),
+		DeviceLabel:   deviceLabel,
+		OSName:        app.osName,
 		LockScreen:    lockScreen,
 		CapturePhoto:  cam.Capture,
 		CaptureScreen: screen.Capture,

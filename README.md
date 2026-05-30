@@ -70,12 +70,18 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 /status    →  CPU, RAM, disk, çalışma süresi
 /foto      →  Anlık kamera fotoğrafı
 /ekran     →  Ekran görüntüsü
-/olaylar   →  Son güvenlik olayları
+/seskayit  →  Mikrofon kaydı (/seskayit 30 → 30 sn, varsayılan 30, en çok 600)
+/olaylar   →  Son olaylar (/olaylar <tip> veya <sayı> ile filtrele)
+/ozet      →  Son 7 günün olay özeti (tip bazlı)
 /dogrula   →  Olay günlüğü bütünlüğünü doğrula (hash-chain)
 /guncelle  →  Yeni sürümü kontrol et ve kur
 /kilitle   →  Ekranı kilitle
 /yeniden   →  Sistemi yeniden başlat (onay gerekli)
 /kapat     →  Sistemi kapat (onay gerekli)
+/cihazlar  →  🛰️ Tüm cihazları listele (fleet)
+/ekle      →  👥 Kişi ekle (/ekle <chat_id> [isim])
+/yonetim   →  👥 Eklediklerini gör/düzenle/çıkar
+/loglar    →  🧾 Son işlemler (kim ne yaptı)
 /kurulum   →  ⚙️ Etkileşimli ayar menüsü
 /yardim    →  Tüm komutlar
 ```
@@ -94,6 +100,36 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 | 🔇 **Sessiz saatler** | Gece penceresinde yalnız kritik olaylar (`[quiet_hours]`) |
 | 🛡️ **Anti-abuse** | Komut hız sınırı + opsiyonel 2FA (TOTP) hassas komutlarda |
 | 📊 **Prometheus** | Opsiyonel `/metrics` endpoint (homelab izleme) |
+| 🎤 **Ses kaydı** | `/seskayit [saniye]` — mikrofondan kayıt, Telegram'a MP3 (varsayılan 30 sn) |
+| 👥 **Çok kullanıcı** | Yetki devri ağacı: kişi ekle/çıkar, rol + komut-bazlı yetki, yükseltme yok, herkes kendi alt-ağacını görür, `/loglar` denetim izi |
+| 🛰️ **Fleet (çok cihaz)** | Tek grup, N cihaz: her cihaza ayrı bot, komutlar cihaz adıyla yönlenir (`/foto dizustu`), `/cihazlar` listeler |
+
+<br>
+
+## 👥 Çok Kullanıcı (Yetki Devri)
+
+Aynı botu güvenle başkalarıyla paylaş. Sahip (kurulumdaki kişi) tüm yetkilere sahiptir; başkalarını **kısıtlı** ekleyebilir:
+
+- `/ekle <chat_id> [isim]` → kişiyi ekler, ardından **rol** (İzleyici/Operatör/Yönetici) seç veya **tek tek** yetki aç/kapat.
+- **Yükseltme yok:** Birine yalnızca **sende olan** yetkileri verebilirsin (sunucu tarafında zorlanır — istek manipülasyonu işe yaramaz).
+- **Görünürlük:** Herkes yalnızca **kendi eklediklerini** (ve onların eklediklerini) görür/yönetir.
+- **Çıkarma kişiyi silmez-zinciri koparmaz:** B çıkarılırsa altındakiler silinmez; **en tepeye** (veya bir üste / sana) yeniden bağlanır, yeni ebeveynin yetkisine kırpılır.
+- `/yonetim` ile ağacı gör, düzenle, çıkar · `/loglar` ile kim ne yaptı.
+
+## 🛰️ Çoklu Cihaz (Fleet)
+
+Birden fazla bilgisayarı **tek Telegram grubundan** yönet — sunucu/port gerekmez:
+
+1. Her cihaz için ayrı bir bot oluştur (@BotFather) ve **gizlilik modunu kapat** (`/mybots → Bot Settings → Group Privacy → Turn off`).
+2. Bir Telegram **grubu** kur, tüm bot'ları gruba ekle.
+3. Her cihazda `/kurulum → 🛰️ Fleet / Cihaz`: **cihaz adı** (örn. `dizustu`) ve **grup ID**'sini gir.
+4. Artık olaylar gruba düşer (hangi cihaz olduğu etiketli). Komutları cihaz adıyla yönlendir:
+
+```
+/cihazlar           →  tüm cihazlar kendini listeler
+/foto dizustu       →  yalnızca "dizustu" fotoğraf çeker
+/seskayit ev-pc 60  →  "ev-pc" 60 sn ses kaydı alır
+```
 
 <br>
 

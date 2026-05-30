@@ -53,6 +53,10 @@ type Bot struct {
 
 	// Per-chat command rate limiter (anti-abuse).
 	cmdLimiter *cmdRateLimiter
+
+	// Fleet identity — used to route group commands to the right device.
+	deviceLabel string
+	osName      string
 }
 
 // BotConfig holds dependencies for the Bot.
@@ -63,6 +67,8 @@ type BotConfig struct {
 	Store         storage.Storage
 	Access        *access.Manager
 	Log           *slog.Logger
+	DeviceLabel   string
+	OSName        string
 	LockScreen    func() error
 	CapturePhoto  func(ctx context.Context) ([]byte, error)
 	CaptureScreen func(ctx context.Context) ([]byte, error)
@@ -80,6 +86,8 @@ func NewBot(cfg BotConfig) *Bot {
 		store:         cfg.Store,
 		acl:           cfg.Access,
 		log:           cfg.Log,
+		deviceLabel:   cfg.DeviceLabel,
+		osName:        cfg.OSName,
 		lockScreen:    cfg.LockScreen,
 		capturePhoto:  cfg.CapturePhoto,
 		captureScreen: cfg.CaptureScreen,
@@ -93,8 +101,13 @@ func NewBot(cfg BotConfig) *Bot {
 // SendEvent sends a formatted event notification to the configured chat.
 // If there are media attachments (photo/screenshot), they are sent after the text.
 func (b *Bot) SendEvent(ctx context.Context, ev event.Event) error {
-	chatID := b.cfg.ChatID()
+	chatID := b.cfg.NotifyChatID() // fleet group when configured, else owner
 	text := FormatEvent(ev)
+
+	// In a shared fleet group, tag which device this event came from.
+	if b.cfg.GroupID() != 0 && b.deviceLabel != "" {
+		text = "🏷️ <b>" + safeHTML(b.deviceLabel) + "</b>\n" + text
+	}
 
 	if _, err := b.client.SendMessage(ctx, chatID, text, "HTML"); err != nil {
 		return err
@@ -118,7 +131,7 @@ func (b *Bot) SendEvent(ctx context.Context, ev event.Event) error {
 
 // SendMessage sends a plain text message to the configured chat.
 func (b *Bot) SendMessage(ctx context.Context, text string) error {
-	_, err := b.client.SendMessage(ctx, b.cfg.ChatID(), text, "HTML")
+	_, err := b.client.SendMessage(ctx, b.cfg.NotifyChatID(), text, "HTML")
 	return err
 }
 
@@ -198,46 +211,94 @@ var commandCaps = map[string]access.Capability{
 	"/loglar": access.CapManage, "/audit": access.CapManage,
 }
 
+// groupBroadcastCmds run on every device in a shared group (no device target).
+var groupBroadcastCmds = map[string]bool{
+	"/cihazlar": true, "/devices": true,
+	"/yardim": true, "/help": true,
+}
+
+// privateOnlyCmds manage configuration or the user tree and only make sense in a
+// one-on-one chat, never in a shared fleet group.
+var privateOnlyCmds = map[string]bool{
+	"/kurulum": true, "/setup": true,
+	"/ayarlar": true, "/config": true,
+	"/yonetim": true, "/kisiler": true,
+	"/ekle": true, "/davet": true,
+	"/loglar": true, "/audit": true,
+}
+
+// routeGroupCommand decides whether this device should act on a group command.
+// Broadcast commands always run. Otherwise the first argument must equal this
+// device's label; if so it is consumed and the remaining text is returned.
+func (b *Bot) routeGroupCommand(cmd, text string) (handled bool, stripped string) {
+	if groupBroadcastCmds[cmd] {
+		return true, text
+	}
+	fields := strings.Fields(text)
+	if len(fields) < 2 {
+		return false, text // no device named → ignore (avoid every device replying)
+	}
+	if !strings.EqualFold(fields[1], b.deviceLabel) {
+		return false, text // addressed to another device
+	}
+	return true, strings.Join(append([]string{fields[0]}, fields[2:]...), " ")
+}
+
 func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 	if m.From == nil || m.Chat == nil {
 		return
 	}
 
-	// Security: only accept messages from authorized chat IDs
-	if !b.isAuthorized(m.Chat.ID) {
-		b.log.Warn("yetkisiz mesaj alındı",
-			"chat_id", m.Chat.ID,
-			"from", m.From.Username)
+	chatID := m.Chat.ID  // reply / notification target (group or private)
+	actorID := m.From.ID // the human; in a group this differs from chatID
+	isGroup := m.Chat.Type == "group" || m.Chat.Type == "supergroup"
+
+	// Security: authorize the actual user — works in both private and group chats.
+	if !b.isAuthorized(actorID) {
+		b.log.Warn("yetkisiz mesaj alındı", "actor_id", actorID, "chat_id", chatID, "from", m.From.Username)
 		return
 	}
 
-	// Per-chat command rate limit (anti-abuse — bir saldırgan /foto spam'i ile
-	// kamerayı kilitleyemesin). Aşımda mesaj sessizce düşürülür.
-	if !b.cmdLimiter.allow(m.Chat.ID) {
-		b.log.Debug("komut hız sınırı aşıldı, mesaj atlanıyor", "chat_id", m.Chat.ID)
+	// Per-chat command rate limit (anti-abuse). Keyed on the chat.
+	if !b.cmdLimiter.allow(chatID) {
+		b.log.Debug("komut hız sınırı aşıldı, mesaj atlanıyor", "chat_id", chatID)
 		return
 	}
 
 	text := m.Text
-	chatID := m.Chat.ID
 
-	// Let the setup wizard intercept non-command messages when waiting for input
-	if !isCommand(text) && b.wizard.HandleText(ctx, chatID, text) {
+	// In private chats the wizard may be waiting for typed input.
+	if !isGroup && !isCommand(text) && b.wizard.HandleText(ctx, chatID, text) {
 		return
 	}
 
-	// Route commands
 	cmd := extractCommand(text)
 
-	// Capability gate: gated commands require the matching permission. Ungated
-	// commands (help/ping/cancel) are open to any tree member. Enforced entirely
-	// server-side — the only trusted input is the Telegram-authenticated chat ID.
+	// Fleet routing: in a shared group every device's bot sees the command.
+	// Targeted commands must name this device (e.g. "/foto dizustu"); broadcast
+	// commands (/cihazlar) run everywhere; an untargeted action command is
+	// ignored so the devices don't all answer at once.
+	if isGroup {
+		handled, stripped := b.routeGroupCommand(cmd, text)
+		if !handled {
+			return
+		}
+		text = stripped
+		cmd = extractCommand(text)
+		if privateOnlyCmds[cmd] {
+			b.reply(ctx, chatID, "🔒 Bu komutu bota <b>özelden</b> yaz (grupta değil).")
+			return
+		}
+	}
+
+	// Capability gate (server-side, authorized by the human's user ID). Ungated
+	// commands (help/ping/cancel/cihazlar) are open to any tree member.
 	if reqCap, gated := commandCaps[cmd]; gated && b.acl != nil {
-		if !b.acl.Can(chatID, reqCap) {
+		if !b.acl.Can(actorID, reqCap) {
 			b.reply(ctx, chatID, "⛔ <b>Yetki yok.</b> Bu komut için gerekli izne sahip değilsin.")
 			return
 		}
-		b.acl.Log(ctx, chatID, strings.TrimPrefix(cmd, "/"), "")
+		b.acl.Log(ctx, actorID, strings.TrimPrefix(cmd, "/"), "")
 	}
 
 	switch cmd {
@@ -279,6 +340,8 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdEkle(ctx, chatID, text)
 	case "/loglar", "/audit":
 		b.cmdLoglar(ctx, chatID)
+	case "/cihazlar", "/devices":
+		b.cmdCihazlar(ctx, chatID)
 	default:
 		if text != "" && isCommand(text) {
 			b.reply(ctx, chatID, "❓ Bilinmeyen komut. /yardim yazın.")
@@ -334,6 +397,16 @@ func (b *Bot) cmdHelp(ctx context.Context, chatID int64) {
 func (b *Bot) cmdStatus(ctx context.Context, chatID int64) {
 	info := b.getStatus()
 	b.reply(ctx, chatID, FormatStatus(info))
+}
+
+// cmdCihazlar replies with THIS device's card. In a fleet group every device's
+// bot answers, so the user sees the whole fleet at once.
+func (b *Bot) cmdCihazlar(ctx context.Context, chatID int64) {
+	var info StatusInfo
+	if b.getStatus != nil {
+		info = b.getStatus()
+	}
+	b.reply(ctx, chatID, FormatDeviceCard(b.deviceLabel, b.osName, info))
 }
 
 func (b *Bot) cmdFoto(ctx context.Context, chatID int64) {
@@ -721,10 +794,16 @@ func extractCommand(text string) string {
 	if !isCommand(text) {
 		return ""
 	}
+	tok := text
 	for i, r := range text {
 		if r == ' ' || r == '\n' {
-			return text[:i]
+			tok = text[:i]
+			break
 		}
 	}
-	return text
+	// In groups Telegram appends "@botusername" to commands — strip it.
+	if at := strings.IndexByte(tok, '@'); at >= 0 {
+		tok = tok[:at]
+	}
+	return tok
 }

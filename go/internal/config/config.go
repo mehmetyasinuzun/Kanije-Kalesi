@@ -24,6 +24,7 @@ type Config struct {
 
 	Telegram   TelegramConfig           `toml:"telegram"   json:"telegram"`
 	Triggers   map[string]TriggerConfig `toml:"triggers"   json:"triggers"`
+	Device     DeviceConfig             `toml:"device"     json:"device"`
 	Camera     CameraConfig             `toml:"camera"     json:"camera"`
 	Audio      AudioConfig              `toml:"audio"      json:"audio"`
 	Screenshot ScreenshotConfig         `toml:"screenshot" json:"screenshot"`
@@ -45,11 +46,17 @@ type Config struct {
 
 type TelegramConfig struct {
 	BotToken       string  `toml:"bot_token"        json:"bot_token"`
-	ChatID         int64   `toml:"chat_id"          json:"chat_id"`
+	ChatID         int64   `toml:"chat_id"          json:"chat_id"`  // owner's private chat/user ID
+	GroupID        int64   `toml:"group_id"         json:"group_id"` // optional fleet group; notifications go here when set
 	AllowedChatIDs []int64 `toml:"allowed_chat_ids" json:"allowed_chat_ids"`
 	SendTimeoutSec int     `toml:"send_timeout_sec" json:"send_timeout_sec"`
 	RetryCount     int     `toml:"retry_count"      json:"retry_count"`
 	RetryDelaySec  int     `toml:"retry_delay_sec"  json:"retry_delay_sec"`
+}
+
+// DeviceConfig identifies this machine within a multi-device fleet.
+type DeviceConfig struct {
+	Label string `toml:"label" json:"label"` // friendly name; empty = hostname
 }
 
 // TriggerConfig controls what happens when a specific event fires.
@@ -395,6 +402,14 @@ func (c *Config) SetField(key, value string) error {
 		c.Camera.DeviceName = value
 	case "audio.device_name":
 		c.Audio.DeviceName = value
+	case "device.label":
+		c.Device.Label = strings.TrimSpace(value)
+	case "telegram.group_id":
+		n, err := strconv.ParseInt(strings.TrimSpace(value), 10, 64)
+		if err != nil {
+			return fmt.Errorf("geçersiz grup ID (sayısal olmalı, örn: -1001234567890)")
+		}
+		c.Telegram.GroupID = n
 	case "logging.level":
 		value = strings.ToLower(value)
 		if !contains([]string{"debug", "info", "warn", "error"}, value) {
@@ -486,11 +501,37 @@ func (c *Config) GetTrigger(name string) (TriggerConfig, bool) {
 // Always call them at the point of use — never cache the result, or runtime
 // changes made via /kurulum will not take effect.
 
-// ChatID returns the primary Telegram chat ID.
+// ChatID returns the owner's private chat/user ID (the RBAC root).
 func (c *Config) ChatID() int64 {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.Telegram.ChatID
+}
+
+// GroupID returns the optional fleet group chat ID (0 if unset).
+func (c *Config) GroupID() int64 {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Telegram.GroupID
+}
+
+// NotifyChatID returns where event notifications should be sent: the fleet
+// group when configured, otherwise the owner's chat.
+func (c *Config) NotifyChatID() int64 {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	if c.Telegram.GroupID != 0 {
+		return c.Telegram.GroupID
+	}
+	return c.Telegram.ChatID
+}
+
+// DeviceLabel returns the configured friendly device label, or "" if unset
+// (callers fall back to the hostname).
+func (c *Config) DeviceLabel() string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Device.Label
 }
 
 // BotToken returns the decrypted Telegram bot token. The stored value may be

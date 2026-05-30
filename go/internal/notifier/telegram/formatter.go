@@ -341,6 +341,10 @@ func FormatHelp() string {
 /ayarlar — Mevcut yapılandırma
 /kurulum — Etkileşimli kurulum menüsü
 
+<b>🛰️ Fleet (Çok Cihaz)</b>
+/cihazlar — Tüm cihazları listele
+<i>Grupta komut cihaz adıyla: /foto dizustu</i>
+
 <b>👥 Çok Kullanıcı</b>
 /ekle — Kişi ekle (/ekle &lt;chat_id&gt; [isim])
 /yonetim — Eklediklerini gör/düzenle/çıkar
@@ -349,6 +353,29 @@ func FormatHelp() string {
 <i>Not: Her komut yetkiye bağlıdır. Eklediğin kişiye yalnızca sendeki yetkileri verebilirsin; kişi kendi alt ağacını görür.</i>
 
 <i>🏰 Kanije Kalesi — Siber kale muhafızı</i>`
+}
+
+// FormatDeviceCard renders this device's identity line for /cihazlar. In a fleet
+// group every device's bot answers, so the replies together list the whole fleet.
+func FormatDeviceCard(label, osName string, info StatusInfo) string {
+	if label == "" {
+		label = "cihaz"
+	}
+	var b strings.Builder
+	b.WriteString("🖥️ <b>")
+	b.WriteString(safeHTML(label))
+	b.WriteString("</b> — çevrimiçi ✅\n")
+	if osName != "" {
+		b.WriteString("💿 ")
+		b.WriteString(safeHTML(osName))
+		b.WriteString("\n")
+	}
+	b.WriteString("⏱️ Çalışma süresi: <b>")
+	b.WriteString(formatDuration(info.Uptime))
+	b.WriteString("</b>\n<i>Bu cihaza komut: /foto ")
+	b.WriteString(safeHTML(label))
+	b.WriteString("</i>")
+	return b.String()
 }
 
 // StatusInfo is the data bag for FormatStatus.

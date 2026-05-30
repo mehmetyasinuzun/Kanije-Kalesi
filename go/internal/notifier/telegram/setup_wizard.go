@@ -67,6 +67,8 @@ var askPrompts = map[string]string{
 	"camera.device_index":            "Kamera indeksini girin (0, 1, 2...)",
 	"camera.ffmpeg_path":             "ffmpeg program yolunu girin (PATH'de varsa sadece 'ffmpeg')",
 	"audio.device_name":              "Mikrofon cihaz adını girin (Windows dshow adı; boş = otomatik. Linux'ta 'default')",
+	"device.label":                   "Bu cihaza isim ver (örn: dizustu). Grupta komut bununla yönlenir: /foto dizustu",
+	"telegram.group_id":              "Fleet grup ID (örn: -1001234567890). Olaylar bu gruba düşer; @userinfobot'tan öğren.",
 	"heartbeat.interval_hours":       "Heartbeat aralığını saat cinsinden girin (örn: 6)",
 	"security.max_events_per_minute": "Dakikada maksimum kaç olay işlensin? (örn: 10)",
 }
@@ -163,6 +165,9 @@ func (w *SetupWizard) HandleCallback(ctx context.Context, chatID, messageID int6
 	case "heartbeat":
 		w.editHeartbeatMenu(ctx, chatID, messageID)
 
+	case "fleet":
+		w.editFleetMenu(ctx, chatID, messageID)
+
 	case "security":
 		w.editSecurityMenu(ctx, chatID, messageID)
 
@@ -231,6 +236,7 @@ func (w *SetupWizard) buildMainKeyboard() InlineKeyboardMarkup {
 			{{Text: "🎯 Tetikleyiciler", CallbackData: "wizard:triggers"}},
 			{{Text: "📷 Kamera Ayarları", CallbackData: "wizard:camera"}},
 			{{Text: "💓 Heartbeat", CallbackData: "wizard:heartbeat"}},
+			{{Text: "🛰️ Fleet / Cihaz", CallbackData: "wizard:fleet"}},
 			{{Text: "🔐 Güvenlik", CallbackData: "wizard:security"}},
 			{{Text: "📋 Loglama", CallbackData: "wizard:logging"}},
 			{{Text: "✅ Tamamlandı", CallbackData: "wizard:done"}},
@@ -351,6 +357,40 @@ func (w *SetupWizard) editCameraMenu(ctx context.Context, chatID, messageID int6
 			{{Text: "◀️ Geri", CallbackData: "wizard:main"}},
 		},
 	}
+	w.client.EditMessageText(ctx, chatID, messageID, text, &kb)
+}
+
+// ---- Fleet / device menu ----
+
+func (w *SetupWizard) editFleetMenu(ctx context.Context, chatID, messageID int64) {
+	label := w.cfg.DeviceLabel()
+	display := label
+	if display == "" {
+		display = "(varsayılan: hostname)"
+	}
+	example := label
+	if example == "" {
+		example = "dizustu"
+	}
+	groupStr := "ayarlı değil"
+	if g := w.cfg.GroupID(); g != 0 {
+		groupStr = fmt.Sprintf("%d", g)
+	}
+
+	text := fmt.Sprintf("🛰️ <b>Fleet / Cihaz</b>\n\n"+
+		"Cihaz adı: <b>%s</b>\nFleet grubu: <b>%s</b>\n\n"+
+		"<i>Çoklu cihaz: her bilgisayara ayrı bot + hepsi aynı Telegram grubunda. "+
+		"Komutlar cihaz adıyla yönlenir (örn. <code>/foto %s</code>). "+
+		"<code>/cihazlar</code> hepsini listeler.</i>\n\n"+
+		"<i>⚠️ Grupta komutların çalışması için her bot'un gizlilik modu KAPALI olmalı: "+
+		"@BotFather → /mybots → Bot Settings → Group Privacy → Turn off.</i>",
+		safeHTML(display), safeHTML(groupStr), safeHTML(example))
+
+	kb := InlineKeyboardMarkup{InlineKeyboard: [][]InlineKeyboardButton{
+		{{Text: "🏷️ Cihaz adı", CallbackData: "wizard:ask:device.label"}},
+		{{Text: "👥 Fleet grup ID", CallbackData: "wizard:ask:telegram.group_id"}},
+		{{Text: "◀️ Geri", CallbackData: "wizard:main"}},
+	}}
 	w.client.EditMessageText(ctx, chatID, messageID, text, &kb)
 }
 
