@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/event"
@@ -59,13 +60,17 @@ type SQLiteStorage struct {
 
 // NewSQLite opens (or creates) a SQLite database at dbPath.
 func NewSQLite(dbPath string) (*SQLiteStorage, error) {
-	// The modernc.org/sqlite driver uses "sqlite" as the driver name
-	db, err := sql.Open("sqlite", dbPath+"?_pragma=journal_mode(WAL)&_pragma=synchronous(NORMAL)")
+	// The modernc.org/sqlite driver uses "sqlite" as the driver name.
+	// WAL + a busy timeout keep writes durable while tolerating brief lock
+	// contention instead of failing immediately with "database is locked".
+	dsn := dbPath + "?_pragma=journal_mode(WAL)&_pragma=synchronous(NORMAL)&_pragma=busy_timeout(5000)"
+	db, err := sql.Open("sqlite", dsn)
 	if err != nil {
 		return nil, fmt.Errorf("SQLite açılamadı (%s): %w", dbPath, err)
 	}
 
-	// Connection pool: single writer, multiple readers
+	// Serialize access through a single connection. Event volume is low and this
+	// avoids writer/writer lock contention entirely; reads are sub-millisecond.
 	db.SetMaxOpenConns(1)
 	db.SetMaxIdleConns(1)
 	db.SetConnMaxLifetime(time.Hour)
@@ -201,42 +206,43 @@ func (s *SQLiteStorage) SavePendingMessage(ctx context.Context, text string) err
 	return err
 }
 
-// PopPendingMessages atomically retrieves and deletes all pending messages.
-func (s *SQLiteStorage) PopPendingMessages(ctx context.Context) ([]PendingMessage, error) {
-	tx, err := s.db.BeginTx(ctx, nil)
+// PendingMessages returns all queued offline messages, oldest first, without
+// deleting them. The caller deletes only successfully-sent messages via
+// DeletePendingMessages, so a crash or send failure never loses the queue.
+func (s *SQLiteStorage) PendingMessages(ctx context.Context) ([]PendingMessage, error) {
+	rows, err := s.db.QueryContext(ctx, "SELECT id, text, created_at FROM pending_messages ORDER BY id ASC")
 	if err != nil {
 		return nil, err
 	}
-	defer tx.Rollback()
-
-	rows, err := tx.QueryContext(ctx, "SELECT id, text, created_at FROM pending_messages ORDER BY id ASC")
-	if err != nil {
-		return nil, err
-	}
+	defer rows.Close()
 
 	var msgs []PendingMessage
 	for rows.Next() {
 		var m PendingMessage
 		var tsStr string
 		if err := rows.Scan(&m.ID, &m.Text, &tsStr); err != nil {
-			rows.Close()
 			return nil, err
 		}
 		m.CreatedAt, _ = time.Parse(time.RFC3339, tsStr)
 		msgs = append(msgs, m)
 	}
-	rows.Close()
+	return msgs, rows.Err()
+}
 
-	if len(msgs) > 0 {
-		if _, err := tx.ExecContext(ctx, "DELETE FROM pending_messages"); err != nil {
-			return nil, err
-		}
+// DeletePendingMessages removes the given message IDs from the queue.
+func (s *SQLiteStorage) DeletePendingMessages(ctx context.Context, ids []int64) error {
+	if len(ids) == 0 {
+		return nil
 	}
-
-	if err := tx.Commit(); err != nil {
-		return nil, err
+	placeholders := make([]string, len(ids))
+	args := make([]any, len(ids))
+	for i, id := range ids {
+		placeholders[i] = "?"
+		args[i] = id
 	}
-	return msgs, nil
+	query := "DELETE FROM pending_messages WHERE id IN (" + strings.Join(placeholders, ",") + ")"
+	_, err := s.db.ExecContext(ctx, query, args...)
+	return err
 }
 
 // Prune removes events older than retentionDays.

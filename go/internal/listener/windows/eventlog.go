@@ -12,7 +12,6 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
-	"syscall"
 	"time"
 	"unsafe"
 
@@ -23,19 +22,16 @@ import (
 // ---- Windows EVT API bindings ----
 
 var (
-	wevtapi            = windows.NewLazySystemDLL("wevtapi.dll")
-	procEvtSubscribe   = wevtapi.NewProc("EvtSubscribe")
-	procEvtNext        = wevtapi.NewProc("EvtNext")
-	procEvtRender      = wevtapi.NewProc("EvtRender")
-	procEvtClose       = wevtapi.NewProc("EvtClose")
+	wevtapi          = windows.NewLazySystemDLL("wevtapi.dll")
+	procEvtSubscribe = wevtapi.NewProc("EvtSubscribe")
+	procEvtNext      = wevtapi.NewProc("EvtNext")
+	procEvtRender    = wevtapi.NewProc("EvtRender")
+	procEvtClose     = wevtapi.NewProc("EvtClose")
 )
 
 const (
 	evtSubscribeToFutureEvents = 1
-	evtRenderEventXml          = 1
-
-	errorNoMoreItems  = 259
-	errorInsufficientBuffer = 122
+	evtRenderEventXML          = 1
 )
 
 // ---- XML structures for event parsing ----
@@ -46,7 +42,7 @@ type winEvent struct {
 }
 
 type winSystem struct {
-	EventID    int    `xml:"EventID"`
+	EventID     int `xml:"EventID"`
 	TimeCreated struct {
 		SystemTime string `xml:"SystemTime,attr"`
 	} `xml:"TimeCreated"`
@@ -112,13 +108,13 @@ func (l *EventLogListener) Start(ctx context.Context, bus *event.Bus) error {
 	queryPtr, _ := windows.UTF16PtrFromString(query)
 
 	hSubscription, _, callErr := procEvtSubscribe.Call(
-		0,                                  // session (local)
-		uintptr(hSignal),                   // signal event
+		0,                // session (local)
+		uintptr(hSignal), // signal event
 		uintptr(unsafe.Pointer(channelPtr)),
 		uintptr(unsafe.Pointer(queryPtr)),
-		0,                                  // bookmark (none)
-		0,                                  // context
-		0,                                  // callback (nil = signal mode)
+		0, // bookmark (none)
+		0, // context
+		0, // callback (nil = signal mode)
 		evtSubscribeToFutureEvents,
 	)
 	if hSubscription == 0 {
@@ -182,7 +178,7 @@ func (l *EventLogListener) drainEvents(hSub uintptr, bus *event.Bus) {
 func (l *EventLogListener) renderEvent(hEvent uintptr) (event.Event, error) {
 	// First call: get required buffer size
 	var bufferUsed, propertyCount uint32
-	procEvtRender.Call(0, hEvent, evtRenderEventXml, 0, 0,
+	procEvtRender.Call(0, hEvent, evtRenderEventXML, 0, 0,
 		uintptr(unsafe.Pointer(&bufferUsed)),
 		uintptr(unsafe.Pointer(&propertyCount)))
 
@@ -195,7 +191,7 @@ func (l *EventLogListener) renderEvent(hEvent uintptr) (event.Event, error) {
 	ret, _, callErr := procEvtRender.Call(
 		0,
 		hEvent,
-		evtRenderEventXml,
+		evtRenderEventXML,
 		uintptr(bufferUsed),
 		uintptr(unsafe.Pointer(&buf[0])),
 		uintptr(unsafe.Pointer(&bufferUsed)),
@@ -241,7 +237,7 @@ func (l *EventLogListener) parseEventXML(xmlStr string) (event.Event, error) {
 	}
 
 	username := data.get("TargetUserName")
-	domain   := data.get("TargetDomainName")
+	domain := data.get("TargetDomainName")
 	sourceIP := data.get("IpAddress")
 	if sourceIP == "-" || sourceIP == "::1" || sourceIP == "127.0.0.1" {
 		sourceIP = ""
@@ -260,7 +256,7 @@ func (l *EventLogListener) parseEventXML(xmlStr string) (event.Event, error) {
 		ev.Timestamp = ts
 		ev.Hostname = hostname
 		ev.Username = username
-		ev.Domain   = domain
+		ev.Domain = domain
 		ev.SourceIP = sourceIP
 		ev.LogonType = logonType
 		return ev, nil
@@ -270,7 +266,7 @@ func (l *EventLogListener) parseEventXML(xmlStr string) (event.Event, error) {
 		ev.Timestamp = ts
 		ev.Hostname = hostname
 		ev.Username = username
-		ev.Domain   = domain
+		ev.Domain = domain
 		ev.SourceIP = sourceIP
 		ev.LogonType = logonType
 		return ev, nil
@@ -299,11 +295,4 @@ func (l *EventLogListener) parseEventXML(xmlStr string) (event.Event, error) {
 	default:
 		return event.Event{}, fmt.Errorf("bilinmeyen event ID: %d", we.System.EventID)
 	}
-}
-
-// ---- syscall helpers ----
-
-func utf16PtrFromString(s string) *uint16 {
-	p, _ := syscall.UTF16PtrFromString(s)
-	return p
 }

@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"os"
 	"os/signal"
+	"sync/atomic"
 	"syscall"
 	"time"
 
@@ -15,7 +16,6 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/config"
 	"github.com/kanije-kalesi/kanije/internal/event"
 	"github.com/kanije-kalesi/kanije/internal/listener"
-	applock "github.com/kanije-kalesi/kanije/internal/lock"
 	"github.com/kanije-kalesi/kanije/internal/network"
 	"github.com/kanije-kalesi/kanije/internal/notifier/telegram"
 	"github.com/kanije-kalesi/kanije/internal/storage"
@@ -34,17 +34,15 @@ type App struct {
 	netMon  *network.Monitor
 	camera  *capture.Camera
 	screen  *capture.Screenshotter
-	instLock applock.Releaser
 
 	// Metrics
 	startedAt time.Time
-	lastEvent *event.Event
+	lastEvent atomic.Pointer[event.Event]
 }
 
 // New creates and wires the application. Call Run() to start.
 func New(cfg *config.Config, log *slog.Logger) (*App, error) {
-	// Single-instance guard (handled in main, but stored here for Release on shutdown)
-	_ = applock.ErrAlreadyRunning // ensure import used
+	// Note: the single-instance guard is acquired and released in main.cmdStart.
 
 	// Storage
 	store, err := storage.NewSQLite(cfg.Storage.DBPath)
@@ -94,11 +92,11 @@ func New(cfg *config.Config, log *slog.Logger) (*App, error) {
 
 	// Bot
 	bot := telegram.NewBot(telegram.BotConfig{
-		Config:  cfg,
-		Client:  tgClient,
-		Wizard:  wizard,
-		Store:   store,
-		Log:     log.With("module", "bot"),
+		Config:        cfg,
+		Client:        tgClient,
+		Wizard:        wizard,
+		Store:         store,
+		Log:           log.With("module", "bot"),
 		LockScreen:    lockScreen,
 		CapturePhoto:  cam.Capture,
 		CaptureScreen: screen.Capture,
@@ -228,7 +226,7 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 	}
 
 	// Track last event for /status
-	a.lastEvent = &ev
+	a.lastEvent.Store(&ev)
 
 	// Check if this trigger is enabled
 	trig, ok := a.cfg.GetTrigger(string(ev.Type))
@@ -278,14 +276,14 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 	}
 }
 
-// heartbeat sends periodic status messages.
+// heartbeat sends periodic status messages. The enabled flag is re-checked on
+// every tick so changes made at runtime via /kurulum take effect without a restart.
 func (a *App) heartbeat(ctx context.Context) error {
-	if !a.cfg.Heartbeat.Enabled {
-		<-ctx.Done()
-		return nil
+	interval := a.cfg.HeartbeatInterval()
+	if interval <= 0 {
+		interval = 6 * time.Hour
 	}
 
-	interval := time.Duration(a.cfg.Heartbeat.IntervalHours) * time.Hour
 	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
 
@@ -294,7 +292,9 @@ func (a *App) heartbeat(ctx context.Context) error {
 		case <-ctx.Done():
 			return nil
 		case <-ticker.C:
-			a.sendHeartbeat(ctx)
+			if a.cfg.HeartbeatEnabled() {
+				a.sendHeartbeat(ctx)
+			}
 		}
 	}
 }
@@ -309,7 +309,7 @@ func (a *App) sendHeartbeat(ctx context.Context) {
 
 	var diskFree, diskTotal uint64
 	if len(info.Disks) > 0 {
-		diskFree  = info.Disks[0].Free
+		diskFree = info.Disks[0].Free
 		diskTotal = info.Disks[0].Total
 	}
 
@@ -324,7 +324,10 @@ func (a *App) sendHeartbeat(ctx context.Context) {
 	}
 }
 
-// flushOfflineQueue periodically tries to send queued messages.
+// flushOfflineQueue periodically tries to deliver queued messages. Messages are
+// removed only after a confirmed send, so a failure mid-batch leaves the unsent
+// remainder queued for the next attempt — at-least-once delivery in FIFO order,
+// with no data loss on transient errors or a crash.
 func (a *App) flushOfflineQueue(ctx context.Context) error {
 	ticker := time.NewTicker(30 * time.Second)
 	defer ticker.Stop()
@@ -334,7 +337,7 @@ func (a *App) flushOfflineQueue(ctx context.Context) error {
 		case <-ctx.Done():
 			return nil
 		case <-ticker.C:
-			msgs, err := a.store.PopPendingMessages(ctx)
+			msgs, err := a.store.PendingMessages(ctx)
 			if err != nil || len(msgs) == 0 {
 				continue
 			}
@@ -342,16 +345,34 @@ func (a *App) flushOfflineQueue(ctx context.Context) error {
 			a.log.Info("bekleyen mesajlar gönderiliyor", "adet", len(msgs))
 
 			sendCtx, cancel := context.WithTimeout(ctx, 60*time.Second)
-			for _, m := range msgs {
-				if err := a.bot.SendMessage(sendCtx, m.Text); err != nil {
-					// Put back on failure
-					a.store.SavePendingMessage(ctx, m.Text)
-					break
+			sent := flushPending(sendCtx, msgs, a.bot.SendMessage)
+			cancel()
+
+			if len(sent) < len(msgs) {
+				a.log.Warn("bazı bekleyen mesajlar gönderilemedi, kuyrukta korunuyor",
+					"gönderilen", len(sent), "toplam", len(msgs))
+			}
+			if len(sent) > 0 {
+				if err := a.store.DeletePendingMessages(ctx, sent); err != nil {
+					a.log.Error("gönderilen mesajlar kuyruktan silinemedi", "err", err)
 				}
 			}
-			cancel()
 		}
 	}
+}
+
+// flushPending sends each queued message via send, in order, and returns the IDs
+// that were successfully delivered. It stops at the first failure so the unsent
+// remainder is preserved by the caller — giving at-least-once, in-order delivery.
+func flushPending(ctx context.Context, msgs []storage.PendingMessage, send func(context.Context, string) error) []int64 {
+	var sent []int64
+	for _, m := range msgs {
+		if err := send(ctx, m.Text); err != nil {
+			break
+		}
+		sent = append(sent, m.ID)
+	}
+	return sent
 }
 
 // prune removes old events daily.
@@ -407,10 +428,6 @@ func (a *App) shutdown() {
 		a.log.Warn("veritabanı kapatma hatası", "err", err)
 	}
 
-	if a.instLock != nil {
-		a.instLock.Release()
-	}
-
 	a.log.Info("Kanije Kalesi durduruldu. Hoşça kalın! 🏰")
 }
 
@@ -427,7 +444,7 @@ func (a *App) collectStatus() telegram.StatusInfo {
 		Uptime:      time.Since(a.startedAt),
 		BusReceived: busStats.Received,
 		BusDropped:  busStats.Dropped,
-		LastEvent:   a.lastEvent,
+		LastEvent:   a.lastEvent.Load(),
 	}
 
 	for _, d := range si.Disks {

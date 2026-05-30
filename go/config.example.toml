@@ -74,8 +74,14 @@ enabled = true
 [triggers.usb_removed]
 enabled = true
 
+[triggers.network_up]
+enabled = true   # İnternet bağlantısı kurulduğunda bildir
+
+[triggers.network_down]
+enabled = true   # İnternet bağlantısı kesildiğinde bildir
+
 [triggers.network_changed]
-enabled = true
+enabled = true   # Ağ (SSID) değiştiğinde bildir
 
 
 # ─── Kamera ─────────────────────────────────────────────────────
@@ -131,8 +137,8 @@ include_disk   = true
 # SQLite veritabanı dosyası yolu
 db_path = "./kanije.db"
 
-# Bellekte tutulan maksimum son olay sayısı (/olaylar komutu için)
-max_recent_events = 100
+# /olaylar komutunun göstereceği son olay sayısı (1-50 arası clamp edilir)
+max_recent_events = 10
 
 # SQLite'daki olaylar bu kadar gün sonra silinir
 event_retention_days = 30

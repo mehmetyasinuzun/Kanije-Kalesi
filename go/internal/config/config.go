@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/BurntSushi/toml"
 )
@@ -20,16 +21,16 @@ import (
 type Config struct {
 	mu sync.RWMutex `toml:"-" json:"-"`
 
-	Telegram   TelegramConfig            `toml:"telegram"   json:"telegram"`
-	Triggers   map[string]TriggerConfig  `toml:"triggers"   json:"triggers"`
-	Camera     CameraConfig              `toml:"camera"     json:"camera"`
-	Screenshot ScreenshotConfig          `toml:"screenshot" json:"screenshot"`
-	Heartbeat  HeartbeatConfig           `toml:"heartbeat"  json:"heartbeat"`
-	Storage    StorageConfig             `toml:"storage"    json:"storage"`
-	Logging    LoggingConfig             `toml:"logging"    json:"logging"`
-	Security   SecurityConfig            `toml:"security"   json:"security"`
-	Tray       TrayConfig                `toml:"tray"       json:"tray"`
-	Network    NetworkConfig             `toml:"network"    json:"network"`
+	Telegram   TelegramConfig           `toml:"telegram"   json:"telegram"`
+	Triggers   map[string]TriggerConfig `toml:"triggers"   json:"triggers"`
+	Camera     CameraConfig             `toml:"camera"     json:"camera"`
+	Screenshot ScreenshotConfig         `toml:"screenshot" json:"screenshot"`
+	Heartbeat  HeartbeatConfig          `toml:"heartbeat"  json:"heartbeat"`
+	Storage    StorageConfig            `toml:"storage"    json:"storage"`
+	Logging    LoggingConfig            `toml:"logging"    json:"logging"`
+	Security   SecurityConfig           `toml:"security"   json:"security"`
+	Tray       TrayConfig               `toml:"tray"       json:"tray"`
+	Network    NetworkConfig            `toml:"network"    json:"network"`
 
 	// Runtime path — where to save changes
 	filePath string `toml:"-" json:"-"`
@@ -78,9 +79,9 @@ type HeartbeatConfig struct {
 }
 
 type StorageConfig struct {
-	DBPath              string `toml:"db_path"               json:"db_path"`
-	MaxRecentEvents     int    `toml:"max_recent_events"     json:"max_recent_events"`
-	EventRetentionDays  int    `toml:"event_retention_days"  json:"event_retention_days"`
+	DBPath             string `toml:"db_path"               json:"db_path"`
+	MaxRecentEvents    int    `toml:"max_recent_events"     json:"max_recent_events"`
+	EventRetentionDays int    `toml:"event_retention_days"  json:"event_retention_days"`
 }
 
 type LoggingConfig struct {
@@ -112,8 +113,9 @@ type NetworkConfig struct {
 // ----- Loading -----
 
 // Load reads configuration from the given TOML file path.
-// Missing values are filled with defaults. Environment variables override
-// TOML values with KANIJE_ prefix (e.g. KANIJE_TELEGRAM_BOT_TOKEN).
+// Missing values are filled with defaults. Environment variables (KANIJE_BOT_TOKEN,
+// KANIJE_CHAT_ID, KANIJE_LOG_LEVEL, KANIJE_DB_PATH) override TOML values. All
+// values are clamped to safe ranges so a hand-edited config can never crash the app.
 func Load(path string) (*Config, error) {
 	cfg := Defaults()
 	cfg.filePath = path
@@ -126,7 +128,8 @@ func Load(path string) (*Config, error) {
 	// Always try to fill from environment
 	applyEnvOverrides(cfg)
 
-	// Ensure Triggers map is initialized
+	// Ensure Triggers map is initialized and back-fill any newly added triggers
+	// (e.g. network_up/network_down) into older config files.
 	if cfg.Triggers == nil {
 		cfg.Triggers = defaultTriggers()
 	}
@@ -136,7 +139,77 @@ func Load(path string) (*Config, error) {
 		}
 	}
 
+	cfg.validate()
 	return cfg, nil
+}
+
+// validate clamps configuration values to safe operating ranges. It runs once
+// during Load (single-goroutine) so a partial or hand-edited config — a zero
+// rate limit, a negative interval, an out-of-range JPEG quality — can never
+// panic or misbehave at runtime.
+func (c *Config) validate() {
+	// clampMin returns def when v is below min, otherwise v.
+	clampMin := func(v, min, def int) int {
+		if v < min {
+			return def
+		}
+		return v
+	}
+	clampQuality := func(q, def int) int {
+		if q < 1 || q > 100 {
+			return def
+		}
+		return q
+	}
+
+	c.Telegram.SendTimeoutSec = clampMin(c.Telegram.SendTimeoutSec, 1, 15)
+	if c.Telegram.RetryCount < 0 {
+		c.Telegram.RetryCount = 0
+	}
+	if c.Telegram.RetryDelaySec < 0 {
+		c.Telegram.RetryDelaySec = 0
+	}
+
+	if c.Camera.FFmpegPath == "" {
+		c.Camera.FFmpegPath = "ffmpeg"
+	}
+	c.Camera.Width = clampMin(c.Camera.Width, 1, 640)
+	c.Camera.Height = clampMin(c.Camera.Height, 1, 480)
+	if c.Camera.WarmupFrames < 0 {
+		c.Camera.WarmupFrames = 0
+	}
+	c.Camera.JPEGQuality = clampQuality(c.Camera.JPEGQuality, 85)
+
+	c.Screenshot.JPEGQuality = clampQuality(c.Screenshot.JPEGQuality, 75)
+
+	c.Heartbeat.IntervalHours = clampMin(c.Heartbeat.IntervalHours, 1, 6)
+
+	if c.Storage.DBPath == "" {
+		c.Storage.DBPath = "./kanije.db"
+	}
+	c.Storage.MaxRecentEvents = clampMin(c.Storage.MaxRecentEvents, 1, 10)
+	if c.Storage.MaxRecentEvents > 50 {
+		c.Storage.MaxRecentEvents = 50 // keep the /olaylar message within Telegram limits
+	}
+	c.Storage.EventRetentionDays = clampMin(c.Storage.EventRetentionDays, 1, 30)
+
+	c.Security.MaxEventsPerMinute = clampMin(c.Security.MaxEventsPerMinute, 1, 10)
+	if c.Security.DedupWindowSec < 0 {
+		c.Security.DedupWindowSec = 0 // 0 disables dedup
+	}
+
+	c.Network.CheckIntervalSec = clampMin(c.Network.CheckIntervalSec, 1, 5)
+	if c.Network.CheckHost == "" {
+		c.Network.CheckHost = "api.telegram.org"
+	}
+	if c.Network.CheckPort <= 0 || c.Network.CheckPort > 65535 {
+		c.Network.CheckPort = 443
+	}
+
+	c.Logging.Level = strings.ToLower(c.Logging.Level)
+	if !contains([]string{"debug", "info", "warn", "error"}, c.Logging.Level) {
+		c.Logging.Level = "info"
+	}
 }
 
 // applyEnvOverrides reads KANIJE_* environment variables and overrides config.
@@ -160,13 +233,21 @@ func applyEnvOverrides(cfg *Config) {
 // ----- Persistence -----
 
 // Save atomically writes the current configuration back to its source file.
-// The write is performed to a temp file first, then renamed — no partial writes.
 func (c *Config) Save() error {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
-
 	if c.filePath == "" {
 		return fmt.Errorf("config dosya yolu belirtilmemiş")
+	}
+	return c.persist()
+}
+
+// persist atomically writes the config to its file (temp file + rename, so no
+// partial writes are ever observed). The caller MUST hold at least the read
+// lock. With no file path configured it is a no-op (env-only configuration).
+func (c *Config) persist() error {
+	if c.filePath == "" {
+		return nil
 	}
 
 	dir := filepath.Dir(c.filePath)
@@ -185,7 +266,10 @@ func (c *Config) Save() error {
 		os.Remove(tmp)
 		return fmt.Errorf("config yazma hatası: %w", err)
 	}
-	f.Close()
+	if err := f.Close(); err != nil {
+		os.Remove(tmp)
+		return fmt.Errorf("config kapatma hatası: %w", err)
+	}
 
 	if err := os.Rename(tmp, c.filePath); err != nil {
 		os.Remove(tmp)
@@ -199,9 +283,9 @@ func (c *Config) Save() error {
 // SetTrigger enables or updates a trigger at runtime and persists the change.
 func (c *Config) SetTrigger(name string, trig TriggerConfig) error {
 	c.mu.Lock()
+	defer c.mu.Unlock()
 	c.Triggers[name] = trig
-	c.mu.Unlock()
-	return c.Save()
+	return c.persist()
 }
 
 // SetField updates a single config field by dot-notation key and string value.
@@ -248,11 +332,33 @@ func (c *Config) SetField(key, value string) error {
 			return fmt.Errorf("geçersiz değer: 1+ sayı girin")
 		}
 		c.Security.MaxEventsPerMinute = n
+	case "security.delete_captures_after_send":
+		c.Security.DeleteCapturesAfterSend = parseBool(value)
+	case "camera.save_local":
+		c.Camera.SaveLocal = parseBool(value)
 	default:
 		return fmt.Errorf("bilinmeyen ayar: %q", key)
 	}
 
-	return c.save()
+	return c.persist()
+}
+
+// GetBool returns the current value of a boolean setting by dot-notation key.
+// Used by the Telegram wizard to read-then-flip toggle switches.
+func (c *Config) GetBool(key string) (bool, error) {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+
+	switch strings.ToLower(key) {
+	case "heartbeat.enabled":
+		return c.Heartbeat.Enabled, nil
+	case "security.delete_captures_after_send":
+		return c.Security.DeleteCapturesAfterSend, nil
+	case "camera.save_local":
+		return c.Camera.SaveLocal, nil
+	default:
+		return false, fmt.Errorf("bilinmeyen bool ayar: %q", key)
+	}
 }
 
 // GetSafeJSON returns the config as JSON with the bot token masked.
@@ -296,23 +402,65 @@ func (c *Config) GetTrigger(name string) (TriggerConfig, bool) {
 	return t, ok
 }
 
-// save is the internal (unlocked-by-caller) version of Save.
-func (c *Config) save() error {
-	if c.filePath == "" {
-		return nil // In-memory only — silently skip
+// ----- Thread-safe accessors -----
+//
+// These getters take the read lock so callers can safely read individual
+// settings while the Telegram setup wizard mutates the config concurrently.
+// Always call them at the point of use — never cache the result, or runtime
+// changes made via /kurulum will not take effect.
+
+// ChatID returns the primary Telegram chat ID.
+func (c *Config) ChatID() int64 {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Telegram.ChatID
+}
+
+// AllowedChatIDs returns a copy of the additional authorized chat IDs.
+func (c *Config) AllowedChatIDs() []int64 {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	if len(c.Telegram.AllowedChatIDs) == 0 {
+		return nil
 	}
-	tmp := c.filePath + ".tmp"
-	f, err := os.OpenFile(tmp, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0o600)
-	if err != nil {
-		return err
-	}
-	if err := toml.NewEncoder(f).Encode(c); err != nil {
-		f.Close()
-		os.Remove(tmp)
-		return err
-	}
-	f.Close()
-	return os.Rename(tmp, c.filePath)
+	out := make([]int64, len(c.Telegram.AllowedChatIDs))
+	copy(out, c.Telegram.AllowedChatIDs)
+	return out
+}
+
+// HeartbeatEnabled reports whether periodic heartbeat messages are enabled.
+func (c *Config) HeartbeatEnabled() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Heartbeat.Enabled
+}
+
+// HeartbeatInterval returns the heartbeat interval as a duration.
+func (c *Config) HeartbeatInterval() time.Duration {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return time.Duration(c.Heartbeat.IntervalHours) * time.Hour
+}
+
+// MaxEventsPerMinute returns the per-type event rate limit.
+func (c *Config) MaxEventsPerMinute() int {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Security.MaxEventsPerMinute
+}
+
+// DedupWindow returns the deduplication window as a duration.
+func (c *Config) DedupWindow() time.Duration {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return time.Duration(c.Security.DedupWindowSec) * time.Second
+}
+
+// MaxRecentEvents returns how many recent events the /olaylar command shows.
+func (c *Config) MaxRecentEvents() int {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Storage.MaxRecentEvents
 }
 
 // FilePath returns the config file path in use.

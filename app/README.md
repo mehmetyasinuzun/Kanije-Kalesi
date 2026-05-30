@@ -1,4 +1,11 @@
-# 🏰 Kanije Kalesi — Kurulum ve Kullanım Rehberi
+> # ⚠️ KULLANIMDAN KALKTI (DEPRECATED)
+> Bu **Python sürümü** artık geliştirilmiyor. Aktif olarak bakımı yapılan **Go
+> sürümünü** kullanın: ➡️ **[`../go/`](../go/)**. Ayrıntı: [DEPRECATED.md](DEPRECATED.md).
+> Aşağıdaki içerik yalnızca arşiv amacıyla tutulmaktadır.
+
+---
+
+# 🏰 Kanije Kalesi — Kurulum ve Kullanım Rehberi (Python — Arşiv)
 
 > Bilgisayarında ne olduğunu her zaman bil. Telegram'dan öğren.
 

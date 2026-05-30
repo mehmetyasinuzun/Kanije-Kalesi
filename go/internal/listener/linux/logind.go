@@ -3,8 +3,10 @@
 package linux
 
 import (
+	"bufio"
 	"context"
 	"fmt"
+	"io"
 	"log/slog"
 	"os"
 	"os/exec"
@@ -87,15 +89,8 @@ func newDbusTextParser(log *slog.Logger) *dbusTextParser {
 	return &dbusTextParser{log: log}
 }
 
-func (p *dbusTextParser) Run(ctx context.Context, r interface{ ReadString(byte) (string, error) }, emit func(event.Event)) error {
-	// We'll use a simple line reader approach
-	type lineReader interface {
-		ReadString(byte) (string, error)
-	}
-	lr, ok := r.(lineReader)
-	if !ok {
-		return fmt.Errorf("geçersiz reader")
-	}
+func (p *dbusTextParser) Run(ctx context.Context, r io.Reader, emit func(event.Event)) error {
+	br := bufio.NewReader(r)
 
 	var currentMember string
 
@@ -104,7 +99,7 @@ func (p *dbusTextParser) Run(ctx context.Context, r interface{ ReadString(byte) 
 			return nil
 		}
 
-		line, err := lr.ReadString('\n')
+		line, err := br.ReadString('\n')
 		if err != nil {
 			return err
 		}

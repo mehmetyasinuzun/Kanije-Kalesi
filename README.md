@@ -14,8 +14,9 @@
 
 <br>
 
+[![CI](https://github.com/mehmetyasinuzun/Kanije-Kalesi/actions/workflows/ci.yml/badge.svg)](https://github.com/mehmetyasinuzun/Kanije-Kalesi/actions/workflows/ci.yml)
 [![Go](https://img.shields.io/badge/Kanije_Kalesi-Go_1.21+-00ADD8?style=flat-square&logo=go)](go/)
-[![Python](https://img.shields.io/badge/Legacy-Python_3.11+-3776AB?style=flat-square&logo=python)](app/)
+[![Python](https://img.shields.io/badge/Python-deprecated-9ca3af?style=flat-square&logo=python)](app/DEPRECATED.md)
 [![Platform](https://img.shields.io/badge/Platform-Windows_%7C_Linux_%7C_Raspberry_Pi-555?style=flat-square)](#)
 [![License](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square)](LICENSE)
 
@@ -238,6 +239,24 @@ export KANIJE_LOG_LEVEL="info"   # debug | info | warn | error
 
 ./kanije start
 ```
+
+<br>
+
+## Geliştirme & Test
+
+Derleme, test ve lint kapıları GitHub Actions ile her push/PR'da **Windows + Linux
+(amd64 / arm64 / arm)** matrisinde çalışır — yarış dedektörü ve `golangci-lint` dahil.
+
+```bash
+cd go
+go test ./...            # birim testleri
+go test -race ./...      # yarış dedektörü (Linux + CGo)
+gofmt -l .               # biçim — çıktı boş olmalı
+go vet ./...
+golangci-lint run        # statik analiz (go/.golangci.yml)
+```
+
+Katkı rehberi: [CONTRIBUTING.md](CONTRIBUTING.md) · Güvenlik politikası: [SECURITY.md](SECURITY.md)
 
 <br>
 

@@ -84,15 +84,15 @@ func (s Severity) Emoji() string {
 type LogonType int
 
 const (
-	LogonInteractive        LogonType = 2
-	LogonNetwork            LogonType = 3
-	LogonBatch              LogonType = 4
-	LogonService            LogonType = 5
-	LogonUnlock             LogonType = 7
-	LogonNetworkCleartext   LogonType = 8
-	LogonNewCredentials     LogonType = 9
-	LogonRemoteInteractive  LogonType = 10
-	LogonCachedInteractive  LogonType = 11
+	LogonInteractive       LogonType = 2
+	LogonNetwork           LogonType = 3
+	LogonBatch             LogonType = 4
+	LogonService           LogonType = 5
+	LogonUnlock            LogonType = 7
+	LogonNetworkCleartext  LogonType = 8
+	LogonNewCredentials    LogonType = 9
+	LogonRemoteInteractive LogonType = 10
+	LogonCachedInteractive LogonType = 11
 )
 
 func (l LogonType) String() string {
@@ -139,8 +139,8 @@ type Attachment struct {
 // All fields use UTF-8 strings. Zero values are safe (omitted in output).
 type Event struct {
 	// Identity
-	ID        int64  `json:"id"`
-	Source    string `json:"source"` // Listener name that produced this
+	ID     int64  `json:"id"`
+	Source string `json:"source"` // Listener name that produced this
 
 	// Classification
 	Type     Type     `json:"type"`
@@ -166,7 +166,7 @@ type Event struct {
 	// USB context
 	DeviceName  string `json:"device_name,omitempty"`
 	DeviceLabel string `json:"device_label,omitempty"`
-	DeviceSize  int64  `json:"device_size,omitempty"`  // bytes
+	DeviceSize  int64  `json:"device_size,omitempty"` // bytes
 	DeviceFS    string `json:"device_fs,omitempty"`   // NTFS, FAT32, exFAT…
 	DevicePath  string `json:"device_path,omitempty"` // D:\
 

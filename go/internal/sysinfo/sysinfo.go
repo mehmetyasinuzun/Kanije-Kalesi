@@ -47,8 +47,8 @@ func Collect() Info {
 	// Memory
 	if vm, err := mem.VirtualMemory(); err == nil {
 		info.MemPercent = vm.UsedPercent
-		info.MemUsed    = vm.Used
-		info.MemTotal   = vm.Total
+		info.MemUsed = vm.Used
+		info.MemTotal = vm.Total
 	}
 
 	// Disk — all mounted partitions

@@ -33,7 +33,7 @@ func Defaults() *Config {
 		},
 		Storage: StorageConfig{
 			DBPath:             "./kanije.db",
-			MaxRecentEvents:    100,
+			MaxRecentEvents:    10,
 			EventRetentionDays: 30,
 		},
 		Logging: LoggingConfig{
@@ -96,6 +96,12 @@ func defaultTriggers() map[string]TriggerConfig {
 			Enabled: true,
 		},
 		"usb_removed": {
+			Enabled: true,
+		},
+		"network_up": {
+			Enabled: true,
+		},
+		"network_down": {
 			Enabled: true,
 		},
 		"network_changed": {

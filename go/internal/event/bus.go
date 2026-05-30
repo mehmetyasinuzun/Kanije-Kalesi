@@ -8,9 +8,9 @@ import (
 
 // BusConfig holds tuneable parameters for the event bus.
 type BusConfig struct {
-	BufferSize      int           // Channel buffer depth
-	MaxPerMinute    int           // Rate limit: max events per type per minute
-	DedupWindow     time.Duration // Events with same key within this window are dropped
+	BufferSize   int           // Channel buffer depth
+	MaxPerMinute int           // Rate limit: max events per type per minute
+	DedupWindow  time.Duration // Events with same key within this window are dropped
 }
 
 // DefaultBusConfig returns safe production defaults.
@@ -35,7 +35,15 @@ type Bus struct {
 }
 
 // NewBus creates a new event bus with the given configuration.
+// Out-of-range values are clamped so an unvalidated config can never panic
+// (a zero MaxPerMinute would otherwise divide-by-zero on the refill interval).
 func NewBus(cfg BusConfig) *Bus {
+	if cfg.BufferSize < 1 {
+		cfg.BufferSize = 1
+	}
+	if cfg.MaxPerMinute < 1 {
+		cfg.MaxPerMinute = 1
+	}
 	return &Bus{
 		ch:      make(chan Event, cfg.BufferSize),
 		limiter: newTokenBucket(cfg.MaxPerMinute, time.Minute/time.Duration(cfg.MaxPerMinute)),

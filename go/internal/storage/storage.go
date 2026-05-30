@@ -27,8 +27,14 @@ type Storage interface {
 	// SavePendingMessage queues a message for offline delivery.
 	SavePendingMessage(ctx context.Context, text string) error
 
-	// PopPendingMessages atomically retrieves and deletes all pending messages.
-	PopPendingMessages(ctx context.Context) ([]PendingMessage, error)
+	// PendingMessages returns all queued offline messages, oldest first,
+	// WITHOUT removing them. Messages are deleted only after a confirmed send
+	// via DeletePendingMessages — this gives crash-safe at-least-once delivery
+	// instead of dropping the queue on the first send failure.
+	PendingMessages(ctx context.Context) ([]PendingMessage, error)
+
+	// DeletePendingMessages removes the given message IDs from the queue.
+	DeletePendingMessages(ctx context.Context, ids []int64) error
 
 	// Prune removes events older than retentionDays. Called periodically.
 	Prune(ctx context.Context, retentionDays int) (int64, error)
@@ -39,11 +45,11 @@ type Storage interface {
 
 // EventFilter specifies criteria for querying events.
 type EventFilter struct {
-	Since    time.Time
-	Until    time.Time
-	Type     event.Type // Empty = all types
-	Limit    int        // 0 = no limit
-	Offset   int
+	Since  time.Time
+	Until  time.Time
+	Type   event.Type // Empty = all types
+	Limit  int        // 0 = no limit
+	Offset int
 }
 
 // PendingMessage is a queued offline message.

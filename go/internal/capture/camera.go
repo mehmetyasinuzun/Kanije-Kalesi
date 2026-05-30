@@ -8,21 +8,23 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"os"
 	"os/exec"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 )
 
 // CameraConfig holds camera capture settings.
 type CameraConfig struct {
-	FFmpegPath   string
-	DeviceIndex  int
-	DeviceName   string // Windows dshow: friendly name from `ffmpeg -list_devices`
+	FFmpegPath    string
+	DeviceIndex   int
+	DeviceName    string // Windows dshow: friendly name from `ffmpeg -list_devices`
 	Width, Height int
-	WarmupFrames int
-	JPEGQuality  int
+	WarmupFrames  int
+	JPEGQuality   int
 }
 
 // Camera captures frames from a webcam using ffmpeg.
@@ -103,7 +105,7 @@ func (c *Camera) buildFFmpegArgs() []string {
 
 	return []string{
 		"-hide_banner",
-		"-loglevel", "error",      // Suppress verbose output
+		"-loglevel", "error", // Suppress verbose output
 		"-f", inputFormat,
 		"-video_size", fmt.Sprintf("%dx%d", c.cfg.Width, c.cfg.Height),
 		"-i", device,
@@ -162,16 +164,21 @@ func ListDevices(ffmpegPath string) ([]string, error) {
 
 func parseDeviceList(output string) []string {
 	var devices []string
-	for _, line := range splitLines(output) {
-		if containsAny(line, []string{"DirectShow video", "dshow"}) {
+	for _, line := range strings.Split(output, "\n") {
+		if strings.Contains(line, "DirectShow video") || strings.Contains(line, "dshow") {
 			continue
 		}
-		if idx := indexByte(line, '"'); idx >= 0 {
-			end := indexByteFrom(line, '"', idx+1)
-			if end > idx {
-				devices = append(devices, line[idx+1:end])
-			}
+		// Device names are quoted, e.g.  "Integrated Camera"
+		start := strings.IndexByte(line, '"')
+		if start < 0 {
+			continue
 		}
+		rest := line[start+1:]
+		end := strings.IndexByte(rest, '"')
+		if end <= 0 {
+			continue
+		}
+		devices = append(devices, rest[:end])
 	}
 	return devices
 }
@@ -180,69 +187,18 @@ func listLinuxDevices() []string {
 	var devices []string
 	for i := 0; i < 10; i++ {
 		path := "/dev/video" + strconv.Itoa(i)
-		if fileExists(path) {
+		if _, err := os.Stat(path); err == nil {
 			devices = append(devices, path)
 		}
 	}
 	return devices
 }
 
-// ---- string helpers ----
-
+// truncate shortens s to at most n bytes, trimming on a valid UTF-8 boundary so
+// a multi-byte rune is never split. Used to cap ffmpeg stderr in error messages.
 func truncate(s string, n int) string {
 	if len(s) <= n {
 		return s
 	}
-	return s[:n] + "…"
-}
-
-func splitLines(s string) []string {
-	var lines []string
-	start := 0
-	for i := 0; i < len(s); i++ {
-		if s[i] == '\n' {
-			lines = append(lines, s[start:i])
-			start = i + 1
-		}
-	}
-	if start < len(s) {
-		lines = append(lines, s[start:])
-	}
-	return lines
-}
-
-func containsAny(s string, subs []string) bool {
-	for _, sub := range subs {
-		if len(sub) > 0 && len(s) >= len(sub) {
-			for i := 0; i <= len(s)-len(sub); i++ {
-				if s[i:i+len(sub)] == sub {
-					return true
-				}
-			}
-		}
-	}
-	return false
-}
-
-func indexByte(s string, b byte) int {
-	for i := 0; i < len(s); i++ {
-		if s[i] == b {
-			return i
-		}
-	}
-	return -1
-}
-
-func indexByteFrom(s string, b byte, from int) int {
-	for i := from; i < len(s); i++ {
-		if s[i] == b {
-			return i
-		}
-	}
-	return -1
-}
-
-func fileExists(path string) bool {
-	_, err := exec.LookPath(path)
-	return err == nil
+	return strings.ToValidUTF8(s[:n], "") + "…"
 }

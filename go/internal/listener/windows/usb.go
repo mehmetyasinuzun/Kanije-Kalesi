@@ -7,10 +7,7 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
-	"path/filepath"
 	"runtime"
-	"strings"
-	"time"
 	"unsafe"
 
 	"github.com/kanije-kalesi/kanije/internal/event"
@@ -40,15 +37,9 @@ const (
 	dbtDeviceRemoveCom = 0x8004
 	dbtDevTypVolume    = 0x00000002
 
-	dbccSizeVolume           = 16
-	deviceNotifyWindowHandle = 0
 	deviceNotifyAllInterface = 4
 
-	wmClose = 0x0010
-	wmQuit  = 0x0012
-
-	// Kanije WM message to signal graceful shutdown
-	wmShutdownMsg = 0x0400 + 1
+	wmQuit = 0x0012
 )
 
 type devBroadcastHdr struct {
@@ -129,7 +120,7 @@ func (m *USBMonitor) Start(ctx context.Context, bus *event.Bus) error {
 			Size       uint32
 			DeviceType uint32
 			Reserved   uint32
-			ClassGuid  [16]byte
+			ClassGUID  [16]byte
 			Name       [1]uint16
 		}
 		notifyFilter.Size = uint32(unsafe.Sizeof(notifyFilter))
@@ -297,21 +288,4 @@ func createMessageWindow() (uintptr, error) {
 func defaultWndProc(hwnd, msg, wParam, lParam uintptr) uintptr {
 	ret, _, _ := procDefWindowProcW.Call(hwnd, msg, wParam, lParam)
 	return ret
-}
-
-// getDriveLetterFromPath extracts the drive letter from a volume path.
-func getDriveLetterFromPath(p string) string {
-	p = strings.ToUpper(filepath.VolumeName(p))
-	if len(p) > 0 {
-		return string(p[0])
-	}
-	return "?"
-}
-
-// volumeInfo holds cached info about a USB volume.
-type volumeInfo struct {
-	label string
-	fs    string
-	size  int64
-	ts    time.Time
 }

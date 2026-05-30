@@ -60,9 +60,9 @@ func (tb *tokenBucket) Allow(key string) bool {
 // dedupCache prevents identical events from flooding within a time window.
 // Thread-safe.
 type dedupCache struct {
-	mu      sync.Mutex
-	seen    map[string]time.Time
-	window  time.Duration
+	mu     sync.Mutex
+	seen   map[string]time.Time
+	window time.Duration
 }
 
 func newDedupCache(window time.Duration) *dedupCache {

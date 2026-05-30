@@ -26,6 +26,38 @@ type conversationState struct {
 	prompt string // what we asked the user
 }
 
+// triggerCatalog is the ordered list of user-configurable triggers shown in the
+// wizard, paired with human-readable Turkish labels. It is the single source of
+// truth for both the trigger list and the per-trigger detail screen.
+var triggerCatalog = []struct {
+	key   string
+	label string
+}{
+	{"login_success", "✅ Başarılı giriş"},
+	{"login_failed", "🚨 Başarısız giriş"},
+	{"screen_lock", "🔒 Ekran kilidi"},
+	{"screen_unlock", "🔓 Ekran kilidi açma"},
+	{"system_boot", "🖥️ Sistem başlangıç"},
+	{"system_sleep", "😴 Uyku modu"},
+	{"system_wake", "☀️ Uykudan uyanma"},
+	{"usb_inserted", "🔌 USB takılma"},
+	{"usb_removed", "⏏️ USB çıkarma"},
+	{"network_up", "🌐 İnternet bağlandı"},
+	{"network_down", "📡 İnternet kesildi"},
+	{"network_changed", "🔄 Ağ değişimi"},
+}
+
+// triggerLabel returns the human-readable label for a trigger key, or the key
+// itself if unknown.
+func triggerLabel(key string) string {
+	for _, t := range triggerCatalog {
+		if t.key == key {
+			return t.label
+		}
+	}
+	return key
+}
+
 // SetupWizard manages the interactive Telegram configuration menus.
 type SetupWizard struct {
 	cfg    *config.Config
@@ -62,7 +94,7 @@ func (w *SetupWizard) HandleText(ctx context.Context, chatID int64, text string)
 	// Apply the setting
 	if err := w.cfg.SetField(state.key, strings.TrimSpace(text)); err != nil {
 		w.client.SendMessage(ctx, chatID,
-			"❌ <b>Geçersiz değer:</b> "+SafeText(err.Error())+"\n\n"+
+			"❌ <b>Geçersiz değer:</b> "+safeHTML(err.Error())+"\n\n"+
 				"Lütfen tekrar deneyin veya /iptal yazın.",
 			"HTML")
 		return true
@@ -198,24 +230,8 @@ func (w *SetupWizard) editTriggersMenu(ctx context.Context, chatID, messageID in
 	text := "🎯 <b>Tetikleyiciler</b>\n\n" +
 		"Hangi olaylar için bildirim almak istediğinizi seçin:"
 
-	triggerNames := []struct {
-		key   string
-		label string
-	}{
-		{"login_success", "✅ Başarılı giriş"},
-		{"login_failed", "🚨 Başarısız giriş"},
-		{"screen_lock", "🔒 Ekran kilidi"},
-		{"screen_unlock", "🔓 Ekran kilidi açma"},
-		{"system_boot", "🖥️ Sistem başlangıç"},
-		{"system_sleep", "😴 Uyku modu"},
-		{"system_wake", "☀️ Uykudan uyanma"},
-		{"usb_inserted", "🔌 USB takılma"},
-		{"usb_removed", "⏏️ USB çıkarma"},
-		{"network_changed", "🔄 Ağ değişimi"},
-	}
-
 	var rows [][]InlineKeyboardButton
-	for _, t := range triggerNames {
+	for _, t := range triggerCatalog {
 		trig, ok := w.cfg.GetTrigger(t.key)
 		status := "❌"
 		if ok && trig.Enabled {
@@ -241,9 +257,9 @@ func (w *SetupWizard) editTriggerDetail(ctx context.Context, chatID, messageID i
 		return
 	}
 
-	label := triggerKey
+	label := triggerLabel(triggerKey)
 
-	enabled   := boolEmoji(trig.Enabled)
+	enabled := boolEmoji(trig.Enabled)
 	hasCamera := boolEmoji(trig.CaptureCamera)
 	hasScreen := boolEmoji(trig.CaptureScreenshot)
 
@@ -323,9 +339,14 @@ func (w *SetupWizard) editCameraMenu(ctx context.Context, chatID, messageID int6
 // ---- Heartbeat menu ----
 
 func (w *SetupWizard) editHeartbeatMenu(ctx context.Context, chatID, messageID int64) {
-	// We need access to cfg — using exported method pattern
-	text := "💓 <b>Heartbeat Ayarları</b>\n\n" +
-		"Heartbeat, belirlediğiniz aralıkta sistem durumunu bildirir."
+	enabled, _ := w.cfg.GetBool("heartbeat.enabled")
+	hours := int(w.cfg.HeartbeatInterval().Hours())
+
+	text := fmt.Sprintf("💓 <b>Heartbeat Ayarları</b>\n\n"+
+		"Durum: %s\n"+
+		"Aralık: <b>%d saat</b>\n\n"+
+		"Heartbeat, belirlediğiniz aralıkta sistem durumunu bildirir.",
+		boolEmoji(enabled), hours)
 
 	kb := InlineKeyboardMarkup{
 		InlineKeyboard: [][]InlineKeyboardButton{
@@ -334,7 +355,7 @@ func (w *SetupWizard) editHeartbeatMenu(ctx context.Context, chatID, messageID i
 				CallbackData: "wizard:ask:heartbeat.interval_hours:Heartbeat aralığını saat cinsinden girin (örn: 6)",
 			}},
 			{{
-				Text:         "🔄 Heartbeat'i aç/kapat",
+				Text:         boolEmoji(enabled) + " Heartbeat'i aç/kapat",
 				CallbackData: "wizard:toggle:heartbeat.enabled",
 			}},
 			{{Text: "◀️ Geri", CallbackData: "wizard:main"}},
@@ -346,7 +367,13 @@ func (w *SetupWizard) editHeartbeatMenu(ctx context.Context, chatID, messageID i
 // ---- Security menu ----
 
 func (w *SetupWizard) editSecurityMenu(ctx context.Context, chatID, messageID int64) {
-	text := "🔐 <b>Güvenlik Ayarları</b>"
+	delCaptures, _ := w.cfg.GetBool("security.delete_captures_after_send")
+	maxEvents := w.cfg.MaxEventsPerMinute()
+
+	text := fmt.Sprintf("🔐 <b>Güvenlik Ayarları</b>\n\n"+
+		"Dakikalık olay limiti: <b>%d</b>\n"+
+		"Gönderdikten sonra sil: %s",
+		maxEvents, boolEmoji(delCaptures))
 
 	kb := InlineKeyboardMarkup{
 		InlineKeyboard: [][]InlineKeyboardButton{
@@ -355,7 +382,7 @@ func (w *SetupWizard) editSecurityMenu(ctx context.Context, chatID, messageID in
 				CallbackData: "wizard:ask:security.max_events_per_minute:Dakikada maksimum kaç olay işlensin? (örn: 10)",
 			}},
 			{{
-				Text:         "🗑️ Fotoğrafları gönder ve sil",
+				Text:         boolEmoji(delCaptures) + " Fotoğrafları gönder ve sil",
 				CallbackData: "wizard:toggle:security.delete_captures_after_send",
 			}},
 			{{Text: "◀️ Geri", CallbackData: "wizard:main"}},
@@ -396,7 +423,7 @@ func (w *SetupWizard) askForInput(ctx context.Context, chatID int64, key, prompt
 	w.mu.Unlock()
 
 	w.client.SendMessage(ctx, chatID,
-		"✏️ "+SafeText(prompt)+"\n\n<i>Değeri girin ve gönderin. İptal için /iptal yazın.</i>",
+		"✏️ "+safeHTML(prompt)+"\n\n<i>Değeri girin ve gönderin. İptal için /iptal yazın.</i>",
 		"HTML")
 }
 
@@ -417,13 +444,35 @@ func (w *SetupWizard) IsWaiting(chatID int64) bool {
 	return ok
 }
 
+// toggleBool reads the current value of a boolean setting, flips it, persists
+// it, and re-renders the originating menu in place so the user sees the change.
 func (w *SetupWizard) toggleBool(ctx context.Context, chatID, messageID int64, key string) {
-	// Read current, flip, write — config.SetField handles parsing
-	// For bool fields we just send the inverse string
-	// This is a simplified approach — a full implementation would read the current value
-	w.client.SendMessage(ctx, chatID,
-		"✅ Değer değiştirildi. <i>Menüye dönmek için /kurulum yazın.</i>",
-		"HTML")
+	cur, err := w.cfg.GetBool(key)
+	if err != nil {
+		w.log.Warn("bilinmeyen toggle anahtarı", "key", key, "err", err)
+		return
+	}
+
+	newVal := "false"
+	if !cur {
+		newVal = "true"
+	}
+	if err := w.cfg.SetField(key, newVal); err != nil {
+		w.client.SendMessage(ctx, chatID, "❌ "+safeHTML(err.Error()), "HTML")
+		return
+	}
+
+	// Refresh the menu the toggle lives on so the new state is visible.
+	switch {
+	case strings.HasPrefix(key, "heartbeat."):
+		w.editHeartbeatMenu(ctx, chatID, messageID)
+	case strings.HasPrefix(key, "security."):
+		w.editSecurityMenu(ctx, chatID, messageID)
+	case strings.HasPrefix(key, "camera."):
+		w.editCameraMenu(ctx, chatID, messageID)
+	default:
+		w.editMainMenu(ctx, chatID, messageID)
+	}
 }
 
 func boolEmoji(b bool) string {

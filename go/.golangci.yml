@@ -1,0 +1,39 @@
+# golangci-lint yapılandırması — Kanije Kalesi
+# Çalıştır:  golangci-lint run ./...
+# CI bunu v1.61.0 ile koşar (bkz. .github/workflows/ci.yml).
+
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  disable-all: true
+  enable:
+    - govet        # şüpheli yapılar, kopyalanan kilitler, printf uyumsuzlukları
+    - staticcheck  # geniş statik analiz (SA serisi — gerçek hatalar)
+    - ineffassign  # etkisiz atamalar
+    - unused       # kullanılmayan kod
+    - misspell     # yazım hataları (yalnızca İngilizce kimlikler/yorumlar)
+    - unconvert    # gereksiz tip dönüşümleri
+    - bodyclose    # kapatılmayan HTTP response body
+    - gofmt        # biçimlendirme
+    - goimports    # import düzeni
+
+linters-settings:
+  goimports:
+    local-prefixes: github.com/kanije-kalesi/kanije
+  misspell:
+    locale: US
+  staticcheck:
+    # ST1005: hata dizgeleri Türkçe yerelleştirilmiş, özel isim içeren kullanıcı
+    # mesajları — küçük harfe zorlama kuralı kapalı.
+    checks: ["all", "-ST1005"]
+
+issues:
+  exclude-use-default: true
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  exclude-rules:
+    # Türkçe yorum/mesajlardaki yerelleştirilmiş kelimeleri yanlış yazım sanma.
+    - linters: [misspell]
+      source: "ı|ş|ğ|ç|ö|ü|İ"

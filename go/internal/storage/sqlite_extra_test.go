@@ -100,32 +100,34 @@ func TestSQLiteMultiplePendingMessages(t *testing.T) {
 		}
 	}
 
-	popped, err := s.PopPendingMessages(ctx)
+	pending, err := s.PendingMessages(ctx)
 	if err != nil {
-		t.Fatalf("PopPendingMessages() hata verdi: %v", err)
+		t.Fatalf("PendingMessages() hata verdi: %v", err)
 	}
-	if len(popped) != len(messages) {
-		t.Fatalf("3 mesaj bekleniyor: got=%d", len(popped))
+	if len(pending) != len(messages) {
+		t.Fatalf("3 mesaj bekleniyor: got=%d", len(pending))
 	}
 
-	// Türkçe mesaj korunmalı
-	found := false
-	for _, p := range popped {
-		if p.Text == messages[1] {
-			found = true
-		}
-	}
-	if !found {
-		t.Fatal("Turkce mesaj korunmali")
+	// FIFO: en eski (id ASC) önce, en yeni sonda gelmeli.
+	if pending[0].Text != messages[0] || pending[2].Text != messages[2] {
+		t.Fatalf("FIFO sirasi bozuk: ilk=%q son=%q", pending[0].Text, pending[2].Text)
 	}
 
-	// İkinci pop boş olmalı
-	second, err := s.PopPendingMessages(ctx)
-	if err != nil {
-		t.Fatalf("ikinci PopPendingMessages() hata verdi: %v", err)
+	// Türkçe mesaj korunmalı.
+	if pending[1].Text != messages[1] {
+		t.Fatalf("Turkce mesaj korunmali: got=%q", pending[1].Text)
 	}
-	if len(second) != 0 {
-		t.Fatalf("ikinci pop bos olmali: got=%d", len(second))
+
+	// Kısmi başarı senaryosu: yalnız ilk ikisi silinir, üçüncü kuyrukta kalır.
+	if err := s.DeletePendingMessages(ctx, []int64{pending[0].ID, pending[1].ID}); err != nil {
+		t.Fatalf("DeletePendingMessages() hata verdi: %v", err)
+	}
+	remaining, err := s.PendingMessages(ctx)
+	if err != nil {
+		t.Fatalf("kalan PendingMessages() hata verdi: %v", err)
+	}
+	if len(remaining) != 1 || remaining[0].Text != messages[2] {
+		t.Fatalf("yalnizca son mesaj kalmali: got=%v", remaining)
 	}
 }
 

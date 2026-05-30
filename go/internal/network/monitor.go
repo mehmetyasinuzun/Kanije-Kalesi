@@ -187,14 +187,13 @@ func getLinuxNetwork() (ssid, iface string) {
 func inferNetworkType(iface string) string {
 	lower := strings.ToLower(iface)
 	switch {
-	case strings.ContainsAny(lower, "") ||
-		strings.Contains(lower, "wi-fi") ||
-		strings.Contains(lower, "wifi") ||
-		strings.Contains(lower, "wlan") ||
+	case strings.Contains(lower, "wi-fi"),
+		strings.Contains(lower, "wifi"),
+		strings.Contains(lower, "wlan"),
 		strings.Contains(lower, "wireless"):
 		return "WiFi"
-	case strings.Contains(lower, "eth") ||
-		strings.Contains(lower, "ethernet") ||
+	case strings.Contains(lower, "eth"),
+		strings.Contains(lower, "ethernet"),
 		strings.Contains(lower, "lan"):
 		return "Ethernet"
 	}

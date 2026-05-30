@@ -37,6 +37,9 @@ func main() {
 }
 
 func run(args []string) error {
+	// Propagate the build version into the Telegram footer rendering.
+	telegram.SetVersion(Version)
+
 	if len(args) == 0 {
 		printUsage()
 		return nil
@@ -68,14 +71,12 @@ func run(args []string) error {
 func cmdStart(args []string) error {
 	cfgPath := parseFlag(args, "--config", defaultConfigPath())
 
-	log := buildLogger("info")
-
 	cfg, err := config.Load(cfgPath)
 	if err != nil {
 		return fmt.Errorf("yapılandırma yüklenemedi: %w", err)
 	}
 
-	log = buildLogger(cfg.Logging.Level)
+	log := buildLogger(cfg.Logging.Level)
 
 	log.Info("🏰 Kanije Kalesi başlatılıyor",
 		"versiyon", Version,
@@ -136,7 +137,7 @@ func cmdTest(args []string) error {
 // cmdSetup writes minimal credentials to a config file.
 // After this, users configure everything else via /kurulum in Telegram.
 func cmdSetup(args []string) error {
-	token  := parseFlag(args, "--token", os.Getenv("KANIJE_BOT_TOKEN"))
+	token := parseFlag(args, "--token", os.Getenv("KANIJE_BOT_TOKEN"))
 	chatID := parseFlag(args, "--chat", os.Getenv("KANIJE_CHAT_ID"))
 	cfgPath := parseFlag(args, "--config", "config.toml")
 
@@ -160,7 +161,7 @@ func cmdSetup(args []string) error {
 
 	cfg := config.Defaults()
 	cfg.Telegram.BotToken = token
-	cfg.Telegram.ChatID   = id
+	cfg.Telegram.ChatID = id
 	cfg.SetFilePath(cfgPath)
 
 	if err := cfg.Save(); err != nil {

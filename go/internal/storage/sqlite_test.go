@@ -59,20 +59,33 @@ func TestSQLiteEventAndPendingMessageFlow(t *testing.T) {
 		t.Fatalf("SavePendingMessage() hata verdi: %v", err)
 	}
 
-	pending, err := s.PopPendingMessages(ctx)
+	pending, err := s.PendingMessages(ctx)
 	if err != nil {
-		t.Fatalf("PopPendingMessages() hata verdi: %v", err)
+		t.Fatalf("PendingMessages() hata verdi: %v", err)
 	}
 	if len(pending) != 1 {
 		t.Fatalf("pending mesaj sayisi beklenenden farkli: %d", len(pending))
 	}
 
-	secondPop, err := s.PopPendingMessages(ctx)
+	// Okuma silmez — mesaj hâlâ kuyrukta olmalı.
+	stillThere, err := s.PendingMessages(ctx)
 	if err != nil {
-		t.Fatalf("ikinci PopPendingMessages() hata verdi: %v", err)
+		t.Fatalf("ikinci PendingMessages() hata verdi: %v", err)
 	}
-	if len(secondPop) != 0 {
-		t.Fatalf("ikinci pop bos olmaliydi: %d", len(secondPop))
+	if len(stillThere) != 1 {
+		t.Fatalf("silmeden okuma mesaji kuyrukta birakmali: %d", len(stillThere))
+	}
+
+	// Acikca silince bosalmali.
+	if err := s.DeletePendingMessages(ctx, []int64{pending[0].ID}); err != nil {
+		t.Fatalf("DeletePendingMessages() hata verdi: %v", err)
+	}
+	afterDelete, err := s.PendingMessages(ctx)
+	if err != nil {
+		t.Fatalf("silme sonrasi PendingMessages() hata verdi: %v", err)
+	}
+	if len(afterDelete) != 0 {
+		t.Fatalf("silme sonrasi kuyruk bos olmali: %d", len(afterDelete))
 	}
 
 	deleted, err := s.Prune(ctx, 1)

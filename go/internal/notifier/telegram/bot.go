@@ -3,6 +3,7 @@ package telegram
 import (
 	"context"
 	"log/slog"
+	"sync"
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/config"
@@ -10,9 +11,13 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/storage"
 )
 
+// pendingActionTTL is how long a dangerous action (restart/shutdown) waits for
+// confirmation before auto-expiring.
+const pendingActionTTL = 15 * time.Second
+
 // ActionState tracks a pending dangerous action (shutdown/restart).
 type ActionState struct {
-	kind    string    // "kapat" | "yeniden"
+	kind    string // "kapat" | "yeniden"
 	expires time.Time
 	cancel  context.CancelFunc
 }
@@ -20,19 +25,22 @@ type ActionState struct {
 // Bot handles all Telegram interactions: event notifications, commands,
 // callback queries, and the setup wizard.
 type Bot struct {
-	cfg     *config.Config
-	client  *Client
-	wizard  *SetupWizard
-	store   storage.Storage
-	log     *slog.Logger
+	cfg    *config.Config
+	client *Client
+	wizard *SetupWizard
+	store  storage.Storage
+	log    *slog.Logger
 
 	// System services provided by the app layer
-	lockScreen   func() error
-	capturePhoto func(ctx context.Context) ([]byte, error)
+	lockScreen    func() error
+	capturePhoto  func(ctx context.Context) ([]byte, error)
 	captureScreen func(ctx context.Context) ([]byte, error)
-	getStatus    func() StatusInfo
+	getStatus     func() StatusInfo
 
-	// Pending action state
+	// Pending action state. Guarded by mu because Poll dispatches each update
+	// in its own goroutine, so the menu, confirm, cancel, and expiry paths all
+	// touch pendingAction concurrently.
+	mu            sync.Mutex
 	pendingAction *ActionState
 }
 
@@ -67,7 +75,7 @@ func NewBot(cfg BotConfig) *Bot {
 // SendEvent sends a formatted event notification to the configured chat.
 // If there are media attachments (photo/screenshot), they are sent after the text.
 func (b *Bot) SendEvent(ctx context.Context, ev event.Event) error {
-	chatID := b.cfg.Telegram.ChatID
+	chatID := b.cfg.ChatID()
 	text := FormatEvent(ev)
 
 	if _, err := b.client.SendMessage(ctx, chatID, text, "HTML"); err != nil {
@@ -92,7 +100,7 @@ func (b *Bot) SendEvent(ctx context.Context, ev event.Event) error {
 
 // SendMessage sends a plain text message to the configured chat.
 func (b *Bot) SendMessage(ctx context.Context, text string) error {
-	_, err := b.client.SendMessage(ctx, b.cfg.Telegram.ChatID, text, "HTML")
+	_, err := b.client.SendMessage(ctx, b.cfg.ChatID(), text, "HTML")
 	return err
 }
 
@@ -259,12 +267,12 @@ func (b *Bot) cmdFoto(ctx context.Context, chatID int64) {
 
 	data, err := b.capturePhoto(ctx)
 	if err != nil {
-		b.reply(ctx, chatID, "❌ Kamera hatası: "+SafeText(err.Error()))
+		b.reply(ctx, chatID, "❌ Kamera hatası: "+safeHTML(err.Error()))
 		return
 	}
 
 	if err := b.client.SendPhoto(ctx, chatID, data, "📷 Anlık kamera görüntüsü"); err != nil {
-		b.reply(ctx, chatID, "❌ Fotoğraf gönderilemedi: "+SafeText(err.Error()))
+		b.reply(ctx, chatID, "❌ Fotoğraf gönderilemedi: "+safeHTML(err.Error()))
 	}
 }
 
@@ -278,19 +286,19 @@ func (b *Bot) cmdEkran(ctx context.Context, chatID int64) {
 
 	data, err := b.captureScreen(ctx)
 	if err != nil {
-		b.reply(ctx, chatID, "❌ Ekran görüntüsü hatası: "+SafeText(err.Error()))
+		b.reply(ctx, chatID, "❌ Ekran görüntüsü hatası: "+safeHTML(err.Error()))
 		return
 	}
 
 	if err := b.client.SendPhoto(ctx, chatID, data, "🖥️ Anlık ekran görüntüsü"); err != nil {
-		b.reply(ctx, chatID, "❌ Ekran görüntüsü gönderilemedi: "+SafeText(err.Error()))
+		b.reply(ctx, chatID, "❌ Ekran görüntüsü gönderilemedi: "+safeHTML(err.Error()))
 	}
 }
 
 func (b *Bot) cmdOlaylar(ctx context.Context, chatID int64) {
-	events, err := b.store.RecentEvents(ctx, 10)
+	events, err := b.store.RecentEvents(ctx, b.cfg.MaxRecentEvents())
 	if err != nil {
-		b.reply(ctx, chatID, "❌ Olaylar alınamadı: "+SafeText(err.Error()))
+		b.reply(ctx, chatID, "❌ Olaylar alınamadı: "+safeHTML(err.Error()))
 		return
 	}
 	b.reply(ctx, chatID, FormatRecentEvents(events))
@@ -298,7 +306,7 @@ func (b *Bot) cmdOlaylar(ctx context.Context, chatID int64) {
 
 func (b *Bot) cmdAyarlar(ctx context.Context, chatID int64) {
 	json := b.cfg.GetSafeJSON()
-	b.reply(ctx, chatID, "⚙️ <b>Mevcut Yapılandırma</b>\n\n<pre>"+SafeText(json)+"</pre>")
+	b.reply(ctx, chatID, "⚙️ <b>Mevcut Yapılandırma</b>\n\n<pre>"+safeHTML(json)+"</pre>")
 }
 
 func (b *Bot) cmdKilitle(ctx context.Context, chatID int64) {
@@ -307,7 +315,7 @@ func (b *Bot) cmdKilitle(ctx context.Context, chatID int64) {
 		return
 	}
 	if err := b.lockScreen(); err != nil {
-		b.reply(ctx, chatID, "❌ Ekran kilitlenemedi: "+SafeText(err.Error()))
+		b.reply(ctx, chatID, "❌ Ekran kilitlenemedi: "+safeHTML(err.Error()))
 		return
 	}
 	b.reply(ctx, chatID, "🔒 Ekran kilitlendi.")
@@ -333,19 +341,7 @@ func (b *Bot) cmdYeniden(ctx context.Context, chatID int64) {
 			"Bu işlem geri alınamaz. 15 saniye içinde onaylamazsanız iptal olur.",
 		kb)
 
-	// Auto-expire the pending action after 15 seconds
-	actionCtx, cancelAction := context.WithTimeout(context.Background(), 15*time.Second)
-	b.pendingAction = &ActionState{
-		kind:    "yeniden",
-		expires: time.Now().Add(15 * time.Second),
-		cancel:  cancelAction,
-	}
-	go func() {
-		<-actionCtx.Done()
-		if b.pendingAction != nil && b.pendingAction.kind == "yeniden" {
-			b.pendingAction = nil
-		}
-	}()
+	b.armPendingAction("yeniden")
 }
 
 // cmdKapat sends a confirmation keyboard before shutting down.
@@ -363,18 +359,7 @@ func (b *Bot) cmdKapat(ctx context.Context, chatID int64) {
 			"15 saniye içinde onaylamazsanız iptal olur.",
 		kb)
 
-	actionCtx, cancelAction := context.WithTimeout(context.Background(), 15*time.Second)
-	b.pendingAction = &ActionState{
-		kind:    "kapat",
-		expires: time.Now().Add(15 * time.Second),
-		cancel:  cancelAction,
-	}
-	go func() {
-		<-actionCtx.Done()
-		if b.pendingAction != nil && b.pendingAction.kind == "kapat" {
-			b.pendingAction = nil
-		}
-	}()
+	b.armPendingAction("kapat")
 }
 
 func (b *Bot) cmdIptal(ctx context.Context, chatID int64) {
@@ -390,44 +375,103 @@ func (b *Bot) cmdIptal(ctx context.Context, chatID int64) {
 }
 
 func (b *Bot) cancelPendingAction(ctx context.Context, chatID int64) bool {
-	if b.pendingAction == nil {
+	state, ok := b.clearPendingAction()
+	if !ok {
 		return false
 	}
-	b.pendingAction.cancel()
-	b.pendingAction = nil
+	state.cancel()
 	b.reply(ctx, chatID, "✅ İşlem iptal edildi.")
 	return true
 }
 
 func (b *Bot) executeRestart(ctx context.Context, chatID int64) {
-	if b.pendingAction == nil || b.pendingAction.kind != "yeniden" {
+	state, ok := b.takePendingAction("yeniden")
+	if !ok {
 		b.reply(ctx, chatID, "⚠️ Onaylanacak işlem bulunamadı. /yeniden yazın.")
 		return
 	}
-	b.pendingAction.cancel()
-	b.pendingAction = nil
+	state.cancel()
 	b.reply(ctx, chatID, "🔄 Sistem yeniden başlatılıyor… İyi günler!")
 	systemRestart()
 }
 
 func (b *Bot) executeShutdown(ctx context.Context, chatID int64) {
-	if b.pendingAction == nil || b.pendingAction.kind != "kapat" {
+	state, ok := b.takePendingAction("kapat")
+	if !ok {
 		b.reply(ctx, chatID, "⚠️ Onaylanacak işlem bulunamadı. /kapat yazın.")
 		return
 	}
-	b.pendingAction.cancel()
-	b.pendingAction = nil
+	state.cancel()
 	b.reply(ctx, chatID, "🔴 Sistem kapatılıyor… Güle güle!")
 	systemShutdown()
+}
+
+// ---- Pending-action state (mutex-guarded) ----
+
+// armPendingAction registers a dangerous action and schedules its auto-expiry.
+// Any previously pending action is cancelled.
+func (b *Bot) armPendingAction(kind string) {
+	actionCtx, cancelAction := context.WithTimeout(context.Background(), pendingActionTTL)
+	state := &ActionState{
+		kind:    kind,
+		expires: time.Now().Add(pendingActionTTL),
+		cancel:  cancelAction,
+	}
+	b.setPendingAction(state)
+
+	// Expire by identity: only clear the slot if it still holds *this* action,
+	// so a newer action started within the TTL is not wrongly cleared.
+	go func() {
+		<-actionCtx.Done()
+		b.mu.Lock()
+		if b.pendingAction == state {
+			b.pendingAction = nil
+		}
+		b.mu.Unlock()
+	}()
+}
+
+func (b *Bot) setPendingAction(s *ActionState) {
+	b.mu.Lock()
+	old := b.pendingAction
+	b.pendingAction = s
+	b.mu.Unlock()
+	if old != nil {
+		old.cancel() // release the previous action's expiry goroutine
+	}
+}
+
+// takePendingAction atomically consumes the pending action if it matches kind.
+func (b *Bot) takePendingAction(kind string) (*ActionState, bool) {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	if b.pendingAction == nil || b.pendingAction.kind != kind {
+		return nil, false
+	}
+	s := b.pendingAction
+	b.pendingAction = nil
+	return s, true
+}
+
+// clearPendingAction atomically consumes any pending action.
+func (b *Bot) clearPendingAction() (*ActionState, bool) {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	if b.pendingAction == nil {
+		return nil, false
+	}
+	s := b.pendingAction
+	b.pendingAction = nil
+	return s, true
 }
 
 // ---- Authorization ----
 
 func (b *Bot) isAuthorized(chatID int64) bool {
-	if chatID == b.cfg.Telegram.ChatID {
+	if chatID == b.cfg.ChatID() {
 		return true
 	}
-	for _, id := range b.cfg.Telegram.AllowedChatIDs {
+	for _, id := range b.cfg.AllowedChatIDs() {
 		if chatID == id {
 			return true
 		}
@@ -457,11 +501,4 @@ func extractCommand(text string) string {
 		}
 	}
 	return text
-}
-
-func min(a, b time.Duration) time.Duration {
-	if a < b {
-		return a
-	}
-	return b
 }

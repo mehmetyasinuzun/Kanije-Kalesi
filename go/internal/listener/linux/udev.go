@@ -9,7 +9,6 @@ import (
 	"os"
 	"strings"
 	"syscall"
-	"unsafe"
 
 	"github.com/kanije-kalesi/kanije/internal/event"
 )
@@ -84,15 +83,15 @@ func (l *UdevListener) Start(ctx context.Context, bus *event.Bus) error {
 func (l *UdevListener) parseUevent(data []byte) (event.Event, bool) {
 	fields := splitUevent(data)
 
-	action    := fields["ACTION"]
+	action := fields["ACTION"]
 	subsystem := fields["SUBSYSTEM"]
-	devtype   := fields["DEVTYPE"]
-	devname   := fields["DEVNAME"]
-	idVendor  := fields["ID_VENDOR"]
-	idModel   := fields["ID_MODEL"]
-	idFS      := fields["ID_FS_TYPE"]
-	idLabel   := fields["ID_FS_LABEL"]
-	idSize    := fields["ID_PART_ENTRY_SIZE"]
+	devtype := fields["DEVTYPE"]
+	devname := fields["DEVNAME"]
+	idVendor := fields["ID_VENDOR"]
+	idModel := fields["ID_MODEL"]
+	idFS := fields["ID_FS_TYPE"]
+	idLabel := fields["ID_FS_LABEL"]
+	idSize := fields["ID_PART_ENTRY_SIZE"]
 
 	// Only care about block devices of type "disk" or "partition"
 	if subsystem != "block" || (devtype != "disk" && devtype != "partition") {
@@ -115,11 +114,11 @@ func (l *UdevListener) parseUevent(data []byte) (event.Event, bool) {
 	switch action {
 	case "add":
 		ev := event.New(event.TypeUSBInserted, "UdevMonitor")
-		ev.Hostname    = l.hostname
-		ev.DevicePath  = "/dev/" + devname
-		ev.DeviceName  = idModel
+		ev.Hostname = l.hostname
+		ev.DevicePath = "/dev/" + devname
+		ev.DeviceName = idModel
 		ev.DeviceLabel = label
-		ev.DeviceFS    = idFS
+		ev.DeviceFS = idFS
 		if idSize != "" {
 			var sectors int64
 			fmt.Sscan(idSize, &sectors)
@@ -129,9 +128,9 @@ func (l *UdevListener) parseUevent(data []byte) (event.Event, bool) {
 
 	case "remove":
 		ev := event.New(event.TypeUSBRemoved, "UdevMonitor")
-		ev.Hostname    = l.hostname
-		ev.DevicePath  = "/dev/" + devname
-		ev.DeviceName  = label
+		ev.Hostname = l.hostname
+		ev.DevicePath = "/dev/" + devname
+		ev.DeviceName = label
 		return ev, true
 	}
 
@@ -179,6 +178,3 @@ func splitNUL(data []byte) []string {
 	}
 	return result
 }
-
-// ---- helpers to silence unused import warning ----
-var _ = unsafe.Sizeof

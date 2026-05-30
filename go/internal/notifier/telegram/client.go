@@ -369,8 +369,27 @@ func EscapeMarkdown(s string) string {
 	return b.String()
 }
 
+// htmlEscaper escapes the three characters Telegram's HTML parse mode treats as
+// markup. A single-pass Replacer guarantees "&" is never double-escaped.
+var htmlEscaper = strings.NewReplacer("&", "&amp;", "<", "&lt;", ">", "&gt;")
+
+// EscapeHTML escapes &, <, > so a value can be safely embedded in a
+// parse_mode=HTML message without breaking Telegram's entity parser.
+func EscapeHTML(s string) string {
+	return htmlEscaper.Replace(s)
+}
+
+// safeHTML sanitizes invalid UTF-8 and then escapes HTML markup characters.
+// Use this for EVERY dynamic value interpolated into an HTML message — a raw
+// "&", "<" or ">" otherwise triggers a Telegram 400 "can't parse entities"
+// and the whole notification is lost.
+func safeHTML(s string) string {
+	return EscapeHTML(SafeText(s))
+}
+
 // SafeText ensures the string is valid UTF-8 and safe for Telegram.
 // Replaces any invalid UTF-8 sequences with the replacement character.
+// Note: this does NOT escape HTML — use safeHTML for HTML-mode messages.
 func SafeText(s string) string {
 	if !isValidUTF8(s) {
 		// Replace invalid sequences

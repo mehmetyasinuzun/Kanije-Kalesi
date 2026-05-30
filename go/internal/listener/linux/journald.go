@@ -104,7 +104,7 @@ func (l *JournaldListener) Start(ctx context.Context, bus *event.Bus) error {
 // classifyEntry converts a journal entry to a security event if relevant.
 func (l *JournaldListener) classifyEntry(e journalEntry) (event.Event, bool) {
 	msg := strings.ToLower(e.Message)
-	id  := strings.ToLower(e.Identifier)
+	id := strings.ToLower(e.Identifier)
 
 	ts := parseJournalTime(e.RealtimeUsec)
 

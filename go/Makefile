@@ -88,6 +88,23 @@ lint:
 		echo "golangci-lint bulunamadı: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest"; \
 	fi
 
+## fmt: Kaynak kodu gofmt ile biçimlendir
+.PHONY: fmt
+fmt:
+	gofmt -w .
+
+## vet: go vet ile statik kontrol
+.PHONY: vet
+vet:
+	go vet ./...
+
+## check: CI'nın yerel karşılığı — biçim kontrolü + vet + test
+.PHONY: check
+check:
+	@test -z "$$(gofmt -l .)" || { echo "gofmt gerekli:"; gofmt -l .; exit 1; }
+	go vet ./...
+	go test ./...
+
 ## tidy: go.sum'u güncelle ve kullanılmayan bağımlılıkları temizle
 .PHONY: tidy
 tidy:

@@ -2,19 +2,29 @@ package telegram
 
 import (
 	"fmt"
-	"math"
-	"runtime"
 	"strings"
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/event"
 )
 
-// version is embedded at build time via ldflags.
+// version is the application version shown in message footers. It is set once
+// at startup via SetVersion, before the bot begins sending messages.
 var version = "dev"
 
+// SetVersion sets the version string shown in Telegram message footers.
+// Call once during startup (before any goroutine sends a message).
+func SetVersion(v string) {
+	if v != "" {
+		version = v
+	}
+}
+
 // FormatEvent converts a security event into a Telegram HTML message.
-// All string values go through SafeText() before interpolation — no XSS.
+// Every dynamic value goes through safeHTML() (UTF-8 repair + HTML escaping)
+// before interpolation, so attacker-controlled fields such as a USB volume
+// label or Wi-Fi SSID containing &, < or > cannot break the message or inject
+// markup. The static <b>/<code> scaffolding is written literally.
 func FormatEvent(ev event.Event) string {
 	var b strings.Builder
 	b.Grow(512)
@@ -33,13 +43,13 @@ func FormatEvent(ev event.Event) string {
 	// System context
 	if ev.Hostname != "" {
 		b.WriteString("💻 <code>")
-		b.WriteString(SafeText(ev.Hostname))
+		b.WriteString(safeHTML(ev.Hostname))
 		b.WriteString("</code>\n")
 	}
 	if ev.Username != "" {
-		u := SafeText(ev.Username)
+		u := safeHTML(ev.Username)
 		if ev.Domain != "" {
-			u = SafeText(ev.Domain) + `\` + u
+			u = safeHTML(ev.Domain) + `\` + u
 		}
 		b.WriteString("👤 <code>")
 		b.WriteString(u)
@@ -51,12 +61,12 @@ func FormatEvent(ev event.Event) string {
 	case event.TypeLoginSuccess, event.TypeLoginFailed:
 		if ev.SourceIP != "" {
 			b.WriteString("🌐 IP: <code>")
-			b.WriteString(SafeText(ev.SourceIP))
+			b.WriteString(safeHTML(ev.SourceIP))
 			b.WriteString("</code>\n")
 		}
 		if ev.LogonType != 0 {
 			b.WriteString("🔑 Giriş tipi: ")
-			b.WriteString(SafeText(ev.LogonType.String()))
+			b.WriteString(safeHTML(ev.LogonType.String()))
 			b.WriteString("\n")
 		}
 
@@ -67,17 +77,17 @@ func FormatEvent(ev event.Event) string {
 				label = ev.DeviceName
 			}
 			b.WriteString("💾 Cihaz: <b>")
-			b.WriteString(SafeText(label))
+			b.WriteString(safeHTML(label))
 			b.WriteString("</b>\n")
 		}
 		if ev.DevicePath != "" {
 			b.WriteString("📂 Yol: <code>")
-			b.WriteString(SafeText(ev.DevicePath))
+			b.WriteString(safeHTML(ev.DevicePath))
 			b.WriteString("</code>\n")
 		}
 		if ev.DeviceFS != "" {
 			b.WriteString("🗂️ Dosya sistemi: ")
-			b.WriteString(SafeText(ev.DeviceFS))
+			b.WriteString(safeHTML(ev.DeviceFS))
 			b.WriteString("\n")
 		}
 		if ev.DeviceSize > 0 {
@@ -89,37 +99,37 @@ func FormatEvent(ev event.Event) string {
 	case event.TypeUSBRemoved:
 		if ev.DeviceName != "" {
 			b.WriteString("💾 Cihaz: <b>")
-			b.WriteString(SafeText(ev.DeviceName))
+			b.WriteString(safeHTML(ev.DeviceName))
 			b.WriteString("</b>\n")
 		}
 		if ev.DevicePath != "" {
 			b.WriteString("📂 Yol: <code>")
-			b.WriteString(SafeText(ev.DevicePath))
+			b.WriteString(safeHTML(ev.DevicePath))
 			b.WriteString("</code>\n")
 		}
 
 	case event.TypeSystemWake:
 		if ev.WakeType != "" {
 			b.WriteString("⚡ Uyanış: ")
-			b.WriteString(SafeText(ev.WakeType))
+			b.WriteString(safeHTML(ev.WakeType))
 			b.WriteString("\n")
 		}
 
 	case event.TypeNetworkUp, event.TypeNetworkChanged:
 		if ev.NetworkSSID != "" {
 			b.WriteString("📶 Ağ: <b>")
-			b.WriteString(SafeText(ev.NetworkSSID))
+			b.WriteString(safeHTML(ev.NetworkSSID))
 			b.WriteString("</b>")
 			if ev.NetworkType != "" {
 				b.WriteString(" (")
-				b.WriteString(SafeText(ev.NetworkType))
+				b.WriteString(safeHTML(ev.NetworkType))
 				b.WriteString(")")
 			}
 			b.WriteString("\n")
 		}
 		if ev.LocalIP != "" {
 			b.WriteString("🔌 IP: <code>")
-			b.WriteString(SafeText(ev.LocalIP))
+			b.WriteString(safeHTML(ev.LocalIP))
 			b.WriteString("</code>\n")
 		}
 	}
@@ -127,9 +137,9 @@ func FormatEvent(ev event.Event) string {
 	// Extra fields
 	for k, v := range ev.Extra {
 		b.WriteString("  • ")
-		b.WriteString(SafeText(k))
+		b.WriteString(safeHTML(k))
 		b.WriteString(": ")
-		b.WriteString(SafeText(v))
+		b.WriteString(safeHTML(v))
 		b.WriteString("\n")
 	}
 
@@ -151,7 +161,7 @@ func FormatHeartbeat(uptime time.Duration, diskFree, diskTotal uint64, evCount i
 	b.WriteString("</b>\n")
 
 	b.WriteString("🖥️ Platform: <code>")
-	b.WriteString(SafeText(platform))
+	b.WriteString(safeHTML(platform))
 	b.WriteString("</code>\n")
 
 	if diskTotal > 0 {
@@ -192,7 +202,7 @@ func FormatStatus(info StatusInfo) string {
 		b.WriteString("  Disk:\n")
 		for _, d := range info.Disks {
 			b.WriteString(fmt.Sprintf("    <code>%s</code> %s boş / %s\n",
-				SafeText(d.Path),
+				safeHTML(d.Path),
 				formatBytes(int64(d.Free)),
 				formatBytes(int64(d.Total))))
 		}
@@ -239,7 +249,7 @@ func FormatRecentEvents(events []event.Event) string {
 
 		if ev.Username != "" {
 			b.WriteString(" — ")
-			b.WriteString(SafeText(ev.Username))
+			b.WriteString(safeHTML(ev.Username))
 		}
 
 		b.WriteString("\n   <i>")
@@ -407,7 +417,3 @@ func formatDuration(d time.Duration) string {
 	}
 	return fmt.Sprintf("%ds %dm", hours, minutes)
 }
-
-// Ensure math is used (log2 for formatBytes)
-var _ = math.Log2
-var _ = runtime.GOOS
