@@ -236,3 +236,20 @@ auto_install         = false
 
 [geoip]
 enabled = true
+
+
+# ─── Ek Bildirim Hedefleri (Webhook / Discord) ───────────────────
+# Telegram'a ek olarak olayları Discord'a veya herhangi bir webhook'a
+# da gönderebilirsiniz. İstediğiniz kadar [[webhooks]] bloğu ekleyin.
+# format: "discord" (Discord embed) veya "json" (genel JSON gövdesi).
+# Telegram yapılandırılmamış olsa bile webhook'lar çalışır.
+#
+# [[webhooks]]
+# name   = "Discord"
+# url    = "https://discord.com/api/webhooks/XXXX/YYYY"
+# format = "discord"
+#
+# [[webhooks]]
+# name   = "Kendi sunucum"
+# url    = "https://example.com/kanije-hook"
+# format = "json"

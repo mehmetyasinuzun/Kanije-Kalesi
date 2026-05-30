@@ -310,79 +310,11 @@ type DiskInfo struct {
 
 // ---- Helpers ----
 
-func eventEmoji(t event.Type) string {
-	switch t {
-	case event.TypeLoginSuccess:
-		return "✅"
-	case event.TypeLoginFailed:
-		return "🚨"
-	case event.TypeLogoff:
-		return "👋"
-	case event.TypeScreenLock:
-		return "🔒"
-	case event.TypeScreenUnlock:
-		return "🔓"
-	case event.TypeSystemBoot:
-		return "🖥️"
-	case event.TypeSystemShutdown:
-		return "🔴"
-	case event.TypeSystemSleep:
-		return "😴"
-	case event.TypeSystemWake:
-		return "☀️"
-	case event.TypeUSBInserted:
-		return "🔌"
-	case event.TypeUSBRemoved:
-		return "⏏️"
-	case event.TypeNetworkUp:
-		return "🌐"
-	case event.TypeNetworkDown:
-		return "📡"
-	case event.TypeNetworkChanged:
-		return "🔄"
-	case event.TypeHeartbeat:
-		return "💓"
-	default:
-		return "📌"
-	}
-}
+// eventEmoji and eventLabel delegate to the canonical definitions on event.Type
+// so Telegram and other notifiers (webhooks) share one source of truth.
+func eventEmoji(t event.Type) string { return t.Emoji() }
 
-func eventLabel(t event.Type) string {
-	switch t {
-	case event.TypeLoginSuccess:
-		return "Başarılı Giriş"
-	case event.TypeLoginFailed:
-		return "Başarısız Giriş Denemesi"
-	case event.TypeLogoff:
-		return "Oturum Kapatıldı"
-	case event.TypeScreenLock:
-		return "Ekran Kilitlendi"
-	case event.TypeScreenUnlock:
-		return "Ekran Kilidi Açıldı"
-	case event.TypeSystemBoot:
-		return "Sistem Başlatıldı"
-	case event.TypeSystemShutdown:
-		return "Sistem Kapatılıyor"
-	case event.TypeSystemSleep:
-		return "Uyku Moduna Girdi"
-	case event.TypeSystemWake:
-		return "Uykudan Uyandı"
-	case event.TypeUSBInserted:
-		return "USB Cihazı Takıldı"
-	case event.TypeUSBRemoved:
-		return "USB Cihazı Çıkarıldı"
-	case event.TypeNetworkUp:
-		return "İnternet Bağlantısı Kuruldu"
-	case event.TypeNetworkDown:
-		return "İnternet Bağlantısı Kesildi"
-	case event.TypeNetworkChanged:
-		return "Ağ Değişti"
-	case event.TypeHeartbeat:
-		return "Sistem Nabzı"
-	default:
-		return string(t)
-	}
-}
+func eventLabel(t event.Type) string { return t.Label() }
 
 func formatBytes(b int64) string {
 	if b < 0 {

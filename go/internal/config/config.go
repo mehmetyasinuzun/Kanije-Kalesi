@@ -34,6 +34,7 @@ type Config struct {
 	QuietHours QuietHoursConfig         `toml:"quiet_hours" json:"quiet_hours"`
 	Update     UpdateConfig             `toml:"update"      json:"update"`
 	GeoIP      GeoIPConfig              `toml:"geoip"       json:"geoip"`
+	Webhooks   []WebhookConfig          `toml:"webhooks"    json:"webhooks"`
 
 	// Runtime path — where to save changes
 	filePath string `toml:"-" json:"-"`
@@ -126,6 +127,13 @@ type GeoIPConfig struct {
 	// Enabled, when true, looks up the source IP of login events and adds the
 	// country/city/ISP to the notification. Uses the free ipwho.is HTTPS API.
 	Enabled bool `toml:"enabled" json:"enabled"`
+}
+
+// WebhookConfig is one outgoing webhook destination (Discord or generic JSON).
+type WebhookConfig struct {
+	Name   string `toml:"name"   json:"name"`
+	URL    string `toml:"url"    json:"url"`
+	Format string `toml:"format" json:"format"` // "discord" | "json"
 }
 
 type TrayConfig struct {
@@ -534,6 +542,18 @@ func (c *Config) GeoIPEnabled() bool {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.GeoIP.Enabled
+}
+
+// WebhookTargets returns a copy of the configured outgoing webhook destinations.
+func (c *Config) WebhookTargets() []WebhookConfig {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	if len(c.Webhooks) == 0 {
+		return nil
+	}
+	out := make([]WebhookConfig, len(c.Webhooks))
+	copy(out, c.Webhooks)
+	return out
 }
 
 // InQuietHours reports whether the given time falls inside the configured quiet

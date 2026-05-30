@@ -200,6 +200,82 @@ func DefaultSeverity(t Type) Severity {
 	}
 }
 
+// Label returns the human-readable Turkish name of an event type.
+func (t Type) Label() string {
+	switch t {
+	case TypeLoginSuccess:
+		return "Başarılı Giriş"
+	case TypeLoginFailed:
+		return "Başarısız Giriş Denemesi"
+	case TypeLogoff:
+		return "Oturum Kapatıldı"
+	case TypeScreenLock:
+		return "Ekran Kilitlendi"
+	case TypeScreenUnlock:
+		return "Ekran Kilidi Açıldı"
+	case TypeSystemBoot:
+		return "Sistem Başlatıldı"
+	case TypeSystemShutdown:
+		return "Sistem Kapatılıyor"
+	case TypeSystemSleep:
+		return "Uyku Moduna Girdi"
+	case TypeSystemWake:
+		return "Uykudan Uyandı"
+	case TypeUSBInserted:
+		return "USB Cihazı Takıldı"
+	case TypeUSBRemoved:
+		return "USB Cihazı Çıkarıldı"
+	case TypeNetworkUp:
+		return "İnternet Bağlantısı Kuruldu"
+	case TypeNetworkDown:
+		return "İnternet Bağlantısı Kesildi"
+	case TypeNetworkChanged:
+		return "Ağ Değişti"
+	case TypeHeartbeat:
+		return "Sistem Nabzı"
+	default:
+		return string(t)
+	}
+}
+
+// Emoji returns an emoji representing the event type.
+func (t Type) Emoji() string {
+	switch t {
+	case TypeLoginSuccess:
+		return "✅"
+	case TypeLoginFailed:
+		return "🚨"
+	case TypeLogoff:
+		return "👋"
+	case TypeScreenLock:
+		return "🔒"
+	case TypeScreenUnlock:
+		return "🔓"
+	case TypeSystemBoot:
+		return "🖥️"
+	case TypeSystemShutdown:
+		return "🔴"
+	case TypeSystemSleep:
+		return "😴"
+	case TypeSystemWake:
+		return "☀️"
+	case TypeUSBInserted:
+		return "🔌"
+	case TypeUSBRemoved:
+		return "⏏️"
+	case TypeNetworkUp:
+		return "🌐"
+	case TypeNetworkDown:
+		return "📡"
+	case TypeNetworkChanged:
+		return "🔄"
+	case TypeHeartbeat:
+		return "💓"
+	default:
+		return "📌"
+	}
+}
+
 // New creates a new Event with sensible defaults.
 func New(t Type, source string) Event {
 	return Event{

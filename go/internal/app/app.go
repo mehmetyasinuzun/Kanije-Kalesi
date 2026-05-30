@@ -21,6 +21,7 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/listener"
 	"github.com/kanije-kalesi/kanije/internal/network"
 	"github.com/kanije-kalesi/kanije/internal/notifier/telegram"
+	"github.com/kanije-kalesi/kanije/internal/notifier/webhook"
 	"github.com/kanije-kalesi/kanije/internal/storage"
 	"github.com/kanije-kalesi/kanije/internal/sysinfo"
 	"github.com/kanije-kalesi/kanije/internal/updater"
@@ -34,17 +35,18 @@ const (
 
 // App is the top-level application object. Create with New(), run with Run().
 type App struct {
-	cfg     *config.Config
-	log     *slog.Logger
-	store   storage.Storage
-	bus     *event.Bus
-	bot     *telegram.Bot
-	manager *listener.Manager
-	netMon  *network.Monitor
-	camera  *capture.Camera
-	screen  *capture.Screenshotter
-	updater *updater.Updater
-	geo     *geoip.Resolver
+	cfg      *config.Config
+	log      *slog.Logger
+	store    storage.Storage
+	bus      *event.Bus
+	bot      *telegram.Bot
+	manager  *listener.Manager
+	netMon   *network.Monitor
+	camera   *capture.Camera
+	screen   *capture.Screenshotter
+	updater  *updater.Updater
+	geo      *geoip.Resolver
+	webhooks *webhook.Sender
 
 	version  string
 	cancel   context.CancelFunc // triggers graceful shutdown (used by self-update)
@@ -97,16 +99,23 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 	// Screenshot
 	screen := capture.NewScreenshotter(cfg.Screenshot.JPEGQuality, log.With("module", "screenshot"))
 
+	// Webhook fan-out targets (Discord / generic JSON).
+	var hooks []webhook.Target
+	for _, w := range cfg.WebhookTargets() {
+		hooks = append(hooks, webhook.Target{Name: w.Name, URL: w.URL, Format: w.Format})
+	}
+
 	app := &App{
-		cfg:     cfg,
-		log:     log,
-		store:   store,
-		bus:     bus,
-		camera:  cam,
-		screen:  screen,
-		version: version,
-		updater: updater.New(repoOwner, repoName, version, log.With("module", "updater")),
-		geo:     geoip.New(),
+		cfg:      cfg,
+		log:      log,
+		store:    store,
+		bus:      bus,
+		camera:   cam,
+		screen:   screen,
+		version:  version,
+		updater:  updater.New(repoOwner, repoName, version, log.With("module", "updater")),
+		geo:      geoip.New(),
+		webhooks: webhook.New(hooks, log.With("module", "webhook")),
 	}
 
 	// Bot
@@ -310,20 +319,23 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 		}
 	}
 
-	// Send notification
-	if !a.cfg.IsConfigured() {
-		return
-	}
-
+	// Send notifications. Telegram and webhooks are independent — webhooks fire
+	// even if Telegram isn't configured.
 	sendCtx, cancel := context.WithTimeout(ctx, 30*time.Second)
 	defer cancel()
 
-	if err := a.bot.SendEvent(sendCtx, ev); err != nil {
-		a.log.Warn("bildirim gönderilemedi, kuyruğa alındı", "err", err)
-		// Queue for offline delivery
-		if qErr := a.store.SavePendingMessage(ctx, telegram.FormatEvent(ev)); qErr != nil {
-			a.log.Error("kuyruk yazma hatası", "err", qErr)
+	if a.cfg.IsConfigured() {
+		if err := a.bot.SendEvent(sendCtx, ev); err != nil {
+			a.log.Warn("bildirim gönderilemedi, kuyruğa alındı", "err", err)
+			// Queue for offline delivery
+			if qErr := a.store.SavePendingMessage(ctx, telegram.FormatEvent(ev)); qErr != nil {
+				a.log.Error("kuyruk yazma hatası", "err", qErr)
+			}
 		}
+	}
+
+	if a.webhooks.Enabled() {
+		a.webhooks.Send(sendCtx, ev)
 	}
 }
 
