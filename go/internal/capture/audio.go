@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/sysproc"
@@ -34,14 +35,22 @@ type AudioConfig struct {
 // cross-platform; the subprocess console window is hidden on Windows).
 // Only one recording runs at a time (guarded by mu).
 type AudioRecorder struct {
-	cfg AudioConfig
-	mu  sync.Mutex
-	log *slog.Logger
+	cfg            AudioConfig
+	mu             sync.Mutex
+	log            *slog.Logger
+	ffmpegOverride atomic.Value // string — runtime-provisioned ffmpeg path
 }
 
 // NewAudioRecorder creates an AudioRecorder with the given configuration.
 func NewAudioRecorder(cfg AudioConfig, log *slog.Logger) *AudioRecorder {
 	return &AudioRecorder{cfg: cfg, log: log}
+}
+
+// SetFFmpegPath updates the ffmpeg path at runtime (after auto-download).
+func (a *AudioRecorder) SetFFmpegPath(path string) {
+	if path != "" {
+		a.ffmpegOverride.Store(path)
+	}
 }
 
 // Record captures `seconds` of microphone audio and returns MP3 bytes.
@@ -90,6 +99,11 @@ func (a *AudioRecorder) Record(ctx context.Context, seconds int) ([]byte, error)
 }
 
 func (a *AudioRecorder) ffmpegPath() string {
+	if v := a.ffmpegOverride.Load(); v != nil {
+		if s, _ := v.(string); s != "" {
+			return s
+		}
+	}
 	if a.cfg.FFmpegPath != "" {
 		return a.cfg.FFmpegPath
 	}

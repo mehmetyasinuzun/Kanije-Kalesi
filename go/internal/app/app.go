@@ -19,6 +19,7 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/capture"
 	"github.com/kanije-kalesi/kanije/internal/config"
 	"github.com/kanije-kalesi/kanije/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/ffmpeg"
 	"github.com/kanije-kalesi/kanije/internal/geoip"
 	"github.com/kanije-kalesi/kanije/internal/listener"
 	"github.com/kanije-kalesi/kanije/internal/network"
@@ -49,6 +50,7 @@ type App struct {
 	manager  *listener.Manager
 	netMon   *network.Monitor
 	camera   *capture.Camera
+	audioRec *capture.AudioRecorder
 	screen   *capture.Screenshotter
 	updater  *updater.Updater
 	geo      *geoip.Resolver
@@ -111,9 +113,15 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 	// Setup wizard
 	wizard := telegram.NewSetupWizard(cfg, tgClient, log.With("module", "wizard"))
 
+	// ffmpeg backs camera + audio capture. Resolve it now (config / PATH /
+	// install-dir); if it's missing the agent auto-downloads it at startup
+	// (provisionFFmpeg) and the modules pick it up via SetFFmpegPath.
+	baseDir := appBaseDir(cfg)
+	ffPath := ffmpeg.Resolve(cfg.Camera.FFmpegPath, baseDir)
+
 	// Camera
 	cam := capture.NewCamera(capture.CameraConfig{
-		FFmpegPath:   cfg.Camera.FFmpegPath,
+		FFmpegPath:   firstNonEmpty(ffPath, cfg.Camera.FFmpegPath),
 		DeviceIndex:  cfg.Camera.DeviceIndex,
 		DeviceName:   cfg.Camera.DeviceName,
 		Width:        cfg.Camera.Width,
@@ -124,7 +132,7 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 
 	// Audio recorder (microphone via ffmpeg) — on-demand /seskayit
 	audioRec := capture.NewAudioRecorder(capture.AudioConfig{
-		FFmpegPath: cfg.Audio.FFmpegPath,
+		FFmpegPath: firstNonEmpty(ffPath, cfg.Audio.FFmpegPath),
 		DeviceName: cfg.Audio.DeviceName,
 		Bitrate:    cfg.Audio.Bitrate,
 	}, log.With("module", "audio"))
@@ -139,13 +147,7 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 	}
 
 	// Scheduler store — persisted next to the config (schedules.json).
-	schedDir := filepath.Dir(cfg.FilePath())
-	if schedDir == "" || schedDir == "." {
-		if exe, err := os.Executable(); err == nil {
-			schedDir = filepath.Dir(exe)
-		}
-	}
-	schedStore, err := schedule.NewStore(filepath.Join(schedDir, "schedules.json"))
+	schedStore, err := schedule.NewStore(filepath.Join(baseDir, "schedules.json"))
 	if err != nil {
 		log.Warn("zamanlama deposu açılamadı", "err", err)
 		schedStore = nil
@@ -159,6 +161,7 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		acl:      acl,
 		schedule: schedStore,
 		camera:   cam,
+		audioRec: audioRec,
 		screen:   screen,
 		version:  version,
 		osName:   sysinfo.OSName(),
@@ -327,6 +330,11 @@ func (a *App) Run() error {
 	// Canary honeypot watcher
 	g.Go(func() error {
 		return a.canaryWatch(ctx)
+	})
+
+	// Auto-provision ffmpeg (camera/audio) if missing
+	g.Go(func() error {
+		return a.provisionFFmpeg(ctx)
 	})
 
 	// Optional Prometheus /metrics endpoint

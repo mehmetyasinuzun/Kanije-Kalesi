@@ -14,6 +14,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/sysproc"
@@ -32,14 +33,37 @@ type CameraConfig struct {
 // Camera captures frames from a webcam using ffmpeg.
 // Only one capture at a time is permitted (guarded by mu).
 type Camera struct {
-	cfg CameraConfig
-	mu  sync.Mutex
-	log *slog.Logger
+	cfg            CameraConfig
+	mu             sync.Mutex
+	log            *slog.Logger
+	ffmpegOverride atomic.Value // string — runtime-provisioned ffmpeg path (auto-download)
 }
 
 // NewCamera creates a Camera instance with the given configuration.
 func NewCamera(cfg CameraConfig, log *slog.Logger) *Camera {
 	return &Camera{cfg: cfg, log: log}
+}
+
+// SetFFmpegPath updates the ffmpeg binary path at runtime (e.g. after the agent
+// auto-downloads ffmpeg). Safe for concurrent use.
+func (c *Camera) SetFFmpegPath(path string) {
+	if path != "" {
+		c.ffmpegOverride.Store(path)
+	}
+}
+
+// ffmpegPath returns the runtime override if set, else the configured path, else
+// bare "ffmpeg" (PATH lookup).
+func (c *Camera) ffmpegPath() string {
+	if v := c.ffmpegOverride.Load(); v != nil {
+		if s, _ := v.(string); s != "" {
+			return s
+		}
+	}
+	if c.cfg.FFmpegPath != "" {
+		return c.cfg.FFmpegPath
+	}
+	return "ffmpeg"
 }
 
 // Capture takes a single photo and returns raw JPEG bytes.
@@ -56,7 +80,7 @@ func (c *Camera) Capture(ctx context.Context) ([]byte, error) {
 	args := c.buildFFmpegArgs()
 	c.log.Debug("kamera komutu", "args", args)
 
-	cmd := exec.CommandContext(captureCtx, c.cfg.FFmpegPath, args...)
+	cmd := exec.CommandContext(captureCtx, c.ffmpegPath(), args...)
 	sysproc.Hide(cmd) // GUI binary'de ffmpeg konsol penceresi parlatmasın
 
 	var stdout, stderr bytes.Buffer
