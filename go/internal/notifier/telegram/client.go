@@ -27,24 +27,31 @@ const (
 type Client struct {
 	token      string
 	httpClient *http.Client
+	reqTimeout time.Duration // per-request deadline for normal (non-long-poll) calls
 	log        *slog.Logger
 }
 
 // NewClient creates a Telegram API client with sensible defaults.
 func NewClient(token string, timeoutSec int, log *slog.Logger) *Client {
 	if timeoutSec <= 0 {
-		timeoutSec = 15
+		timeoutSec = 30
 	}
 	return &Client{
 		token: token,
 		httpClient: &http.Client{
-			Timeout: time.Duration(timeoutSec) * time.Second,
+			// NO global Timeout on purpose. getUpdates long-polls for ~30s, which
+			// a 15s global timeout would kill mid-poll → every poll errored →
+			// exponential back-off climbed to 60s → commands landed seconds-to-a-
+			// minute late. Per-request deadlines are applied via context instead
+			// (doRequest for normal calls, GetUpdates for the long-poll).
 			Transport: &http.Transport{
-				MaxIdleConns:    10,
-				IdleConnTimeout: 90 * time.Second,
+				MaxIdleConns:          10,
+				IdleConnTimeout:       90 * time.Second,
+				ResponseHeaderTimeout: 45 * time.Second,
 			},
 		},
-		log: log,
+		reqTimeout: time.Duration(timeoutSec) * time.Second,
+		log:        log,
 	}
 }
 
@@ -243,8 +250,14 @@ func (c *Client) GetUpdates(ctx context.Context, offset, timeout int64) ([]Updat
 		"allowed_updates": []string{"message", "callback_query"},
 	}
 
+	// The long-poll needs a deadline LONGER than the poll timeout itself, plus a
+	// network margin — otherwise the request is cut off mid-poll. This deadline
+	// (not the global client timeout) bounds the call.
+	pollCtx, cancel := context.WithTimeout(ctx, time.Duration(timeout+15)*time.Second)
+	defer cancel()
+
 	var updates []Update
-	if err := c.call(ctx, "getUpdates", params, &updates); err != nil {
+	if err := c.call(pollCtx, "getUpdates", params, &updates); err != nil {
 		return nil, err
 	}
 	return updates, nil
@@ -301,6 +314,16 @@ func (c *Client) call(ctx context.Context, method string, params map[string]any,
 }
 
 func (c *Client) doRequest(ctx context.Context, method string, params map[string]any) (*apiResponse, error) {
+	// Apply a default per-request deadline when the caller didn't set one. The
+	// long-poll (GetUpdates) sets its own longer deadline, so this only bounds
+	// normal calls (sendMessage, sendPhoto, etc.) now that the global client
+	// timeout is gone.
+	if _, ok := ctx.Deadline(); !ok {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, c.reqTimeout)
+		defer cancel()
+	}
+
 	var bodyReader io.Reader
 	var contentType string
 
@@ -341,6 +364,15 @@ func (c *Client) doRequest(ctx context.Context, method string, params map[string
 
 // sendMedia uploads binary data (photo/document) via multipart form.
 func (c *Client) sendMedia(ctx context.Context, apiMethod, fieldName, filename string, chatID int64, data []byte, caption string) error {
+	// This path bypasses doRequest, so apply the same default deadline — without
+	// it (and with the global client timeout now removed) a stalled upload would
+	// hang forever.
+	if _, ok := ctx.Deadline(); !ok {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, c.reqTimeout)
+		defer cancel()
+	}
+
 	var body bytes.Buffer
 	writer := multipart.NewWriter(&body)
 
