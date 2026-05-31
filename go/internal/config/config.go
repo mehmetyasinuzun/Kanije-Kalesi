@@ -881,7 +881,7 @@ func (c *Config) SetMotionThreshold(th float64) error {
 }
 
 // MotionBurst returns how many photos to capture per motion event (clamped to
-// 1..10). 1 means the classic single-frame behaviour.
+// 1..10). 1 means the classic single-frame behavior.
 func (c *Config) MotionBurst() int {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
