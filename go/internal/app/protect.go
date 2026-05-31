@@ -28,6 +28,12 @@ func (a *App) executeProtection(action, reason string) {
 	ev := event.New(event.TypeProtectionFired, "Protection")
 	ev.Hostname, _ = os.Hostname()
 	ev.Extra = map[string]string{"🛡️ Tetik": reason, "🎬 Aksiyon": actionLabel(action)}
+
+	// Grab evidence NOW, before any lock (a locked screen would blank the
+	// screenshot). If a capture fails (no camera / busy / no ffmpeg), say so in
+	// the message instead of silently sending nothing.
+	a.attachEvidence(&ev)
+
 	a.bus.Publish(ev)
 
 	// "lockdown" → persistent lock mode (lockdownWatch keeps re-locking). It also
@@ -50,6 +56,45 @@ func (a *App) executeProtection(action, reason string) {
 	if strings.Contains(action, "wipe") {
 		a.scheduleProtectionWipe(reason)
 	}
+}
+
+// attachEvidence captures a camera photo + screenshot and attaches them to ev.
+// On failure it records the reason in ev.Extra (so "no camera" is reported, not
+// silently dropped). Runs with its own timeout — independent of any caller ctx.
+func (a *App) attachEvidence(ev *event.Event) {
+	ctx, cancel := context.WithTimeout(context.Background(), 25*time.Second)
+	defer cancel()
+
+	if a.camera != nil {
+		if data, err := a.camera.Capture(ctx); err == nil && len(data) > 0 {
+			ev.Attachments = append(ev.Attachments, event.Attachment{
+				Type: event.AttachmentPhoto, Data: data, Caption: "📷 Koruma anı",
+			})
+		} else if err != nil {
+			ev.Extra["📷 Kamera"] = "alınamadı (" + shortErr(err) + ")"
+		}
+	} else {
+		ev.Extra["📷 Kamera"] = "bu derlemede yok"
+	}
+
+	if a.screen != nil {
+		if data, err := a.screen.Capture(ctx); err == nil && len(data) > 0 {
+			ev.Attachments = append(ev.Attachments, event.Attachment{
+				Type: event.AttachmentScreenshot, Data: data, Caption: "🖥️ Koruma anı",
+			})
+		} else if err != nil {
+			ev.Extra["🖥️ Ekran"] = "alınamadı (" + shortErr(err) + ")"
+		}
+	}
+}
+
+// shortErr trims an error message to a short, UTF-8-safe snippet for messages.
+func shortErr(err error) string {
+	s := strings.TrimSpace(err.Error())
+	if len(s) > 90 {
+		s = strings.ToValidUTF8(s[:90], "") + "…"
+	}
+	return s
 }
 
 // lockdownWatch enforces persistent lock mode: while Lockdown is on it re-locks

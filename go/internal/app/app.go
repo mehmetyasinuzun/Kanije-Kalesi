@@ -426,6 +426,10 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 			}
 		} else {
 			a.log.Debug("kamera çekimi başarısız", "err", err)
+			if ev.Extra == nil {
+				ev.Extra = make(map[string]string, 1)
+			}
+			ev.Extra["📷 Kamera"] = "alınamadı (cihaz yok/meşgul/ffmpeg eksik)"
 		}
 	}
 

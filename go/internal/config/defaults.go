@@ -162,8 +162,7 @@ func defaultTriggers() map[string]TriggerConfig {
 			Enabled: true,
 		},
 		"protection_triggered": {
-			Enabled:       true,
-			CaptureCamera: true, // capture whoever triggered the protection
+			Enabled: true, // evidence is captured by executeProtection (before lock)
 		},
 	}
 }

@@ -5,6 +5,8 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/kanije-kalesi/kanije/internal/fileaudit"
 )
 
 // removalPlan is the full footprint to erase on /kaldir — every file, directory,
@@ -60,6 +62,17 @@ func (a *App) removalPaths() removalPlan {
 	return removalPlan{Exe: exe, Files: files, Dirs: a.captureDirs(), Task: scheduledTaskName}
 }
 
+// cleanupAudits removes the SACL file-access audit rules we installed (canary +
+// /erisim targets) so /kaldir and /imha leave no auditing trace behind.
+func (a *App) cleanupAudits() {
+	if p := a.cfg.ProtectionPolicy(); p.CanaryPath != "" {
+		_ = fileaudit.DisableAudit(p.CanaryPath)
+	}
+	for _, path := range a.cfg.AuditPaths() {
+		_ = fileaudit.DisableAudit(path)
+	}
+}
+
 // captureDirs returns the configured local capture output directories (camera and
 // screenshot), de-duplicated. Shared by /kaldir and /imha.
 func (a *App) captureDirs() []string {
@@ -77,6 +90,7 @@ func (a *App) captureDirs() []string {
 // detached helper can finish (delete the now-unlocked exe and its directory).
 // Returns an error only if the helper could not be launched.
 func (a *App) uninstall(_ context.Context) error {
+	a.cleanupAudits() // remove any SACL audit rules we added, so no trace is left
 	if err := systemUninstall(a.removalPaths()); err != nil {
 		return err
 	}

@@ -42,6 +42,7 @@ func (a *App) secureFiles() []string {
 // destroy securely wipes the agent's sensitive data and triggers a factory reset,
 // then shuts the agent down. Returns an error only if the helper couldn't launch.
 func (a *App) destroy(_ context.Context) error {
+	a.cleanupAudits() // drop SACL audit rules first (no trace)
 	exe, _ := os.Executable()
 	plan := destroyPlan{
 		SecureFiles: a.secureFiles(),

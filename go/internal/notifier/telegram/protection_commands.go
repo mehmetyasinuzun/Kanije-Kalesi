@@ -176,37 +176,53 @@ func (b *Bot) formatProtectionStatus() string {
 	p := b.cfg.ProtectionPolicy()
 	var sb strings.Builder
 	sb.WriteString("🛡️ <b>Koruma Politikası</b>\n")
-	sb.WriteString("Ana durum: " + onOffTR(p.Enabled) + "\n\n")
+	sb.WriteString("🔑 Ana şalter: <b>" + onOffTR(p.Enabled) + "</b>")
+	if !p.Enabled {
+		sb.WriteString("  <i>(kapalıyken aşağıdakiler çalışmaz)</i>")
+	}
+	sb.WriteString("\n\n")
 
-	sb.WriteString("⏳ <b>Dead-man switch</b>: " + onOffTR(p.DeadManEnabled) + "\n")
+	// Dead-man switch
+	sb.WriteString("⏳ <b>Ölü-adam anahtarı</b> (dead-man): " + onOffTR(p.DeadManEnabled) + "\n")
+	sb.WriteString("   <i>Belirli süre bota hiç komut göndermezsen (sana ulaşılamıyor → tehlikede sayılırsın) tetiklenir.</i>\n")
 	if p.DeadManEnabled {
-		sb.WriteString(fmt.Sprintf("   %d saat check-in yoksa → %s\n", p.DeadManHours, actionTR(p.DeadManAction)))
+		sb.WriteString(fmt.Sprintf("   • Süre: <b>%d saat</b> · Aksiyon: <b>%s</b>\n", p.DeadManHours, actionTR(p.DeadManAction)))
 		if b.lastCheckIn != nil {
 			elapsed := time.Since(b.lastCheckIn())
 			remaining := time.Duration(p.DeadManHours)*time.Hour - elapsed
 			if remaining < 0 {
 				remaining = 0
 			}
-			sb.WriteString("   Son check-in: " + formatDuration(elapsed) + " önce · Kalan: <b>" + formatDuration(remaining) + "</b>\n")
+			sb.WriteString("   • Son temas: " + formatDuration(elapsed) + " önce · <b>Kalan: " + formatDuration(remaining) + "</b>\n")
 		}
 	}
+	sb.WriteString("\n")
 
-	sb.WriteString("🔌 <b>USB dead-man</b>: " + onOffTR(p.USBEnabled) + "\n")
+	// USB dead-man
+	sb.WriteString("🔌 <b>USB çıkarma alarmı</b> (USB dead-man): " + onOffTR(p.USBEnabled) + "\n")
+	sb.WriteString("   <i>Bir USB çıkarılınca tetiklenir (cihaz kapılırken kablo/bellek koparsa).</i>\n")
 	if p.USBEnabled {
 		dev := p.USBDevice
 		if dev == "" {
 			dev = "herhangi USB"
 		}
-		sb.WriteString("   " + safeHTML(dev) + " çıkınca → " + actionTR(p.USBAction) + "\n")
+		sb.WriteString("   • İzlenen: <b>" + safeHTML(dev) + "</b> · Aksiyon: <b>" + actionTR(p.USBAction) + "</b>\n")
 	}
+	sb.WriteString("\n")
 
-	sb.WriteString("🔢 <b>Yanlış-giriş</b>: " + onOffTR(p.FailedLoginEnabled) + "\n")
+	// Failed login
+	sb.WriteString("🔢 <b>Yanlış giriş sayacı</b>: " + onOffTR(p.FailedLoginEnabled) + "\n")
+	sb.WriteString("   <i>Üst üste yanlış Windows şifresi girilirse tetiklenir.</i>\n")
 	if p.FailedLoginEnabled {
-		sb.WriteString(fmt.Sprintf("   %d başarısız giriş → %s\n", p.FailedLoginThreshold, actionTR(p.FailedLoginAction)))
+		sb.WriteString(fmt.Sprintf("   • Eşik: <b>%d deneme</b> · Aksiyon: <b>%s</b>\n", p.FailedLoginThreshold, actionTR(p.FailedLoginAction)))
 	}
+	sb.WriteString("\n")
 
+	// RAM-only
 	sb.WriteString("💾 <b>RAM-only mod</b>: " + onOffTR(p.RAMOnly) + "\n")
-	sb.WriteString("\n<i>" + korumaUsage() + "</i>")
+	sb.WriteString("   <i>Olay geçmişi diske hiç yazılmaz; güç kesilince iz kalmaz. (Değişiklik /yeniden sonrası.)</i>\n\n")
+
+	sb.WriteString("<b>Komutlar</b>\n<i>" + korumaUsage() + "</i>")
 	return sb.String()
 }
 

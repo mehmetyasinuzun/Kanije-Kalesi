@@ -64,9 +64,12 @@ func (b *Bot) cmdTuzak(ctx context.Context, chatID int64, text string) {
 			b.reply(ctx, chatID, "❌ Kaydedilemedi: "+safeHTML(err.Error()))
 			return
 		}
-		b.reply(ctx, chatID, "🍯 <b>Tuzak (honeypot) AKTİF</b>\nKlasör: <code>"+safeHTML(dir)+"</code>\n"+
-			"Biri bu sahte dosyalara dokunursa → <b>"+actionTR(p.CanaryAction)+"</b>\n"+
-			"Aksiyonu değiştir: <code>/tuzak aksiyon alarm|kilitmodu|sil</code>")
+		b.reply(ctx, chatID, "🍯 <b>Tuzak (honeypot) AKTİF</b>\n\n"+
+			"📂 Klasör: <code>"+safeHTML(dir)+"</code>\n"+
+			"📄 Tuzak dosyalar: <code>"+safeHTML(canaryFileList())+"</code>\n"+
+			"🎬 Biri dokunursa → <b>"+actionTR(p.CanaryAction)+"</b>\n\n"+
+			"<i>⚠️ Sen bu klasöre dokunma (tuzak senin). AV/sistem süreçleri yok sayılır — yalnızca kişi/şüpheli erişim tetikler.</i>\n"+
+			"<i>Aksiyon: /tuzak aksiyon alarm|kilitmodu|sil</i>")
 
 	case "kapat", "kaldir", "off":
 		if p.CanaryPath != "" {
@@ -103,21 +106,35 @@ func (b *Bot) cmdTuzak(ctx context.Context, chatID int64, text string) {
 		}
 		msg := "🍯 <b>Tuzak (Honeypot)</b>\nDurum: <b>" + durum + "</b>\n"
 		if p.CanaryEnabled {
-			msg += "Klasör: <code>" + safeHTML(p.CanaryPath) + "</code>\nDokununca: <b>" + actionTR(p.CanaryAction) + "</b>\n"
+			msg += "\n📂 Klasör: <code>" + safeHTML(p.CanaryPath) + "</code>\n" +
+				"📄 Tuzak dosyalar: <code>" + safeHTML(canaryFileList()) + "</code>\n" +
+				"🎬 Dokununca: <b>" + actionTR(p.CanaryAction) + "</b>\n"
 		}
-		msg += "\n<i>/tuzak kur [klasör] · /tuzak aksiyon alarm|kilitmodu|sil · /tuzak kapat</i>\n" +
-			"<i>Not: gerçek honeypot — saldırganın verisini KOPYALAMAZ, sadece tuzağa dokunduğunu yakalar.</i>"
+		msg += "\n<i>Kur: /tuzak kur [klasör] · Aksiyon: /tuzak aksiyon alarm|kilitmodu|sil · Kapat: /tuzak kapat</i>\n" +
+			"<i>Gerçek honeypot: saldırganın verisini KOPYALAMAZ, yalnızca tuzağa dokunan kişi/programı yakalar (AV/sistem yok sayılır).</i>"
 		b.reply(ctx, chatID, msg)
 	}
 }
 
-// defaultCanaryDir returns the user's Desktop (most-likely-snooped location).
+// defaultCanaryDir returns a DEDICATED honeypot subfolder on the Desktop — never
+// the whole Desktop, so normal Desktop activity (Telegram cache, media metadata,
+// AV scans) can't trip the trap. The folder name is tempting enough to lure a
+// snoop, isolated enough to stay quiet.
 func defaultCanaryDir() string {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return ""
 	}
-	return filepath.Join(home, "Desktop")
+	return filepath.Join(home, "Desktop", "Özel Belgeler")
+}
+
+// canaryFileList returns the decoy file names (for status/setup messages).
+func canaryFileList() string {
+	names := make([]string, 0, len(canaryDecoys))
+	for n := range canaryDecoys {
+		names = append(names, n)
+	}
+	return strings.Join(names, ", ")
 }
 
 // createCanaryDecoys drops the decoy files into dir (skips any that already exist).
