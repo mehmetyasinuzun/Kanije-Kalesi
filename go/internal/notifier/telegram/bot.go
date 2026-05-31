@@ -229,6 +229,7 @@ var commandCaps = map[string]access.Capability{
 	"/defender": access.CapStatus, "/av": access.CapStatus,
 	"/pano": access.CapFiles, "/clipboard": access.CapFiles,
 	"/dosya": access.CapFiles, "/file": access.CapFiles,
+	"/erisim": access.CapFiles, "/access": access.CapFiles,
 	"/panik": access.CapPanic, "/panic": access.CapPanic,
 	"/zamanla": access.CapSchedule, "/schedule": access.CapSchedule,
 	"/hareket": access.CapMotion, "/motion": access.CapMotion,
@@ -386,6 +387,8 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdPanik(ctx, chatID, text)
 	case "/dosya", "/file":
 		b.cmdDosya(ctx, chatID, text)
+	case "/erisim", "/access":
+		b.cmdErisim(ctx, chatID, text)
 	case "/zamanla", "/schedule":
 		b.cmdZamanla(ctx, chatID, text)
 	case "/hareket", "/motion":
@@ -472,6 +475,7 @@ func (b *Bot) registerCommands(ctx context.Context) {
 		{"pano", "📋 Pano içeriği"},
 		{"panik", "🆘 Panik — kanıt topla (foto+ekran+ses+IP)"},
 		{"dosya", "📁 Dosya gez/indir (/dosya al <yol>)"},
+		{"erisim", "👁️ Dosyana kim erişti (/erisim kur <yol>)"},
 		{"zamanla", "⏰ Komut zamanla (/zamanla 30dk /foto)"},
 		{"hareket", "🎥 Hareket algılama (/hareket ac)"},
 		{"dinle", "🎧 Canlı dinleme (/dinle 10 · kapat)"},

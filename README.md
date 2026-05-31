@@ -82,6 +82,7 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 /defender  →  🛡️ Microsoft Defender durumu + son taramalar + tespitler
 /guncelle  →  Yeni sürümü kontrol et ve kur
 /dosya     →  📁 Dosya gez/indir (/dosya <yol> · /dosya al <yol>)
+/erisim    →  👁️ Dosyana kim erişti/kopyaladı (/erisim kur <yol> · yönetici gerekir)
 /zamanla   →  ⏰ Komut zamanla (/zamanla 30dk /foto · liste · sil <id>)
 /kilitle   →  Ekranı kilitle
 /yeniden   →  Sistemi yeniden başlat (onay + 15 sn geri-al)
@@ -132,6 +133,7 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 | 🎧 **Canlı dinleme** | `/dinle 10` — mikrofonu 20 sn'lik parçalar halinde akıtır, `/dinle kapat` durdurur |
 | 🔒 **Binary bütünlüğü** | Watchdog exe SHA-256'sını izler; runtime'da değiştirilirse (kod enjeksiyonu / truva'lı kopya) kritik alarm |
 | 🛡️ **Defender izleme** | `/defender` — gerçek-zamanlı koruma durumu, son hızlı/tam tarama zamanı, imza sürümü ve son tespitler (AV seni ne kadar/ne zaman izliyor) |
+| 👁️ **Dosya erişim denetimi** | `/erisim kur <yol>` — Windows SACL denetimiyle bir klasöre **kim/ne zaman/hangi programla** eriştiğini (okuma/kopyalama/yazma/silme) Security log'dan okur (`/erisim`). Yönetici/SYSTEM gerekir |
 
 <br>
 

@@ -138,6 +138,9 @@ type SecurityConfig struct {
 	// top of the user's Music folder and the agent's own data. There is NO factory
 	// reset — this keeps the OS intact and lowers the AV detection surface.
 	WipeTargets []string `toml:"wipe_targets" json:"wipe_targets"`
+	// AuditPaths are folders under Windows SACL file-access auditing (/erisim), so
+	// the owner can see who opened/copied files there.
+	AuditPaths []string `toml:"audit_paths" json:"audit_paths"`
 	// TOTPSecret, when set (base32), requires a valid 2FA code for dangerous
 	// commands (/kapat, /yeniden). Empty disables 2FA.
 	TOTPSecret string `toml:"totp_secret" json:"-"`
@@ -673,6 +676,45 @@ func (c *Config) RemoveWipeTarget(path string) (bool, error) {
 	for i, p := range c.Security.WipeTargets {
 		if strings.EqualFold(p, path) {
 			c.Security.WipeTargets = append(c.Security.WipeTargets[:i], c.Security.WipeTargets[i+1:]...)
+			return true, c.persist()
+		}
+	}
+	return false, nil
+}
+
+// AuditPaths returns a copy of the folders under file-access auditing (/erisim).
+func (c *Config) AuditPaths() []string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	if len(c.Security.AuditPaths) == 0 {
+		return nil
+	}
+	out := make([]string, len(c.Security.AuditPaths))
+	copy(out, c.Security.AuditPaths)
+	return out
+}
+
+// AddAuditPath records a folder as being audited (de-duplicated) and persists.
+func (c *Config) AddAuditPath(path string) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	for _, p := range c.Security.AuditPaths {
+		if strings.EqualFold(p, path) {
+			return nil
+		}
+	}
+	c.Security.AuditPaths = append(c.Security.AuditPaths, path)
+	return c.persist()
+}
+
+// RemoveAuditPath drops a folder from the audited list and persists. Returns true
+// if one was removed.
+func (c *Config) RemoveAuditPath(path string) (bool, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	for i, p := range c.Security.AuditPaths {
+		if strings.EqualFold(p, path) {
+			c.Security.AuditPaths = append(c.Security.AuditPaths[:i], c.Security.AuditPaths[i+1:]...)
 			return true, c.persist()
 		}
 	}

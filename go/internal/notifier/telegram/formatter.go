@@ -7,6 +7,7 @@ import (
 
 	"github.com/kanije-kalesi/kanije/internal/defender"
 	"github.com/kanije-kalesi/kanije/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/fileaudit"
 	"github.com/kanije-kalesi/kanije/internal/storage"
 	"github.com/kanije-kalesi/kanije/internal/sysinfo"
 )
@@ -426,6 +427,7 @@ func FormatHelp() string {
 
 <b>⚙️ Yönetim</b>
 /dosya — Dosya gez / indir (/dosya &lt;yol&gt; · /dosya al &lt;yol&gt;)
+/erisim — Dosyana kim erişti/kopyaladı (/erisim kur &lt;yol&gt; · /erisim · durdur) — yönetici gerekir
 /zamanla — Komut zamanla (/zamanla 30dk /foto · /zamanla liste · sil &lt;id&gt;)
 /terminal — Uzak komut çalıştır (/terminal whoami · cd kalıcı)
 /terminalix — Yönetici terminali
@@ -533,6 +535,51 @@ func FormatDefender(s defender.Status) string {
 		b.WriteString("\n✅ Defender geçmişinde kayıtlı tehdit yok.\n")
 	}
 	return b.String()
+}
+
+// FormatAccessEvents renders the /erisim file-access list (who/when/what/where).
+func FormatAccessEvents(evs []fileaudit.AccessEvent) string {
+	if len(evs) == 0 {
+		return "👁️ <b>Dosya Erişimleri</b>\n\nKayıt yok. (Denetimi yeni açtıysan, biri erişene kadar boş kalır.)"
+	}
+	var b strings.Builder
+	b.WriteString("👁️ <b>Dosya Erişimleri</b> — kim · ne zaman · hangi program\n\n")
+	for _, e := range evs {
+		b.WriteString("🔹 <b>")
+		b.WriteString(safeHTML(e.Access))
+		b.WriteString("</b>")
+		if e.User != "" {
+			b.WriteString(" · 👤 ")
+			b.WriteString(safeHTML(e.User))
+		}
+		b.WriteString("\n")
+		if e.Process != "" {
+			b.WriteString("   💻 <code>")
+			b.WriteString(safeHTML(shortPath(e.Process)))
+			b.WriteString("</code>\n")
+		}
+		if e.Object != "" {
+			b.WriteString("   📄 <code>")
+			b.WriteString(safeHTML(shortPath(e.Object)))
+			b.WriteString("</code>\n")
+		}
+		if e.Time != "" {
+			b.WriteString("   🕐 <i>")
+			b.WriteString(safeHTML(e.Time))
+			b.WriteString("</i>\n")
+		}
+	}
+	return b.String()
+}
+
+// shortPath trims a long path for display, keeping the tail (most informative).
+func shortPath(p string) string {
+	const max = 52
+	if len([]rune(p)) <= max {
+		return p
+	}
+	r := []rune(p)
+	return "…" + string(r[len(r)-(max-1):])
 }
 
 // onOff renders an enabled/disabled status line.
