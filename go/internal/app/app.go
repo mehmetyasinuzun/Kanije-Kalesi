@@ -312,9 +312,14 @@ func (a *App) Run() error {
 		return a.runScheduler(ctx)
 	})
 
-	// Camera motion detector (/hareket)
+	// Camera motion detector (/hareket, /tetikkamera)
 	g.Go(func() error {
 		return a.motionWatch(ctx)
+	})
+
+	// Voice-activated recording (/tetikses)
+	g.Go(func() error {
+		return a.voxWatch(ctx)
 	})
 
 	// Dead-man switch (protection policy)

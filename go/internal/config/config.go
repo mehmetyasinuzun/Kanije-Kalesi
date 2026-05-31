@@ -29,6 +29,7 @@ type Config struct {
 	Audio      AudioConfig              `toml:"audio"      json:"audio"`
 	Screenshot ScreenshotConfig         `toml:"screenshot" json:"screenshot"`
 	Motion     MotionConfig             `toml:"motion"     json:"motion"`
+	VOX        VOXConfig                `toml:"vox"        json:"vox"`
 	Heartbeat  HeartbeatConfig          `toml:"heartbeat"  json:"heartbeat"`
 	Storage    StorageConfig            `toml:"storage"    json:"storage"`
 	Logging    LoggingConfig            `toml:"logging"     json:"logging"`
@@ -101,6 +102,21 @@ type MotionConfig struct {
 	Enabled     bool    `toml:"enabled"      json:"enabled"`
 	IntervalSec int     `toml:"interval_sec" json:"interval_sec"` // seconds between frames
 	Threshold   float64 `toml:"threshold"    json:"threshold"`    // mean luma diff (0-255) to trigger
+	BurstCount  int     `toml:"burst_count"  json:"burst_count"`  // photos captured per motion (1 = single)
+}
+
+// VOXConfig controls voice-activated recording (/tetikses). When enabled the
+// agent continuously samples the microphone in short probes; whenever the level
+// exceeds ThresholdDB it records — and KEEPS recording in PartSec-long parts for
+// as long as sound continues (each part sent separately so long audio is split
+// into 1-2 min chunks). When silence returns it stops and resumes listening.
+// Nothing is recorded or transmitted while quiet.
+type VOXConfig struct {
+	Enabled     bool    `toml:"enabled"      json:"enabled"`
+	ThresholdDB float64 `toml:"threshold_db" json:"threshold_db"` // max_volume dB that triggers (e.g. -35)
+	PartSec     int     `toml:"part_sec"     json:"part_sec"`     // length of each recording part (split long audio)
+	SampleSec   int     `toml:"sample_sec"   json:"sample_sec"`   // length of each listening probe
+	MaxParts    int     `toml:"max_parts"    json:"max_parts"`    // safety cap on parts per trigger
 }
 
 type HeartbeatConfig struct {
@@ -861,6 +877,79 @@ func (c *Config) SetMotionThreshold(th float64) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.Motion.Threshold = th
+	return c.persist()
+}
+
+// MotionBurst returns how many photos to capture per motion event (clamped to
+// 1..10). 1 means the classic single-frame behaviour.
+func (c *Config) MotionBurst() int {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	n := c.Motion.BurstCount
+	if n < 1 {
+		n = 1
+	}
+	if n > 10 {
+		n = 10
+	}
+	return n
+}
+
+// SetMotionBurst sets the per-motion photo count and persists.
+func (c *Config) SetMotionBurst(n int) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.Motion.BurstCount = n
+	return c.persist()
+}
+
+// VOXEnabled reports whether voice-activated recording is running.
+func (c *Config) VOXEnabled() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.VOX.Enabled
+}
+
+// VOXSettings returns the trigger threshold (dB), per-part record length, probe
+// length and the safety cap on parts, all with safe fallbacks.
+func (c *Config) VOXSettings() (thresholdDB float64, partSec, sampleSec, maxParts int) {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	thresholdDB = c.VOX.ThresholdDB
+	if thresholdDB == 0 {
+		thresholdDB = -35 // quiet rooms sit near -50/-60 dB; speech/bumps exceed -35
+	}
+	partSec = c.VOX.PartSec
+	if partSec <= 0 {
+		partSec = 90 // ~1.5 min chunks
+	}
+	if partSec > 300 {
+		partSec = 300
+	}
+	sampleSec = c.VOX.SampleSec
+	if sampleSec <= 0 {
+		sampleSec = 3
+	}
+	maxParts = c.VOX.MaxParts
+	if maxParts <= 0 {
+		maxParts = 20 // ~30 min ceiling per trigger
+	}
+	return thresholdDB, partSec, sampleSec, maxParts
+}
+
+// SetVOXEnabled turns voice-activated recording on/off and persists.
+func (c *Config) SetVOXEnabled(on bool) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.VOX.Enabled = on
+	return c.persist()
+}
+
+// SetVOXThreshold updates the trigger threshold (dB) and persists.
+func (c *Config) SetVOXThreshold(db float64) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.VOX.ThresholdDB = db
 	return c.persist()
 }
 

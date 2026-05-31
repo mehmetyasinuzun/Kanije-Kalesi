@@ -29,6 +29,14 @@ func Defaults() *Config {
 			Enabled:     false, // opt-in via /hareket ac
 			IntervalSec: 3,
 			Threshold:   12,
+			BurstCount:  3, // capture a short 3-frame burst per motion
+		},
+		VOX: VOXConfig{
+			Enabled:     false, // opt-in via /tetikses ac
+			ThresholdDB: -35,   // trigger above -35 dB (quiet rooms sit near -50/-60)
+			PartSec:     90,    // 1.5 min parts; long audio split into chunks
+			SampleSec:   3,
+			MaxParts:    20, // ~30 min ceiling per trigger
 		},
 		Heartbeat: HeartbeatConfig{
 			Enabled:       true,
@@ -170,6 +178,9 @@ func defaultTriggers() map[string]TriggerConfig {
 		},
 		"motion_detected": {
 			Enabled: true,
+		},
+		"vox_triggered": {
+			Enabled: true, // voice-activated recording attaches the audio itself
 		},
 		"protection_triggered": {
 			Enabled: true, // evidence is captured by executeProtection (before lock)

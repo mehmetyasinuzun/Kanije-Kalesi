@@ -149,6 +149,14 @@ func (b *Bot) SendEvent(ctx context.Context, ev event.Event) error {
 			if err := b.client.SendPhoto(ctx, chatID, att.Data, att.Caption); err != nil {
 				b.log.Warn("ekran görüntüsü gönderilemedi", "err", err)
 			}
+		case event.AttachmentAudio:
+			name := att.Filename
+			if name == "" {
+				name = "ses.mp3"
+			}
+			if err := b.client.SendAudio(ctx, chatID, att.Data, name, att.Caption); err != nil {
+				b.log.Warn("ses gönderilemedi", "err", err)
+			}
 		}
 	}
 
@@ -245,7 +253,9 @@ var commandCaps = map[string]access.Capability{
 	"/panik": access.CapPanic, "/panic": access.CapPanic,
 	"/zamanla": access.CapSchedule, "/schedule": access.CapSchedule,
 	"/hareket": access.CapMotion, "/motion": access.CapMotion,
+	"/tetikkamera": access.CapMotion, "/triggercam": access.CapMotion,
 	"/dinle": access.CapListen, "/listen": access.CapListen,
+	"/tetikses": access.CapListen, "/triggeraudio": access.CapListen,
 	"/kaldir": access.CapUninstall, "/uninstall": access.CapUninstall,
 	"/aktar": access.CapTransfer, "/transfer": access.CapTransfer,
 	"/imha": access.CapDestroy, "/destroy": access.CapDestroy,
@@ -415,8 +425,12 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdZamanla(ctx, chatID, text)
 	case "/hareket", "/motion":
 		b.cmdHareket(ctx, chatID, text)
+	case "/tetikkamera", "/triggercam":
+		b.cmdTetikKamera(ctx, chatID, text)
 	case "/dinle", "/listen":
 		b.cmdDinle(ctx, chatID, text)
+	case "/tetikses", "/triggeraudio":
+		b.cmdTetikSes(ctx, chatID, text)
 	case "/kaldir", "/uninstall":
 		b.cmdKaldir(ctx, chatID)
 	case "/aktar", "/transfer":
@@ -523,7 +537,8 @@ func (b *Bot) registerCommands(ctx context.Context) {
 		{"koruma", "🛡️ Fiziksel tehdit koruması (dead-man, USB, giriş)"},
 		{"tuzak", "🍯 Tuzak/honeypot — dokunan yakalanır"},
 		{"zamanla", "⏰ Komut zamanla (/zamanla 30dk /foto)"},
-		{"hareket", "🎥 Hareket algılama (/hareket ac)"},
+		{"tetikkamera", "🎥 Hareket-tetikli kamera — foto serisi (/tetikkamera ac)"},
+		{"tetikses", "🔊 Ses-tetikli kayıt — parça parça (/tetikses ac)"},
 		{"dinle", "🎧 Canlı dinleme (/dinle 10 · kapat)"},
 		{"cihazlar", "🛰️ Tüm cihazları listele"},
 		{"terminal", "💻 Uzak komut çalıştır"},

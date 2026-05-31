@@ -43,6 +43,7 @@ const (
 	TypeTamperAlert     Type = "tamper_alert"         // exe/config/task tampered with or unexpected kill
 	TypePanic           Type = "panic_triggered"      // owner triggered the panic sweep
 	TypeMotionDetected  Type = "motion_detected"      // camera motion detector fired
+	TypeVOXTriggered    Type = "vox_triggered"        // mic level crossed the VOX (voice-activated) threshold
 	TypeProtectionFired Type = "protection_triggered" // a protection policy trigger fired (deadman/usb/login)
 
 	// Internal
@@ -136,13 +137,15 @@ type AttachmentType string
 const (
 	AttachmentPhoto      AttachmentType = "photo"
 	AttachmentScreenshot AttachmentType = "screenshot"
+	AttachmentAudio      AttachmentType = "audio"
 )
 
 // Attachment represents a media file to be sent alongside an event notification.
 type Attachment struct {
-	Type    AttachmentType
-	Data    []byte // Raw image bytes — no temp file paths
-	Caption string
+	Type     AttachmentType
+	Data     []byte // Raw media bytes — no temp file paths
+	Caption  string
+	Filename string // used for audio/document attachments (e.g. "vox.mp3")
 }
 
 // Event is the central data structure representing a single security event.
@@ -208,7 +211,7 @@ func DefaultSeverity(t Type) Severity {
 		return SeverityWarning
 	case TypeTamperAlert, TypePanic, TypeProtectionFired:
 		return SeverityCritical
-	case TypeMotionDetected:
+	case TypeMotionDetected, TypeVOXTriggered:
 		return SeverityAlert
 	case TypeError:
 		return SeverityAlert
@@ -258,6 +261,8 @@ func (t Type) Label() string {
 		return "Panik Modu"
 	case TypeMotionDetected:
 		return "Hareket Algılandı"
+	case TypeVOXTriggered:
+		return "Ses Algılandı"
 	case TypeProtectionFired:
 		return "Koruma Tetiklendi"
 	case TypeHeartbeat:
@@ -308,6 +313,8 @@ func (t Type) Emoji() string {
 		return "🆘"
 	case TypeMotionDetected:
 		return "🎥"
+	case TypeVOXTriggered:
+		return "🔊"
 	case TypeProtectionFired:
 		return "🛡️"
 	case TypeHeartbeat:

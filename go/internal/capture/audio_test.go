@@ -63,3 +63,24 @@ func TestBuildArgsDefaultBitrate(t *testing.T) {
 		t.Errorf("varsayılan bitrate 96k bekleniyordu: %v", args)
 	}
 }
+
+func TestParseMaxVolume(t *testing.T) {
+	out := strings.Join([]string{
+		`[Parsed_volumedetect_0 @ 0x1] n_samples: 132300`,
+		`[Parsed_volumedetect_0 @ 0x1] mean_volume: -41.2 dB`,
+		`[Parsed_volumedetect_0 @ 0x1] max_volume: -23.4 dB`,
+	}, "\n")
+	v, err := parseMaxVolume(out)
+	if err != nil {
+		t.Fatalf("beklenmeyen hata: %v", err)
+	}
+	if v != -23.4 {
+		t.Errorf("max_volume = %v, beklenen -23.4", v)
+	}
+}
+
+func TestParseMaxVolumeMissing(t *testing.T) {
+	if _, err := parseMaxVolume("hiç ses bilgisi yok"); err == nil {
+		t.Error("max_volume yokken hata beklenir")
+	}
+}

@@ -447,7 +447,8 @@ Giriş/çıkış · ekran kilit/açılış · USB ve <b>her aygıt</b> (fare/kla
 /seskayit — Mikrofon kaydı (örn. /seskayit 30 → 30 sn · varsayılan 30 · en çok 600)
 /pano — Panodaki metni getir
 /panik — Tek komutla kanıt topla: foto + ekran + ses + dış IP (/panik kilit → ekranı da kilitler)
-/hareket — Kamera hareket algılama (/hareket ac · kapat · esik &lt;n&gt;)
+/tetikkamera — Hareket-tetikli kamera: hareket görülünce <b>foto serisi</b> (/tetikkamera ac · kapat · esik &lt;n&gt; · seri &lt;n&gt;)
+/tetikses — Ses-tetikli kayıt: ses gelince <b>parça parça</b> kaydeder, sessizlikte durur (/tetikses ac · kapat · esik &lt;dB&gt;)
 /dinle — Canlı dinleme (/dinle 10 → 10 dk parça parça ses · /dinle kapat)
 
 <b>⚙️ Yönetim</b>

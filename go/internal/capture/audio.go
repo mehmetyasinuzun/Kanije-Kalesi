@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -95,6 +96,80 @@ func (a *AudioRecorder) Record(ctx context.Context, seconds int) ([]byte, error)
 
 	a.log.Debug("ses kaydı başarılı", "boyut", stdout.Len(), "saniye", seconds)
 	return stdout.Bytes(), nil
+}
+
+// MeasureLevel records a short probe and returns the PEAK volume in dB — roughly
+// -50/-60 for a quiet room, -20 for normal speech, near 0 for loud sounds. Used
+// by voice-activated recording (VOX) to decide whether to start a real capture.
+// Nothing is saved or sent; only the level is reported.
+func (a *AudioRecorder) MeasureLevel(ctx context.Context, seconds int) (float64, error) {
+	if seconds <= 0 {
+		seconds = 3
+	}
+	if !a.mu.TryLock() {
+		return 0, fmt.Errorf("mikrofon meşgul")
+	}
+	defer a.mu.Unlock()
+
+	device, err := a.resolveDevice()
+	if err != nil {
+		return 0, err
+	}
+
+	probeCtx, cancel := context.WithTimeout(ctx, time.Duration(seconds+15)*time.Second)
+	defer cancel()
+
+	cmd := exec.CommandContext(probeCtx, a.ffmpegPath(), a.buildLevelArgs(device, seconds)...)
+	sysproc.Hide(cmd)
+	var stderr bytes.Buffer
+	cmd.Stderr = &stderr
+	_ = cmd.Run() // volumedetect prints to stderr; a non-zero exit here is normal
+
+	return parseMaxVolume(stderr.String())
+}
+
+// buildLevelArgs builds an ffmpeg command that measures volume and discards audio.
+func (a *AudioRecorder) buildLevelArgs(device string, seconds int) []string {
+	var inputFormat, input string
+	switch runtime.GOOS {
+	case "windows":
+		inputFormat = "dshow"
+		input = "audio=" + device
+	case "darwin":
+		inputFormat = "avfoundation"
+		input = ":" + device
+	default:
+		inputFormat = "alsa"
+		input = device
+	}
+	return []string{
+		"-hide_banner",
+		"-f", inputFormat,
+		"-i", input,
+		"-t", strconv.Itoa(seconds),
+		"-af", "volumedetect",
+		"-f", "null",
+		"-", // discard output; we only want the volumedetect stats on stderr
+	}
+}
+
+// parseMaxVolume extracts the "max_volume: -X.X dB" line from volumedetect output.
+// Returns -120 (effectively silent) with an error if no level is reported.
+func parseMaxVolume(s string) (float64, error) {
+	const marker = "max_volume:"
+	idx := strings.Index(s, marker)
+	if idx < 0 {
+		return -120, fmt.Errorf("ses seviyesi okunamadı (mikrofon erişimi/izni yok olabilir)")
+	}
+	fields := strings.Fields(strings.TrimSpace(s[idx+len(marker):]))
+	if len(fields) == 0 {
+		return -120, fmt.Errorf("ses seviyesi ayrıştırılamadı")
+	}
+	v, err := strconv.ParseFloat(fields[0], 64)
+	if err != nil {
+		return -120, fmt.Errorf("ses seviyesi ayrıştırılamadı: %w", err)
+	}
+	return v, nil
 }
 
 func (a *AudioRecorder) ffmpegPath() string {
