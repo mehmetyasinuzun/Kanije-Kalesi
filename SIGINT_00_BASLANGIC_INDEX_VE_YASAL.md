@@ -1,115 +1,144 @@
-# 📡 SİNYAL İSTİHBARATI (SIGINT) EL KİTABI
-## Sıfırdan Uzmana — RF Fiziğinden SDR'a, Protokol Çözümlemeden Telekom Güvenliğine
+# Sinyal İstihbaratı (SIGINT) El Kitabı
+## Sıfırdan Uzmana — RF Fiziğinden Yapay Zekaya, Tam Kapsamlı Başvuru Kaynağı
 
-> **Bu bir kitaptır, bir komut listesi değil.** Amacı seni bir *operatör* ya da *scriptçi* yapmak değil — o kodları yazacak, o cihazı kuracak, o sinyali anlayacak **altyapıyı ve mühendislik sezgisini** sana kazandırmaktır. Balık vermez; **balık tutmayı** öğretir. Hem hiç radyo bilmeyen biri buradan başlayıp ilerleyebilir, hem de konuyu daha yoğun öğrenmek isteyen ileri seviye okuyucu derinlik bulur.
+Bu bir başvuru kitabıdır; bir komut listesi değildir. Amacı okuyucuyu bir operatör ya da scriptçi yapmak değil, o cihazı kuracak, o sinyali çözecek ve o tehdidi savunacak mühendislik altyapısını ve sezgisini kazandırmaktır. Hiç radyo bilmeyen biri buradan başlayıp ilerleyebilir; konuyu derinlemesine bilen biri ise her bölümde ileri seviye derinlik bulur. Yirmi üç bölüm, RF fiziğinin temelinden modern yapay zeka tabanlı sinyal istihbaratına ve geleceğin dalga formlarına kadar uzanır.
 
-> Bu el kitabı, Kanije Kalesi **CTI rehber kütüphanesinin** parçasıdır. Diğer rehberler (VeraCrypt, Tails, MITRE ATT&CK, Wireshark, Malware Analizi…) "veri ve ağ" katmanını ele alır; bu kitap **fiziksel/radyo katmanını** — tüm haberleşmenin altında yatan elektromanyetik gerçekliği — ele alır.
+Bu el kitabı, Kanije Kalesi güvenlik dokümantasyon kütüphanesinin radyo/fiziksel katman ayağıdır. Diğer rehberler (VeraCrypt, Tails, MITRE ATT&CK, Wireshark, OSINT, Malware Analizi vb.) veri ve ağ katmanını ele alır; bu kitap tüm haberleşmenin altında yatan elektromanyetik gerçekliği inceler.
 
 ---
 
-## 🚨 YASAL & ETİK MANİFESTO — HER ŞEYDEN ÖNCE OKU
+## Yasal ve Etik Çerçeve — Her Şeyden Önce
 
-Sinyal istihbaratı **meşru, akademik ve son derece öğretici** bir alandır: amatör radyo, uydu görüntüleme, havacılık/denizcilik takibi, spektrum araştırması, güvenlik testi ve savunma. **Ama aynı bilgi, yanlış elde suç işler.** Bu kitabın çizgisi nettir:
+Sinyal istihbaratı meşru, akademik ve son derece öğretici bir mühendislik alanıdır: amatör radyo, uydu görüntüleme, havacılık ve denizcilik takibi, spektrum araştırması, güvenlik testi ve savunma bunun parçasıdır. Aynı bilgi yanlış kullanıldığında ise suç işler. Bu kitabın çizgisi nettir ve istisnasız korunur:
 
-| ✅ Genelde SERBEST (eğitim/hobi) | 🚫 Genelde SUÇ (yetki/lisans gerekir) |
+| Genelde serbest (eğitim ve hobi) | Genelde suç (yetki veya lisans gerekir) |
 |---|---|
-| **Dinlemek/almak** (RX) — açık yayınlar: ADS-B, AIS, NOAA uydu, amatör radyo, FM | **Yetkisiz YAYIN (TX)** — lisanssız vericilik |
-| Spektrumu gözlemlemek, waterfall izlemek | **Jamming (karıştırma)** — her yerde ağır suç, can güvenliği tehdidi |
-| Kendi cihazını/sinyalini analiz etmek | **Başkasının haberleşmesini dinlemek/çözmek** (telefon, özel telsiz) |
-| rtl_433 ile **kendi** sensörlerini okumak | **Spoofing** — sahte GPS, sahte baz istasyonu (IMSI catcher) |
-| Lisanslı amatör radyo (çağrı işareti ile) | Şifreli kurumsal/askeri/polis trafiğini çözmek |
+| Dinlemek ve almak (RX): ADS-B, AIS, NOAA uydu, amatör radyo, FM | Yetkisiz yayın (TX): lisanssız vericilik |
+| Spektrumu gözlemlemek, waterfall izlemek | Jamming (karıştırma): her yerde ağır suç, can güvenliği tehdidi |
+| Kendi cihazını ve sinyalini analiz etmek | Başkasının haberleşmesini dinlemek veya çözmek |
+| Kendi ağında yetkili penetrasyon testi | Başkasının ağına, kartına, cihazına izinsiz erişim |
 
-**Türkiye'de** ilgili çerçeve: TCK 132–140 (haberleşmenin gizliliği), BTK/ICTA telsiz mevzuatı, amatör telsiz için BTK sınav/lisans. **ABD:** FCC + Wiretap Act. **AB:** ePrivacy. **Kuralın kendisini, kendi ülkenden ve güncel mevzuattan teyit et — bu kitap hukuki danışmanlık değildir.**
+Türkiye'de ilgili çerçeve: TCK 132-140 (haberleşmenin gizliliği) ve TCK 243-244 (bilişim sistemlerine yetkisiz erişim), BTK telsiz mevzuatı, amatör telsiz için BTK sınav ve lisansı. Amerika Birleşik Devletleri: FCC ve Wiretap Act. Avrupa Birliği: ePrivacy. Kuralın kendisini kendi ülkenden ve güncel mevzuattan teyit et; bu kitap hukuki danışmanlık değildir.
 
-> ⚖️ **Altın kural:** *"Alıcı çoğu yerde serbesttir; verici her yerde sorumluluktur."* Şüphedeysen **yapma** veya önce lisans/izin al. Bu kitaptaki tüm alıştırmalar bilinçli olarak **kendi cihazların, açık/yayın sinyaller ve ev ortamı** üzerine kuruludur.
-
----
-
-## 👥 Bu Kitap Kimin İçin?
-
-- **Yeni başlayan** — "SDR nedir, ne alırım, nasıl başlarım?" diyen; sıfır elektronik bilgisiyle gelip temelden kurabilen.
-- **İleri seviye** — modülasyon matematiği, link budget, anten tasarımı, protokol tersine mühendisliği ve telekom güvenliği derinliği arayan.
-- **CTI / güvenlik araştırmacısı** — RF saldırı yüzeyini, telekom zafiyetlerini ve savunmayı anlamak isteyen.
-- **Hobici / maker** — kendi antenini, LNA'sını, PCB'sini kurmak isteyen.
+Yol gösterici ilke: alıcı çoğu yerde serbesttir, verici her yerde sorumluluktur. Şüphedeysen yapma veya önce lisans ve izin al. Bu kitaptaki her alıştırma bilinçli olarak kendi cihazların, açık yayınlar ve ev ortamı üzerine kuruludur. Jamming, yetkisiz dinleme, spoofing ve sistemlere izinsiz müdahale bu kitabın kapsamı dışındadır; bu konular yalnızca nasıl çalıştıkları ve nasıl savunulacakları yönüyle, savunma perspektifiyle ele alınır.
 
 ---
 
-## 📚 KİTABIN YAPISI — 6 Bölüm
+## Bu Kitap Kimin İçin
 
-| # | Bölüm | Dosya | Ne öğrenirsin |
-|---|---|---|---|
-| 1 | **Temeller: RF Fiziği & Modülasyon** | [`SIGINT_01_TEMELLER_RF_VE_MODULASYON.md`](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md) | EM spektrum, dB matematiği, AM/FM/PSK/QAM/OFDM, IQ, Nyquist, formüller (f=c/λ, FSPL, Shannon) |
-| 2 | **SDR Cihazları Derinlemesine** | [`SIGINT_02_SDR_CIHAZLARI_DERINLEMESINE.md`](SIGINT_02_SDR_CIHAZLARI_DERINLEMESINE.md) | RTL-SDR V3/V4, HackRF, Airspy, SDRplay, LimeSDR, USRP, Pluto, KrakenSDR, Flipper Zero — karşılaştırma + "hangisi" |
-| 3 | **Antenler, Donanım & Devre** | [`SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md`](SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md) | Anten türleri/boyu, LNA, filtre, watt/güç mantığı, kendi PCB'ni çizme, "nereden biliyorlar" |
-| 4 | **Yazılım, OS & Kurulum** | [`SIGINT_04_YAZILIM_OS_VE_KURULUM.md`](SIGINT_04_YAZILIM_OS_VE_KURULUM.md) | Linux/DragonOS/Windows, sürücüler, GQRX/SDR#/GNU Radio/URH, komut araçları, sorun→çözüm |
-| 5 | **Protokoller & Sinyal Çözümleme** | [`SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md`](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md) | ADS-B, AIS, NOAA uydu, rtl_433, APRS, FT8 (yasal); 2G/3G/4G/5G mimari & prensip |
-| 6 | **Güvenlik, Açıklar & Savunma** | [`SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md`](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md) | Manipüle edilebilir/edilemez sinyaller, replay/spoofing/jamming prensibi, SS7/IMSI-catcher, savunma, açık takip |
+- Yeni başlayan: "SDR nedir, ne alırım, nasıl başlarım" diyen, sıfır elektronik bilgisiyle gelip temelden kurabilen okuyucu.
+- İleri seviye: modülasyon matematiği, DSP iç mimarisi, anten tasarımı, protokol tersine mühendisliği, telekom güvenliği ve yapay zeka tabanlı sinyal analizi derinliği arayan okuyucu.
+- Güvenlik araştırmacısı: RF saldırı yüzeyini, telekom ve kablosuz zafiyetlerini ve savunmayı anlamak isteyen profesyonel.
+- Hobici ve maker: kendi antenini, LNA'sını, devresini ve PCB'sini kurmak isteyen meraklı.
 
 ---
 
-## 🎓 ÖĞRENME YOLU — Zero to Hero
+## Kitabın Yapısı — 23 Bölüm
 
-Bölümler numara sırasıyla da okunur ama **en hızlı öğrenme yolu** şudur:
+### Temel Katman
+
+| # | Bölüm | Dosya |
+|---|---|---|
+| 00 | Başlangıç, İndeks ve Yasal Çerçeve | bu dosya |
+| 01 | Temeller: RF Fiziği ve Modülasyon | [SIGINT_01_TEMELLER_RF_VE_MODULASYON.md](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md) |
+| 02 | SDR Cihazları Derinlemesine | [SIGINT_02_SDR_CIHAZLARI_DERINLEMESINE.md](SIGINT_02_SDR_CIHAZLARI_DERINLEMESINE.md) |
+| 03 | Antenler, Donanım ve Devre Tasarımı | [SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md](SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md) |
+| 04 | Yazılım, İşletim Sistemi ve Kurulum | [SIGINT_04_YAZILIM_OS_VE_KURULUM.md](SIGINT_04_YAZILIM_OS_VE_KURULUM.md) |
+| 05 | Protokoller ve Sinyal Çözümleme | [SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md) |
+| 06 | Güvenlik, Açıklar ve Savunma | [SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md) |
+
+### İstihbarat ve Konum Katmanı
+
+| # | Bölüm | Dosya |
+|---|---|---|
+| 07 | SIGINT Disiplinleri ve Sinyal Ayıklama | [SIGINT_07_DISIPLINLER_VE_SINYAL_AYIKLAMA.md](SIGINT_07_DISIPLINLER_VE_SINYAL_AYIKLAMA.md) |
+| 08 | Frekans Tahsisi ve Bant Planı (askeri/sivil/havacılık/denizci) | [SIGINT_08_FREKANS_TAHSISI_VE_BANT_PLANI.md](SIGINT_08_FREKANS_TAHSISI_VE_BANT_PLANI.md) |
+| 09 | Yer Tespiti, Yön Bulma ve Takip | [SIGINT_09_YER_TESPITI_YON_BULMA_VE_TAKIP.md](SIGINT_09_YER_TESPITI_YON_BULMA_VE_TAKIP.md) |
+| 10 | GNSS/GPS Sistemleri | [SIGINT_10_GNSS_GPS_SISTEMLERI.md](SIGINT_10_GNSS_GPS_SISTEMLERI.md) |
+| 11 | Uydu Haberleşmesi | [SIGINT_11_UYDU_HABERLESMESI.md](SIGINT_11_UYDU_HABERLESMESI.md) |
+| 12 | DragonOS ve Araç Ekosistemi | [SIGINT_12_DRAGONOS_VE_ARAC_EKOSISTEMI.md](SIGINT_12_DRAGONOS_VE_ARAC_EKOSISTEMI.md) |
+| 13 | RF Tehdit Manzarası ve Karşı-Önlemler | [SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md) |
+| 14 | İstihbarat Kaynakları ve Güncel Takip | [SIGINT_14_ISTIHBARAT_KAYNAKLARI_VE_TAKIP.md](SIGINT_14_ISTIHBARAT_KAYNAKLARI_VE_TAKIP.md) |
+
+### İleri ve Güncel Katman
+
+| # | Bölüm | Dosya |
+|---|---|---|
+| 15 | WiFi/WLAN Güvenliği (el-sıkışması yakalama dahil) | [SIGINT_15_WIFI_WLAN_GUVENLIGI.md](SIGINT_15_WIFI_WLAN_GUVENLIGI.md) |
+| 16 | Kısa Menzilli Kablosuz ve IoT (BLE, RFID/NFC, Zigbee, LoRa) | [SIGINT_16_KISA_MENZIL_KABLOSUZ_VE_IOT.md](SIGINT_16_KISA_MENZIL_KABLOSUZ_VE_IOT.md) |
+| 17 | TEMPEST, Emanasyon ve Yan-Kanal | [SIGINT_17_TEMPEST_EMANASYON_VE_YAN_KANAL.md](SIGINT_17_TEMPEST_EMANASYON_VE_YAN_KANAL.md) |
+| 18 | Sayısal Sinyal İşleme ve SDR İç Mimarisi | [SIGINT_18_DSP_VE_SDR_IC_MIMARI.md](SIGINT_18_DSP_VE_SDR_IC_MIMARI.md) |
+| 19 | Yapay Zeka ve Makine Öğrenmesi ile SIGINT | [SIGINT_19_YAPAY_ZEKA_VE_ML_SIGINT.md](SIGINT_19_YAPAY_ZEKA_VE_ML_SIGINT.md) |
+| 20 | İleri Hücresel: 4G/5G Güvenlik | [SIGINT_20_ILERI_HUCRESEL_4G_5G_GUVENLIK.md](SIGINT_20_ILERI_HUCRESEL_4G_5G_GUVENLIK.md) |
+| 21 | SIGINT Tarihi, Aktörler ve Elektronik Harp | [SIGINT_21_TARIH_AKTORLER_VE_ELEKTRONIK_HARP.md](SIGINT_21_TARIH_AKTORLER_VE_ELEKTRONIK_HARP.md) |
+| 22 | Egzotik Yayılım ve Geleceğin SIGINT'i | [SIGINT_22_EGZOTIK_VE_GELECEK.md](SIGINT_22_EGZOTIK_VE_GELECEK.md) |
+
+---
+
+## Önerilen Okuma Yolu
+
+Bölümler numara sırasıyla okunabilir; ancak en verimli öğrenme yolu pratiğe erken geçmekten geçer.
 
 ```
-   BAŞLA
-     │
-     ▼
-[1] Temeller ──────► "Sinyal nedir, dB ne demek, modülasyon nasıl bilgi taşır?"
-     │                 (Fizik olmadan gerisi ezber olur — atlama.)
-     ▼
-[2] Cihaz Seç ─────► "Bütçeme ve amacıma göre hangi SDR?" → muhtemelen RTL-SDR Blog V4 ile başla
-     │
-     ▼
-[4] Yazılım Kur ───► "GQRX/SDR# kur, ilk kez bir sinyal gör." (Hızlı başarı = motivasyon)
-     │
-     ▼
-[5] İlk Sinyaller ─► ADS-B (uçaklar), NOAA (uydudan hava görüntüsü), rtl_433 (kendi sensörlerin)
-     │                 ← Burada "vay be" anını yaşarsın. Hepsi YASAL.
-     ▼
-[3] Donanımı Geliştir ► "Daha iyi anten/LNA yap, neden işe yaradığını anla, kendi PCB'ne uzan."
-     │
-     ▼
-[6] Güvenlik ──────► "Sinyaller nasıl saldırıya uğrar, nasıl savunulur?" (En son — temel oturunca)
-     │
-     ▼
-   USTA  →  Artık yeni bir sinyal gördüğünde "bu ne, nasıl çözerim?" diyebilirsin.
+Başla
+  |
+  v
+[01] Temeller --------> Sinyal nedir, dB ne demek, modülasyon nasıl bilgi taşır.
+  |                     Fizik olmadan gerisi ezber olur; bu bölümü atlama.
+  v
+[02] Cihaz Seç -------> Bütçene ve amacına göre hangi SDR. Genellikle RTL-SDR Blog V4.
+  v
+[04] Yazılım Kur -----> GQRX/SDR# kur, ilk kez bir sinyal gör. Hizli basari, motivasyon.
+  v
+[05] Ilk Sinyaller ---> ADS-B (ucaklar), NOAA (uydudan goruntu), rtl_433 (kendi sensorlerin).
+  |                     Hepsi yasal; "calisiyor" anini burada yasarsin.
+  v
+[03] Donanim ---------> Daha iyi anten/LNA, neden ise yaradigini anla, kendi PCB'ne uzan.
+  v
+[07-14] Istihbarat ---> Disiplinler, frekans planlari, yer tespiti, GPS, uydu, DragonOS, savunma.
+  v
+[15-20] Ileri --------> WiFi, kisa menzil, TEMPEST, DSP ic mimari, yapay zeka, 5G.
+  v
+[18] DSP -------------> Motor kaputunu ac: FFT, filtreler, demodulasyon matematigi (en teknik bolum).
+  v
+[21-22] Baglam -------> Tarih, elektronik harp, egzotik yayilim, gelecek.
+  v
+Uzman -> Yeni bir sinyal gordugunde "bu ne, nasil cozerim, nasil savunurum" diyebilirsin.
 ```
 
-> 💡 **Pedagoji:** Her bölümün sonunda **ev/güvenli ortam alıştırmaları** var. Bilgi okuyarak değil, **pratik yaparak** oturur. RTL-SDR Blog V4 + basit bir anten (~40$) ile bu kitaptaki yasal alıştırmaların neredeyse tamamını yapabilirsin.
+Her bölümün sonunda kendi cihazların ve açık yayınlarla yapılabilecek alıştırmalar vardır. Bilgi okuyarak değil pratik yaparak oturur. RTL-SDR Blog V4 ve basit bir anten (yaklaşık 40 dolar) ile bu kitaptaki yasal alıştırmaların neredeyse tamamı yapılabilir.
 
 ---
 
-## 🛒 HIZLI CİHAZ SEÇİMİ (detay → Bölüm 2)
+## Hızlı Cihaz Seçimi (detay: Bölüm 2)
 
 | Amacın | Önerilen başlangıç | Neden |
 |---|---|---|
-| **İlk SDR / dinleme / en ucuz** | **RTL-SDR Blog V4** (~30-40$) | Geniş kapsama, mükemmel topluluk, tüm yasal alıştırmalar |
-| **Verici/deney (TX)** | **HackRF One** | 1 MHz–6 GHz, TX yeteneği *(yasal sınıra dikkat)* |
-| **Temiz HF / kısa dalga** | **SDRplay RSPdx** / **Airspy HF+** | 14-bit, düşük gürültü |
-| **Yön bulma / pasif radar** | **KrakenSDR** | 5 kanal faz-tutarlı |
-| **Taşınabilir RF çoklu-araç** | **Flipper Zero** | Sub-GHz/NFC/RFID/IR *(SDR değil, sınırlı)* |
-| **Araştırma / full-duplex** | **USRP B2xx / LimeSDR** | Geniş bant, MIMO |
+| İlk SDR, dinleme, en ucuz | RTL-SDR Blog V4 | Geniş kapsama, güçlü topluluk, tüm yasal alıştırmalar |
+| Verici ve deney (TX) | HackRF One | 1 MHz - 6 GHz, TX yeteneği (yasal sınıra dikkat) |
+| Temiz HF ve kısa dalga | SDRplay RSPdx, Airspy HF+ | 14 bit, düşük gürültü |
+| Yön bulma, pasif radar | KrakenSDR | Beş kanal faz-tutarlı |
+| Taşınabilir RF çoklu araç | Flipper Zero | Sub-GHz, NFC, RFID, IR (SDR değil, sınırlı) |
+| Araştırma, full-duplex | USRP, LimeSDR | Geniş bant, MIMO |
 
 ---
 
-## 🧪 GÜVENLİ PRATİK ALANLARI (hepsi yasal, evden)
+## Güvenli Pratik Alanları (hepsi yasal, evden)
 
-1. ✈️ **ADS-B** — üzerinden geçen uçakları haritada izle (1090 MHz, dump1090)
-2. 🛰️ **NOAA / Meteor uydu** — gökyüzünden geçen uydudan **kendi** hava durumu görüntünü al (137 MHz)
-3. 🌡️ **rtl_433** — evindeki kablosuz termometre/priz/istasyonu oku (kendi cihazların)
-4. 📻 **FT8 / amatör radyo** — dünya çapında zayıf sinyalleri (sadece dinleyerek) gözle
-5. 🎛️ **Kendi uzaktan kumandan** — garaj/araç kumandanın (KENDİ malın) sinyalini URH ile analiz et, sabit-kod mu rolling-code mu öğren
-
----
-
-## 🔗 İlgili Kanije CTI Kütüphanesi
-
-Bu el kitabı, repo'daki güvenlik rehberi koleksiyonunun RF/fiziksel-katman ayağıdır. Tamamlayıcılar:
-`MITRE_ATTACK_USTALIK_REHBERI.md` · `TTP_AVCILIGI_USTALIK_REHBERI.md` · `MISP_THREAT_INTEL_USTALIK_REHBERI.md` · `WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md` · `OSINT_ARAC_SETI_USTALIK_REHBERI.md` · `MALWARE_ANALIZ_USTALIK_REHBERI.md` · `VERACRYPT_USTALIK_REHBERI.md`
+1. ADS-B: üzerinden geçen uçakları haritada izle (1090 MHz, dump1090).
+2. NOAA ve Meteor uydusu: gökyüzünden geçen uydudan kendi hava durumu görüntünü al (137 MHz).
+3. rtl_433: evindeki kablosuz termometre, priz ve istasyonu oku (kendi cihazların).
+4. WSPR ve FT8: dünya çapında zayıf sinyalleri yalnızca dinleyerek gözle.
+5. Kendi ağın ve cihazların: WiFi handshake, BLE reklamı, RFID kartı, uzaktan kumanda — yalnızca senin malın üzerinde, savunmayı öğrenmek için.
 
 ---
 
-> 🛰️ **Kapanış:** Elektromanyetik spektrum görünmezdir ama her yerdedir — telefonun, WiFi'ın, uçaklar, uydular, garaj kapın. Bu kitap, o görünmez dünyayı **görünür** kılar. Onu **anlamak** güçtür; onu **sorumlu kullanmak** olgunluktur. İkisini birlikte taşı.
->
-> *Sıradaki adım: [Bölüm 1 — RF Fiziği & Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md) ile başla.*
+## İlgili Kanije Kütüphanesi
+
+Bu el kitabı, repodaki güvenlik dokümantasyon koleksiyonunun RF ve fiziksel katman ayağıdır. Tamamlayıcılar: MITRE_ATTACK_USTALIK_REHBERI, TTP_AVCILIGI_USTALIK_REHBERI, MISP_THREAT_INTEL_USTALIK_REHBERI, WIRESHARK_AG_ANALIZ_USTALIK_REHBERI, OSINT_ARAC_SETI_USTALIK_REHBERI, MALWARE_ANALIZ_USTALIK_REHBERI, VERACRYPT_USTALIK_REHBERI.
+
+---
+
+Kapanış. Elektromanyetik spektrum görünmezdir ama her yerdedir: telefonun, kablosuz ağın, uçaklar, uydular, garaj kapın. Bu kitap o görünmez dünyayı görünür kılar. Onu anlamak güçtür; onu sorumlu kullanmak olgunluktur. İkisini birlikte taşı.
+
+Sıradaki adım: [Bölüm 1 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md).
