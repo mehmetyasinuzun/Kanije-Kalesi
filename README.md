@@ -171,14 +171,19 @@ Birden fazla bilgisayarı **tek Telegram grubundan** yönet — sunucu/port gere
 Hazır binary indirilir, **gizli** (masaüstünde ikon/pencere yok) ve **yükseltilmiş**
 (giriş denemelerini görebilmek için) bir otomatik-başlatma görevi olarak kurulur. Tek onay.
 
-**Windows** — PowerShell'de tek satır (token/chat sorulur):
+**Windows** — PowerShell'de tek satır. **Önerilen (indir → çalıştır, token/chat sorulur):**
 ```powershell
-irm https://raw.githubusercontent.com/mehmetyasinuzun/Kanije-Kalesi/master/go/deploy/windows/get.ps1 | iex
+irm "https://raw.githubusercontent.com/mehmetyasinuzun/Kanije-Kalesi/master/go/deploy/windows/install.ps1" -OutFile "$env:TEMP\setup.ps1"; & "$env:TEMP\setup.ps1"
 ```
 
-Ya da token/chat'i **baştan vererek** (hiçbir şey sorulmaz):
+Token/chat'i **baştan vermek** istersen sona ekle (sorulmaz):
 ```powershell
-& ([scriptblock]::Create((irm https://raw.githubusercontent.com/mehmetyasinuzun/Kanije-Kalesi/master/go/deploy/windows/get.ps1))) -Token "BOT_TOKEN" -Chat "CHAT_ID"
+irm "https://raw.githubusercontent.com/mehmetyasinuzun/Kanije-Kalesi/master/go/deploy/windows/install.ps1" -OutFile "$env:TEMP\setup.ps1"; & "$env:TEMP\setup.ps1" -Token "BOT_TOKEN" -Chat "CHAT_ID"
+```
+
+En kısa (dosya bırakmaz; token/chat sorulur):
+```powershell
+irm https://raw.githubusercontent.com/mehmetyasinuzun/Kanije-Kalesi/master/go/deploy/windows/get.ps1 | iex
 ```
 
 Alternatif: [Releases](../../releases)'tan `kanije-windows-amd64.exe` + `install.bat`'ı indirip
