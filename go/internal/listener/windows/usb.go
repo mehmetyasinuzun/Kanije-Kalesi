@@ -8,6 +8,9 @@ import (
 	"log/slog"
 	"os"
 	"runtime"
+	"strings"
+	"sync"
+	"time"
 	"unsafe"
 
 	"github.com/kanije-kalesi/kanije/internal/event"
@@ -17,23 +20,30 @@ import (
 // ---- Windows Device Notification API bindings ----
 
 var (
-	user32               = windows.NewLazySystemDLL("user32.dll")
-	procRegisterClassExW = user32.NewProc("RegisterClassExW")
-	procCreateWindowExW  = user32.NewProc("CreateWindowExW")
-	procDefWindowProcW   = user32.NewProc("DefWindowProcW")
-	procGetMessageW      = user32.NewProc("GetMessageW")
-	procDispatchMessageW = user32.NewProc("DispatchMessageW")
-	procDestroyWindow    = user32.NewProc("DestroyWindow")
-	procPostMessageW     = user32.NewProc("PostMessageW")
-	kernel32             = windows.NewLazySystemDLL("kernel32.dll")
-	procGetModuleHandleW = kernel32.NewProc("GetModuleHandleW")
+	user32                           = windows.NewLazySystemDLL("user32.dll")
+	procRegisterClassExW             = user32.NewProc("RegisterClassExW")
+	procCreateWindowExW              = user32.NewProc("CreateWindowExW")
+	procDefWindowProcW               = user32.NewProc("DefWindowProcW")
+	procGetMessageW                  = user32.NewProc("GetMessageW")
+	procDispatchMessageW             = user32.NewProc("DispatchMessageW")
+	procDestroyWindow                = user32.NewProc("DestroyWindow")
+	procPostMessageW                 = user32.NewProc("PostMessageW")
+	procRegisterDeviceNotificationW  = user32.NewProc("RegisterDeviceNotificationW")
+	procUnregisterDeviceNotification = user32.NewProc("UnregisterDeviceNotification")
+	kernel32                         = windows.NewLazySystemDLL("kernel32.dll")
+	procGetModuleHandleW             = kernel32.NewProc("GetModuleHandleW")
 )
 
 const (
-	wmDeviceChange     = 0x0219
-	dbtDeviceArrival   = 0x8000
-	dbtDeviceRemoveCom = 0x8004
-	dbtDevTypVolume    = 0x00000002
+	wmDeviceChange           = 0x0219
+	dbtDeviceArrival         = 0x8000
+	dbtDeviceRemoveCom       = 0x8004
+	dbtDevTypVolume          = 0x00000002
+	dbtDevTypDeviceInterface = 0x00000005
+
+	// RegisterDeviceNotification flags.
+	deviceNotifyWindowHandle        = 0x00000000
+	deviceNotifyAllInterfaceClasses = 0x00000004
 
 	wmQuit = 0x0012
 
@@ -53,6 +63,24 @@ type devBroadcastVolume struct {
 	Reserved   uint32
 	UnitMask   uint32
 	Flags      uint16
+}
+
+type guid struct {
+	Data1 uint32
+	Data2 uint16
+	Data3 uint16
+	Data4 [8]byte
+}
+
+// devBroadcastDeviceInterface mirrors DEV_BROADCAST_DEVICEINTERFACE. Name is the
+// first uint16 of a variable-length, null-terminated UTF-16 device path that
+// follows the struct in memory.
+type devBroadcastDeviceInterface struct {
+	Size       uint32
+	DeviceType uint32
+	Reserved   uint32
+	ClassGuid  guid
+	Name       uint16
 }
 
 type wndClassExW struct {
@@ -85,6 +113,11 @@ type USBMonitor struct {
 	hostname string
 	log      *slog.Logger
 	hwnd     uintptr // hidden top-level window handle
+
+	// Debounce: one physical device fires several interface notifications.
+	mu          sync.Mutex
+	lastArrival time.Time
+	lastRemoval time.Time
 }
 
 func NewUSBMonitor(log *slog.Logger) *USBMonitor {
@@ -113,6 +146,24 @@ func (m *USBMonitor) Start(ctx context.Context, bus *event.Bus) error {
 		}
 		m.hwnd = hwnd
 		defer procDestroyWindow.Call(hwnd)
+
+		// Register for ALL device-interface classes. THIS is what lets us hear
+		// about ANY device — mouse, keyboard, phone, HID, audio, network adapter —
+		// not only the storage volumes that broadcast WM_DEVICECHANGE on their own.
+		ifaceFilter := devBroadcastDeviceInterface{
+			Size:       uint32(unsafe.Sizeof(devBroadcastDeviceInterface{})),
+			DeviceType: dbtDevTypDeviceInterface,
+		}
+		hDevNotify, _, _ := procRegisterDeviceNotificationW.Call(
+			hwnd,
+			uintptr(unsafe.Pointer(&ifaceFilter)),
+			deviceNotifyWindowHandle|deviceNotifyAllInterfaceClasses,
+		)
+		if hDevNotify != 0 {
+			defer procUnregisterDeviceNotification.Call(hDevNotify)
+		} else {
+			m.log.Warn("RegisterDeviceNotification başarısız — yalnızca depolama USB algılanır")
+		}
 
 		// A top-level (but invisible) window receives the broadcast WM_DEVICECHANGE
 		// volume arrival/removal messages automatically — no RegisterDeviceNotification
@@ -151,16 +202,23 @@ func (m *USBMonitor) Start(ctx context.Context, bus *event.Bus) error {
 	return (<-done).err
 }
 
-// handleDeviceChange processes WM_DEVICECHANGE messages.
+// handleDeviceChange routes WM_DEVICECHANGE messages by device type: storage
+// volumes get rich drive metadata; everything else (HID/phone/audio/…) is
+// reported as a generic device connect/disconnect.
 func (m *USBMonitor) handleDeviceChange(wParam uintptr, lParam unsafe.Pointer, bus *event.Bus) {
 	if lParam == nil {
 		return
 	}
-	hdr := (*devBroadcastHdr)(lParam)
-	if hdr.DeviceType != dbtDevTypVolume {
-		return
+	switch (*devBroadcastHdr)(lParam).DeviceType {
+	case dbtDevTypVolume:
+		m.handleVolumeChange(wParam, lParam, bus)
+	case dbtDevTypDeviceInterface:
+		m.handleInterfaceChange(wParam, lParam, bus)
 	}
+}
 
+// handleVolumeChange handles storage-drive arrival/removal with full metadata.
+func (m *USBMonitor) handleVolumeChange(wParam uintptr, lParam unsafe.Pointer, bus *event.Bus) {
 	vol := (*devBroadcastVolume)(lParam)
 	driveLetter := unitMaskToDriveLetter(vol.UnitMask)
 
@@ -183,6 +241,74 @@ func (m *USBMonitor) handleDeviceChange(wParam uintptr, lParam unsafe.Pointer, b
 		ev.DeviceName = driveLetter
 		m.log.Info("USB çıkarıldı", "sürücü", driveLetter)
 		bus.Publish(ev)
+	}
+}
+
+// handleInterfaceChange handles ANY device-interface arrival/removal. A single
+// physical device emits several interface notifications, so arrivals and removals
+// are debounced within a 2-second window to avoid spamming the owner.
+func (m *USBMonitor) handleInterfaceChange(wParam uintptr, lParam unsafe.Pointer, bus *event.Bus) {
+	if wParam != dbtDeviceArrival && wParam != dbtDeviceRemoveCom {
+		return
+	}
+	di := (*devBroadcastDeviceInterface)(lParam)
+	path := windows.UTF16PtrToString(&di.Name)
+
+	now := time.Now()
+	m.mu.Lock()
+	last := &m.lastArrival
+	if wParam == dbtDeviceRemoveCom {
+		last = &m.lastRemoval
+	}
+	suppress := !last.IsZero() && now.Sub(*last) < 2*time.Second
+	*last = now
+	m.mu.Unlock()
+	if suppress {
+		m.log.Debug("aygıt bildirimi bastırıldı (debounce)", "path", path)
+		return
+	}
+
+	kind := classifyDevice(path)
+	// Storage devices ALSO raise a VOLUME broadcast (handleVolumeChange) with full
+	// drive metadata, so skip them here to avoid a duplicate notification.
+	if kind == "Depolama aygıtı" {
+		return
+	}
+	typ := event.TypeDeviceConnected
+	verb := "bağlandı"
+	if wParam == dbtDeviceRemoveCom {
+		typ = event.TypeDeviceDisconnected
+		verb = "çıkarıldı"
+	}
+	ev := event.New(typ, "USBMonitor")
+	ev.Hostname = m.hostname
+	ev.DevicePath = path
+	ev.DeviceName = kind
+	m.log.Info("aygıt "+verb, "tür", kind)
+	bus.Publish(ev)
+}
+
+// classifyDevice guesses a friendly Turkish label from a device-interface path
+// like `\\?\HID#VID_046D...` or `\\?\USBSTOR#Disk...`.
+func classifyDevice(path string) string {
+	up := strings.ToUpper(path)
+	switch {
+	case strings.Contains(up, "HID"):
+		return "Giriş aygıtı (klavye/fare/HID)"
+	case strings.Contains(up, "USBSTOR"), strings.Contains(up, "DISK"), strings.Contains(up, "STORAGE"):
+		return "Depolama aygıtı"
+	case strings.Contains(up, "WPD"), strings.Contains(up, "MTP"):
+		return "Telefon / medya aygıtı"
+	case strings.Contains(up, "BTH"), strings.Contains(up, "BLUETOOTH"):
+		return "Bluetooth aygıtı"
+	case strings.Contains(up, "AUDIO"), strings.Contains(up, "MEDIA"):
+		return "Ses / medya aygıtı"
+	case strings.Contains(up, "NET"):
+		return "Ağ aygıtı"
+	case strings.Contains(up, "USB"):
+		return "USB aygıtı"
+	default:
+		return "Aygıt"
 	}
 }
 

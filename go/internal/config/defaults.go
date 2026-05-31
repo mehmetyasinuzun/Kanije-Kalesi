@@ -142,6 +142,16 @@ func defaultTriggers() map[string]TriggerConfig {
 		"usb_removed": {
 			Enabled: true,
 		},
+		// Any non-storage device (mouse/keyboard/phone/HID/…). Notify only — no
+		// auto-photo, otherwise every mouse/keyboard plug would spam captures.
+		// The user can enable CaptureCamera from /ayarlar if they want "who plugged
+		// this in" shots.
+		"device_connected": {
+			Enabled: true,
+		},
+		"device_disconnected": {
+			Enabled: true,
+		},
 		"network_up": {
 			Enabled: true,
 		},

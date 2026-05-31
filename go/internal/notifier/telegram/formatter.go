@@ -122,6 +122,18 @@ func FormatEvent(ev event.Event) string {
 			b.WriteString("</code>\n")
 		}
 
+	case event.TypeDeviceConnected, event.TypeDeviceDisconnected:
+		if ev.DeviceName != "" {
+			b.WriteString("🧩 Tür: <b>")
+			b.WriteString(safeHTML(ev.DeviceName))
+			b.WriteString("</b>\n")
+		}
+		if ev.DevicePath != "" {
+			b.WriteString("📂 Aygıt yolu: <code>")
+			b.WriteString(safeHTML(ev.DevicePath))
+			b.WriteString("</code>\n")
+		}
+
 	case event.TypeSystemWake:
 		if ev.WakeType != "" {
 			b.WriteString("⚡ Uyanış: ")

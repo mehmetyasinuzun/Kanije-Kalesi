@@ -30,6 +30,10 @@ const (
 	TypeUSBInserted Type = "usb_inserted"
 	TypeUSBRemoved  Type = "usb_removed"
 
+	// Any device interface (mouse/keyboard/phone/audio/HID/...), not just storage.
+	TypeDeviceConnected    Type = "device_connected"
+	TypeDeviceDisconnected Type = "device_disconnected"
+
 	// Network
 	TypeNetworkUp      Type = "network_up"
 	TypeNetworkDown    Type = "network_down"
@@ -194,7 +198,7 @@ func DefaultSeverity(t Type) Severity {
 	switch t {
 	case TypeLoginFailed:
 		return SeverityAlert
-	case TypeUSBInserted:
+	case TypeUSBInserted, TypeDeviceConnected:
 		return SeverityWarning
 	case TypeSystemBoot, TypeSystemWake, TypeScreenUnlock:
 		return SeverityInfo
@@ -238,6 +242,10 @@ func (t Type) Label() string {
 		return "USB Cihazı Takıldı"
 	case TypeUSBRemoved:
 		return "USB Cihazı Çıkarıldı"
+	case TypeDeviceConnected:
+		return "Aygıt Bağlandı"
+	case TypeDeviceDisconnected:
+		return "Aygıt Çıkarıldı"
 	case TypeNetworkUp:
 		return "İnternet Bağlantısı Kuruldu"
 	case TypeNetworkDown:
@@ -284,6 +292,10 @@ func (t Type) Emoji() string {
 		return "🔌"
 	case TypeUSBRemoved:
 		return "⏏️"
+	case TypeDeviceConnected:
+		return "🧩"
+	case TypeDeviceDisconnected:
+		return "🧩"
 	case TypeNetworkUp:
 		return "🌐"
 	case TypeNetworkDown:
