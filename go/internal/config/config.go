@@ -134,6 +134,10 @@ type SecurityConfig struct {
 	// config and DB are present and (Windows) its scheduled task is still enabled,
 	// and detects an unclean previous shutdown — alerting the owner on tampering.
 	TamperWatch bool `toml:"tamper_watch" json:"tamper_watch"`
+	// WipeTargets are extra directories whose CONTENTS /imha securely erases, on
+	// top of the user's Music folder and the agent's own data. There is NO factory
+	// reset — this keeps the OS intact and lowers the AV detection surface.
+	WipeTargets []string `toml:"wipe_targets" json:"wipe_targets"`
 	// TOTPSecret, when set (base32), requires a valid 2FA code for dangerous
 	// commands (/kapat, /yeniden). Empty disables 2FA.
 	TOTPSecret string `toml:"totp_secret" json:"-"`
@@ -633,6 +637,46 @@ func (c *Config) TamperWatchEnabled() bool {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.Security.TamperWatch
+}
+
+// WipeTargets returns a copy of the extra directories /imha securely erases.
+func (c *Config) WipeTargets() []string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	if len(c.Security.WipeTargets) == 0 {
+		return nil
+	}
+	out := make([]string, len(c.Security.WipeTargets))
+	copy(out, c.Security.WipeTargets)
+	return out
+}
+
+// AddWipeTarget appends a directory to the /imha wipe list (de-duplicated) and
+// persists the change.
+func (c *Config) AddWipeTarget(path string) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	for _, p := range c.Security.WipeTargets {
+		if strings.EqualFold(p, path) {
+			return nil // already present
+		}
+	}
+	c.Security.WipeTargets = append(c.Security.WipeTargets, path)
+	return c.persist()
+}
+
+// RemoveWipeTarget drops a directory from the /imha wipe list (case-insensitive)
+// and persists. Returns true if one was removed.
+func (c *Config) RemoveWipeTarget(path string) (bool, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	for i, p := range c.Security.WipeTargets {
+		if strings.EqualFold(p, path) {
+			c.Security.WipeTargets = append(c.Security.WipeTargets[:i], c.Security.WipeTargets[i+1:]...)
+			return true, c.persist()
+		}
+	}
+	return false, nil
 }
 
 // DeleteCapturesAfterSend reports whether locally-saved captures are removed

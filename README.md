@@ -96,7 +96,7 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 # 🛡️ Sahip — geri dönüşsüz (yalnız cihaz sahibi · çift onay + 15 sn geri-al)
 /kaldir    →  🧹 Kanije'yi izsiz kaldır (görev + dosyalar + eski sürümler)
 /aktar     →  🔁 Botu yeni sahibe devret (/aktar <chat_id> [token])
-/imha      →  💥 Veriyi güvenli sil + fabrika sıfırlama (/imha ONAYLA)
+/imha      →  💥 Kanije verisi + Müzik klasörü içi güvenli silinir (/imha ONAYLA · OS korunur)
 ```
 
 <br>
@@ -121,7 +121,7 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 | 🛑 **Kurcalama alarmı** | Watchdog: exe/config/DB silinmesi, otomatik-başlatma görevinin kapatılması ve **beklenmedik kapanma** (kill/çökme) → sahibe kritik alarm + kurcalayanın fotoğrafı |
 | 🧹 **İzsiz kaldırma** | `/kaldir` — görev, dosyalar, **eski sürümler** (.new/.old), config, DB, log, captures, temp betikleri ve kendini siler |
 | 🔁 **Devretme** | `/aktar <chat_id> [token]` — botu yeni sahibe devreder, erişim ağacını sıfırlar, yeni kimlikle yeniden başlar |
-| 💥 **Uzaktan imha** | `/imha ONAYLA` — hassas veriyi (token/geçmiş) güvenli üzerine-yazıp siler + Windows fabrika sıfırlama (Find My / MDM sınıfı) |
+| 💥 **Uzaktan imha** | `/imha ONAYLA` — Kanije verisi (token/geçmiş) + **Müzik klasörü içi** + ek hedefleri güvenli üzerine-yazıp siler; **OS korunur** (fabrika sıfırlama yok, düşük AV yüzeyi). Hedefler: `/imha hedef ekle/sil` |
 | 🆘 **Panik modu** | `/panik` — tek komutla foto + ekran + ses + dış IP toplar; `/panik kilit` ekranı da kilitler |
 | 📁 **Dosya erişimi** | `/dosya` ile uzaktan dizin gez, `/dosya al <yol>` ile dosya indir (≤45 MB) |
 | 📋 **Pano & pil** | `/pano` panodaki metni getirir, `/pil` batarya durumunu (yüzde/şarj/kalan) gösterir |

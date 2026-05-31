@@ -436,7 +436,7 @@ func FormatHelp() string {
 <b>🛡️ Sahip — Geri Dönüşsüz</b>
 /kaldir — Kanije'yi izsiz kaldır (görev + dosya + eski sürümler)
 /aktar — Botu yeni sahibe devret (/aktar &lt;chat_id&gt; [token])
-/imha — Veriyi güvenli sil + fabrika sıfırlama (/imha ONAYLA)
+/imha — Kanije verisi + Müzik klasörü içini güvenli sil (/imha ONAYLA · hedef ekle/sil) — OS silinmez
 <i>Bu üçü yalnızca cihaz sahibine özeldir; çift onay + geri-alma ile korunur.</i>
 
 <b>🔧 Ayarlar</b>

