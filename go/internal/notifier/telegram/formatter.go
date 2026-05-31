@@ -452,6 +452,8 @@ func FormatHelp() string {
 /aktar — Botu yeni sahibe devret (/aktar &lt;chat_id&gt; [token])
 /imha — Kanije verisi + Müzik klasörü içini güvenli sil (/imha ONAYLA · hedef ekle/sil) — OS silinmez
 /koruma — Fiziksel tehdit koruması: dead-man switch · USB dead-man · yanlış-giriş · RAM-only (/koruma)
+/kilit tam — Tam kilit (lockdown): ekran açılınca anında tekrar kilitlenir (/kilit tam kapat ile aç)
+/tuzak — Honeypot tuzak dosyalar: dokunan yakalanır → alarm/kilit (/tuzak kur)
 <i>Bu üçü yalnızca cihaz sahibine özeldir; çift onay + geri-alma ile korunur.</i>
 
 <b>🔧 Ayarlar</b>

@@ -10,6 +10,7 @@ func TestParseAction(t *testing.T) {
 		"kilit": "lock", "lock": "lock",
 		"alarm": "lock_alert", "alert": "lock_alert",
 		"sil": "lock_alert_wipe", "wipe": "lock_alert_wipe", "imha": "lock_alert_wipe",
+		"kilitmodu": "alert_lockdown", "lockdown": "alert_lockdown",
 	}
 	for in, want := range ok {
 		got, valid := parseAction(in)

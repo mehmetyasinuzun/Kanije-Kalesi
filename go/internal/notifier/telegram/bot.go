@@ -223,7 +223,7 @@ var commandCaps = map[string]access.Capability{
 	"/foto": access.CapPhoto, "/photo": access.CapPhoto,
 	"/ekran": access.CapScreen, "/screenshot": access.CapScreen,
 	"/seskayit": access.CapAudio, "/record": access.CapAudio,
-	"/kilitle": access.CapLock, "/lock": access.CapLock,
+	"/kilitle": access.CapLock, "/lock": access.CapLock, "/kilit": access.CapLock,
 	"/yeniden": access.CapRestart, "/restart": access.CapRestart,
 	"/kapat": access.CapShutdown, "/shutdown": access.CapShutdown,
 	"/ayarlar": access.CapConfig, "/config": access.CapConfig,
@@ -247,6 +247,7 @@ var commandCaps = map[string]access.Capability{
 	"/aktar": access.CapTransfer, "/transfer": access.CapTransfer,
 	"/imha": access.CapDestroy, "/destroy": access.CapDestroy,
 	"/koruma": access.CapConfig, "/protect": access.CapConfig,
+	"/tuzak": access.CapConfig, "/honeypot": access.CapConfig,
 }
 
 // groupBroadcastCmds run on every device in a shared group (no device target).
@@ -267,6 +268,7 @@ var privateOnlyCmds = map[string]bool{
 	"/aktar": true, "/transfer": true,
 	"/imha": true, "/destroy": true,
 	"/koruma": true, "/protect": true,
+	"/tuzak": true, "/honeypot": true,
 }
 
 // routeGroupCommand decides whether this device should act on a group command.
@@ -367,8 +369,8 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdAyarlar(ctx, chatID)
 	case "/kurulum", "/setup":
 		b.wizard.SendMainMenu(ctx, chatID)
-	case "/kilitle", "/lock":
-		b.cmdKilitle(ctx, chatID)
+	case "/kilitle", "/lock", "/kilit":
+		b.cmdKilitle(ctx, chatID, text)
 	case "/ping":
 		b.cmdPing(ctx, chatID)
 	case "/yeniden", "/restart":
@@ -419,6 +421,8 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdImha(ctx, chatID, text)
 	case "/koruma", "/protect":
 		b.cmdKoruma(ctx, chatID, text)
+	case "/tuzak", "/honeypot":
+		b.cmdTuzak(ctx, chatID, text)
 	default:
 		if text != "" && isCommand(text) {
 			b.reply(ctx, chatID, "❓ <b>Bilinmeyen komut:</b> <code>"+safeHTML(cmd)+"</code>\n\n"+
@@ -495,6 +499,7 @@ func (b *Bot) registerCommands(ctx context.Context) {
 		{"dosya", "📁 Dosya gez/indir (/dosya al <yol>)"},
 		{"erisim", "👁️ Dosyana kim erişti (/erisim kur <yol>)"},
 		{"koruma", "🛡️ Fiziksel tehdit koruması (dead-man, USB, giriş)"},
+		{"tuzak", "🍯 Tuzak/honeypot — dokunan yakalanır"},
 		{"zamanla", "⏰ Komut zamanla (/zamanla 30dk /foto)"},
 		{"hareket", "🎥 Hareket algılama (/hareket ac)"},
 		{"dinle", "🎧 Canlı dinleme (/dinle 10 · kapat)"},
@@ -795,16 +800,47 @@ func (b *Bot) cmdAyarlar(ctx context.Context, chatID int64) {
 	b.reply(ctx, chatID, "⚙️ <b>Mevcut Yapılandırma</b>\n\n<pre>"+safeHTML(json)+"</pre>")
 }
 
-func (b *Bot) cmdKilitle(ctx context.Context, chatID int64) {
+// cmdKilitle locks the screen. Plain "/kilit" = one-shot lock. "/kilit tam" =
+// lockdown mode on (re-locks on every unlock); "/kilit tam kapat" = off. Lockdown
+// is owner-only (it renders the device unusable until disabled from Telegram).
+func (b *Bot) cmdKilitle(ctx context.Context, chatID int64, text string) {
 	if b.lockScreen == nil {
 		b.reply(ctx, chatID, "❌ Ekran kilitleme bu platformda desteklenmiyor.")
 		return
 	}
-	if err := b.lockScreen(); err != nil {
-		b.reply(ctx, chatID, "❌ Ekran kilitlenemedi: "+safeHTML(err.Error()))
-		return
+
+	arg := strings.ToLower(strings.TrimSpace(commandRest(text)))
+	switch {
+	case arg == "tam kapat", arg == "tam off", arg == "tam dur":
+		if !b.requireOwner(ctx, chatID) {
+			return
+		}
+		if err := b.cfg.SetLockdown(false); err != nil {
+			b.reply(ctx, chatID, "❌ "+safeHTML(err.Error()))
+			return
+		}
+		b.reply(ctx, chatID, "🔓 <b>Tam kilit (lockdown) KAPATILDI.</b> Ekran normal açılabilir.")
+
+	case arg == "tam", arg == "tam ac", arg == "tam aç", arg == "tam on":
+		if !b.requireOwner(ctx, chatID) {
+			return
+		}
+		if err := b.cfg.SetLockdown(true); err != nil {
+			b.reply(ctx, chatID, "❌ "+safeHTML(err.Error()))
+			return
+		}
+		b.lockScreen()
+		b.reply(ctx, chatID, "🔒 <b>TAM KİLİT (lockdown) AÇIK.</b>\n"+
+			"Ekran her açıldığında ~2 sn içinde tekrar kilitlenir — doğru şifre girilse bile cihaz kullanılamaz.\n"+
+			"⚠️ Açmak için: <code>/kilit tam kapat</code> (Telegram erişimin olmalı).")
+
+	default:
+		if err := b.lockScreen(); err != nil {
+			b.reply(ctx, chatID, "❌ Ekran kilitlenemedi: "+safeHTML(err.Error()))
+			return
+		}
+		b.reply(ctx, chatID, "🔒 Ekran kilitlendi. (Kalıcı için: <code>/kilit tam</code>)")
 	}
-	b.reply(ctx, chatID, "🔒 Ekran kilitlendi.")
 }
 
 func (b *Bot) cmdGuncelle(ctx context.Context, chatID int64) {

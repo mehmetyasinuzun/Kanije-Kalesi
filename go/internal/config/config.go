@@ -168,6 +168,17 @@ type ProtectionConfig struct {
 	FailedLoginAction    string `toml:"failed_login_action"    json:"failed_login_action"`
 
 	RAMOnly bool `toml:"ram_only" json:"ram_only"` // keep DB in memory, never persist to disk
+
+	// Lockdown is a persistent "lost mode": while on, the screen is re-locked the
+	// moment it's unlocked, so the device is effectively unusable until the owner
+	// turns it off from Telegram (/kilit tam kapat).
+	Lockdown bool `toml:"lockdown" json:"lockdown"`
+
+	// Canary (honeypot): decoy files under CanaryPath are watched via SACL; on
+	// access, CanaryAction fires (catch an intruder reaching for "juicy" files).
+	CanaryEnabled bool   `toml:"canary_enabled" json:"canary_enabled"`
+	CanaryPath    string `toml:"canary_path"    json:"canary_path"`
+	CanaryAction  string `toml:"canary_action"  json:"canary_action"`
 }
 
 // QuietHoursConfig suppresses non-critical notifications during a daily window
@@ -307,6 +318,7 @@ func (c *Config) validate() {
 	c.Protection.DeadManAction = validProtectionAction(c.Protection.DeadManAction)
 	c.Protection.USBAction = validProtectionAction(c.Protection.USBAction)
 	c.Protection.FailedLoginAction = validProtectionAction(c.Protection.FailedLoginAction)
+	c.Protection.CanaryAction = validProtectionAction(c.Protection.CanaryAction)
 
 	c.Heartbeat.IntervalHours = clampMin(c.Heartbeat.IntervalHours, 1, 6)
 
@@ -773,6 +785,22 @@ func (c *Config) RAMOnly() bool {
 	return c.Protection.RAMOnly
 }
 
+// LockdownActive reports whether persistent lock mode is on.
+func (c *Config) LockdownActive() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Protection.Lockdown
+}
+
+// SetLockdown toggles persistent lock mode and persists it. Called by /kilit tam
+// and by the "lockdown" protection action.
+func (c *Config) SetLockdown(on bool) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.Protection.Lockdown = on
+	return c.persist()
+}
+
 // DeleteCapturesAfterSend reports whether locally-saved captures are removed
 // right after a successful send (anti-forensics; only meaningful with SaveLocal).
 func (c *Config) DeleteCapturesAfterSend() bool {
@@ -943,7 +971,8 @@ func parseBool(s string) bool {
 // to the safe "lock_alert" (no data loss) for unknown/empty values.
 func validProtectionAction(a string) string {
 	switch a {
-	case "lock", "alert", "lock_alert", "lock_wipe", "alert_wipe", "lock_alert_wipe", "wipe":
+	case "lock", "alert", "lock_alert", "lock_wipe", "alert_wipe", "lock_alert_wipe", "wipe",
+		"lockdown", "lockdown_alert", "alert_lockdown", "lock_alert_lockdown", "lockdown_alert_wipe":
 		return a
 	default:
 		return "lock_alert"

@@ -100,6 +100,8 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 /aktar     →  🔁 Botu yeni sahibe devret (/aktar <chat_id> [token])
 /imha      →  💥 Kanije verisi + Müzik klasörü içi güvenli silinir (/imha ONAYLA · OS korunur)
 /koruma    →  🛡️ Fiziksel tehdit koruması: dead-man switch · USB dead-man · yanlış-giriş · RAM-only
+/kilit tam →  🔒 Tam kilit (lockdown): ekran açılınca anında tekrar kilitlenir (/kilit tam kapat ile aç)
+/tuzak     →  🍯 Honeypot tuzak dosyalar: dokunan yakalanır → alarm/kilit (/tuzak kur)
 ```
 
 <br>
@@ -135,6 +137,8 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 | 🔒 **Binary bütünlüğü** | Watchdog exe SHA-256'sını izler; runtime'da değiştirilirse (kod enjeksiyonu / truva'lı kopya) kritik alarm |
 | 🛡️ **Defender izleme** | `/defender` — gerçek-zamanlı koruma durumu, son hızlı/tam tarama zamanı, imza sürümü ve son tespitler (AV seni ne kadar/ne zaman izliyor) |
 | 🛡️ **Fiziksel tehdit koruması** | `/koruma` — yapılandırılabilir politika motoru: **dead-man switch** (X saat check-in yoksa), **USB dead-man** (BusKill), **yanlış-giriş sayacı** → her biri kendi aksiyonuyla (kilitle / alarm+foto / güvenli sil). Wipe opt-in + 60 sn geri-alma. **RAM-only mod**: DB hiç diske yazılmaz |
+| 🔒 **Tam kilit (lockdown)** | `/kilit tam` — "Lost Mode": ekran her açıldığında ~2 sn içinde tekrar kilitlenir, doğru şifre girilse bile cihaz kullanılamaz; yalnızca `/kilit tam kapat` ile açılır |
+| 🍯 **Honeypot tuzak** | `/tuzak kur` — cazip **sahte** dosyalar (Şifreler.txt vb.) + SACL denetimi; biri **dokununca/kopyalayınca** → alarm + foto + (opsiyonel) lockdown. Saldırganın verisini **kopyalamaz**, sadece tuzağa dokunduğunu yakalar |
 | 👁️ **Dosya erişim denetimi** | `/erisim kur <yol>` — Windows SACL denetimiyle bir klasöre **kim/ne zaman/hangi programla** eriştiğini (okuma/kopyalama/yazma/silme) Security log'dan okur (`/erisim`). Yönetici/SYSTEM gerekir |
 
 <br>

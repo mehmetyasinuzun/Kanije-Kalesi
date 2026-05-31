@@ -231,6 +231,8 @@ func parseAction(s string) (string, bool) {
 		return "lock", true
 	case "alarm", "alert":
 		return "lock_alert", true
+	case "kilitmodu", "lockdown", "tamkilit":
+		return "alert_lockdown", true // alarm + kalıcı kilit (saldırganı durdur)
 	case "sil", "imha", "wipe":
 		return "lock_alert_wipe", true
 	default:

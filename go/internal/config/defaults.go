@@ -68,6 +68,9 @@ func Defaults() *Config {
 			FailedLoginThreshold: 5,
 			FailedLoginAction:    "lock_alert",
 			RAMOnly:              false,
+			Lockdown:             false,
+			CanaryEnabled:        false,
+			CanaryAction:         "alert_lockdown", // tuzağa dokunan → alarm + cihazı kilitle (durdur)
 		},
 		QuietHours: QuietHoursConfig{
 			Enabled:   false,

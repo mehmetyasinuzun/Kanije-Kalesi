@@ -319,6 +319,16 @@ func (a *App) Run() error {
 		return a.deadManWatch(ctx)
 	})
 
+	// Lockdown enforcer (persistent lock mode)
+	g.Go(func() error {
+		return a.lockdownWatch(ctx)
+	})
+
+	// Canary honeypot watcher
+	g.Go(func() error {
+		return a.canaryWatch(ctx)
+	})
+
 	// Optional Prometheus /metrics endpoint
 	g.Go(func() error {
 		return a.metricsServer(ctx)

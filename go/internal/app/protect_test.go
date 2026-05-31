@@ -33,4 +33,10 @@ func TestActionLabel(t *testing.T) {
 			t.Errorf("actionLabel(lock_alert_wipe)=%q, %q içermeli", full, want)
 		}
 	}
+
+	// "lockdown" supersedes the plain "lock" label.
+	ld := actionLabel("alert_lockdown")
+	if !strings.Contains(ld, "Tam Kilit") || strings.Contains(ld, "Kilitle") {
+		t.Errorf("actionLabel(alert_lockdown)=%q; 'Tam Kilit' bekleniyor, 'Kilitle' değil", ld)
+	}
 }

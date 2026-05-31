@@ -30,6 +30,17 @@ func (a *App) executeProtection(action, reason string) {
 	ev.Extra = map[string]string{"🛡️ Tetik": reason, "🎬 Aksiyon": actionLabel(action)}
 	a.bus.Publish(ev)
 
+	// "lockdown" → persistent lock mode (lockdownWatch keeps re-locking). It also
+	// locks right now. ("lockdown" contains "lock", so the immediate lock below
+	// fires too — harmless.)
+	if strings.Contains(action, "lockdown") {
+		if err := a.cfg.SetLockdown(true); err != nil {
+			a.log.Warn("koruma: lockdown ayarlanamadı", "err", err)
+		} else {
+			a.log.Warn("koruma: LOCKDOWN açıldı", "sebep", reason)
+		}
+	}
+
 	if strings.Contains(action, "lock") {
 		if err := lockScreen(); err != nil {
 			a.log.Warn("koruma: ekran kilitlenemedi", "err", err)
@@ -38,6 +49,24 @@ func (a *App) executeProtection(action, reason string) {
 
 	if strings.Contains(action, "wipe") {
 		a.scheduleProtectionWipe(reason)
+	}
+}
+
+// lockdownWatch enforces persistent lock mode: while Lockdown is on it re-locks
+// the screen every 2s, so an unlock (even with the correct password) is reversed
+// within seconds. Disabled only by /kilit tam kapat.
+func (a *App) lockdownWatch(ctx context.Context) error {
+	ticker := time.NewTicker(2 * time.Second)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-ctx.Done():
+			return nil
+		case <-ticker.C:
+			if a.cfg.LockdownActive() {
+				_ = lockScreen() // already locked → no-op; unlocked → re-lock
+			}
+		}
 	}
 }
 
@@ -119,10 +148,14 @@ func usbMatches(filter string, ev event.Event) bool {
 	return strings.EqualFold(filter, ev.DeviceName) || strings.EqualFold(filter, ev.DeviceLabel)
 }
 
-// actionLabel renders an action string as a readable Turkish chain.
+// actionLabel renders an action string as a readable Turkish chain. "lockdown"
+// supersedes the plain "lock" label (it contains the substring "lock").
 func actionLabel(action string) string {
 	var parts []string
-	if strings.Contains(action, "lock") {
+	switch {
+	case strings.Contains(action, "lockdown"):
+		parts = append(parts, "Tam Kilit")
+	case strings.Contains(action, "lock"):
 		parts = append(parts, "Kilitle")
 	}
 	if strings.Contains(action, "alert") {
