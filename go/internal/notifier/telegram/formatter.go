@@ -449,8 +449,8 @@ Giriş/çıkış · ekran kilit/açılış · USB ve <b>her aygıt</b> (fare/kla
 /pano — Panodaki metni getir
 /panik — Tek komutla kanıt topla: foto + ekran + ses + dış IP (/panik kilit → ekranı da kilitler)
 /tetikkamera — Hareket-tetikli kamera: hareket görülünce <b>foto serisi</b> (/tetikkamera ac · kapat · esik &lt;n&gt; · seri &lt;n&gt;)
-/tetikses — Ses-tetikli kayıt: ses gelince <b>parça parça</b> kaydeder, sessizlikte durur (/tetikses ac · kapat · esik &lt;dB&gt;)
-/dinle — Canlı dinleme (/dinle 10 → 10 dk parça parça ses · /dinle kapat)
+/tetikses — <b>Sen yokken otomatik:</b> ses gelince parça parça kaydeder, sessizlikte durur (/tetikses ac)
+/dinle — <b>Şimdi canlı dinle:</b> anlık, süreli yayın (/dinle 10 → 10 dk · /dinle kapat)
 
 <b>⚙️ Yönetim</b>
 /dosya — Dosya gez / indir (/dosya &lt;yol&gt; · /dosya al &lt;yol&gt;)

@@ -213,10 +213,3 @@ func (b *Bot) sendFile(ctx context.Context, chatID int64, path string) {
 		b.reply(ctx, chatID, "❌ Gönderilemedi: "+safeHTML(err.Error()))
 	}
 }
-
-// cmdHareket controls the camera motion detector:
-//
-//	/hareket ac          → aç
-//	/hareket kapat       → kapat
-//	/hareket esik <n>    → tetikleme eşiği (0-255; düşük = hassas)
-//	/hareket             → durum

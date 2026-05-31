@@ -69,7 +69,7 @@ func (b *Bot) cmdTuzak(ctx context.Context, chatID int64, text string) {
 			"📄 Tuzak dosyalar: <code>"+safeHTML(canaryFileList())+"</code>\n"+
 			"🎬 Biri dokunursa → <b>"+actionTR(p.CanaryAction)+"</b>\n\n"+
 			"<i>⚠️ Sen bu klasöre dokunma (tuzak senin). AV/sistem süreçleri yok sayılır — yalnızca kişi/şüpheli erişim tetikler.</i>\n"+
-			"<i>Aksiyon: /tuzak aksiyon alarm|kilitmodu|sil</i>")
+			"<i>Aksiyonu değiştir:</i> <code>/tuzak aksiyon kilitmodu</code>")
 
 	case "kapat", "kaldir", "off":
 		if p.CanaryPath != "" {
@@ -110,7 +110,7 @@ func (b *Bot) cmdTuzak(ctx context.Context, chatID int64, text string) {
 				"📄 Tuzak dosyalar: <code>" + safeHTML(canaryFileList()) + "</code>\n" +
 				"🎬 Dokununca: <b>" + actionTR(p.CanaryAction) + "</b>\n"
 		}
-		msg += "\n<i>Kur: /tuzak kur [klasör] · Aksiyon: /tuzak aksiyon alarm|kilitmodu|sil · Kapat: /tuzak kapat</i>\n" +
+		msg += "\n<i>Dokun-kopyala:</i> <code>/tuzak kur</code> · <code>/tuzak aksiyon kilitmodu</code> · <code>/tuzak kapat</code>\n" +
 			"<i>Gerçek honeypot: saldırganın verisini KOPYALAMAZ, yalnızca tuzağa dokunan kişi/programı yakalar (AV/sistem yok sayılır).</i>"
 		b.reply(ctx, chatID, msg)
 	}

@@ -27,8 +27,8 @@ const (
 	CapManage   Capability = "manage"   // edit/remove sub-users (/yonetim)
 	CapTerminal Capability = "terminal" // run remote shell commands (/terminal)
 	CapFiles    Capability = "files"    // /dosya, /pano — read local files/clipboard
-	CapListen   Capability = "listen"   // canlı dinleme (continuous audio)
-	CapMotion   Capability = "motion"   // /hareket — camera motion detection
+	CapListen   Capability = "listen"   // /dinle, /tetikses — continuous/triggered audio
+	CapMotion   Capability = "motion"   // /tetikkamera (alias /hareket) — motion-triggered camera
 	CapSchedule Capability = "schedule" // /zamanla — scheduled tasks
 	CapPanic    Capability = "panic"    // /panik — one-shot evidence sweep
 

@@ -126,13 +126,13 @@ func (b *Bot) korumaLogin(ctx context.Context, chatID int64, p config.Protection
 	switch strings.ToLower(fields[2]) {
 	case "ac", "aç", "on":
 		p.FailedLoginEnabled = true
-		if len(fields) >= 4 {
-			if n, err := strconv.Atoi(fields[3]); err == nil && n > 0 {
+		// Tokens after "ac" may be threshold (a number) and/or action, in ANY
+		// order: "ac", "ac 3", "ac kilit", "ac 3 kilit" all work — nothing is
+		// silently dropped (previously "ac kilit" lost the action).
+		for _, tok := range fields[3:] {
+			if n, err := strconv.Atoi(tok); err == nil && n > 0 {
 				p.FailedLoginThreshold = n
-			}
-		}
-		if len(fields) >= 5 {
-			if a, ok := parseAction(fields[4]); ok {
+			} else if a, ok := parseAction(tok); ok {
 				p.FailedLoginAction = a
 			}
 		}
@@ -222,18 +222,17 @@ func (b *Bot) formatProtectionStatus() string {
 	sb.WriteString("💾 <b>RAM-only mod</b>: " + onOffTR(p.RAMOnly) + "\n")
 	sb.WriteString("   <i>Olay geçmişi diske hiç yazılmaz; güç kesilince iz kalmaz. (Değişiklik /yeniden sonrası.)</i>\n\n")
 
-	sb.WriteString("<b>Komutlar</b>\n<i>" + korumaUsage() + "</i>")
+	sb.WriteString("<b>📋 Komutlar</b> <i>(dokun → kopyala → düzenle → gönder)</i>\n" + korumaUsage())
 	return sb.String()
 }
 
 func korumaUsage() string {
-	return "Komutlar:\n" +
-		"/koruma ac · kapat\n" +
-		"/koruma deadman ac [saat] [kilit|alarm|sil] · kapat\n" +
-		"/koruma usb ac [kilit|alarm|sil] · kapat\n" +
-		"/koruma giris ac [eşik] [kilit|alarm|sil] · kapat\n" +
-		"/koruma ramonly ac · kapat\n" +
-		"/koruma checkin · /koruma iptal"
+	return "<code>/koruma ac</code> · <code>/koruma kapat</code>\n" +
+		"<code>/koruma deadman ac 72 alarm</code> · <code>/koruma deadman kapat</code>\n" +
+		"<code>/koruma usb ac kilit</code> · <code>/koruma usb kapat</code>\n" +
+		"<code>/koruma giris ac 5 alarm</code> · <code>/koruma giris kapat</code>\n" +
+		"<code>/koruma ramonly ac</code> · <code>/koruma ramonly kapat</code>\n" +
+		"<code>/koruma checkin</code> · <code>/koruma iptal</code>"
 }
 
 // parseAction maps a user shorthand to a canonical action chain.

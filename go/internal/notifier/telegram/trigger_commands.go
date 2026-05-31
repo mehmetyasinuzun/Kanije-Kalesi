@@ -80,7 +80,9 @@ func (b *Bot) tetikKameraStatus(prefix string) string {
 	sb.WriteString(fmt.Sprintf("⏱️ Tarama aralığı: <b>%.0f sn</b>\n", iv.Seconds()))
 	sb.WriteString(fmt.Sprintf("🎚️ Hassasiyet eşiği: <b>%.0f</b> <i>(düşük = daha hassas)</i>\n", th))
 	sb.WriteString(fmt.Sprintf("📸 Hareket başına: <b>%d</b> foto (seri)\n", b.cfg.MotionBurst()))
-	sb.WriteString("\n<i>Komutlar:</i> /tetikkamera ac · kapat · esik &lt;n&gt; · seri &lt;n&gt;")
+	sb.WriteString("\n<i>Dokun-kopyala:</i>\n")
+	sb.WriteString("<code>/tetikkamera ac</code> · <code>/tetikkamera kapat</code>\n")
+	sb.WriteString("<code>/tetikkamera esik 12</code> · <code>/tetikkamera seri 3</code>")
 	return sb.String()
 }
 
@@ -113,9 +115,9 @@ func (b *Bot) cmdTetikSes(ctx context.Context, chatID int64, text string) {
 			b.reply(ctx, chatID, "Kullanım: <code>/tetikses esik -35</code>\nYüksek (sıfıra yakın) = daha hassas. Sessiz oda ~ -55 dB, konuşma ~ -25 dB.")
 			return
 		}
-		v, err := strconv.ParseFloat(fields[2], 64)
-		if err != nil {
-			b.reply(ctx, chatID, "❌ Geçersiz dB. Örn: <code>/tetikses esik -35</code>")
+		v, err := strconv.ParseFloat(strings.Replace(fields[2], ",", ".", 1), 64)
+		if err != nil || v > 0 || v < -90 {
+			b.reply(ctx, chatID, "❌ Geçersiz dB. -90 ile 0 arası negatif bir değer gir (örn: <code>/tetikses esik -35</code>).")
 			return
 		}
 		if err := b.cfg.SetVOXThreshold(v); err != nil {
@@ -141,6 +143,7 @@ func (b *Bot) tetikSesStatus(prefix string) string {
 	sb.WriteString(fmt.Sprintf("🎚️ Tetik eşiği: <b>%.0f dB</b> <i>(üstü = kayıt başlar)</i>\n", thr))
 	sb.WriteString(fmt.Sprintf("🧩 Parça uzunluğu: <b>%d sn</b> · en çok <b>%d</b> parça\n", partSec, maxParts))
 	sb.WriteString("\n<i>Ses devam ettikçe parça parça kaydeder, sessizlikte durur. Sessizken hiçbir şey kaydedilmez.</i>\n")
-	sb.WriteString("<i>Komutlar:</i> /tetikses ac · kapat · esik &lt;dB&gt;")
+	sb.WriteString("<i>Dokun-kopyala:</i>\n")
+	sb.WriteString("<code>/tetikses ac</code> · <code>/tetikses kapat</code> · <code>/tetikses esik -35</code>")
 	return sb.String()
 }

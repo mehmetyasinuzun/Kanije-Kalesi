@@ -895,8 +895,15 @@ func (c *Config) MotionBurst() int {
 	return n
 }
 
-// SetMotionBurst sets the per-motion photo count and persists.
+// SetMotionBurst sets the per-motion photo count (clamped 1..10 so the stored
+// value always matches what MotionBurst reports back) and persists.
 func (c *Config) SetMotionBurst(n int) error {
+	if n < 1 {
+		n = 1
+	}
+	if n > 10 {
+		n = 10
+	}
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.Motion.BurstCount = n
