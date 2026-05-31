@@ -8,7 +8,6 @@ import (
 	"os/exec"
 	"runtime"
 	"strconv"
-	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -181,46 +180,5 @@ func ListAudioDevices(ffmpegPath string) []string {
 	cmd.Stderr = &stderr
 	cmd.Run() // Expected to "fail" (dummy input) — device list goes to stderr.
 
-	return parseAudioDeviceList(stderr.String())
-}
-
-// parseAudioDeviceList extracts quoted device names that appear in the "audio
-// devices" section of ffmpeg -list_devices output, ignoring the video section.
-func parseAudioDeviceList(output string) []string {
-	var devices []string
-	inAudio := false
-	for _, line := range strings.Split(output, "\n") {
-		low := strings.ToLower(line)
-		// Check "video devices" FIRST: the video header reads "DirectShow video
-		// devices (some may be both video and audio devices)" — it contains the
-		// substring "audio devices", so matching audio first would wrongly flip
-		// us into the audio section on the video header line.
-		switch {
-		case strings.Contains(low, "video devices"):
-			inAudio = false
-			continue
-		case strings.Contains(low, "audio devices"):
-			inAudio = true
-			continue
-		}
-		if !inAudio {
-			continue
-		}
-		// Skip the "Alternative name "@device_..."" lines — they are also quoted
-		// but are not selectable friendly device names.
-		if strings.Contains(low, "alternative name") {
-			continue
-		}
-		start := strings.IndexByte(line, '"')
-		if start < 0 {
-			continue
-		}
-		rest := line[start+1:]
-		end := strings.IndexByte(rest, '"')
-		if end <= 0 {
-			continue
-		}
-		devices = append(devices, rest[:end])
-	}
-	return devices
+	return parseDshowDevices(stderr.String(), "audio")
 }

@@ -77,7 +77,11 @@ func (c *Camera) Capture(ctx context.Context) ([]byte, error) {
 	captureCtx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
-	args := c.buildFFmpegArgs()
+	device, err := c.resolveDevice()
+	if err != nil {
+		return nil, err
+	}
+	args := c.buildFFmpegArgs(device)
 	c.log.Debug("kamera komutu", "args", args)
 
 	cmd := exec.CommandContext(captureCtx, c.ffmpegPath(), args...)
@@ -99,31 +103,41 @@ func (c *Camera) Capture(ctx context.Context) ([]byte, error) {
 	return stdout.Bytes(), nil
 }
 
+// resolveDevice picks the ffmpeg input-device string for this platform. On
+// Windows (dshow) ffmpeg needs the camera's FRIENDLY NAME, not a numeric index —
+// "video=0" never works (that was the bug). If the user hasn't configured a name
+// we auto-detect the first available camera via -list_devices.
+func (c *Camera) resolveDevice() (string, error) {
+	switch runtime.GOOS {
+	case "windows":
+		name := c.cfg.DeviceName
+		if name == "" {
+			devs, _ := ListDevices(c.ffmpegPath())
+			if len(devs) == 0 {
+				return "", fmt.Errorf("kamera bulunamadı — kamera bağlı ve açık mı? Değilse /kurulum → 📷 Kamera'dan cihaz adını elle girin")
+			}
+			name = devs[0]
+			c.log.Info("kamera otomatik seçildi", "cihaz", name)
+		}
+		return "video=" + name, nil
+	case "darwin":
+		return strconv.Itoa(c.cfg.DeviceIndex), nil
+	default: // linux + others
+		return "/dev/video" + strconv.Itoa(c.cfg.DeviceIndex), nil
+	}
+}
+
 // buildFFmpegArgs constructs the ffmpeg argument list for the current platform.
-func (c *Camera) buildFFmpegArgs() []string {
-	var inputFormat, device string
+func (c *Camera) buildFFmpegArgs(device string) []string {
+	var inputFormat string
 
 	switch runtime.GOOS {
 	case "windows":
 		inputFormat = "dshow"
-		if c.cfg.DeviceName != "" {
-			device = "video=" + c.cfg.DeviceName
-		} else {
-			// fallback: use device index — requires listing first
-			device = "video=0" // simplification
-		}
-
-	case "linux":
-		inputFormat = "v4l2"
-		device = "/dev/video" + strconv.Itoa(c.cfg.DeviceIndex)
-
 	case "darwin":
 		inputFormat = "avfoundation"
-		device = strconv.Itoa(c.cfg.DeviceIndex)
-
-	default:
+	default: // linux + others
 		inputFormat = "v4l2"
-		device = "/dev/video" + strconv.Itoa(c.cfg.DeviceIndex)
 	}
 
 	// We capture warmupFrames+1 frames and take the last one to avoid
@@ -187,28 +201,7 @@ func ListDevices(ffmpegPath string) ([]string, error) {
 
 	cmd.Run() // Expected to fail (no input)
 
-	return parseDeviceList(stderr.String()), nil
-}
-
-func parseDeviceList(output string) []string {
-	var devices []string
-	for _, line := range strings.Split(output, "\n") {
-		if strings.Contains(line, "DirectShow video") || strings.Contains(line, "dshow") {
-			continue
-		}
-		// Device names are quoted, e.g.  "Integrated Camera"
-		start := strings.IndexByte(line, '"')
-		if start < 0 {
-			continue
-		}
-		rest := line[start+1:]
-		end := strings.IndexByte(rest, '"')
-		if end <= 0 {
-			continue
-		}
-		devices = append(devices, rest[:end])
-	}
-	return devices
+	return parseDshowDevices(stderr.String(), "video"), nil
 }
 
 func listLinuxDevices() []string {

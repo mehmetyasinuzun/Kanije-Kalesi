@@ -20,7 +20,7 @@ func TestParseAudioDeviceList(t *testing.T) {
 		`[dshow @ 0x1]     Alternative name "@device_cm_{DEF}"`,
 	}, "\n")
 
-	got := parseAudioDeviceList(out)
+	got := parseDshowDevices(out, "audio")
 	want := []string{"Microphone (Realtek(R) Audio)", "Stereo Mix (Realtek(R) Audio)"}
 
 	if len(got) != len(want) {
@@ -34,12 +34,12 @@ func TestParseAudioDeviceList(t *testing.T) {
 }
 
 func TestParseAudioDeviceListEmpty(t *testing.T) {
-	if got := parseAudioDeviceList(""); got != nil {
+	if got := parseDshowDevices("", "audio"); got != nil {
 		t.Errorf("boş çıktı için nil beklenir, got %v", got)
 	}
 	// Only a video device present → no audio devices.
 	videoOnly := "[dshow] DirectShow video devices\n[dshow]  \"Cam\"\n"
-	if got := parseAudioDeviceList(videoOnly); len(got) != 0 {
+	if got := parseDshowDevices(videoOnly, "audio"); len(got) != 0 {
 		t.Errorf("yalnız video varken boş beklenir, got %v", got)
 	}
 }
