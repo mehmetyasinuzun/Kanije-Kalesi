@@ -36,9 +36,9 @@ func (b *Bot) cmdTetikKamera(ctx context.Context, chatID int64, text string) {
 			b.reply(ctx, chatID, "Kullanım: <code>/tetikkamera esik 12</code>\nDüşük değer = daha hassas (1–255).")
 			return
 		}
-		v, err := strconv.ParseFloat(fields[2], 64)
-		if err != nil || v <= 0 {
-			b.reply(ctx, chatID, "❌ Geçersiz eşik. Örn: <code>/tetikkamera esik 12</code>")
+		v, err := strconv.ParseFloat(strings.Replace(fields[2], ",", ".", 1), 64)
+		if err != nil || v <= 0 || v > 255 {
+			b.reply(ctx, chatID, "❌ Geçersiz eşik. 1–255 arası bir sayı gir (örn: <code>/tetikkamera esik 12</code>).")
 			return
 		}
 		if err := b.cfg.SetMotionThreshold(v); err != nil {

@@ -428,6 +428,7 @@ func FormatSummary(counts []storage.TypeCount, total int64, days int) string {
 // FormatHelp generates the /yardim command response.
 func FormatHelp() string {
 	return `🏰 <b>Kanije Kalesi — Komut Listesi</b>
+📖 <i>İlk kez mi, ya da hangi modlar açık kalsın merak mı ediyorsun? → /rehber</i>
 
 <b>📊 İzleme</b>
 /status — Sistem durumu (CPU, RAM, disk)
@@ -488,6 +489,63 @@ Giriş/çıkış · ekran kilit/açılış · USB ve <b>her aygıt</b> (fare/kla
 <i>Not: Her komut yetkiye bağlıdır. Eklediğin kişiye yalnızca sendeki yetkileri verebilirsin; kişi kendi alt ağacını görür.</i>
 
 <i>🏰 Kanije Kalesi — Siber kale muhafızı</i>`
+}
+
+// FormatRehber renders the /rehber usage guide — what the app is, how to drive
+// it, which "always-on" modes to keep enabled, and how to turn each mode off.
+// Every command appears inside <code> so the user can copy the FULL command
+// (with its arguments) in one tap — a plain "/cmd arg" would be link-ified by
+// Telegram and drop the argument.
+func FormatRehber() string {
+	return `📖 <b>Kanije Kalesi — Kullanım Rehberi</b>
+
+Kanije, cihazını <b>uzaktan Telegram'dan</b> koruyan bir muhafızdır. Sen komut yazarsın; cihaz işi yapar ve kanıtı (foto/ekran/ses) buraya gönderir.
+
+<b>📍 Komut nasıl çalıştırılır?</b>
+İki yol var:
+• Komutu <b>yaz</b> ve gönder, ya da
+• Aşağıdaki gri kutulara <b>dokun</b> → komut panoya kopyalanır → yapıştırıp gönder.
+<i>(Argümanlı komutları —örn. eşik değeri— bu yüzden gri kutuda veriyoruz: tek tıkla tam haliyle kopyalanır.)</i>
+
+<b>🎬 TETİK MODLARI</b> <i>(aç → arka planda izler → olay olunca kendiliğinden kanıt yollar)</i>
+
+📷 <b>Hareket-tetikli kamera</b> — hareket görünce foto serisi
+• Aç:  <code>/tetikkamera ac</code>
+• Kapat:  <code>/tetikkamera kapat</code>
+• Hassasiyet (düşük=hassas):  <code>/tetikkamera esik 12</code>
+• Kaç foto:  <code>/tetikkamera seri 3</code>
+• Durum:  <code>/tetikkamera</code>
+
+🔊 <b>Ses-tetikli kayıt (VOX)</b> — ses gelince kaydeder
+• Aç:  <code>/tetikses ac</code>
+• Kapat:  <code>/tetikses kapat</code>
+• Eşik (yüksek=hassas; sessiz oda ~-55, konuşma ~-25 dB):  <code>/tetikses esik -35</code>
+• Durum:  <code>/tetikses</code>
+<i>Sessizken hiçbir şey kaydedilmez; ses gelince 1.5 dk'lık parçalar yollar; sustuğunda durur.</i>
+
+🛡️ <b>Koruma motoru</b> — cihaz çalınırsa/el konursa
+• Aç &amp; ayarla:  <code>/koruma</code>
+• Tam kilit:  <code>/kilit tam</code>  · Kapat:  <code>/kilit tam kapat</code>
+
+🍯 <b>Tuzak (honeypot)</b> — sahte cazip dosyalar
+• Kur:  <code>/tuzak kur</code>  · Durum:  <code>/tuzak</code>
+
+<b>⏸️ KAPATMA</b>
+Her tetik modunun kendi <b>kapat</b> komutu var (yukarıda). Devam eden tek seferlik bir işi durdurmak için:  <code>/iptal</code>
+
+<b>⭐ TAVSİYE — Sürekli Açık Kalabilecekler</b>
+Bunlar pil/işlemci dostudur, sürekli açık tutabilirsin:
+• 🔊  <code>/tetikses ac</code> — odanı dinlemeden sessizliği bekler; ses olunca kaydeder (en düşük maliyet)
+• 🛡️  <code>/koruma</code> — dead-man + USB + yanlış-giriş (cihaz senden uzaktayken devreye girer)
+• 🍯  <code>/tuzak kur</code> — biri tuzak dosyaya dokununca anında yakalanır
+<i>📷 Hareket-tetikli kamerayı (/tetikkamera) ise gerektiğinde aç — kamera sürekli açık kalırsa pil/CPU daha çok harcar.</i>
+
+<b>💡 İpuçları</b>
+• Giriş kutusuna <b>/</b> yazınca tüm komutlar menüsü açılır.
+• Tüm komut listesi:  /yardim
+• Çok tetikleniyorsa eşiği sertleştir (örn. <code>/tetikses esik -30</code>), az tetikleniyorsa yumuşat (<code>/tetikses esik -40</code>).
+
+<i>🏰 Sorun olursa komutu kopyalayıp bana yaz — birlikte ayarlarız.</i>`
 }
 
 // FormatBattery renders the /pil battery snapshot.

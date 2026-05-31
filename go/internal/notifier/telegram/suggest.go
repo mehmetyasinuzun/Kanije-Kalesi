@@ -12,7 +12,7 @@ func knownCommands() []string {
 	// Commands not in commandCaps (open to any authorized user, or aliases).
 	cmds = append(cmds,
 		"/yardim", "/help", "/start", "/menu", "/komutlar", "/ping", "/iptal",
-		"/cihazlar", "/devices",
+		"/cihazlar", "/devices", "/rehber", "/nasil", "/kullanim",
 	)
 	return cmds
 }

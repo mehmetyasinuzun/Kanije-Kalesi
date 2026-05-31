@@ -367,6 +367,8 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 	switch cmd {
 	case "/start", "/yardim", "/help", "/komutlar", "/komut", "/menu":
 		b.cmdHelp(ctx, chatID)
+	case "/rehber", "/guide", "/nasil", "/kullanim":
+		b.reply(ctx, chatID, FormatRehber())
 	case "/status", "/durum":
 		b.cmdStatus(ctx, chatID)
 	case "/foto", "/photo":
@@ -423,9 +425,7 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdErisim(ctx, chatID, text)
 	case "/zamanla", "/schedule":
 		b.cmdZamanla(ctx, chatID, text)
-	case "/hareket", "/motion":
-		b.cmdHareket(ctx, chatID, text)
-	case "/tetikkamera", "/triggercam":
+	case "/tetikkamera", "/triggercam", "/hareket", "/motion":
 		b.cmdTetikKamera(ctx, chatID, text)
 	case "/dinle", "/listen":
 		b.cmdDinle(ctx, chatID, text)
@@ -521,7 +521,8 @@ func (b *Bot) cmdHelp(ctx context.Context, chatID int64) {
 // autocomplete menu and a Menu button. Best-effort; failure is non-fatal.
 func (b *Bot) registerCommands(ctx context.Context) {
 	cmds := []BotCommand{
-		{"yardim", "📜 Komut listesi"},
+		{"rehber", "📖 Kullanım rehberi — nasıl çalışır, hangi modlar açık kalsın"},
+		{"yardim", "📜 Tüm komutlar listesi"},
 		{"status", "📊 Sistem durumu (CPU/RAM/disk)"},
 		{"olaylar", "📋 Son olaylar (tip/sayı ile filtre)"},
 		{"ozet", "📈 Son 7 günün olay özeti"},
