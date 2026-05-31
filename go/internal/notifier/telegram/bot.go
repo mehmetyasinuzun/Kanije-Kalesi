@@ -57,6 +57,9 @@ type Bot struct {
 	listenMu     sync.Mutex
 	listenCancel context.CancelFunc
 
+	// Throttle for rate-limit warnings so the warning itself can't become spam.
+	lastRateWarn sync.Map // chatID -> time.Time
+
 	// Fleet identity — used to route group commands to the right device.
 	deviceLabel string
 	osName      string
@@ -311,6 +314,7 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 	// Per-chat command rate limit (anti-abuse). Keyed on the chat.
 	if !b.cmdLimiter.allow(chatID) {
 		b.log.Debug("komut hız sınırı aşıldı, mesaj atlanıyor", "chat_id", chatID)
+		b.maybeWarnRateLimit(ctx, chatID)
 		return
 	}
 
@@ -433,6 +437,20 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 			b.reply(ctx, chatID, msg)
 		}
 	}
+}
+
+// maybeWarnRateLimit sends a single throttled "slow down" notice when a chat hits
+// the command rate limit, so the user understands why nothing happened — without
+// the warning itself becoming spam (at most once per 15s per chat).
+func (b *Bot) maybeWarnRateLimit(ctx context.Context, chatID int64) {
+	now := time.Now()
+	if v, ok := b.lastRateWarn.Load(chatID); ok {
+		if t, _ := v.(time.Time); now.Sub(t) < 15*time.Second {
+			return
+		}
+	}
+	b.lastRateWarn.Store(chatID, now)
+	b.reply(ctx, chatID, "⏳ Çok hızlısın — birkaç saniye bekleyip tekrar dene.")
 }
 
 // handleCallback processes inline keyboard button presses.

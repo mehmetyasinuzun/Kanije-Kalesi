@@ -99,21 +99,27 @@ func NewSetupWizard(cfg *config.Config, client *Client, log *slog.Logger) *Setup
 func (w *SetupWizard) HandleText(ctx context.Context, chatID int64, text string) bool {
 	w.mu.Lock()
 	state, waiting := w.states[chatID]
+	w.mu.Unlock()
 	if !waiting {
-		w.mu.Unlock()
 		return false
 	}
-	delete(w.states, chatID)
-	w.mu.Unlock()
 
 	// Apply the setting
 	if err := w.cfg.SetField(state.key, strings.TrimSpace(text)); err != nil {
+		// Keep the wizard state so the user can simply retype a correct value.
+		// (The old code deleted the state up front, so after a bad value the wizard
+		// stopped listening and "tekrar deneyin" didn't actually work.)
 		w.client.SendMessage(ctx, chatID,
 			"❌ <b>Geçersiz değer:</b> "+safeHTML(err.Error())+"\n\n"+
-				"Lütfen tekrar deneyin veya /iptal yazın.",
+				"Doğru değeri tekrar yaz, ya da /iptal yaz.",
 			"HTML")
 		return true
 	}
+
+	// Success — stop waiting for this chat, then confirm.
+	w.mu.Lock()
+	delete(w.states, chatID)
+	w.mu.Unlock()
 
 	// Success — show confirmation and return to main menu
 	w.client.SendMessage(ctx, chatID,

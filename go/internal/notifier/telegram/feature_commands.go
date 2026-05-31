@@ -98,11 +98,14 @@ func (b *Bot) cmdPanik(ctx context.Context, chatID int64, text string) {
 		}
 	}
 
-	// 5) Optional screen lock.
-	arg := strings.ToLower(text)
-	if (strings.Contains(arg, "kilit") || strings.Contains(arg, "lock")) && b.lockScreen != nil {
-		if err := b.lockScreen(); err == nil {
-			b.reply(ctx, chatID, "🔒 Ekran kilitlendi.")
+	// 5) Optional screen lock — only when the FIRST argument is exactly
+	// "kilit"/"lock", not anywhere in the text (so "/panik şu kilitli oda" can't
+	// accidentally lock the screen).
+	if fields := strings.Fields(text); len(fields) > 1 && b.lockScreen != nil {
+		if a := strings.ToLower(fields[1]); a == "kilit" || a == "lock" {
+			if err := b.lockScreen(); err == nil {
+				b.reply(ctx, chatID, "🔒 Ekran kilitlendi.")
+			}
 		}
 	}
 

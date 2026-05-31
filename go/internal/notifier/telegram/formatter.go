@@ -707,12 +707,15 @@ func formatBytes(b int64) string {
 	return fmt.Sprintf("%.1f %cB", float64(b)/float64(div), "KMGTPE"[exp])
 }
 
+// formatDuration uses unambiguous Turkish units — sn (saniye), dk (dakika),
+// sa (saat), g (gün) — so "5sa" can't be misread as 5 seconds (the old code
+// used "s" for both hours and seconds).
 func formatDuration(d time.Duration) string {
 	if d < time.Minute {
-		return fmt.Sprintf("%ds", int(d.Seconds()))
+		return fmt.Sprintf("%dsn", int(d.Seconds()))
 	}
 	if d < time.Hour {
-		return fmt.Sprintf("%dm %ds", int(d.Minutes()), int(d.Seconds())%60)
+		return fmt.Sprintf("%ddk %dsn", int(d.Minutes()), int(d.Seconds())%60)
 	}
 
 	hours := int(d.Hours())
@@ -722,7 +725,7 @@ func formatDuration(d time.Duration) string {
 	hours = hours % 24
 
 	if days > 0 {
-		return fmt.Sprintf("%dg %ds %dm", days, hours, minutes)
+		return fmt.Sprintf("%dg %dsa %ddk", days, hours, minutes)
 	}
-	return fmt.Sprintf("%ds %dm", hours, minutes)
+	return fmt.Sprintf("%dsa %ddk", hours, minutes)
 }
