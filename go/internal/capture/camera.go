@@ -140,8 +140,9 @@ func (c *Camera) buildFFmpegArgs(device string) []string {
 		inputFormat = "v4l2"
 	}
 
-	// We capture warmupFrames+1 frames and take the last one to avoid
-	// dark/blurry initial frames. The select filter picks frame ≥ warmupFrames.
+	// Drop the first WarmupFrames frames (dark/blurry sensor warm-up) then emit
+	// EXACTLY ONE frame. select=gte(n,warmup) passes frames from index warmup on;
+	// -frames:v 1 then takes the first of those.
 	selectFilter := fmt.Sprintf("select=gte(n\\,%d)", c.cfg.WarmupFrames)
 
 	return []string{
@@ -150,11 +151,14 @@ func (c *Camera) buildFFmpegArgs(device string) []string {
 		"-f", inputFormat,
 		"-video_size", fmt.Sprintf("%dx%d", c.cfg.Width, c.cfg.Height),
 		"-i", device,
-		"-vframes", strconv.Itoa(c.cfg.WarmupFrames + 1),
 		"-vf", selectFilter,
+		"-frames:v", "1", // exactly one output frame (was -vframes warmup+1)
 		"-q:v", strconv.Itoa(ffmpegQuality(c.cfg.JPEGQuality)),
-		"-f", "image2",
-		"-vcodec", "mjpeg",
+		"-c:v", "mjpeg",
+		// image2pipe streams a single JPEG to stdout. The plain "image2" muxer is
+		// a FILE writer and refuses a pipe with >1 frame ("Cannot write more than
+		// one file with the same name") — that was the bug.
+		"-f", "image2pipe",
 		"pipe:1", // Output to stdout
 	}
 }
