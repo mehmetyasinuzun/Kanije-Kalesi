@@ -25,6 +25,11 @@ func Defaults() *Config {
 			SaveLocal:   false,
 			LocalPath:   "./captures/",
 		},
+		Motion: MotionConfig{
+			Enabled:     false, // opt-in via /hareket ac
+			IntervalSec: 3,
+			Threshold:   12,
+		},
 		Heartbeat: HeartbeatConfig{
 			Enabled:       true,
 			IntervalHours: 6,

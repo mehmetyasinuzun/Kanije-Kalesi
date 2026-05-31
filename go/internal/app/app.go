@@ -24,6 +24,7 @@ import (
 	"github.com/kanije-kalesi/kanije/internal/network"
 	"github.com/kanije-kalesi/kanije/internal/notifier/telegram"
 	"github.com/kanije-kalesi/kanije/internal/notifier/webhook"
+	"github.com/kanije-kalesi/kanije/internal/schedule"
 	"github.com/kanije-kalesi/kanije/internal/shell"
 	"github.com/kanije-kalesi/kanije/internal/storage"
 	"github.com/kanije-kalesi/kanije/internal/sysinfo"
@@ -44,6 +45,7 @@ type App struct {
 	bus      *event.Bus
 	bot      *telegram.Bot
 	acl      *access.Manager
+	schedule *schedule.Store
 	manager  *listener.Manager
 	netMon   *network.Monitor
 	camera   *capture.Camera
@@ -125,12 +127,26 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		hooks = append(hooks, webhook.Target{Name: w.Name, URL: w.URL, Format: w.Format})
 	}
 
+	// Scheduler store — persisted next to the config (schedules.json).
+	schedDir := filepath.Dir(cfg.FilePath())
+	if schedDir == "" || schedDir == "." {
+		if exe, err := os.Executable(); err == nil {
+			schedDir = filepath.Dir(exe)
+		}
+	}
+	schedStore, err := schedule.NewStore(filepath.Join(schedDir, "schedules.json"))
+	if err != nil {
+		log.Warn("zamanlama deposu açılamadı", "err", err)
+		schedStore = nil
+	}
+
 	app := &App{
 		cfg:      cfg,
 		log:      log,
 		store:    store,
 		bus:      bus,
 		acl:      acl,
+		schedule: schedStore,
 		camera:   cam,
 		screen:   screen,
 		version:  version,
@@ -170,6 +186,7 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		Uninstall:     app.uninstall,
 		Transfer:      app.transfer,
 		Destroy:       app.destroy,
+		Schedule:      app.schedule,
 	})
 	app.bot = bot
 
@@ -270,6 +287,16 @@ func (a *App) Run() error {
 	// Anti-tamper watchdog (binary/config/DB/scheduled-task + unclean-shutdown)
 	g.Go(func() error {
 		return a.tamperWatch(ctx)
+	})
+
+	// Task scheduler (/zamanla)
+	g.Go(func() error {
+		return a.runScheduler(ctx)
+	})
+
+	// Camera motion detector (/hareket)
+	g.Go(func() error {
+		return a.motionWatch(ctx)
 	})
 
 	// Optional Prometheus /metrics endpoint

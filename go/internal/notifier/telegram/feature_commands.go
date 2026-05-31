@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/kanije-kalesi/kanije/internal/clipboard"
@@ -200,5 +201,65 @@ func (b *Bot) sendFile(ctx context.Context, chatID int64, path string) {
 	b.reply(ctx, chatID, "📤 Gönderiliyor: <code>"+safeHTML(filepath.Base(path))+"</code> ("+formatBytes(info.Size())+")")
 	if err := b.client.SendDocument(ctx, chatID, data, filepath.Base(path), "📄 "+path); err != nil {
 		b.reply(ctx, chatID, "❌ Gönderilemedi: "+safeHTML(err.Error()))
+	}
+}
+
+// cmdHareket controls the camera motion detector:
+//
+//	/hareket ac          → aç
+//	/hareket kapat       → kapat
+//	/hareket esik <n>    → tetikleme eşiği (0-255; düşük = hassas)
+//	/hareket             → durum
+func (b *Bot) cmdHareket(ctx context.Context, chatID int64, text string) {
+	fields := strings.Fields(text)
+	sub := ""
+	if len(fields) >= 2 {
+		sub = strings.ToLower(fields[1])
+	}
+
+	switch sub {
+	case "ac", "aç", "on", "başlat", "baslat":
+		if err := b.cfg.SetMotionEnabled(true); err != nil {
+			b.reply(ctx, chatID, "❌ "+safeHTML(err.Error()))
+			return
+		}
+		iv, th := b.cfg.MotionSettings()
+		b.reply(ctx, chatID, fmt.Sprintf(
+			"🎥 <b>Hareket algılama AÇIK</b>\nAralık: %d sn · Eşik: %.0f/255\nHareket olunca otomatik foto + bildirim gelir.",
+			int(iv.Seconds()), th))
+
+	case "kapat", "kapa", "off", "durdur":
+		if err := b.cfg.SetMotionEnabled(false); err != nil {
+			b.reply(ctx, chatID, "❌ "+safeHTML(err.Error()))
+			return
+		}
+		b.reply(ctx, chatID, "🎥 <b>Hareket algılama KAPALI.</b>")
+
+	case "esik", "eşik", "threshold":
+		if len(fields) < 3 {
+			b.reply(ctx, chatID, "Kullanım: <code>/hareket esik &lt;1-255&gt;</code> (düşük = daha hassas)")
+			return
+		}
+		v, err := strconv.ParseFloat(strings.Replace(fields[2], ",", ".", 1), 64)
+		if err != nil || v <= 0 || v > 255 {
+			b.reply(ctx, chatID, "❌ Geçersiz eşik. 1-255 arası bir sayı gir.")
+			return
+		}
+		if err := b.cfg.SetMotionThreshold(v); err != nil {
+			b.reply(ctx, chatID, "❌ "+safeHTML(err.Error()))
+			return
+		}
+		b.reply(ctx, chatID, fmt.Sprintf("🎥 Eşik <b>%.0f</b> olarak ayarlandı. (düşük = daha hassas)", v))
+
+	default:
+		iv, th := b.cfg.MotionSettings()
+		durum := "KAPALI"
+		if b.cfg.MotionEnabled() {
+			durum = "AÇIK"
+		}
+		b.reply(ctx, chatID, fmt.Sprintf(
+			"🎥 <b>Hareket Algılama</b>\nDurum: <b>%s</b>\nAralık: %d sn · Eşik: %.0f/255\n\n"+
+				"<code>/hareket ac</code> · <code>/hareket kapat</code> · <code>/hareket esik &lt;n&gt;</code>",
+			durum, int(iv.Seconds()), th))
 	}
 }

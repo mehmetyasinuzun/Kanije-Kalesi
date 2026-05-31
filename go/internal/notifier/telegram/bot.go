@@ -7,12 +7,14 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/access"
 	"github.com/kanije-kalesi/kanije/internal/capture"
 	"github.com/kanije-kalesi/kanije/internal/config"
 	"github.com/kanije-kalesi/kanije/internal/event"
+	"github.com/kanije-kalesi/kanije/internal/schedule"
 	"github.com/kanije-kalesi/kanije/internal/shell"
 	"github.com/kanije-kalesi/kanije/internal/storage"
 	"github.com/kanije-kalesi/kanije/internal/totp"
@@ -26,6 +28,7 @@ type Bot struct {
 	wizard *SetupWizard
 	store  storage.Storage
 	acl    *access.Manager
+	sched  *schedule.Store
 	term   *shell.Runner
 	log    *slog.Logger
 
@@ -47,6 +50,10 @@ type Bot struct {
 	// Per-chat command rate limiter (anti-abuse).
 	cmdLimiter *cmdRateLimiter
 
+	// Live audio listening (/dinle): cancels the active session, if any.
+	listenMu     sync.Mutex
+	listenCancel context.CancelFunc
+
 	// Fleet identity — used to route group commands to the right device.
 	deviceLabel string
 	osName      string
@@ -59,6 +66,7 @@ type BotConfig struct {
 	Wizard        *SetupWizard
 	Store         storage.Storage
 	Access        *access.Manager
+	Schedule      *schedule.Store
 	Shell         *shell.Runner
 	Log           *slog.Logger
 	DeviceLabel   string
@@ -82,6 +90,7 @@ func NewBot(cfg BotConfig) *Bot {
 		wizard:        cfg.Wizard,
 		store:         cfg.Store,
 		acl:           cfg.Access,
+		sched:         cfg.Schedule,
 		term:          cfg.Shell,
 		log:           cfg.Log,
 		deviceLabel:   cfg.DeviceLabel,
@@ -220,6 +229,9 @@ var commandCaps = map[string]access.Capability{
 	"/pano": access.CapFiles, "/clipboard": access.CapFiles,
 	"/dosya": access.CapFiles, "/file": access.CapFiles,
 	"/panik": access.CapPanic, "/panic": access.CapPanic,
+	"/zamanla": access.CapSchedule, "/schedule": access.CapSchedule,
+	"/hareket": access.CapMotion, "/motion": access.CapMotion,
+	"/dinle": access.CapListen, "/listen": access.CapListen,
 	"/kaldir": access.CapUninstall, "/uninstall": access.CapUninstall,
 	"/aktar": access.CapTransfer, "/transfer": access.CapTransfer,
 	"/imha": access.CapDestroy, "/destroy": access.CapDestroy,
@@ -371,6 +383,12 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdPanik(ctx, chatID, text)
 	case "/dosya", "/file":
 		b.cmdDosya(ctx, chatID, text)
+	case "/zamanla", "/schedule":
+		b.cmdZamanla(ctx, chatID, text)
+	case "/hareket", "/motion":
+		b.cmdHareket(ctx, chatID, text)
+	case "/dinle", "/listen":
+		b.cmdDinle(ctx, chatID, text)
 	case "/kaldir", "/uninstall":
 		b.cmdKaldir(ctx, chatID)
 	case "/aktar", "/transfer":
@@ -450,6 +468,9 @@ func (b *Bot) registerCommands(ctx context.Context) {
 		{"pano", "📋 Pano içeriği"},
 		{"panik", "🆘 Panik — kanıt topla (foto+ekran+ses+IP)"},
 		{"dosya", "📁 Dosya gez/indir (/dosya al <yol>)"},
+		{"zamanla", "⏰ Komut zamanla (/zamanla 30dk /foto)"},
+		{"hareket", "🎥 Hareket algılama (/hareket ac)"},
+		{"dinle", "🎧 Canlı dinleme (/dinle 10 · kapat)"},
 		{"cihazlar", "🛰️ Tüm cihazları listele"},
 		{"terminal", "💻 Uzak komut çalıştır"},
 		{"kilitle", "🔒 Ekranı kilitle"},

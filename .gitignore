@@ -48,3 +48,8 @@ config.toml
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# ── Kişisel notlar (repo'ya ait değil) ──
+önce buna bi bak istersen.txt
+*.note.txt
+not_*.txt

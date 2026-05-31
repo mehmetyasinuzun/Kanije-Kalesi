@@ -419,9 +419,12 @@ func FormatHelp() string {
 /seskayit — Mikrofon kaydı (örn. /seskayit 30 → 30 sn · varsayılan 30 · en çok 600)
 /pano — Panodaki metni getir
 /panik — Tek komutla kanıt topla: foto + ekran + ses + dış IP (/panik kilit → ekranı da kilitler)
+/hareket — Kamera hareket algılama (/hareket ac · kapat · esik &lt;n&gt;)
+/dinle — Canlı dinleme (/dinle 10 → 10 dk parça parça ses · /dinle kapat)
 
 <b>⚙️ Yönetim</b>
 /dosya — Dosya gez / indir (/dosya &lt;yol&gt; · /dosya al &lt;yol&gt;)
+/zamanla — Komut zamanla (/zamanla 30dk /foto · /zamanla liste · sil &lt;id&gt;)
 /terminal — Uzak komut çalıştır (/terminal whoami · cd kalıcı)
 /terminalix — Yönetici terminali
 /kilitle — Ekranı kilitle
@@ -448,9 +451,6 @@ func FormatHelp() string {
 /ekle — Kişi ekle (/ekle &lt;chat_id&gt; [isim])
 /yonetim — Eklediklerini gör/düzenle/çıkar
 /loglar — Son işlemler (kim ne yaptı)
-
-<b>🔜 Yakında (beta)</b>
-<i>⏰ zamanlama · 🎧 canlı dinleme · 🎥 hareket algılama — yol haritasında, henüz aktif değil.</i>
 
 <i>Not: Her komut yetkiye bağlıdır. Eklediğin kişiye yalnızca sendeki yetkileri verebilirsin; kişi kendi alt ağacını görür.</i>
 

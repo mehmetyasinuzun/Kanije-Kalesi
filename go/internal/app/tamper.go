@@ -2,6 +2,9 @@ package app
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"io"
 	"os"
 	"path/filepath"
 	"time"
@@ -43,9 +46,14 @@ func (a *App) tamperWatch(ctx context.Context) error {
 	a.checkRunMarker() // unclean-shutdown detection + (re)arm the marker
 
 	exePath, _ := os.Executable()
+	// Baseline the running binary's hash at boot. A later mismatch means the
+	// on-disk executable was swapped/patched while we run — code injection or a
+	// trojanized replacement. (Self-update never trips this: it exits first, then
+	// the helper swaps the file, so the new binary re-baselines on next boot.)
+	baselineHash := exeHash(exePath)
 	alerted := make(map[string]bool)
 
-	a.tamperScan(exePath, alerted) // first pass right away
+	a.tamperScan(exePath, baselineHash, alerted) // first pass right away
 
 	ticker := time.NewTicker(60 * time.Second)
 	defer ticker.Stop()
@@ -55,7 +63,7 @@ func (a *App) tamperWatch(ctx context.Context) error {
 			a.clearRunMarker()
 			return nil
 		case <-ticker.C:
-			a.tamperScan(exePath, alerted)
+			a.tamperScan(exePath, baselineHash, alerted)
 		}
 	}
 }
@@ -63,7 +71,7 @@ func (a *App) tamperWatch(ctx context.Context) error {
 // tamperScan performs one round of integrity checks. Each probe fires once, on
 // the transition into the bad state (tracked in alerted), and clears silently on
 // recovery so the owner is told both when something breaks and isn't re-spammed.
-func (a *App) tamperScan(exePath string, alerted map[string]bool) {
+func (a *App) tamperScan(exePath, baselineHash string, alerted map[string]bool) {
 	type probe struct {
 		key  string
 		bad  bool
@@ -74,6 +82,16 @@ func (a *App) tamperScan(exePath string, alerted map[string]bool) {
 	if exePath != "" {
 		probes = append(probes, probe{"exe", !fileExists(exePath),
 			"Ajan dosyası bulunamadı (silinmiş/taşınmış): " + exePath})
+
+		// Integrity: a changed hash means the binary was replaced/patched at runtime.
+		if baselineHash != "" {
+			if cur := exeHash(exePath); cur != "" && cur != baselineHash {
+				probes = append(probes, probe{"exehash", true,
+					"Ajan dosyası DEĞİŞTİRİLDİ — hash uyuşmuyor (olası kod enjeksiyonu / truva'lı kopya): " + exePath})
+			} else {
+				probes = append(probes, probe{"exehash", false, ""})
+			}
+		}
 	}
 	if cf := a.cfg.FilePath(); cf != "" {
 		probes = append(probes, probe{"config", !fileExists(cf),
@@ -147,4 +165,23 @@ func (a *App) runMarkerPath() string {
 func fileExists(path string) bool {
 	_, err := os.Stat(path)
 	return err == nil
+}
+
+// exeHash returns the SHA-256 of the file at path (hex), or "" if it can't be
+// read. Used to baseline and re-verify the agent's own binary.
+func exeHash(path string) string {
+	if path == "" {
+		return ""
+	}
+	f, err := os.Open(path)
+	if err != nil {
+		return ""
+	}
+	defer f.Close()
+
+	h := sha256.New()
+	if _, err := io.Copy(h, f); err != nil {
+		return ""
+	}
+	return hex.EncodeToString(h.Sum(nil))
 }

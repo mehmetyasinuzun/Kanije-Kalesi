@@ -28,6 +28,7 @@ type Config struct {
 	Camera     CameraConfig             `toml:"camera"     json:"camera"`
 	Audio      AudioConfig              `toml:"audio"      json:"audio"`
 	Screenshot ScreenshotConfig         `toml:"screenshot" json:"screenshot"`
+	Motion     MotionConfig             `toml:"motion"     json:"motion"`
 	Heartbeat  HeartbeatConfig          `toml:"heartbeat"  json:"heartbeat"`
 	Storage    StorageConfig            `toml:"storage"    json:"storage"`
 	Logging    LoggingConfig            `toml:"logging"     json:"logging"`
@@ -90,6 +91,15 @@ type ScreenshotConfig struct {
 	JPEGQuality int    `toml:"jpeg_quality" json:"jpeg_quality"`
 	SaveLocal   bool   `toml:"save_local"   json:"save_local"`
 	LocalPath   string `toml:"local_path"   json:"local_path"`
+}
+
+// MotionConfig controls the camera motion detector (/hareket). When enabled, the
+// agent grabs a frame every IntervalSec and raises a motion_detected event (with
+// the photo) whenever the mean pixel change exceeds Threshold.
+type MotionConfig struct {
+	Enabled     bool    `toml:"enabled"      json:"enabled"`
+	IntervalSec int     `toml:"interval_sec" json:"interval_sec"` // seconds between frames
+	Threshold   float64 `toml:"threshold"    json:"threshold"`    // mean luma diff (0-255) to trigger
 }
 
 type HeartbeatConfig struct {
@@ -255,6 +265,11 @@ func (c *Config) validate() {
 	}
 
 	c.Screenshot.JPEGQuality = clampQuality(c.Screenshot.JPEGQuality, 75)
+
+	c.Motion.IntervalSec = clampMin(c.Motion.IntervalSec, 1, 3)
+	if c.Motion.Threshold <= 0 {
+		c.Motion.Threshold = 12
+	}
 
 	c.Heartbeat.IntervalHours = clampMin(c.Heartbeat.IntervalHours, 1, 6)
 
@@ -642,6 +657,45 @@ func (c *Config) ScreenshotSaveLocal() (bool, string) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.Screenshot.SaveLocal, c.Screenshot.LocalPath
+}
+
+// MotionEnabled reports whether the camera motion detector is running.
+func (c *Config) MotionEnabled() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Motion.Enabled
+}
+
+// MotionSettings returns the frame interval and trigger threshold (with safe
+// fallbacks), for the motion-detection loop.
+func (c *Config) MotionSettings() (time.Duration, float64) {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	iv := c.Motion.IntervalSec
+	if iv < 1 {
+		iv = 3
+	}
+	th := c.Motion.Threshold
+	if th <= 0 {
+		th = 12
+	}
+	return time.Duration(iv) * time.Second, th
+}
+
+// SetMotionEnabled turns the motion detector on/off and persists the change.
+func (c *Config) SetMotionEnabled(on bool) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.Motion.Enabled = on
+	return c.persist()
+}
+
+// SetMotionThreshold updates the trigger threshold and persists the change.
+func (c *Config) SetMotionThreshold(th float64) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.Motion.Threshold = th
+	return c.persist()
 }
 
 // TOTPEnabled reports whether dangerous commands require a 2FA code.

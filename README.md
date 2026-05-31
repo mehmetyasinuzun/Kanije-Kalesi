@@ -74,11 +74,14 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 /seskayit  →  Mikrofon kaydı (/seskayit 30 → 30 sn, varsayılan 30, en çok 600)
 /pano      →  📋 Panodaki metni getir
 /panik     →  🆘 Tek komutla kanıt topla: foto+ekran+ses+dış IP (/panik kilit → ekranı da kilitler)
+/hareket   →  🎥 Kamera hareket algılama (/hareket ac · kapat · esik <n>)
+/dinle     →  🎧 Canlı dinleme (/dinle 10 → 10 dk, parça parça ses · /dinle kapat)
 /olaylar   →  Son olaylar (/olaylar <tip> veya <sayı> ile filtrele)
 /ozet      →  Son 7 günün olay özeti (tip bazlı)
 /dogrula   →  Olay günlüğü bütünlüğünü doğrula (hash-chain)
 /guncelle  →  Yeni sürümü kontrol et ve kur
 /dosya     →  📁 Dosya gez/indir (/dosya <yol> · /dosya al <yol>)
+/zamanla   →  ⏰ Komut zamanla (/zamanla 30dk /foto · liste · sil <id>)
 /kilitle   →  Ekranı kilitle
 /yeniden   →  Sistemi yeniden başlat (onay + 15 sn geri-al)
 /kapat     →  Sistemi kapat (onay + 15 sn geri-al)
@@ -123,18 +126,10 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 | 📁 **Dosya erişimi** | `/dosya` ile uzaktan dizin gez, `/dosya al <yol>` ile dosya indir (≤45 MB) |
 | 📋 **Pano & pil** | `/pano` panodaki metni getirir, `/pil` batarya durumunu (yüzde/şarj/kalan) gösterir |
 | 🗑️ **Gönder-sil** | `SaveLocal` açıkken yerel kopya Telegram'a **başarıyla** gittikten sonra diskten silinir (offline'da korunur) |
-
-<br>
-
-## 🔜 Yakında (beta — henüz yok)
-
-Bu özellikler yol haritasında; altyapı hazır ama henüz aktif değil:
-
-| Özellik | Durum |
-|---------|-------|
-| ⏰ **Zamanlama** | Periyodik/tek-sefer görev (örn. her X saatte `/foto`) — _beta_ |
-| 🎧 **Canlı dinleme** | Sürekli ses akışı (parça parça) — _beta_ |
-| 🎥 **Hareket algılama** | Kamera kare karşılaştırma → olay + foto — _beta_ |
+| ⏰ **Zamanlama** | `/zamanla 30dk /foto` — periyodik komut; restart'a dayanıklı (JSON), kaçan slotlar tek tetiklenir |
+| 🎥 **Hareket algılama** | `/hareket ac` — kamera kare farkı (luma) eşiği aşınca otomatik foto + olay |
+| 🎧 **Canlı dinleme** | `/dinle 10` — mikrofonu 20 sn'lik parçalar halinde akıtır, `/dinle kapat` durdurur |
+| 🔒 **Binary bütünlüğü** | Watchdog exe SHA-256'sını izler; runtime'da değiştirilirse (kod enjeksiyonu / truva'lı kopya) kritik alarm |
 
 <br>
 
