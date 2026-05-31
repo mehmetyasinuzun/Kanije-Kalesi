@@ -82,6 +82,7 @@ Yol gösterici ilke: alıcı çoğu yerde serbesttir, verici her yerde sorumlulu
 | 25 | Açık Kaynak Araç ve Kaynak Dizini (GitHub) | [SIGINT_25_ACIK_KAYNAK_ARAC_DIZINI_GITHUB.md](SIGINT_25_ACIK_KAYNAK_ARAC_DIZINI_GITHUB.md) |
 | 26 | Pratik Proje Rehberleri (uçtan uca, yasal lab) | [SIGINT_26_PRATIK_PROJE_REHBERLERI.md](SIGINT_26_PRATIK_PROJE_REHBERLERI.md) |
 | 27 | Anten Dizileri, Beamforming ve Massive MIMO | [SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md](SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md) |
+| 28 | İzole Laboratuvar Kılavuzu ve TX Güvenliği (uygulamalı PoC) | [SIGINT_28_IZOLE_LAB_VE_TX_GUVENLIGI.md](SIGINT_28_IZOLE_LAB_VE_TX_GUVENLIGI.md) |
 
 ---
 
