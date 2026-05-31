@@ -520,40 +520,9 @@ func (b *Bot) cmdHelp(ctx context.Context, chatID int64) {
 // registerCommands publishes the command list to Telegram so users get a "/"
 // autocomplete menu and a Menu button. Best-effort; failure is non-fatal.
 func (b *Bot) registerCommands(ctx context.Context) {
-	cmds := []BotCommand{
-		{"rehber", "📖 Kullanım rehberi — nasıl çalışır, hangi modlar açık kalsın"},
-		{"yardim", "📜 Tüm komutlar listesi"},
-		{"status", "📊 Sistem durumu (CPU/RAM/disk)"},
-		{"olaylar", "📋 Son olaylar (tip/sayı ile filtre)"},
-		{"ozet", "📈 Son 7 günün olay özeti"},
-		{"foto", "📷 Kameradan anlık fotoğraf"},
-		{"ekran", "🖥️ Ekran görüntüsü"},
-		{"seskayit", "🎤 Anlık ses kaydı (X saniye)"},
-		{"pil", "🔋 Pil durumu"},
-		{"defender", "🛡️ Defender durumu + son taramalar"},
-		{"pano", "📋 Pano içeriği"},
-		{"panik", "🆘 Panik — kanıt topla (foto+ekran+ses+IP)"},
-		{"dosya", "📁 Dosya gez/indir (/dosya al <yol>)"},
-		{"erisim", "👁️ Dosyana kim erişti (/erisim kur <yol>)"},
-		{"koruma", "🛡️ Fiziksel tehdit koruması (dead-man, USB, giriş)"},
-		{"tuzak", "🍯 Tuzak/honeypot — dokunan yakalanır"},
-		{"zamanla", "⏰ Komut zamanla (/zamanla 30dk /foto)"},
-		{"tetikkamera", "🎥 Hareket-tetikli kamera — foto serisi (/tetikkamera ac)"},
-		{"tetikses", "🔊 Otomatik — sen yokken sesi yakalar (/tetikses ac)"},
-		{"dinle", "🎧 Şimdi canlı dinle — süreli (/dinle 10 · kapat)"},
-		{"cihazlar", "🛰️ Tüm cihazları listele"},
-		{"terminal", "💻 Uzak komut çalıştır"},
-		{"kilitle", "🔒 Ekranı kilitle"},
-		{"dogrula", "🛡️ Olay günlüğü bütünlüğü"},
-		{"guncelle", "⬆️ Güncelleme kontrol/kur"},
-		{"yeniden", "🔄 Yeniden başlat (onaylı)"},
-		{"kapat", "⏻ Kapat (onaylı)"},
-		{"ekle", "➕ Kişi ekle"},
-		{"yonetim", "👥 Kişi yönetimi"},
-		{"loglar", "🧾 İşlem günlüğü"},
-		{"kurulum", "⚙️ Ayar menüsü"},
-	}
-	if err := b.client.SetMyCommands(ctx, cmds); err != nil {
+	// menuCommands() is generated from the single-source command catalog
+	// (command_catalog.go) so the "/" menu and /yardim stay in sync.
+	if err := b.client.SetMyCommands(ctx, menuCommands()); err != nil {
 		b.log.Debug("setMyCommands başarısız (önemsiz)", "err", err)
 	}
 }

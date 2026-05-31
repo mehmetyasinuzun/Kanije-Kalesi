@@ -425,71 +425,8 @@ func FormatSummary(counts []storage.TypeCount, total int64, days int) string {
 	return b.String()
 }
 
-// FormatHelp generates the /yardim command response.
-func FormatHelp() string {
-	return `🏰 <b>Kanije Kalesi — Komut Listesi</b>
-📖 <i>İlk kez mi, ya da hangi modlar açık kalsın merak mı ediyorsun? → /rehber</i>
-
-<b>📊 İzleme</b>
-/status — Sistem durumu (CPU, RAM, disk)
-/pil — Pil durumu (yüzde, şarj, kalan süre)
-/olaylar — Son olaylar (/olaylar &lt;tip&gt; veya &lt;sayı&gt; ile filtrele)
-/ozet — Son 7 günün olay özeti (tip bazlı)
-/dogrula — Olay günlüğü bütünlüğünü doğrula
-/defender — 🛡️ Microsoft Defender durumu + son taramalar + tespitler
-/ping — Bağlantı kontrolü
-
-<b>🔔 Otomatik Bildirimler</b> <i>(komut gerekmez)</i>
-Giriş/çıkış · ekran kilit/açılış · USB ve <b>her aygıt</b> (fare/klavye/telefon/ses/ağ) tak-çıkar · kurcalama — hepsi otomatik bildirilir. Hangileri açık? → /ayarlar
-
-<b>📷 Medya</b>
-/foto — Kameradan anlık fotoğraf
-/ekran — Ekran görüntüsü
-/seskayit — Mikrofon kaydı (örn. /seskayit 30 → 30 sn · varsayılan 30 · en çok 600)
-/pano — Panodaki metni getir
-/panik — Tek komutla kanıt topla: foto + ekran + ses + dış IP (/panik kilit → ekranı da kilitler)
-/tetikkamera — Hareket-tetikli kamera: hareket görülünce <b>foto serisi</b> (/tetikkamera ac · kapat · esik &lt;n&gt; · seri &lt;n&gt;)
-/tetikses — <b>Sen yokken otomatik:</b> ses gelince parça parça kaydeder, sessizlikte durur (/tetikses ac)
-/dinle — <b>Şimdi canlı dinle:</b> anlık, süreli yayın (/dinle 10 → 10 dk · /dinle kapat)
-
-<b>⚙️ Yönetim</b>
-/dosya — Dosya gez / indir (/dosya &lt;yol&gt; · /dosya al &lt;yol&gt;)
-/erisim — Dosyana kim erişti/kopyaladı (/erisim kur &lt;yol&gt; · /erisim · durdur) — yönetici gerekir
-/zamanla — Komut zamanla (/zamanla 30dk /foto · /zamanla liste · sil &lt;id&gt;)
-/terminal — Uzak komut çalıştır (/terminal whoami · cd kalıcı)
-/terminalix — Yönetici terminali
-/kilitle — Ekranı kilitle
-/yeniden — Sistemi yeniden başlat
-/kapat — Sistemi kapat
-/iptal — Bekleyen işlemi iptal et
-/guncelle — Yeni sürümü kontrol et ve kur
-
-<b>🛡️ Sahip — Geri Dönüşsüz</b>
-/kaldir — Kanije'yi izsiz kaldır (görev + dosya + eski sürümler)
-/aktar — Botu yeni sahibe devret (/aktar &lt;chat_id&gt; [token])
-/imha — Kanije verisi + Müzik klasörü içini güvenli sil (/imha ONAYLA · hedef ekle/sil) — OS silinmez
-/koruma — Fiziksel tehdit koruması: dead-man switch · USB dead-man · yanlış-giriş · RAM-only (/koruma)
-/kilit tam — Tam kilit (lockdown): ekran açılınca anında tekrar kilitlenir (/kilit tam kapat ile aç)
-/tuzak — Honeypot tuzak dosyalar: dokunan yakalanır → alarm/kilit (/tuzak kur)
-<i>Bu üçü yalnızca cihaz sahibine özeldir; çift onay + geri-alma ile korunur.</i>
-
-<b>🔧 Ayarlar</b>
-/ayarlar — Mevcut yapılandırma
-/kurulum — Etkileşimli kurulum menüsü
-
-<b>🛰️ Fleet (Çok Cihaz)</b>
-/cihazlar — Tüm cihazları listele
-<i>Grupta komut cihaz adıyla: /foto dizustu</i>
-
-<b>👥 Çok Kullanıcı</b>
-/ekle — Kişi ekle (/ekle &lt;chat_id&gt; [isim])
-/yonetim — Eklediklerini gör/düzenle/çıkar
-/loglar — Son işlemler (kim ne yaptı)
-
-<i>Not: Her komut yetkiye bağlıdır. Eklediğin kişiye yalnızca sendeki yetkileri verebilirsin; kişi kendi alt ağacını görür.</i>
-
-<i>🏰 Kanije Kalesi — Siber kale muhafızı</i>`
-}
+// FormatHelp lives in command_catalog.go — generated from the single-source
+// command catalog so /yardim and the "/" menu never drift apart.
 
 // FormatRehber renders the /rehber usage guide — what the app is, how to drive
 // it, which "always-on" modes to keep enabled, and how to turn each mode off.
