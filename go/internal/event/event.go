@@ -36,9 +36,10 @@ const (
 	TypeNetworkChanged Type = "network_changed"
 
 	// Security / anti-theft
-	TypeTamperAlert    Type = "tamper_alert"    // exe/config/task tampered with or unexpected kill
-	TypePanic          Type = "panic_triggered" // owner triggered the panic sweep
-	TypeMotionDetected Type = "motion_detected" // camera motion detector fired
+	TypeTamperAlert     Type = "tamper_alert"         // exe/config/task tampered with or unexpected kill
+	TypePanic           Type = "panic_triggered"      // owner triggered the panic sweep
+	TypeMotionDetected  Type = "motion_detected"      // camera motion detector fired
+	TypeProtectionFired Type = "protection_triggered" // a protection policy trigger fired (deadman/usb/login)
 
 	// Internal
 	TypeHeartbeat Type = "heartbeat"
@@ -200,7 +201,7 @@ func DefaultSeverity(t Type) Severity {
 		return SeverityWarning
 	case TypeNetworkDown:
 		return SeverityWarning
-	case TypeTamperAlert, TypePanic:
+	case TypeTamperAlert, TypePanic, TypeProtectionFired:
 		return SeverityCritical
 	case TypeMotionDetected:
 		return SeverityAlert
@@ -248,6 +249,8 @@ func (t Type) Label() string {
 		return "Panik Modu"
 	case TypeMotionDetected:
 		return "Hareket Algılandı"
+	case TypeProtectionFired:
+		return "Koruma Tetiklendi"
 	case TypeHeartbeat:
 		return "Sistem Nabzı"
 	default:
@@ -292,6 +295,8 @@ func (t Type) Emoji() string {
 		return "🆘"
 	case TypeMotionDetected:
 		return "🎥"
+	case TypeProtectionFired:
+		return "🛡️"
 	case TypeHeartbeat:
 		return "💓"
 	default:

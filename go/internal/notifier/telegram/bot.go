@@ -42,6 +42,9 @@ type Bot struct {
 	uninstall     func(ctx context.Context) error                               // /kaldir — clean self-removal (owner only)
 	transfer      func(ctx context.Context, newOwnerID int64, tok string) error // /aktar — hand off to a new owner
 	destroy       func(ctx context.Context) error                               // /imha — secure wipe + factory reset (owner only)
+	checkIn       func()                                                        // dead-man switch: owner is present
+	cancelWipe    func() bool                                                   // /koruma iptal — abort a pending protection wipe
+	lastCheckIn   func() time.Time                                              // last check-in time (for /koruma status)
 
 	// Dangerous-action confirm/undo flow (/kapat, /yeniden, …). The manager owns
 	// its own locking; Poll dispatches each update in its own goroutine.
@@ -80,6 +83,9 @@ type BotConfig struct {
 	Uninstall     func(ctx context.Context) error
 	Transfer      func(ctx context.Context, newOwnerID int64, tok string) error
 	Destroy       func(ctx context.Context) error
+	CheckIn       func()
+	CancelWipe    func() bool
+	LastCheckIn   func() time.Time
 }
 
 // NewBot creates a fully wired Bot.
@@ -104,6 +110,9 @@ func NewBot(cfg BotConfig) *Bot {
 		uninstall:     cfg.Uninstall,
 		transfer:      cfg.Transfer,
 		destroy:       cfg.Destroy,
+		checkIn:       cfg.CheckIn,
+		cancelWipe:    cfg.CancelWipe,
+		lastCheckIn:   cfg.LastCheckIn,
 		cmdLimiter:    newCmdRateLimiter(cfg.Config.MaxCommandsPerMinute()),
 	}
 	b.danger = newDangerManager()
@@ -237,6 +246,7 @@ var commandCaps = map[string]access.Capability{
 	"/kaldir": access.CapUninstall, "/uninstall": access.CapUninstall,
 	"/aktar": access.CapTransfer, "/transfer": access.CapTransfer,
 	"/imha": access.CapDestroy, "/destroy": access.CapDestroy,
+	"/koruma": access.CapConfig, "/protect": access.CapConfig,
 }
 
 // groupBroadcastCmds run on every device in a shared group (no device target).
@@ -256,6 +266,7 @@ var privateOnlyCmds = map[string]bool{
 	"/kaldir": true, "/uninstall": true,
 	"/aktar": true, "/transfer": true,
 	"/imha": true, "/destroy": true,
+	"/koruma": true, "/protect": true,
 }
 
 // routeGroupCommand decides whether this device should act on a group command.
@@ -288,6 +299,11 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 	if !b.isAuthorized(actorID) {
 		b.log.Warn("yetkisiz mesaj alındı", "actor_id", actorID, "chat_id", chatID, "from", m.From.Username)
 		return
+	}
+
+	// Dead-man switch: an authorized message means the owner is present.
+	if b.checkIn != nil {
+		b.checkIn()
 	}
 
 	// Per-chat command rate limit (anti-abuse). Keyed on the chat.
@@ -401,6 +417,8 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdAktar(ctx, chatID, text)
 	case "/imha", "/destroy":
 		b.cmdImha(ctx, chatID, text)
+	case "/koruma", "/protect":
+		b.cmdKoruma(ctx, chatID, text)
 	default:
 		if text != "" && isCommand(text) {
 			b.reply(ctx, chatID, "❓ <b>Bilinmeyen komut:</b> <code>"+safeHTML(cmd)+"</code>\n\n"+
@@ -476,6 +494,7 @@ func (b *Bot) registerCommands(ctx context.Context) {
 		{"panik", "🆘 Panik — kanıt topla (foto+ekran+ses+IP)"},
 		{"dosya", "📁 Dosya gez/indir (/dosya al <yol>)"},
 		{"erisim", "👁️ Dosyana kim erişti (/erisim kur <yol>)"},
+		{"koruma", "🛡️ Fiziksel tehdit koruması (dead-man, USB, giriş)"},
 		{"zamanla", "⏰ Komut zamanla (/zamanla 30dk /foto)"},
 		{"hareket", "🎥 Hareket algılama (/hareket ac)"},
 		{"dinle", "🎧 Canlı dinleme (/dinle 10 · kapat)"},

@@ -57,6 +57,18 @@ func Defaults() *Config {
 			SingleInstance:          true,
 			TamperWatch:             true,
 		},
+		Protection: ProtectionConfig{
+			Enabled:              false, // opt-in via /koruma
+			DeadManEnabled:       false,
+			DeadManHours:         72, // 3 gün
+			DeadManAction:        "lock_alert",
+			USBEnabled:           false,
+			USBAction:            "lock_alert",
+			FailedLoginEnabled:   false,
+			FailedLoginThreshold: 5,
+			FailedLoginAction:    "lock_alert",
+			RAMOnly:              false,
+		},
 		QuietHours: QuietHoursConfig{
 			Enabled:   false,
 			StartHour: 23,
@@ -143,6 +155,10 @@ func defaultTriggers() map[string]TriggerConfig {
 		},
 		"motion_detected": {
 			Enabled: true,
+		},
+		"protection_triggered": {
+			Enabled:       true,
+			CaptureCamera: true, // capture whoever triggered the protection
 		},
 	}
 }

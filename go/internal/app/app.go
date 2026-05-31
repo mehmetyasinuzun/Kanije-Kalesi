@@ -54,10 +54,14 @@ type App struct {
 	geo      *geoip.Resolver
 	webhooks *webhook.Sender
 
-	version  string
-	osName   string             // cached friendly OS name (e.g. "Windows 11")
-	cancel   context.CancelFunc // triggers graceful shutdown (used by self-update)
-	updating atomic.Bool        // true while a self-update restart is in progress
+	version      string
+	osName       string             // cached friendly OS name (e.g. "Windows 11")
+	cancel       context.CancelFunc // triggers graceful shutdown (used by self-update)
+	updating     atomic.Bool        // true while a self-update restart is in progress
+	wipePending  atomic.Bool        // true while a protection wipe is in its cancelable window
+	lastCheckIn  atomic.Int64       // unix time of the owner's last check-in (dead-man switch)
+	deadManFired atomic.Bool        // dead-man already fired this lapse (avoid re-firing)
+	failedLogins atomic.Int32       // consecutive failed logins (protection trigger)
 
 	// Metrics
 	startedAt time.Time
@@ -69,8 +73,15 @@ type App struct {
 func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 	// Note: the single-instance guard is acquired and released in main.cmdStart.
 
-	// Storage
-	store, err := storage.NewSQLite(cfg.Storage.DBPath)
+	// Storage. RAM-only mode (protection policy) keeps the DB purely in memory —
+	// nothing about events/IPs/users is ever written to disk; it's gone on power
+	// loss. Decided at boot; /koruma ramonly takes effect on next start.
+	dbPath := cfg.Storage.DBPath
+	if cfg.RAMOnly() {
+		dbPath = ":memory:"
+		log.Warn("RAM-only mod açık — olay veritabanı diske YAZILMAZ (kapanınca silinir)")
+	}
+	store, err := storage.NewSQLite(dbPath)
 	if err != nil {
 		return nil, fmt.Errorf("veritabanı açılamadı: %w", err)
 	}
@@ -187,8 +198,12 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		Transfer:      app.transfer,
 		Destroy:       app.destroy,
 		Schedule:      app.schedule,
+		CheckIn:       app.recordCheckIn,
+		CancelWipe:    app.CancelProtectionWipe,
+		LastCheckIn:   app.LastCheckIn,
 	})
 	app.bot = bot
+	app.loadCheckIn()
 
 	// Listener manager (platform-specific listeners injected by main.go)
 	app.manager = listener.NewManager(log.With("module", "listeners"))
@@ -299,6 +314,11 @@ func (a *App) Run() error {
 		return a.motionWatch(ctx)
 	})
 
+	// Dead-man switch (protection policy)
+	g.Go(func() error {
+		return a.deadManWatch(ctx)
+	})
+
 	// Optional Prometheus /metrics endpoint
 	g.Go(func() error {
 		return a.metricsServer(ctx)
@@ -347,6 +367,9 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 
 	// Track last event for /status
 	a.lastEvent.Store(&ev)
+
+	// Physical-threat protection: USB-removal / failed-login triggers.
+	a.checkProtectionTriggers(ev)
 
 	// Check if this trigger is enabled
 	trig, ok := a.cfg.GetTrigger(string(ev.Type))

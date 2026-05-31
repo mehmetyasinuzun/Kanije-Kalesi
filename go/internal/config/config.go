@@ -33,6 +33,7 @@ type Config struct {
 	Storage    StorageConfig            `toml:"storage"    json:"storage"`
 	Logging    LoggingConfig            `toml:"logging"     json:"logging"`
 	Security   SecurityConfig           `toml:"security"    json:"security"`
+	Protection ProtectionConfig         `toml:"protection"  json:"protection"`
 	Tray       TrayConfig               `toml:"tray"        json:"tray"`
 	Network    NetworkConfig            `toml:"network"     json:"network"`
 	QuietHours QuietHoursConfig         `toml:"quiet_hours" json:"quiet_hours"`
@@ -144,6 +145,29 @@ type SecurityConfig struct {
 	// TOTPSecret, when set (base32), requires a valid 2FA code for dangerous
 	// commands (/kapat, /yeniden). Empty disables 2FA.
 	TOTPSecret string `toml:"totp_secret" json:"-"`
+}
+
+// ProtectionConfig is the physical-threat protection policy. Each trigger
+// (dead-man switch, USB removal, failed logins) maps to an action chain encoded
+// as a string containing any of "lock", "alert", "wipe" (e.g. "lock_alert" =
+// lock + alert; "lock_alert_wipe" = all three). Wipe-bearing actions are opt-in.
+// Managed via /koruma. See app/protect.go for execution.
+type ProtectionConfig struct {
+	Enabled bool `toml:"enabled" json:"enabled"` // master switch
+
+	DeadManEnabled bool   `toml:"deadman_enabled" json:"deadman_enabled"`
+	DeadManHours   int    `toml:"deadman_hours"   json:"deadman_hours"` // no check-in for this long → fire
+	DeadManAction  string `toml:"deadman_action"  json:"deadman_action"`
+
+	USBEnabled bool   `toml:"usb_enabled" json:"usb_enabled"`
+	USBDevice  string `toml:"usb_device"  json:"usb_device"` // empty = any USB removal triggers
+	USBAction  string `toml:"usb_action"  json:"usb_action"`
+
+	FailedLoginEnabled   bool   `toml:"failed_login_enabled"   json:"failed_login_enabled"`
+	FailedLoginThreshold int    `toml:"failed_login_threshold" json:"failed_login_threshold"`
+	FailedLoginAction    string `toml:"failed_login_action"    json:"failed_login_action"`
+
+	RAMOnly bool `toml:"ram_only" json:"ram_only"` // keep DB in memory, never persist to disk
 }
 
 // QuietHoursConfig suppresses non-critical notifications during a daily window
@@ -277,6 +301,12 @@ func (c *Config) validate() {
 	if c.Motion.Threshold <= 0 {
 		c.Motion.Threshold = 12
 	}
+
+	c.Protection.DeadManHours = clampMin(c.Protection.DeadManHours, 1, 72)
+	c.Protection.FailedLoginThreshold = clampMin(c.Protection.FailedLoginThreshold, 1, 5)
+	c.Protection.DeadManAction = validProtectionAction(c.Protection.DeadManAction)
+	c.Protection.USBAction = validProtectionAction(c.Protection.USBAction)
+	c.Protection.FailedLoginAction = validProtectionAction(c.Protection.FailedLoginAction)
 
 	c.Heartbeat.IntervalHours = clampMin(c.Heartbeat.IntervalHours, 1, 6)
 
@@ -721,6 +751,28 @@ func (c *Config) RemoveAuditPath(path string) (bool, error) {
 	return false, nil
 }
 
+// ProtectionPolicy returns a copy of the physical-threat protection policy.
+func (c *Config) ProtectionPolicy() ProtectionConfig {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Protection
+}
+
+// SetProtection replaces the protection policy and persists it.
+func (c *Config) SetProtection(p ProtectionConfig) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.Protection = p
+	return c.persist()
+}
+
+// RAMOnly reports whether the DB should be kept in memory only (never persisted).
+func (c *Config) RAMOnly() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Protection.RAMOnly
+}
+
 // DeleteCapturesAfterSend reports whether locally-saved captures are removed
 // right after a successful send (anti-forensics; only meaningful with SaveLocal).
 func (c *Config) DeleteCapturesAfterSend() bool {
@@ -885,6 +937,17 @@ func (c *Config) IsConfigured() bool {
 func parseBool(s string) bool {
 	s = strings.ToLower(strings.TrimSpace(s))
 	return s == "true" || s == "1" || s == "evet" || s == "açık" || s == "on"
+}
+
+// validProtectionAction returns a recognized protection action chain, defaulting
+// to the safe "lock_alert" (no data loss) for unknown/empty values.
+func validProtectionAction(a string) string {
+	switch a {
+	case "lock", "alert", "lock_alert", "lock_wipe", "alert_wipe", "lock_alert_wipe", "wipe":
+		return a
+	default:
+		return "lock_alert"
+	}
 }
 
 func contains(haystack []string, needle string) bool {
