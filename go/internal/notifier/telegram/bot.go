@@ -4,11 +4,13 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"os"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/kanije-kalesi/kanije/internal/access"
+	"github.com/kanije-kalesi/kanije/internal/capture"
 	"github.com/kanije-kalesi/kanije/internal/config"
 	"github.com/kanije-kalesi/kanije/internal/event"
 	"github.com/kanije-kalesi/kanije/internal/shell"
@@ -34,6 +36,9 @@ type Bot struct {
 	captureAudio  func(ctx context.Context, seconds int) ([]byte, error)
 	getStatus     func() StatusInfo
 	checkUpdate   func(ctx context.Context) string
+	uninstall     func(ctx context.Context) error                               // /kaldir — clean self-removal (owner only)
+	transfer      func(ctx context.Context, newOwnerID int64, tok string) error // /aktar — hand off to a new owner
+	destroy       func(ctx context.Context) error                               // /imha — secure wipe + factory reset (owner only)
 
 	// Dangerous-action confirm/undo flow (/kapat, /yeniden, …). The manager owns
 	// its own locking; Poll dispatches each update in its own goroutine.
@@ -64,6 +69,9 @@ type BotConfig struct {
 	CaptureAudio  func(ctx context.Context, seconds int) ([]byte, error)
 	GetStatus     func() StatusInfo
 	CheckUpdate   func(ctx context.Context) string
+	Uninstall     func(ctx context.Context) error
+	Transfer      func(ctx context.Context, newOwnerID int64, tok string) error
+	Destroy       func(ctx context.Context) error
 }
 
 // NewBot creates a fully wired Bot.
@@ -84,6 +92,9 @@ func NewBot(cfg BotConfig) *Bot {
 		captureAudio:  cfg.CaptureAudio,
 		getStatus:     cfg.GetStatus,
 		checkUpdate:   cfg.CheckUpdate,
+		uninstall:     cfg.Uninstall,
+		transfer:      cfg.Transfer,
+		destroy:       cfg.Destroy,
 		cmdLimiter:    newCmdRateLimiter(cfg.Config.MaxCommandsPerMinute()),
 	}
 	b.danger = newDangerManager()
@@ -205,6 +216,13 @@ var commandCaps = map[string]access.Capability{
 	"/yonetim": access.CapInvite, "/kisiler": access.CapInvite,
 	"/loglar": access.CapManage, "/audit": access.CapManage,
 	"/terminal": access.CapTerminal, "/terminalix": access.CapTerminal,
+	"/pil": access.CapStatus, "/battery": access.CapStatus,
+	"/pano": access.CapFiles, "/clipboard": access.CapFiles,
+	"/dosya": access.CapFiles, "/file": access.CapFiles,
+	"/panik": access.CapPanic, "/panic": access.CapPanic,
+	"/kaldir": access.CapUninstall, "/uninstall": access.CapUninstall,
+	"/aktar": access.CapTransfer, "/transfer": access.CapTransfer,
+	"/imha": access.CapDestroy, "/destroy": access.CapDestroy,
 }
 
 // groupBroadcastCmds run on every device in a shared group (no device target).
@@ -221,6 +239,9 @@ var privateOnlyCmds = map[string]bool{
 	"/yonetim": true, "/kisiler": true,
 	"/ekle": true, "/davet": true,
 	"/loglar": true, "/audit": true,
+	"/kaldir": true, "/uninstall": true,
+	"/aktar": true, "/transfer": true,
+	"/imha": true, "/destroy": true,
 }
 
 // routeGroupCommand decides whether this device should act on a group command.
@@ -342,6 +363,20 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdTerminal(ctx, chatID, text, false)
 	case "/terminalix":
 		b.cmdTerminal(ctx, chatID, text, true)
+	case "/pil", "/battery":
+		b.cmdPil(ctx, chatID)
+	case "/pano", "/clipboard":
+		b.cmdPano(ctx, chatID)
+	case "/panik", "/panic":
+		b.cmdPanik(ctx, chatID, text)
+	case "/dosya", "/file":
+		b.cmdDosya(ctx, chatID, text)
+	case "/kaldir", "/uninstall":
+		b.cmdKaldir(ctx, chatID)
+	case "/aktar", "/transfer":
+		b.cmdAktar(ctx, chatID, text)
+	case "/imha", "/destroy":
+		b.cmdImha(ctx, chatID, text)
 	default:
 		if text != "" && isCommand(text) {
 			b.reply(ctx, chatID, "❓ <b>Bilinmeyen komut:</b> <code>"+safeHTML(cmd)+"</code>\n\n"+
@@ -411,6 +446,10 @@ func (b *Bot) registerCommands(ctx context.Context) {
 		{"foto", "📷 Kameradan anlık fotoğraf"},
 		{"ekran", "🖥️ Ekran görüntüsü"},
 		{"seskayit", "🎤 Mikrofon kaydı (saniye)"},
+		{"pil", "🔋 Pil durumu"},
+		{"pano", "📋 Pano içeriği"},
+		{"panik", "🆘 Panik — kanıt topla (foto+ekran+ses+IP)"},
+		{"dosya", "📁 Dosya gez/indir (/dosya al <yol>)"},
 		{"cihazlar", "🛰️ Tüm cihazları listele"},
 		{"terminal", "💻 Uzak komut çalıştır"},
 		{"kilitle", "🔒 Ekranı kilitle"},
@@ -502,9 +541,14 @@ func (b *Bot) cmdFoto(ctx context.Context, chatID int64) {
 		return
 	}
 
-	if err := b.client.SendPhoto(ctx, chatID, data, "📷 Anlık kamera görüntüsü"); err != nil {
-		b.reply(ctx, chatID, "❌ Fotoğraf gönderilemedi: "+safeHTML(err.Error()))
+	saveLocal, dir := b.cfg.CameraSaveLocal()
+	localPath := b.saveLocalCapture(saveLocal, dir, "foto", "jpg", data)
+
+	sendErr := b.client.SendPhoto(ctx, chatID, data, "📷 Anlık kamera görüntüsü")
+	if sendErr != nil {
+		b.reply(ctx, chatID, "❌ Fotoğraf gönderilemedi: "+safeHTML(sendErr.Error()))
 	}
+	b.maybeDeleteLocal(localPath, sendErr)
 }
 
 func (b *Bot) cmdEkran(ctx context.Context, chatID int64) {
@@ -521,8 +565,42 @@ func (b *Bot) cmdEkran(ctx context.Context, chatID int64) {
 		return
 	}
 
-	if err := b.client.SendPhoto(ctx, chatID, data, "🖥️ Anlık ekran görüntüsü"); err != nil {
-		b.reply(ctx, chatID, "❌ Ekran görüntüsü gönderilemedi: "+safeHTML(err.Error()))
+	saveLocal, dir := b.cfg.ScreenshotSaveLocal()
+	localPath := b.saveLocalCapture(saveLocal, dir, "ekran", "jpg", data)
+
+	sendErr := b.client.SendPhoto(ctx, chatID, data, "🖥️ Anlık ekran görüntüsü")
+	if sendErr != nil {
+		b.reply(ctx, chatID, "❌ Ekran görüntüsü gönderilemedi: "+safeHTML(sendErr.Error()))
+	}
+	b.maybeDeleteLocal(localPath, sendErr)
+}
+
+// saveLocalCapture writes capture bytes to disk when SaveLocal is enabled,
+// returning the path ("" if disabled or on error, which is logged). Backs the
+// SaveLocal + "delete after send" behavior for /foto and /ekran.
+func (b *Bot) saveLocalCapture(enabled bool, dir, prefix, ext string, data []byte) string {
+	if !enabled {
+		return ""
+	}
+	path, err := capture.SaveToDisk(dir, prefix, ext, data)
+	if err != nil {
+		b.log.Warn("yerel kayıt başarısız", "err", err)
+		return ""
+	}
+	return path
+}
+
+// maybeDeleteLocal removes a locally-saved capture after a SUCCESSFUL send when
+// "delete after send" is on — so nothing is left on disk, while a failed send
+// keeps the file for later retrieval.
+func (b *Bot) maybeDeleteLocal(path string, sendErr error) {
+	if path == "" || sendErr != nil {
+		return
+	}
+	if b.cfg.DeleteCapturesAfterSend() {
+		if err := os.Remove(path); err != nil {
+			b.log.Warn("yerel kayıt silinemedi", "err", err, "path", path)
+		}
 	}
 }
 

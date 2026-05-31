@@ -68,16 +68,20 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 
 ```
 /status    →  CPU, RAM, disk, çalışma süresi
+/pil       →  🔋 Pil durumu (yüzde, şarj, kalan süre)
 /foto      →  Anlık kamera fotoğrafı
 /ekran     →  Ekran görüntüsü
 /seskayit  →  Mikrofon kaydı (/seskayit 30 → 30 sn, varsayılan 30, en çok 600)
+/pano      →  📋 Panodaki metni getir
+/panik     →  🆘 Tek komutla kanıt topla: foto+ekran+ses+dış IP (/panik kilit → ekranı da kilitler)
 /olaylar   →  Son olaylar (/olaylar <tip> veya <sayı> ile filtrele)
 /ozet      →  Son 7 günün olay özeti (tip bazlı)
 /dogrula   →  Olay günlüğü bütünlüğünü doğrula (hash-chain)
 /guncelle  →  Yeni sürümü kontrol et ve kur
+/dosya     →  📁 Dosya gez/indir (/dosya <yol> · /dosya al <yol>)
 /kilitle   →  Ekranı kilitle
-/yeniden   →  Sistemi yeniden başlat (onay gerekli)
-/kapat     →  Sistemi kapat (onay gerekli)
+/yeniden   →  Sistemi yeniden başlat (onay + 15 sn geri-al)
+/kapat     →  Sistemi kapat (onay + 15 sn geri-al)
 /cihazlar  →  🛰️ Tüm cihazları listele (fleet)
 /terminal  →  💻 Uzak komut çalıştır (cd kalıcı; /terminalix yönetici)
 /ekle      →  👥 Kişi ekle (/ekle <chat_id> [isim])
@@ -85,6 +89,11 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 /loglar    →  🧾 Son işlemler (kim ne yaptı)
 /kurulum   →  ⚙️ Etkileşimli ayar menüsü
 /yardim    →  Tüm komutlar
+
+# 🛡️ Sahip — geri dönüşsüz (yalnız cihaz sahibi · çift onay + 15 sn geri-al)
+/kaldir    →  🧹 Kanije'yi izsiz kaldır (görev + dosyalar + eski sürümler)
+/aktar     →  🔁 Botu yeni sahibe devret (/aktar <chat_id> [token])
+/imha      →  💥 Veriyi güvenli sil + fabrika sıfırlama (/imha ONAYLA)
 ```
 
 <br>
@@ -106,6 +115,26 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 | 🛰️ **Fleet (çok cihaz)** | Tek grup, N cihaz: her cihaza ayrı bot, komutlar cihaz adıyla yönlenir (`/foto dizustu`), `/cihazlar` listeler |
 | 💻 **Uzak terminal** | `/terminal <komut>` etkileşimli shell (cwd kalıcı), `/terminalix` yönetici; `terminal` yetkisiyle korunur, denetlenir |
 | 📋 **Derin olay detayı (CTI)** | Her olayda ağ medium'u (WiFi/USB tethering/Bluetooth/Hücresel/VPN), SSID, iç/dış IP; `/olaylar`'da olay başına butonla tam detay |
+| 🛑 **Kurcalama alarmı** | Watchdog: exe/config/DB silinmesi, otomatik-başlatma görevinin kapatılması ve **beklenmedik kapanma** (kill/çökme) → sahibe kritik alarm + kurcalayanın fotoğrafı |
+| 🧹 **İzsiz kaldırma** | `/kaldir` — görev, dosyalar, **eski sürümler** (.new/.old), config, DB, log, captures, temp betikleri ve kendini siler |
+| 🔁 **Devretme** | `/aktar <chat_id> [token]` — botu yeni sahibe devreder, erişim ağacını sıfırlar, yeni kimlikle yeniden başlar |
+| 💥 **Uzaktan imha** | `/imha ONAYLA` — hassas veriyi (token/geçmiş) güvenli üzerine-yazıp siler + Windows fabrika sıfırlama (Find My / MDM sınıfı) |
+| 🆘 **Panik modu** | `/panik` — tek komutla foto + ekran + ses + dış IP toplar; `/panik kilit` ekranı da kilitler |
+| 📁 **Dosya erişimi** | `/dosya` ile uzaktan dizin gez, `/dosya al <yol>` ile dosya indir (≤45 MB) |
+| 📋 **Pano & pil** | `/pano` panodaki metni getirir, `/pil` batarya durumunu (yüzde/şarj/kalan) gösterir |
+| 🗑️ **Gönder-sil** | `SaveLocal` açıkken yerel kopya Telegram'a **başarıyla** gittikten sonra diskten silinir (offline'da korunur) |
+
+<br>
+
+## 🔜 Yakında (beta — henüz yok)
+
+Bu özellikler yol haritasında; altyapı hazır ama henüz aktif değil:
+
+| Özellik | Durum |
+|---------|-------|
+| ⏰ **Zamanlama** | Periyodik/tek-sefer görev (örn. her X saatte `/foto`) — _beta_ |
+| 🎧 **Canlı dinleme** | Sürekli ses akışı (parça parça) — _beta_ |
+| 🎥 **Hareket algılama** | Kamera kare karşılaştırma → olay + foto — _beta_ |
 
 <br>
 

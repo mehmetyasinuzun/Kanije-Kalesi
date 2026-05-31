@@ -50,6 +50,7 @@ func Defaults() *Config {
 			MaxCommandsPerMinute:    20,
 			DedupWindowSec:          3,
 			SingleInstance:          true,
+			TamperWatch:             true,
 		},
 		QuietHours: QuietHoursConfig{
 			Enabled:   false,
@@ -126,6 +127,16 @@ func defaultTriggers() map[string]TriggerConfig {
 			Enabled: true,
 		},
 		"network_changed": {
+			Enabled: true,
+		},
+		"tamper_alert": {
+			Enabled:       true,
+			CaptureCamera: true, // catch whoever is tampering
+		},
+		"panic_triggered": {
+			Enabled: true,
+		},
+		"motion_detected": {
 			Enabled: true,
 		},
 	}

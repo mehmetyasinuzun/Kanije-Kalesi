@@ -215,6 +215,14 @@ func (c *Client) SendAudio(ctx context.Context, chatID int64, data []byte, filen
 	return c.sendMedia(ctx, "sendAudio", "audio", filename, chatID, data, caption)
 }
 
+// SendDocument sends an arbitrary file as a Telegram document (used by /dosya al).
+func (c *Client) SendDocument(ctx context.Context, chatID int64, data []byte, filename, caption string) error {
+	if filename == "" {
+		filename = "dosya"
+	}
+	return c.sendMedia(ctx, "sendDocument", "document", filename, chatID, data, caption)
+}
+
 // AnswerCallbackQuery acknowledges a callback query (clears the button's loading state).
 func (c *Client) AnswerCallbackQuery(ctx context.Context, callbackID, text string) error {
 	params := map[string]any{

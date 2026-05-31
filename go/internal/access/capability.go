@@ -26,6 +26,19 @@ const (
 	CapInvite   Capability = "invite"   // add sub-users (/ekle)
 	CapManage   Capability = "manage"   // edit/remove sub-users (/yonetim)
 	CapTerminal Capability = "terminal" // run remote shell commands (/terminal)
+	CapFiles    Capability = "files"    // /dosya, /pano — read local files/clipboard
+	CapListen   Capability = "listen"   // canlı dinleme (continuous audio)
+	CapMotion   Capability = "motion"   // /hareket — camera motion detection
+	CapSchedule Capability = "schedule" // /zamanla — scheduled tasks
+	CapPanic    Capability = "panic"    // /panik — one-shot evidence sweep
+
+	// Owner-only powers. These ALSO carry an explicit root-only guard in the bot
+	// handlers (they are never delegated even if the capability bit is set), but
+	// they live in the catalog so the owner is auto-granted them and the audit log
+	// records them like any other command.
+	CapUninstall Capability = "uninstall" // /kaldir — clean self-removal
+	CapTransfer  Capability = "transfer"  // /aktar — hand the bot to a new owner
+	CapDestroy   Capability = "destroy"   // /imha — secure wipe + factory reset
 )
 
 // CapMeta describes a capability for UI rendering.
@@ -52,6 +65,14 @@ var AllCaps = []CapMeta{
 	{CapInvite, "Kişi ekle/düzenle", "➕"},
 	{CapManage, "Kişi çıkar", "🗑️"},
 	{CapTerminal, "Terminal (uzak komut)", "💻"},
+	{CapFiles, "Dosya/Pano", "📁"},
+	{CapListen, "Canlı dinleme", "🎧"},
+	{CapMotion, "Hareket algılama", "🎥"},
+	{CapSchedule, "Zamanlama", "⏰"},
+	{CapPanic, "Panik modu", "🆘"},
+	{CapUninstall, "Kaldırma (sahip)", "🧹"},
+	{CapTransfer, "Devretme (sahip)", "🔁"},
+	{CapDestroy, "İmha (sahip)", "💥"},
 }
 
 // capLabels indexes AllCaps by capability for O(1) lookup.

@@ -43,6 +43,7 @@ type App struct {
 	store    storage.Storage
 	bus      *event.Bus
 	bot      *telegram.Bot
+	acl      *access.Manager
 	manager  *listener.Manager
 	netMon   *network.Monitor
 	camera   *capture.Camera
@@ -129,6 +130,7 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		log:      log,
 		store:    store,
 		bus:      bus,
+		acl:      acl,
 		camera:   cam,
 		screen:   screen,
 		version:  version,
@@ -165,6 +167,9 @@ func New(cfg *config.Config, log *slog.Logger, version string) (*App, error) {
 		CaptureAudio:  audioRec.Record,
 		GetStatus:     app.collectStatus,
 		CheckUpdate:   func(ctx context.Context) string { return app.checkForUpdate(ctx, true) },
+		Uninstall:     app.uninstall,
+		Transfer:      app.transfer,
+		Destroy:       app.destroy,
 	})
 	app.bot = bot
 
@@ -262,6 +267,11 @@ func (a *App) Run() error {
 		return a.updateChecker(ctx)
 	})
 
+	// Anti-tamper watchdog (binary/config/DB/scheduled-task + unclean-shutdown)
+	g.Go(func() error {
+		return a.tamperWatch(ctx)
+	})
+
 	// Optional Prometheus /metrics endpoint
 	g.Go(func() error {
 		return a.metricsServer(ctx)
@@ -339,7 +349,9 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 		gcancel()
 	}
 
-	// Capture media if configured
+	// Capture media if configured. Locally-saved copies (SaveLocal) are collected
+	// so they can be deleted after a successful send (DeleteCapturesAfterSend).
+	var localPaths []string
 	if trig.CaptureCamera {
 		if data, err := a.camera.Capture(ctx); err == nil {
 			ev.Attachments = append(ev.Attachments, event.Attachment{
@@ -347,6 +359,11 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 				Data:    data,
 				Caption: "📷 Otomatik çekim — " + ev.Timestamp.Format("15:04:05"),
 			})
+			if save, dir := a.cfg.CameraSaveLocal(); save {
+				if p, e := capture.SaveToDisk(dir, "foto", "jpg", data); e == nil {
+					localPaths = append(localPaths, p)
+				}
+			}
 		} else {
 			a.log.Debug("kamera çekimi başarısız", "err", err)
 		}
@@ -359,6 +376,11 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 				Data:    data,
 				Caption: "🖥️ Otomatik ekran görüntüsü — " + ev.Timestamp.Format("15:04:05"),
 			})
+			if save, dir := a.cfg.ScreenshotSaveLocal(); save {
+				if p, e := capture.SaveToDisk(dir, "ekran", "jpg", data); e == nil {
+					localPaths = append(localPaths, p)
+				}
+			}
 		} else {
 			a.log.Debug("ekran görüntüsü başarısız", "err", err)
 		}
@@ -369,6 +391,7 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 	sendCtx, cancel := context.WithTimeout(ctx, 30*time.Second)
 	defer cancel()
 
+	sent := false
 	if a.cfg.IsConfigured() {
 		if err := a.bot.SendEvent(sendCtx, ev); err != nil {
 			a.log.Warn("bildirim gönderilemedi, kuyruğa alındı", "err", err)
@@ -376,11 +399,23 @@ func (a *App) handleEvent(ctx context.Context, ev event.Event) {
 			if qErr := a.store.SavePendingMessage(ctx, telegram.FormatEvent(ev)); qErr != nil {
 				a.log.Error("kuyruk yazma hatası", "err", qErr)
 			}
+		} else {
+			sent = true
 		}
 	}
 
 	if a.webhooks.Enabled() {
 		a.webhooks.Send(sendCtx, ev)
+	}
+
+	// Delete locally-saved captures only after a confirmed Telegram send, so a
+	// failed/offline send keeps the evidence on disk for later retrieval.
+	if sent && a.cfg.DeleteCapturesAfterSend() {
+		for _, p := range localPaths {
+			if err := os.Remove(p); err != nil {
+				a.log.Warn("yerel kayıt silinemedi", "err", err, "path", p)
+			}
+		}
 	}
 }
 

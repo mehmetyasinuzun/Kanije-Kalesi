@@ -7,6 +7,7 @@ import (
 
 	"github.com/kanije-kalesi/kanije/internal/event"
 	"github.com/kanije-kalesi/kanije/internal/storage"
+	"github.com/kanije-kalesi/kanije/internal/sysinfo"
 )
 
 // version is the application version shown in message footers. It is set once
@@ -406,6 +407,7 @@ func FormatHelp() string {
 
 <b>📊 İzleme</b>
 /status — Sistem durumu (CPU, RAM, disk)
+/pil — Pil durumu (yüzde, şarj, kalan süre)
 /olaylar — Son olaylar (/olaylar &lt;tip&gt; veya &lt;sayı&gt; ile filtrele)
 /ozet — Son 7 günün olay özeti (tip bazlı)
 /dogrula — Olay günlüğü bütünlüğünü doğrula
@@ -415,8 +417,11 @@ func FormatHelp() string {
 /foto — Kameradan anlık fotoğraf
 /ekran — Ekran görüntüsü
 /seskayit — Mikrofon kaydı (örn. /seskayit 30 → 30 sn · varsayılan 30 · en çok 600)
+/pano — Panodaki metni getir
+/panik — Tek komutla kanıt topla: foto + ekran + ses + dış IP (/panik kilit → ekranı da kilitler)
 
 <b>⚙️ Yönetim</b>
+/dosya — Dosya gez / indir (/dosya &lt;yol&gt; · /dosya al &lt;yol&gt;)
 /terminal — Uzak komut çalıştır (/terminal whoami · cd kalıcı)
 /terminalix — Yönetici terminali
 /kilitle — Ekranı kilitle
@@ -424,6 +429,12 @@ func FormatHelp() string {
 /kapat — Sistemi kapat
 /iptal — Bekleyen işlemi iptal et
 /guncelle — Yeni sürümü kontrol et ve kur
+
+<b>🛡️ Sahip — Geri Dönüşsüz</b>
+/kaldir — Kanije'yi izsiz kaldır (görev + dosya + eski sürümler)
+/aktar — Botu yeni sahibe devret (/aktar &lt;chat_id&gt; [token])
+/imha — Veriyi güvenli sil + fabrika sıfırlama (/imha ONAYLA)
+<i>Bu üçü yalnızca cihaz sahibine özeldir; çift onay + geri-alma ile korunur.</i>
 
 <b>🔧 Ayarlar</b>
 /ayarlar — Mevcut yapılandırma
@@ -438,9 +449,58 @@ func FormatHelp() string {
 /yonetim — Eklediklerini gör/düzenle/çıkar
 /loglar — Son işlemler (kim ne yaptı)
 
+<b>🔜 Yakında (beta)</b>
+<i>⏰ zamanlama · 🎧 canlı dinleme · 🎥 hareket algılama — yol haritasında, henüz aktif değil.</i>
+
 <i>Not: Her komut yetkiye bağlıdır. Eklediğin kişiye yalnızca sendeki yetkileri verebilirsin; kişi kendi alt ağacını görür.</i>
 
 <i>🏰 Kanije Kalesi — Siber kale muhafızı</i>`
+}
+
+// FormatBattery renders the /pil battery snapshot.
+func FormatBattery(b sysinfo.Battery) string {
+	var sb strings.Builder
+	sb.WriteString("🔋 <b>Pil Durumu</b>\n\n")
+
+	if !b.Present {
+		sb.WriteString("Bu cihazda pil algılanmadı (masaüstü olabilir).\n")
+		if b.OnAC {
+			sb.WriteString("🔌 AC güç bağlı.\n")
+		}
+		return sb.String()
+	}
+
+	if b.Percent >= 0 {
+		sb.WriteString(fmt.Sprintf("%s <b>%%%d</b>\n", batteryEmoji(b.Percent), b.Percent))
+	}
+	switch {
+	case b.Charging:
+		sb.WriteString("⚡ Şarj oluyor\n")
+	case b.OnAC:
+		sb.WriteString("🔌 Fişe takılı\n")
+	default:
+		sb.WriteString("🔋 Pilden çalışıyor\n")
+	}
+	if b.Remaining > 0 {
+		sb.WriteString("⏳ Tahmini kalan: <b>")
+		sb.WriteString(formatDuration(b.Remaining))
+		sb.WriteString("</b>\n")
+	}
+	return sb.String()
+}
+
+// batteryEmoji picks a color by charge level.
+func batteryEmoji(pct int) string {
+	switch {
+	case pct >= 80:
+		return "🟢"
+	case pct >= 40:
+		return "🟡"
+	case pct >= 15:
+		return "🟠"
+	default:
+		return "🔴"
+	}
 }
 
 // FormatDeviceCard renders this device's identity line for /cihazlar. In a fleet

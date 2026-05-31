@@ -408,6 +408,36 @@ func (m *Manager) Remove(ctx context.Context, remover, target int64, mode Repare
 	return nil
 }
 
+// TransferRoot hands the whole device to a new owner: it wipes the entire
+// delegation tree (the old owner and every sub-user lose access) and re-seeds a
+// single new root holding all capabilities. Used by /aktar. Idempotent if
+// newRootID is already the sole root.
+func (m *Manager) TransferRoot(ctx context.Context, newRootID int64) error {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+
+	if newRootID == 0 {
+		return fmt.Errorf("geçersiz yeni sahip ID")
+	}
+
+	// Remove every existing user from storage, then reset in-memory state.
+	for id := range m.users {
+		if err := m.store.DeleteUser(ctx, id); err != nil {
+			return fmt.Errorf("eski erişim ağacı silinemedi: %w", err)
+		}
+	}
+	m.users = make(map[int64]*User)
+
+	root := &User{ChatID: newRootID, Name: "Sahip", InvitedBy: 0, Caps: AllCapabilities(), AddedAt: time.Now().UTC()}
+	m.users[newRootID] = root
+	m.rootID = newRootID
+	if err := m.store.SaveUser(ctx, *root); err != nil {
+		return fmt.Errorf("yeni sahip kaydedilemedi: %w", err)
+	}
+	m.auditLocked(ctx, newRootID, "aktar", fmt.Sprintf("yeni sahip %d", newRootID))
+	return nil
+}
+
 // HasChildren reports whether target has any direct children (used by the UI to
 // decide whether to ask about re-parenting on removal).
 func (m *Manager) HasChildren(target int64) bool {

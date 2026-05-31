@@ -120,6 +120,10 @@ type SecurityConfig struct {
 	MaxCommandsPerMinute    int  `toml:"max_commands_per_minute"    json:"max_commands_per_minute"`
 	DedupWindowSec          int  `toml:"dedup_window_sec"           json:"dedup_window_sec"`
 	SingleInstance          bool `toml:"single_instance"            json:"single_instance"`
+	// TamperWatch, when true, periodically verifies the agent's own binary,
+	// config and DB are present and (Windows) its scheduled task is still enabled,
+	// and detects an unclean previous shutdown — alerting the owner on tampering.
+	TamperWatch bool `toml:"tamper_watch" json:"tamper_watch"`
 	// TOTPSecret, when set (base32), requires a valid 2FA code for dangerous
 	// commands (/kapat, /yeniden). Empty disables 2FA.
 	TOTPSecret string `toml:"totp_secret" json:"-"`
@@ -607,6 +611,37 @@ func (c *Config) TOTPSecret() string {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	return c.Security.TOTPSecret
+}
+
+// TamperWatchEnabled reports whether the anti-tamper watchdog is active.
+func (c *Config) TamperWatchEnabled() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Security.TamperWatch
+}
+
+// DeleteCapturesAfterSend reports whether locally-saved captures are removed
+// right after a successful send (anti-forensics; only meaningful with SaveLocal).
+func (c *Config) DeleteCapturesAfterSend() bool {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Security.DeleteCapturesAfterSend
+}
+
+// CameraSaveLocal reports whether camera photos are also written to disk, and to
+// which directory.
+func (c *Config) CameraSaveLocal() (bool, string) {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Camera.SaveLocal, c.Camera.LocalPath
+}
+
+// ScreenshotSaveLocal reports whether screenshots are also written to disk, and
+// to which directory.
+func (c *Config) ScreenshotSaveLocal() (bool, string) {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.Screenshot.SaveLocal, c.Screenshot.LocalPath
 }
 
 // TOTPEnabled reports whether dangerous commands require a 2FA code.

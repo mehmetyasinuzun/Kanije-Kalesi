@@ -27,6 +27,16 @@ env/
 app/captures/
 *.tmp
 
+# ── Go (build çıktıları + runtime) ──
+*.exe
+go/kanije.exe
+go/captures/
+kanije.db
+kanije.db-*
+kanije.run
+version.txt
+config.toml
+
 # ── IDE ──
 .vscode/
 .idea/
