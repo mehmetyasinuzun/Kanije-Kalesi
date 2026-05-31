@@ -132,7 +132,9 @@ func defaultTriggers() map[string]TriggerConfig {
 			Enabled: true,
 		},
 		"usb_inserted": {
-			Enabled: true,
+			Enabled:           true,
+			CaptureCamera:     true, // kim taktı
+			CaptureScreenshot: true, // o an ekranda ne vardı
 		},
 		"usb_removed": {
 			Enabled: true,

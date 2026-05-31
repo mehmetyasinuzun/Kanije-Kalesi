@@ -102,6 +102,11 @@ func FormatEvent(ev event.Event) string {
 		if ev.DeviceSize > 0 {
 			b.WriteString("📦 Boyut: ")
 			b.WriteString(formatBytes(ev.DeviceSize))
+			if ev.DeviceFree > 0 && ev.DeviceFree <= ev.DeviceSize {
+				used := ev.DeviceSize - ev.DeviceFree
+				b.WriteString(fmt.Sprintf(" · %s dolu (%%%.0f)", formatBytes(used),
+					float64(used)/float64(ev.DeviceSize)*100))
+			}
 			b.WriteString("\n")
 		}
 
@@ -357,6 +362,11 @@ func FormatEventDetail(ev event.Event) string {
 	row("🏷️ Etiket", ev.DeviceLabel)
 	if ev.DeviceSize > 0 {
 		row("📦 Boyut", formatBytes(ev.DeviceSize))
+		if ev.DeviceFree > 0 && ev.DeviceFree <= ev.DeviceSize {
+			used := ev.DeviceSize - ev.DeviceFree
+			row("💾 Kullanılan", fmt.Sprintf("%s / %s (%%%.0f)", formatBytes(used), formatBytes(ev.DeviceSize),
+				float64(used)/float64(ev.DeviceSize)*100))
+		}
 	}
 	row("🗂️ Dosya sistemi", ev.DeviceFS)
 	codeRow("📂 Yol", ev.DevicePath)

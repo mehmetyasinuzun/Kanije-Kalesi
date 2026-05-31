@@ -172,7 +172,7 @@ func (m *USBMonitor) handleDeviceChange(wParam uintptr, lParam unsafe.Pointer, b
 		ev.DeviceLabel = getDriveLabel(driveLetter)
 		ev.DeviceName = ev.DeviceLabel
 		ev.DeviceFS = getDriveFS(driveLetter)
-		ev.DeviceSize = getDriveSize(driveLetter)
+		ev.DeviceSize, ev.DeviceFree = getDriveUsage(driveLetter)
 		m.log.Info("USB takıldı", "sürücü", driveLetter, "etiket", ev.DeviceLabel)
 		bus.Publish(ev)
 
@@ -227,15 +227,16 @@ func getDriveFS(letter string) string {
 	return windows.UTF16ToString(fsBuf)
 }
 
-func getDriveSize(letter string) int64 {
+// getDriveUsage returns the total and free bytes of a drive (for "how full is
+// this USB" analysis — metadata only, never file contents).
+func getDriveUsage(letter string) (total, free int64) {
 	path := letter + `:\`
 	var freeBytes, totalBytes, totalFree uint64
 	p, _ := windows.UTF16PtrFromString(path)
-	err := windows.GetDiskFreeSpaceEx(p, &freeBytes, &totalBytes, &totalFree)
-	if err != nil {
-		return 0
+	if err := windows.GetDiskFreeSpaceEx(p, &freeBytes, &totalBytes, &totalFree); err != nil {
+		return 0, 0
 	}
-	return int64(totalBytes)
+	return int64(totalBytes), int64(freeBytes)
 }
 
 // createMessageWindow creates a hidden TOP-LEVEL window. It must be top-level

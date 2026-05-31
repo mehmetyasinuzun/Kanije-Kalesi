@@ -174,7 +174,8 @@ type Event struct {
 	// USB context
 	DeviceName  string `json:"device_name,omitempty"`
 	DeviceLabel string `json:"device_label,omitempty"`
-	DeviceSize  int64  `json:"device_size,omitempty"` // bytes
+	DeviceSize  int64  `json:"device_size,omitempty"` // total bytes
+	DeviceFree  int64  `json:"device_free,omitempty"` // free bytes (fullness analysis)
 	DeviceFS    string `json:"device_fs,omitempty"`   // NTFS, FAT32, exFAT…
 	DevicePath  string `json:"device_path,omitempty"` // D:\
 
