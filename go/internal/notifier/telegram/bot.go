@@ -425,8 +425,12 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdTuzak(ctx, chatID, text)
 	default:
 		if text != "" && isCommand(text) {
-			b.reply(ctx, chatID, "❓ <b>Bilinmeyen komut:</b> <code>"+safeHTML(cmd)+"</code>\n\n"+
-				"Tüm komutlar için /yardim yaz. İpucu: giriş kutusuna <b>/</b> yazınca menü açılır.")
+			msg := "❓ <b>Bilinmeyen komut:</b> <code>" + safeHTML(cmd) + "</code>\n\n"
+			if sug := suggestCommand(cmd); sug != "" {
+				msg += "👉 Şunu mu demek istediniz: " + sug + "\n\n"
+			}
+			msg += "Tüm komutlar için /yardim yaz. İpucu: giriş kutusuna <b>/</b> yazınca menü açılır."
+			b.reply(ctx, chatID, msg)
 		}
 	}
 }

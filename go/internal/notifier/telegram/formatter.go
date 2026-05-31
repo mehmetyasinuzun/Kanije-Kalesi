@@ -438,6 +438,9 @@ func FormatHelp() string {
 /defender — 🛡️ Microsoft Defender durumu + son taramalar + tespitler
 /ping — Bağlantı kontrolü
 
+<b>🔔 Otomatik Bildirimler</b> <i>(komut gerekmez)</i>
+Giriş/çıkış · ekran kilit/açılış · USB ve <b>her aygıt</b> (fare/klavye/telefon/ses/ağ) tak-çıkar · kurcalama — hepsi otomatik bildirilir. Hangileri açık? → /ayarlar
+
 <b>📷 Medya</b>
 /foto — Kameradan anlık fotoğraf
 /ekran — Ekran görüntüsü
