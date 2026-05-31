@@ -1,7 +1,7 @@
 # Sinyal İstihbaratı (SIGINT) El Kitabı
 ## Sıfırdan Uzmana — RF Fiziğinden Yapay Zekaya, Tam Kapsamlı Başvuru Kaynağı
 
-Bu bir başvuru kitabıdır; bir komut listesi değildir. Amacı okuyucuyu bir operatör ya da scriptçi yapmak değil, o cihazı kuracak, o sinyali çözecek ve o tehdidi savunacak mühendislik altyapısını ve sezgisini kazandırmaktır. Hiç radyo bilmeyen biri buradan başlayıp ilerleyebilir; konuyu derinlemesine bilen biri ise her bölümde ileri seviye derinlik bulur. Yirmi üç bölüm, RF fiziğinin temelinden modern yapay zeka tabanlı sinyal istihbaratına ve geleceğin dalga formlarına kadar uzanır.
+Bu bir başvuru kitabıdır; bir komut listesi değildir. Amacı okuyucuyu bir operatör ya da scriptçi yapmak değil, o cihazı kuracak, o sinyali çözecek ve o tehdidi savunacak mühendislik altyapısını ve sezgisini kazandırmaktır. Hiç radyo bilmeyen biri buradan başlayıp ilerleyebilir; konuyu derinlemesine bilen biri ise her bölümde ileri seviye derinlik bulur. Otuz iki bölüm, RF fiziğinin temelinden modern yapay zeka tabanlı sinyal istihbaratına, radyo astronomiden mega-konstelasyonlara kadar uzanır.
 
 Bu el kitabı, Kanije Kalesi güvenlik dokümantasyon kütüphanesinin radyo/fiziksel katman ayağıdır. Diğer rehberler (VeraCrypt, Tails, MITRE ATT&CK, Wireshark, OSINT, Malware Analizi vb.) veri ve ağ katmanını ele alır; bu kitap tüm haberleşmenin altında yatan elektromanyetik gerçekliği inceler.
 
@@ -33,7 +33,7 @@ Yol gösterici ilke: alıcı çoğu yerde serbesttir, verici her yerde sorumlulu
 
 ---
 
-## Kitabın Yapısı — 23 Bölüm
+## Kitabın Yapısı — 32 Bölüm
 
 ### Temel Katman
 
@@ -83,6 +83,15 @@ Yol gösterici ilke: alıcı çoğu yerde serbesttir, verici her yerde sorumlulu
 | 26 | Pratik Proje Rehberleri (uçtan uca, yasal lab) | [SIGINT_26_PRATIK_PROJE_REHBERLERI.md](SIGINT_26_PRATIK_PROJE_REHBERLERI.md) |
 | 27 | Anten Dizileri, Beamforming ve Massive MIMO | [SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md](SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md) |
 | 28 | İzole Laboratuvar Kılavuzu ve TX Güvenliği (uygulamalı PoC) | [SIGINT_28_IZOLE_LAB_VE_TX_GUVENLIGI.md](SIGINT_28_IZOLE_LAB_VE_TX_GUVENLIGI.md) |
+
+### Uygulama Alanları ve Sektörel Derinlik
+
+| # | Bölüm | Dosya |
+|---|---|---|
+| 29 | Radyo Astronomi | [SIGINT_29_RADYO_ASTRONOMI.md](SIGINT_29_RADYO_ASTRONOMI.md) |
+| 30 | Otomotiv-İçi Ağlar ve Anahtarsız Sistemler (CAN, keyless) | [SIGINT_30_OTOMOTIV_AGLARI_VE_KEYLESS.md](SIGINT_30_OTOMOTIV_AGLARI_VE_KEYLESS.md) |
+| 31 | SCADA, Endüstriyel Kontrol Sistemleri ve Telemetri RF'i | [SIGINT_31_SCADA_ENDUSTRIYEL_RF.md](SIGINT_31_SCADA_ENDUSTRIYEL_RF.md) |
+| 32 | Uydu-IoT ve Mega-Konstelasyonlar (Starlink, Iridium) | [SIGINT_32_UYDU_IOT_VE_MEGA_KONSTELASYON.md](SIGINT_32_UYDU_IOT_VE_MEGA_KONSTELASYON.md) |
 
 ---
 
