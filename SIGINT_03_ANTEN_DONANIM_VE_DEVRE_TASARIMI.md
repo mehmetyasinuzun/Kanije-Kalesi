@@ -1,9 +1,9 @@
-# 📶 SIGINT EL KİTABI — BÖLÜM 3
+# SIGINT EL KİTABI — BÖLÜM 3
 ## Antenler, RF Donanımı ve Devre Tasarımı — Sinyali Yakalamak ve Güçlendirmek
 
 > **Bu bölüm neyi öğretir:** Bir önceki bölümde "sinyal nedir, SDR neyi nasıl örnekler" konusunu işledik. Şimdi **zincirin en başına** iniyoruz: antene. Çünkü dünyanın en pahalı alıcısı bile, ucundaki anten kötüyse **sağır**dır. Bu bölüm seni "rastgele tel takan" seviyesinden çıkarıp, **neden o boyda, neden o empedansta, neden o filtre** sorularını cevaplayan; gerektiğinde **kendi antenini ve hatta kendi RF kartını tasarlayacak** zihinsel modele taşır. Sonunda "insanlar bu bilgiyi nereden biliyor?" sorusunun da somut cevabını vereceğiz: kaynaklar, datasheet'ler, topluluk.
 
-> ⚖️ **EN BAŞTA NET YASAL SINIR — ATLAMA:**
+> **EN BAŞTA NET YASAL SINIR — ATLAMA:**
 > Bu bölümün büyük kısmı **alıcı (RX) taraftır**: anten yapmak, dinlemek, LNA ile zayıf sinyali yükseltmek, filtre eklemek **çoğu yerde serbesttir** ve bu el kitabının ruhu budur — *gözlemlemek, anlamak*.
 > **Verici (TX) taraf bambaşkadır.** "Sinyalin watt'ını güçlendirmek", yani **yayın yapmak / güç yükseltmek**, neredeyse her ülkede **lisans gerektirir**. Yetkisiz veya yüksek güçle yayın:
 > - **Suçtur** (telsiz/telekomünikasyon kanunları; Türkiye'de BTK düzenler),
@@ -15,27 +15,27 @@
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [Neden Anten Her Şeyin Başıdır](#1)
 2. [Anten Temel Teorisi — Rezonans, Boy, Empedans](#2)
 3. [VSWR, Kazanç, Işıma Deseni, Polarizasyon](#3)
 4. [Anten Türleri — Hangisi, Ne Zaman, Nasıl Çalışır](#4)
-5. [🔥 LNA — Düşük Gürültülü Yükselteç ve Friis Gürültü Formülü](#5)
+5. [ LNA — Düşük Gürültülü Yükselteç ve Friis Gürültü Formülü](#5)
 6. [Filtreler — Bant-Dışı Gürültüyü Kesmek](#6)
 7. [Koaksiyel Kablo ve Konnektörler](#7)
 8. [Empedans Eşleme, Balun/Unun, Ölçüm (NanoVNA)](#8)
 9. [Upconverter / Downconverter — Bandı Taşımak](#9)
-10. [🔥 GÜÇ ve WATT — TX, PA, EIRP'nin Mantığı (Sınırla)](#10)
-11. [🔥 GENİŞLETME MODÜLLERİ ve KENDİ PCB'Nİ ÇİZMEK](#11)
+10. [ GÜÇ ve WATT — TX, PA, EIRP'nin Mantığı (Sınırla)](#10)
+11. [ GENİŞLETME MODÜLLERİ ve KENDİ PCB'Nİ ÇİZMEK](#11)
 12. ["Nereden Biliyorlar?" — Bilginin Gerçek Kaynakları](#12)
-13. [🧪 Alıştırmalar (Yasal, Ev Şartlarında)](#13)
+13. [ Alıştırmalar (Yasal, Ev Şartlarında)](#13)
 14. [Özet, Kontrol Listesi ve Çapraz Referans](#14)
 
 ---
 
 <a id="1"></a>
-## 1. 🧭 Neden Anten Her Şeyin Başıdır
+## 1.  Neden Anten Her Şeyin Başıdır
 
 Bir SIGINT (sinyal istihbaratı / sinyal gözlemi) zinciri kabaca şöyledir:
 
@@ -49,7 +49,7 @@ Bir SIGINT (sinyal istihbaratı / sinyal gözlemi) zinciri kabaca şöyledir:
 
 Bu zincirde değiştirilmesi en ucuz ama etkisi en büyük halka **antendir**. Sebep basit ve acımasız bir doğa kanunu: **kaybettiğin sinyali sonradan geri kazanamazsın.** Antende yakalayamadığın enerjiyi, sonraki hiçbir yükselteç "yaratamaz" — yükselteç sadece *zaten var olanı* (sinyal + gürültü) birlikte büyütür. Bu yüzden:
 
-> 🧠 **Altın kural:** Önce anten + konum, sonra düşük gürültülü ön-uç (LNA + filtre), **en son** yazılım. Çoğu yeni başlayan tersini yapar; pahalı SDR alır, ucuna 10 cm'lik fabrika çubuğu takar ve "sinyal zayıf" diye şikâyet eder. Asıl sorun **antende ve konumdadır** (yükseklik, engel, parazit kaynaklarından uzaklık).
+> **Altın kural:** Önce anten + konum, sonra düşük gürültülü ön-uç (LNA + filtre), **en son** yazılım. Çoğu yeni başlayan tersini yapar; pahalı SDR alır, ucuna 10 cm'lik fabrika çubuğu takar ve "sinyal zayıf" diye şikâyet eder. Asıl sorun **antende ve konumdadır** (yükseklik, engel, parazit kaynaklarından uzaklık).
 
 İki kavramı baştan ayıralım:
 - **Kazanç (gain):** Antenin/devrenin sinyali *yönlendirme veya yükseltme* yeteneği. Pasif antende kazanç, enerjiyi bir yöne **toplamaktan** gelir (yoktan üretmez). Aktif devrede (LNA) gerçek elektriksel yükseltmedir.
@@ -60,7 +60,7 @@ Bütün bu bölüm aslında tek bir cümlenin açılımıdır: **"Doğru frekans
 ---
 
 <a id="2"></a>
-## 2. 📐 Anten Temel Teorisi — Rezonans, Boy, Empedans
+## 2.  Anten Temel Teorisi — Rezonans, Boy, Empedans
 
 ### 2.1 Neden boy dalga boyuna bağlı? (Rezonans)
 
@@ -78,7 +78,7 @@ Rezonans, iletken boyu **dalga boyunun** (λ, lambda) anlamlı bir kesriyle (λ/
 
 Örnek: 100 MHz (FM bandı ortası) → λ ≈ 300/100 = **3 metre**. 433 MHz → λ ≈ 0,69 m = 69 cm. 1090 MHz (uçak ADS-B) → λ ≈ 0,275 m = 27,5 cm.
 
-### 2.2 Anten boyu pratik formülleri (🔥 doğru ezberle)
+### 2.2 Anten boyu pratik formülleri ( doğru ezberle)
 
 Teorik λ/2 ile **gerçekte kesilen tel** arasında küçük bir fark vardır. İletkenin çapı ve uç etkileri (end effect) yüzünden gerçek rezonans boyu, serbest uzaydaki λ/2'den **biraz kısadır** (tipik **velocity/kısalma faktörü ≈ 0,95**). Pratikte amatör dünyada şu formüller kullanılır:
 
@@ -100,7 +100,7 @@ L(çeyrek dalga) ≈ ──────      ( = yarım dalga / 2 )
                  f(MHz)
 ```
 
-> ⚠️ **Teyit et:** `143/f` ve `468/f` yaygın *pratik* dipol formülleridir (end-effect dahil, ~0,95 faktörü). Saf teorik serbest-uzay yarım dalgası `150/f`'dir (`= (300/f)/2`). Kalın iletken, yalıtım veya yakın metal varsa gerçek boy değişir; bu yüzden son ayarı **NanoVNA ile rezonansı ölçüp tel ucundan kırparak** yaparsın (bkz. §8). Formül başlangıç noktasıdır, kutsal değil.
+> **Teyit et:** `143/f` ve `468/f` yaygın *pratik* dipol formülleridir (end-effect dahil, ~0,95 faktörü). Saf teorik serbest-uzay yarım dalgası `150/f`'dir (`= (300/f)/2`). Kalın iletken, yalıtım veya yakın metal varsa gerçek boy değişir; bu yüzden son ayarı **NanoVNA ile rezonansı ölçüp tel ucundan kırparak** yaparsın (bkz. §8). Formül başlangıç noktasıdır, kutsal değil.
 
 **Türetme (neden bunlar?):**
 - Serbest uzayda yarım dalga: `λ/2 = (300/f)/2 = 150/f` metre.
@@ -119,7 +119,7 @@ L(çeyrek dalga) ≈ ──────      ( = yarım dalga / 2 )
 | 1090 MHz | ~0,275 m | ~13 cm | ~6,5 cm | ADS-B uçak (RX) |
 | 1575 MHz | ~0,19 m | ~9,5 cm | ~4,8 cm | GPS L1 (RX) |
 
-> 🔥 **Püf:** ADS-B (1090 MHz) için "tam boy" çeyrek dalga sadece **6,5 cm**'dir. Bir SMA konnektöre 6,5 cm bakır tel lehimleyip altına dört adet ~6,9 cm "radyal" eklersen, ev yapımı ground-plane anten **mağaza antenini sollar**. Maliyet: bir kahve parasından az. İşte SIGINT donanımının güzelliği bu — **bilgi, paradan değerlidir**.
+> **Püf:** ADS-B (1090 MHz) için "tam boy" çeyrek dalga sadece **6,5 cm**'dir. Bir SMA konnektöre 6,5 cm bakır tel lehimleyip altına dört adet ~6,9 cm "radyal" eklersen, ev yapımı ground-plane anten **mağaza antenini sollar**. Maliyet: bir kahve parasından az. İşte SIGINT donanımının güzelliği bu — **bilgi, paradan değerlidir**.
 
 ### 2.3 Empedans — neden 50 Ω?
 
@@ -133,12 +133,12 @@ Neden tam 50? Tarihsel ve fiziksel bir dengedir (koaksiyel kabloda):
 - İkisinin **geometrik ortalaması** (√(77×30) ≈ 48) ≈ **50 Ω** → hem makul kayıp hem makul güç. Pratik bir altın orta.
 - (Yayın/TV dünyasında **75 Ω** standardı vardır — düşük kayıp önceliği. Bu yüzden TV anten kablosu 75 Ω; RTL-SDR'ların çoğu 50 Ω ama bazıları 75 Ω F-konnektörlüdür. **Karıştırma**, küçük uyumsuzluk küçük kayıp demek.)
 
-> 🧠 **Sezgi:** 50 Ω "kutsal" değil, **anlaşılmış ortak dil**. Herkes 50 Ω yaparsa anten, kablo, LNA, SDR sorunsuz birbirine takılır. Empedans uyumsuzluğu → güç geri yansır → kayıp + dalgalanma (bir sonraki başlık: VSWR).
+> **Sezgi:** 50 Ω "kutsal" değil, **anlaşılmış ortak dil**. Herkes 50 Ω yaparsa anten, kablo, LNA, SDR sorunsuz birbirine takılır. Empedans uyumsuzluğu → güç geri yansır → kayıp + dalgalanma (bir sonraki başlık: VSWR).
 
 ---
 
 <a id="3"></a>
-## 3. 📊 VSWR, Kazanç, Işıma Deseni, Polarizasyon
+## 3.  VSWR, Kazanç, Işıma Deseni, Polarizasyon
 
 ### 3.1 VSWR / SWR — uyumun karnesi
 
@@ -165,7 +165,7 @@ Geri dönen güç oranı = |Γ|²    (örn. |Γ|=0,2 → %4 güç yansır)
 | 3,0:1 | 0,50 | %25 | Kötü — ciddi kayıp, TX'te tehlikeli |
 | ∞ (açık/kısa) | 1,0 | %100 | Tüm güç geri (anten yok/kopuk) |
 
-> 🔥 **Neden 1,5:1 altı "iyi"?** 1,5'te yalnızca **~%4** güç yansır (RX için ihmal edilebilir). RX'te VSWR'a *aşırı* takılma — birkaç dB'lik uyumsuzluk gürültü tabanının altında kalabilir. Ama **TX'te VSWR ölümcüldür:** yansıyan güç PA'ya geri döner, ısı + gerilim tepeleri oluşturur, **PA'yı yakar.** İşte TX'in RX'ten neden çok daha hassas/tehlikeli olduğunun bir nedeni daha.
+> **Neden 1,5:1 altı "iyi"?** 1,5'te yalnızca **~%4** güç yansır (RX için ihmal edilebilir). RX'te VSWR'a *aşırı* takılma — birkaç dB'lik uyumsuzluk gürültü tabanının altında kalabilir. Ama **TX'te VSWR ölümcüldür:** yansıyan güç PA'ya geri döner, ısı + gerilim tepeleri oluşturur, **PA'yı yakar.** İşte TX'in RX'ten neden çok daha hassas/tehlikeli olduğunun bir nedeni daha.
 
 ### 3.2 Anten kazancı — dBi, dBd
 
@@ -174,7 +174,7 @@ Geri dönen güç oranı = |Γ|²    (örn. |Γ|=0,2 → %4 güç yansır)
 - **dBi:** İzotropik (her yöne eşit saçan ideal nokta) kaynağa göre kazanç. Referans budur.
 - **dBd:** Yarım dalga dipole göre kazanç. Dönüşüm: **dBi = dBd + 2,15.** (Dipolün izotropa göre kazancı ~2,15 dBi'dir.)
 
-**dB sezgisi (🔥 ezberle):**
+**dB sezgisi ( ezberle):**
 
 ```
 +3 dB  ≈ 2×  güç        −3 dB ≈ ½ güç
@@ -185,7 +185,7 @@ Formül:   dB = 10 · log₁₀( P_çıkış / P_giriş )      (GÜÇ oranı iç
           dB = 20 · log₁₀( V_çıkış / V_giriş )      (GERİLİM/genlik oranı için)
 ```
 
-> ⚠️ **Bedava öğle yemeği yok:** "20 dBi anten" çok yüksek kazançtır ama **çok dar huzme** demektir — yalnızca tam o yöne baktığında işe yarar, gerisini görmez. Tarama/keşif için **düşük kazanç + geniş açı** (diskon, dipol); bilinen tek hedef için **yüksek kazanç + dar açı** (Yagi, çanak). Kazanç her zaman "daha iyi" değildir; **göreve bağlıdır.**
+> **Bedava öğle yemeği yok:** "20 dBi anten" çok yüksek kazançtır ama **çok dar huzme** demektir — yalnızca tam o yöne baktığında işe yarar, gerisini görmez. Tarama/keşif için **düşük kazanç + geniş açı** (diskon, dipol); bilinen tek hedef için **yüksek kazanç + dar açı** (Yagi, çanak). Kazanç her zaman "daha iyi" değildir; **göreve bağlıdır.**
 
 ### 3.3 Işıma deseni (radiation pattern)
 
@@ -214,12 +214,12 @@ Elektrik alanının salınım **düzlemi**. Verici ve alıcı anten polarizasyon
 | **Yatay (horizontal)** | FM/TV yayını (bazı bölgelerde), bazı HF |
 | **Dairesel (circular: RHCP/LHCP)** | **Uydu** (LEO geçişlerinde dönen geometriyle uyum) → QFH, turnike anten |
 
-> 🔥 **Püf:** NOAA/Meteor uydularını dikey çubukla almaya çalışırsan sürekli "fading" (sönümlenme) yaşarsın çünkü uydu yörüngede döndükçe polarizasyon kayar. **Dairesel polarize QFH/turnike** anten bu sorunu çözer — uydu dinlemenin "neden bu garip anten?" cevabı budur.
+> **Püf:** NOAA/Meteor uydularını dikey çubukla almaya çalışırsan sürekli "fading" (sönümlenme) yaşarsın çünkü uydu yörüngede döndükçe polarizasyon kayar. **Dairesel polarize QFH/turnike** anten bu sorunu çözer — uydu dinlemenin "neden bu garip anten?" cevabı budur.
 
 ---
 
 <a id="4"></a>
-## 4. 📡 Anten Türleri — Hangisi, Ne Zaman, Nasıl Çalışır
+## 4.  Anten Türleri — Hangisi, Ne Zaman, Nasıl Çalışır
 
 | Anten | Yönlülük | Bant genişliği | Tipik kazanç | En iyi olduğu iş |
 |---|---|---|---|---|
@@ -256,7 +256,7 @@ Dipolün bir bacağını "toprak düzlemi" (radyaller veya araba tavanı) ile de
    radyaller (~λ/4, ufka doğru ~45° eğimli tipik)
 ```
 
-### 4.3 Diskon — geniş bant tarama kralı 🔥
+### 4.3 Diskon — geniş bant tarama kralı
 Bir **disk** + bir **koni** (disc + cone). Bu geometri, klasik rezonansa değil **frekanstan bağımsız** bir geçiş empedansına yaklaşır → **10:1 gibi devasa bant** (örn. 100–1000 MHz tek antenle). Kazancı mütevazıdır ama "ne çıkarsa bakalım" keşif/tarama için **en pratik tek anten**dir.
 
 ```
@@ -302,12 +302,12 @@ Küçük, ayarlı bir **iletken halka** + ayar kondansatörü. Fiziksel olarak k
 ---
 
 <a id="5"></a>
-## 5. 🔥 LNA — Düşük Gürültülü Yükselteç ve Friis Gürültü Formülü
+## 5.  LNA — Düşük Gürültülü Yükselteç ve Friis Gürültü Formülü
 
 ### 5.1 LNA nedir, ne işe yarar?
 **LNA (Low-Noise Amplifier)**, zayıf sinyali **kendi üstüne çok az gürültü ekleyerek** yükselten aktif bir devredir. Amaç sinyali "duyulur" yapmak **değil** sadece — asıl amaç, zincirin geri kalanının (özellikle kabloda kaybolan ve SDR'ın gürültülü ön-ucundan geçen) etkisini **maskelemek**.
 
-### 5.2 🔥 Neden anten ucunda? (Friis gürültü formülü)
+### 5.2  Neden anten ucunda? (Friis gürültü formülü)
 
 İşte bu bölümün en önemli mühendislik içgörüsü. Kademeli (kaskad) bir sistemin **toplam gürültü faktörü**, **Friis formülü** ile verilir:
 
@@ -353,20 +353,20 @@ NF_top = 10·log₁₀(1,35) ≈ 1,3 dB    ← muhteşem
 F_top = 10  →  NF_top = 10 dB    ← 8,7 dB daha kötü
 ```
 
-> 🔥 **Sonuç:** İyi yerleştirilmiş LNA, sistem gürültü figürünü **10 dB'den ~1,3 dB'ye** indirdi. Bu, gürültü tabanını ~8–9 dB düşürmek = daha önce **duyulamayan** zayıf sinyalleri **duyulur** yapmak demektir. **Antene en yakın aktif kat, sistemin kaderini belirler.**
+> **Sonuç:** İyi yerleştirilmiş LNA, sistem gürültü figürünü **10 dB'den ~1,3 dB'ye** indirdi. Bu, gürültü tabanını ~8–9 dB düşürmek = daha önce **duyulamayan** zayıf sinyalleri **duyulur** yapmak demektir. **Antene en yakın aktif kat, sistemin kaderini belirler.**
 
-### 5.4 ⚠️ Ne zaman LNA ZARAR verir? (aşırı sürme / IMD)
+### 5.4  Ne zaman LNA ZARAR verir? (aşırı sürme / IMD)
 LNA her derde deva değildir — **yanlış kullanılırsa zincirini bozar:**
 - **Aşırı kazanç / yakın güçlü sinyaller:** Tepenizdeki güçlü bir FM/TV/GSM vericisi, LNA'yı **doyurur (saturation)**. LNA lineerliğini kaybeder → **intermodülasyon (IMD)**: gerçekte olmayan **hayalet sinyaller** üretir, her yer "ızgara/birbiri içine geçmiş" görünür.
 - **Gürültü tabanı zaten kabloda kaybolmuyorsa:** Kısa kablo + iyi SDR'da LNA gereksiz kazanç yığar, ADC'yi taşırır.
 - **Çözüm:** LNA'dan **önce/sonra filtre** (bant-dışı güçlüleri kes — §6), kazancı abartma, gerekiyorsa **attenuator** (zayıflatıcı) ile dengeyi kur. "Daha çok kazanç = daha iyi" **yanlıştır**; doğru olan **doğru SNR ve lineerlik**.
 
-> 🧠 **Mühendislik dengesi:** LNA = düşük gürültü için *yukarı*, ama lineerlik (büyük sinyale dayanım) için *aşağı* baskı. İkisi çakışır. Profesyonel ön-uç tasarımı bu iki uç arasında **filtreyle** denge kurmaktır.
+> **Mühendislik dengesi:** LNA = düşük gürültü için *yukarı*, ama lineerlik (büyük sinyale dayanım) için *aşağı* baskı. İkisi çakışır. Profesyonel ön-uç tasarımı bu iki uç arasında **filtreyle** denge kurmaktır.
 
 ---
 
 <a id="6"></a>
-## 6. 🔇 Filtreler — Bant-Dışı Gürültüyü Kesmek
+## 6.  Filtreler — Bant-Dışı Gürültüyü Kesmek
 
 Anten ve LNA "her şeyi" alır. Filtre, **istemediğin frekansları** alıcıya/LNA'ya ulaşmadan **bastırır**. Neden kritik?
 - **Güçlü bant-dışı vericiler** (yerel FM 88–108 MHz, GSM, TV) ön-ucu doyurur, IMD yaratır (§5.4).
@@ -394,7 +394,7 @@ BPF tepkisi (geçiş bandı + dik etekler):
        f_alt        f_üst
 ```
 
-> 🔥 **Klasik örnek 1 — ADS-B SAW filtre:** 1090 MHz uçak dinlerken, yerel GSM/LTE devasa güçtedir. Antenin hemen ardına **1090 MHz SAW BPF** koyarsan, LNA artık sadece uçak bandını "görür", doymaz → menzil ve görülen uçak sayısı katlanır.
+> **Klasik örnek 1 — ADS-B SAW filtre:** 1090 MHz uçak dinlerken, yerel GSM/LTE devasa güçtedir. Antenin hemen ardına **1090 MHz SAW BPF** koyarsan, LNA artık sadece uçak bandını "görür", doymaz → menzil ve görülen uçak sayısı katlanır.
 > **Klasik örnek 2 — FM bant-stop (notch/HPF):** Şehirde 88–108 MHz FM o kadar güçlüdür ki her şeyi ezer. Geniş bant tararken bir **FM band-stop** filtre, bütün spektrumu "temizler".
 
 **Sıralama mantığı:** Çoğu iyi ön-uç `ANTEN → BPF → LNA → BPF/SDR` şeklindedir: LNA'dan **önce** bir filtre onu büyük sinyallerden korur; sonrasında bir filtre LNA'nın ürettiği geniş gürültüyü/görüntüyü temizler.
@@ -402,7 +402,7 @@ BPF tepkisi (geçiş bandı + dik etekler):
 ---
 
 <a id="7"></a>
-## 7. 🔌 Koaksiyel Kablo ve Konnektörler
+## 7.  Koaksiyel Kablo ve Konnektörler
 
 Kablo "sadece tel" değildir; **kayıplı bir bileşendir** ve kayıp **frekansla artar.** Yanlış/uzun/ucuz kablo, antenin tüm kazancını yer.
 
@@ -416,7 +416,7 @@ Kablo "sadece tel" değildir; **kayıplı bir bileşendir** ve kayıp **frekansl
 | **LMR-240** | ~6 mm | ~2,5 dB | ~8 dB | İyi denge |
 | **LMR-400** | Kalın (~10 mm) | ~1,2 dB | ~4 dB | Düşük kayıp, uzun hat / çatı anteni |
 
-> 🔥 **Püf (frekansla kayıp):** Aynı RG-58, 100 MHz'de ~5 dB/100m iken 1 GHz'de ~20+ dB/100m olur — **frekans arttıkça kayıp artar.** Bu yüzden ADS-B/GHz işlerinde kablo **kısa ve kalın (LMR-400)** olmalı; ya da LNA'yı (§5) antene koyup kabloyu **LNA'dan sonra** çekersin (kayıp artık önemsiz). **Altın kural: ya kabloyu kısalt, ya LNA'yı yukarı taşı.**
+> **Püf (frekansla kayıp):** Aynı RG-58, 100 MHz'de ~5 dB/100m iken 1 GHz'de ~20+ dB/100m olur — **frekans arttıkça kayıp artar.** Bu yüzden ADS-B/GHz işlerinde kablo **kısa ve kalın (LMR-400)** olmalı; ya da LNA'yı (§5) antene koyup kabloyu **LNA'dan sonra** çekersin (kayıp artık önemsiz). **Altın kural: ya kabloyu kısalt, ya LNA'yı yukarı taşı.**
 
 **Konnektörler:**
 
@@ -427,14 +427,14 @@ Kablo "sadece tel" değildir; **kayıplı bir bileşendir** ve kayıp **frekansl
 | **N** | Yüksek güç / yüksek frekans / dış mekân | Sağlam, su geçirmez seçenekli, düşük kayıp |
 | **F** | TV / 75 Ω | Ucuz, anten/TV; bazı RTL-SDR'larda |
 
-> ⚠️ **SMA vs RP-SMA tuzağı:** Görünüş aynı ama iç pim ters yerleşimlidir; uyumsuz çift sinyali geçirmez. Wi-Fi anteni (RP-SMA) SDR'a (SMA) doğrudan oturmaz — adaptör gerekir. Çok yaygın bir DIY hatası.
+> **SMA vs RP-SMA tuzağı:** Görünüş aynı ama iç pim ters yerleşimlidir; uyumsuz çift sinyali geçirmez. Wi-Fi anteni (RP-SMA) SDR'a (SMA) doğrudan oturmaz — adaptör gerekir. Çok yaygın bir DIY hatası.
 
 **Genel ilke:** Kablo **kısa, kaliteli, doğru empedansta, sağlam konnektörlü** olsun. Her ek/adaptör küçük bir kayıp + yansıma noktasıdır. RF'te "az ek, kısa hat" daima kazanır.
 
 ---
 
 <a id="8"></a>
-## 8. 🎯 Empedans Eşleme, Balun/Unun, Ölçüm (NanoVNA)
+## 8.  Empedans Eşleme, Balun/Unun, Ölçüm (NanoVNA)
 
 ### 8.1 Neden eşleme?
 Anten (örn. 73 Ω dipol) ile hat/alıcı (50 Ω) **tam uyuşmaz** → küçük yansıma. Çoğu RX'te 73→50 ihmal edilir, ama daha büyük uyumsuzluklarda (loop, çok-bantlı anten, uzun besleme) **eşleme ağı** (matching network: L/C devreleri, stub'lar, transformatör) ile empedansı 50 Ω'a "çevirirsin" → minimum yansıma, maksimum transfer.
@@ -454,12 +454,12 @@ Anten (örn. 73 Ω dipol) ile hat/alıcı (50 Ω) **tam uyuşmaz** → küçük 
 - **SWR metre:** Hatta ileri/geri gücü ölçer → VSWR'ı söyler. Antenin "uyumlu mu" sorusunu cevaplar.
 - **NanoVNA (Vektör Network Analizörü):** Ucuz, taşınabilir mucize. Bir frekans aralığını **tarar**, her noktada **VSWR, empedans (R+jX), kazanç/kayıp (S11/S21)** verir. Anteni keserken/akort ederken **rezonansı gözle görürsün** (VSWR'ın dibe vurduğu frekans). "Tahmin etme, **ölç**" aracı.
 
-> 🔥 **Pratik akış:** Formülle (§2.2) teli yaklaşık kes → NanoVNA bağla → VSWR eğrisine bak → rezonans **istediğin frekanstan yüksekteyse tel kısadır → uzat**; **alçaktaysa tel uzundur → kırp.** Birkaç iterasyonda 1,2:1 VSWR'a oturtursun. **NanoVNA olmadan** bunu yapmanın yolu: formüle güven, biraz **uzun kes** (kırpmak eklemekten kolay), mümkünse bir alıcıda S-metre/SNR'ı izleyerek en iyi boyu **deneysel** bul.
+> **Pratik akış:** Formülle (§2.2) teli yaklaşık kes → NanoVNA bağla → VSWR eğrisine bak → rezonans **istediğin frekanstan yüksekteyse tel kısadır → uzat**; **alçaktaysa tel uzundur → kırp.** Birkaç iterasyonda 1,2:1 VSWR'a oturtursun. **NanoVNA olmadan** bunu yapmanın yolu: formüle güven, biraz **uzun kes** (kırpmak eklemekten kolay), mümkünse bir alıcıda S-metre/SNR'ı izleyerek en iyi boyu **deneysel** bul.
 
 ---
 
 <a id="9"></a>
-## 9. 🔁 Upconverter / Downconverter — Bandı Taşımak
+## 9.  Upconverter / Downconverter — Bandı Taşımak
 
 Bazı alıcılar belirli bir frekans aralığını **göremez** (örn. tipik RTL-SDR ~24 MHz altını doğrudan alamaz → **HF kör**). Çözüm: ilgilenilen bandı, alıcının **gördüğü** bir banda **kaydırmak** — bir **karıştırıcı (mixer) + yerel osilatör (LO)** ile.
 
@@ -472,19 +472,19 @@ Bazı alıcılar belirli bir frekans aralığını **göremez** (örn. tipik RTL
                     (toplam/fark frekansı üretir)
 ```
 
-> 🧠 **Kavram:** Mixer iki frekansı çarpar → **toplam ve fark** çıkar (f_LO ± f_RF). İstediğin tarafı filtreyle seçersin. Tüm süper-heterodin alıcıların kalbi budur — "frekansı taşıma" hilesi.
+> **Kavram:** Mixer iki frekansı çarpar → **toplam ve fark** çıkar (f_LO ± f_RF). İstediğin tarafı filtreyle seçersin. Tüm süper-heterodin alıcıların kalbi budur — "frekansı taşıma" hilesi.
 
 ---
 
 <a id="10"></a>
-## 10. 🔥 GÜÇ ve WATT — TX, PA, EIRP'nin Mantığı (Sınırla)
+## 10.  GÜÇ ve WATT — TX, PA, EIRP'nin Mantığı (Sınırla)
 
-> ⚖️ **TEKRAR — bu başlık PRENSİP içindir, operatörlük değil.** Yetkisiz/yüksek güç **yayın** suçtur, tehlikelidir, donanım yakar (bkz. en üstteki uyarı). Burada *neden* ve *nasıl çalıştığını* anlatıyoruz ki "watt'ı güçlendirmenin mantığı" sorusu cevaplansın ve **neden regüle edildiğini** kavrayasın. Uygulamak = lisans + yasal sınır.
+> **TEKRAR — bu başlık PRENSİP içindir, operatörlük değil.** Yetkisiz/yüksek güç **yayın** suçtur, tehlikelidir, donanım yakar (bkz. en üstteki uyarı). Burada *neden* ve *nasıl çalıştığını* anlatıyoruz ki "watt'ı güçlendirmenin mantığı" sorusu cevaplansın ve **neden regüle edildiğini** kavrayasın. Uygulamak = lisans + yasal sınır.
 
 ### 10.1 TX gücü ne demek?
 **Çıkış gücü (W)**, vericinin antene **verdiği** RF enerji oranıdır. Ama menzili belirleyen sadece bu değildir — **antenin kazancı** ve **kablo kaybı** da hesaba girer. Bunların birleşimi **EIRP/ERP** ile ölçülür.
 
-### 10.2 🔥 EIRP / ERP — "etkili yayılan güç"
+### 10.2  EIRP / ERP — "etkili yayılan güç"
 
 ```
 EIRP (dBm) = P_TX(dBm) − Kayıp_kablo/konnektör(dB) + Kazanç_anten(dBi)
@@ -501,7 +501,7 @@ Watt↔dBm:   P(dBm) = 10·log₁₀( P(mW) )    →   30 dBm = 1 W ,  0 dBm = 1
   ```
   Yani 1 W'lık verici, 12 dBi yönlü antenle **o yönde sanki 10 W yayıyormuş gibi** etki yapar.
 
-> 🔥 **Watt artırmanın MANTIĞI:** Menzili artırmanın iki yolu var:
+> **Watt artırmanın MANTIĞI:** Menzili artırmanın iki yolu var:
 > 1. **Vericinin gücünü (W) artırmak** → PA (güç yükselteci) ile. Pahalı, ısı/verim sorunlu, **regüle/sınırlı**, doğrusallık zorlaşır.
 > 2. **Antenin kazancını/yüksekliğini artırmak** (pasif!) → çoğu zaman **çok daha akıllıca**: +3 dBi anten, gücü 2'ye katlamakla aynı etki — ama **bedava, ısısız, çoğu yerde serbest, tek yöne odaklı**. Bu yüzden profesyoneller **önce anteni ve yüksekliği** zorlar, watt'ı en son artırır.
 
@@ -517,14 +517,14 @@ PA, düşük güçlü RF sinyalini (örn. mixer/modülatör çıkışı, birkaç
 | **C** | <180° | **Kötü (lineer değil)** | Yüksek (~%70+) | Sabit-zarflı (FM/CW) — modülasyonu bozmaz |
 | **D / E / F** | Anahtarlamalı | (özel) | **Çok yüksek (>%80–90)** | Modern verimli RF/ses, anahtar-modlu |
 
-> 🧠 **Anahtar fikir:** **Lineerlik ile verim çatışır.** Genliği bilgi taşıyan modülasyonlarda (QAM, SSB) **lineerlik şart** → A/AB sınıfı → düşük verim → çok ısı. Genliği sabit modülasyonlarda (FM, CW) **C/D/E/F** ile yüksek verim "bedava" gelir çünkü bozulma bilgiyi etkilemez. PA tasarımı = "hangi modülasyon, ne kadar doğrusallık, ne kadar ısıyı göze alırım" dengesidir.
+> **Anahtar fikir:** **Lineerlik ile verim çatışır.** Genliği bilgi taşıyan modülasyonlarda (QAM, SSB) **lineerlik şart** → A/AB sınıfı → düşük verim → çok ısı. Genliği sabit modülasyonlarda (FM, CW) **C/D/E/F** ile yüksek verim "bedava" gelir çünkü bozulma bilgiyi etkilemez. PA tasarımı = "hangi modülasyon, ne kadar doğrusallık, ne kadar ısıyı göze alırım" dengesidir.
 
-> ⚠️ **Neden tehlikeli (donanım+insan):** Yanlış empedans/yüksek VSWR (§3.1) → yansıyan güç PA'da ısı + gerilim tepesi → **PA patlar**. Yetersiz soğutmada **yangın**. Yeterli güçte anten yakınında **RF yanığı / doku ısınması / göz hasarı**. Ve en önemlisi: yayın **başkalarının bandına girer** (GPS, havacılık, GSM, acil servis) → bu yüzden **devletler watt'ı ve bandı sıkı regüle eder** ve lisanssız yayın **suçtur**.
+> **Neden tehlikeli (donanım+insan):** Yanlış empedans/yüksek VSWR (§3.1) → yansıyan güç PA'da ısı + gerilim tepesi → **PA patlar**. Yetersiz soğutmada **yangın**. Yeterli güçte anten yakınında **RF yanığı / doku ısınması / göz hasarı**. Ve en önemlisi: yayın **başkalarının bandına girer** (GPS, havacılık, GSM, acil servis) → bu yüzden **devletler watt'ı ve bandı sıkı regüle eder** ve lisanssız yayın **suçtur**.
 
 ---
 
 <a id="11"></a>
-## 11. 🔥 GENİŞLETME MODÜLLERİ ve KENDİ PCB'Nİ ÇİZMEK
+## 11.  GENİŞLETME MODÜLLERİ ve KENDİ PCB'Nİ ÇİZMEK
 
 Kullanıcının asıl merakı: "İnsanlar **kendi RF kartlarını** nasıl tasarlıyor, bu kadar bilgiyi nereden alıyorlar?" Önce **modül kavramı**, sonra **kendi PCB akışı**, sonra (§12) **bilginin kaynağı.**
 
@@ -542,7 +542,7 @@ Bunlar **SMA ile uç uca** takılır → lehimsiz, denemesi kolay bir "RF lego".
 ### 11.2 Bias-tee — neden var?
 LNA'yı **antenin ucunda** (çatıda) çalıştırmak istiyorsun (§5.2) ama oraya ayrı güç kablosu çekmek zor. **Bias-tee**, DC gücü **koaks kablonun içinden** LNA'ya gönderir (RF'i ayırıp DC'yi bindirerek). Pek çok RTL-SDR'ın "bias-tee" özelliği tam bunun için: **tek kabloyla** hem sinyali al hem uzaktaki LNA'yı besle.
 
-### 11.3 🔥 Kendi RF PCB'ni çizmenin TEMELLERİ
+### 11.3  Kendi RF PCB'ni çizmenin TEMELLERİ
 
 RF'te PCB "sadece bağlantı" değil, **devrenin parçasıdır** — bakır izler belirli frekanslarda **hat/empedans** gibi davranır. Temel ilkeler:
 
@@ -567,7 +567,7 @@ RF'te PCB "sadece bağlantı" değil, **devrenin parçasıdır** — bakır izle
 
 6. **Empedans eşleme alanları:** Çip (LNA/mixer) giriş-çıkışına **matching** için boş pad'ler (L/C için) bırakılır — datasheet'in önerdiği değerlerle doldurulur.
 
-> 🔥 **Neden 50 Ω trace bu kadar önemli?** Çünkü tüm zincir (anten, kablo, konnektör, çip) 50 Ω. PCB izi de 50 Ω olmazsa, kartın **içinde** bir empedans sıçraması olur → yansıma, VSWR bozulması, kayıp, bazen osilasyon. PCB'yi "görünmez bir 50 Ω koaks" gibi tasarlarsın.
+> **Neden 50 Ω trace bu kadar önemli?** Çünkü tüm zincir (anten, kablo, konnektör, çip) 50 Ω. PCB izi de 50 Ω olmazsa, kartın **içinde** bir empedans sıçraması olur → yansıma, VSWR bozulması, kayıp, bazen osilasyon. PCB'yi "görünmez bir 50 Ω koaks" gibi tasarlarsın.
 
 ### 11.4 KiCad / EasyEDA ile akış (kavram)
 - **Şematik** çiz (çiplerin datasheet'teki referans bağlantısı) → **footprint** ata → **PCB layout**'a geç.
@@ -576,12 +576,12 @@ RF'te PCB "sadece bağlantı" değil, **devrenin parçasıdır** — bakır izle
 - **DRC** (tasarım kuralı kontrolü) → **Gerber** dosyaları üret.
 - **Üretim:** Gerber'ı **JLCPCB / PCBWay**'e yükle → birkaç dolara birkaç günde kart gelir (isteğe bağlı **dizgi/assembly** de yaptırılır). Bu erişilebilirlik, "evde RF kartı" çağını açtı.
 
-> 🧠 **Gerçeklik:** İlk RF kartın muhtemelen çalışmaz ya da beklenenden kötü olur — bu **normaldir.** Profesyoneller bile **revizyon** (rev A, B, C) yapar: ölç (NanoVNA/spektrum), anla, düzelt, tekrar bas. RF tasarımı **iteratif** bir zanaattır; "tek seferde mükemmel" beklentisi yanlıştır.
+> **Gerçeklik:** İlk RF kartın muhtemelen çalışmaz ya da beklenenden kötü olur — bu **normaldir.** Profesyoneller bile **revizyon** (rev A, B, C) yapar: ölç (NanoVNA/spektrum), anla, düzelt, tekrar bas. RF tasarımı **iteratif** bir zanaattır; "tek seferde mükemmel" beklentisi yanlıştır.
 
 ---
 
 <a id="12"></a>
-## 12. 🧠 "Nereden Biliyorlar?" — Bilginin Gerçek Kaynakları
+## 12.  "Nereden Biliyorlar?" — Bilginin Gerçek Kaynakları
 
 Kullanıcının çekirdek sorusu. Cevap **gizli/sezgisel değil**; herkese açık, izlenebilir kaynaklardan gelir. İnsanlar şuralardan öğreniyor:
 
@@ -597,12 +597,12 @@ Kullanıcının çekirdek sorusu. Cevap **gizli/sezgisel değil**; herkese açı
 
 6. **Topluluk / forumlar:** **RTL-SDR.com** (blog + rehber hazinesi), **Reddit r/RTLSDR**, **r/amateurradio**, **r/RFElectronics**, RF mühendislik forumları (ör. RFdesign tartışmaları), QRZ, eevblog. Burada gerçek sorunlar, ölçümler, hatalar paylaşılır → **kolektif akıl**.
 
-> 🔥 **Demistifikasyon:** "Bu kadar bilgiyi nereden biliyorlar?" sorusunun dürüst cevabı: **kimse her şeyi kafasından bilmiyor.** Mühendis bile her tasarımda **datasheet + application note + referans tasarım + ölçüm + forum** karışımına başvurur. Fark, *bilgiyi nereden bulacağını ve nasıl doğrulayacağını* bilmektir. Bu bölüm sana o **haritayı** verdi: önce datasheet/app-note → referans tasarımı anla → KiCad'de uygula → JLCPCB'de bas → NanoVNA ile ölç → forumda doğrula → revize et. Süreç **tekrarlanabilir ve öğrenilebilir** — sihir değil, **disiplin + kaynak okuryazarlığı**.
+> **Demistifikasyon:** "Bu kadar bilgiyi nereden biliyorlar?" sorusunun dürüst cevabı: **kimse her şeyi kafasından bilmiyor.** Mühendis bile her tasarımda **datasheet + application note + referans tasarım + ölçüm + forum** karışımına başvurur. Fark, *bilgiyi nereden bulacağını ve nasıl doğrulayacağını* bilmektir. Bu bölüm sana o **haritayı** verdi: önce datasheet/app-note → referans tasarımı anla → KiCad'de uygula → JLCPCB'de bas → NanoVNA ile ölç → forumda doğrula → revize et. Süreç **tekrarlanabilir ve öğrenilebilir** — sihir değil, **disiplin + kaynak okuryazarlığı**.
 
 ---
 
 <a id="13"></a>
-## 13. 🧪 Alıştırmalar (Yasal, Ev Şartlarında)
+## 13.  Alıştırmalar (Yasal, Ev Şartlarında)
 
 > Hepsi **RX/hesap/anlama** odaklıdır — yayın yok, lisans gerekmez. Sadece kâğıt, tel, makas ve (varsa) bir RTL-SDR.
 
@@ -631,7 +631,7 @@ Cihazsız: VSWR'ın *ne anlattığını* yaz (yansıma oranı; 1,5:1 → ~%4 yan
 ---
 
 <a id="14"></a>
-## 14. ✅ Özet, Kontrol Listesi ve Çapraz Referans
+## 14.  Özet, Kontrol Listesi ve Çapraz Referans
 
 ### Özün özü
 - **Anten = zincirin kaderi.** Önce anten + konum + yükseklik, sonra LNA/filtre, en son yazılım.
@@ -653,12 +653,12 @@ Cihazsız: VSWR'ın *ne anlattığını* yaz (yansıma oranı; 1,5:1 → ~%4 yan
 - [ ] Çatıdaki LNA için **bias-tee** ile tek kablodan besleme?
 - [ ] (Uydu/dengeli anten) **balun/dairesel polarizasyon** doğru mu?
 
-### ⚖️ Yasal hatırlatma (kapanış)
+### Yasal hatırlatma (kapanış)
 **Alıcı taraf** (anten, LNA, filtre, kablo, ölçüm, dinleme) bu el kitabının serbest ve teşvik edilen alanıdır. **Verici taraf** (güç yükseltme, yayın, PA, EIRP'yi sahada uygulamak) **lisans + yasal güç/bant sınırı** ister; yetkisiz veya yüksek güç yayın **suçtur, tehlikelidir (RF yanığı, yangın, donanım hasarı) ve başkalarının kritik bantlarına (havacılık/GPS/GSM/acil) girişimle insan hayatını riske atar.** Bu bölümün TX/PA/watt kısmı **yalnızca mühendislik prensibini anlamak** içindir.
 
 ---
 
-> 📶 **Kapanış:** Anten görünmez bir el gibidir — uzaydaki dalgayı tutup tele indirir. Onu **boyuyla** akort eder, **empedansıyla** sisteme bağlar, **LNA'yla** ilk dokunuşu temiz tutar, **filtreyle** gürültüyü süzer, **kabloyla** kayıpsız taşırsın. "Watt'ı büyütmek" çoğu zaman yanlış sorudur; doğru soru **"sinyali nasıl daha temiz yakalarım"**dır — ve cevabın çoğu, watt değil, **geometri, empedans ve düşük gürültüdür.** Kendi kartını çizmek de erişilemez bir sihir değil; **datasheet okumak, 50 Ω'a saygı duymak ve ölçüp revize etmektir.**
+> **Kapanış:** Anten görünmez bir el gibidir — uzaydaki dalgayı tutup tele indirir. Onu **boyuyla** akort eder, **empedansıyla** sisteme bağlar, **LNA'yla** ilk dokunuşu temiz tutar, **filtreyle** gürültüyü süzer, **kabloyla** kayıpsız taşırsın. "Watt'ı büyütmek" çoğu zaman yanlış sorudur; doğru soru **"sinyali nasıl daha temiz yakalarım"**dır — ve cevabın çoğu, watt değil, **geometri, empedans ve düşük gürültüdür.** Kendi kartını çizmek de erişilemez bir sihir değil; **datasheet okumak, 50 Ω'a saygı duymak ve ölçüp revize etmektir.**
 >
 > *Bu doküman Kanije Kalesi SIGINT El Kitabı serisinin **3. Bölümü**dür.*
 > *← Önceki: `SIGINT_02_*.md` (Sinyal Teorisi, Modülasyon ve SDR ile Örnekleme) — burada işlenen "sinyal/SNR/spektrum/SDR" kavramlarının temeli.*

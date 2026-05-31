@@ -1,9 +1,9 @@
-# 🛰️ SIGINT EL KİTABI — BÖLÜM 5
+# SIGINT EL KİTABI — BÖLÜM 5
 ## Protokoller ve Sinyal Çözümleme — Yakaladığın Sinyali Anlamak
 
 > **Bu bölüm neyi öğretir:** Önceki bölümlerde SDR'ını kurdun, anteni taktın, waterfall'da renkli şeritler gördün. Şimdi asıl soru: **"Bu çizgi ne anlatıyor?"** Bir sinyali yakalamak ile onu **çözmek** (decode) arasında dağlar kadar fark vardır. Bu bölüm, bilinmeyen bir sinyali tanımlama metodolojisini, ardından dünyanın her yerinde meşru olarak dinlenebilen **açık protokolleri** uçtan uca (frekans → araç → komut → örnek çıktı) öğretir. Sonunda hücresel haberleşmenin (2G/3G/4G/5G) **nasıl çalıştığını** prensip düzeyinde açıklar — çünkü bir savunmacı, savunduğu şeyin mimarisini bilmek zorundadır.
 
-> ⚖️ **ÖNCE BUNU OKU — YASAL ÇERÇEVE (atlamak yok):**
+> **ÖNCE BUNU OKU — YASAL ÇERÇEVE (atlamak yok):**
 > - **Açık/meşru yayınlar serbesttir.** ADS-B (uçak), AIS (gemi), NOAA hava durumu uyduları, amatör radyo (APRS/FT8), rtl_433 (kendi ev sensörlerin) — bunlar **kamuya açık, şifresiz, herkesin dinlemesi için tasarlanmış** yayınlardır. Almak, çözmek, haritalamak yasaldır ve harika bir mühendislik alıştırmasıdır.
 > - **ÖZEL/hücresel haberleşmeyi yetkisiz dinlemek/çözmek SUÇTUR.** Başkasının telefon görüşmesi, SMS'i, mobil verisi, şifreli telsizi, çağrı cihazı içeriği — bunları izinsiz dinlemek/çözmek/kaydetmek Türkiye'de TCK ve ilgili mevzuat, dünyada hemen her ülkede ağır cezalı suçtur. Yalnızca yakalamak bile suç sayılabilir.
 > - **Bu bölümün hücresel kısmı bir saldırı reçetesi DEĞİLDİR.** Sana "şu adımları yap, komşunun telefonunu dinle" demiyoruz ve demeyeceğiz. Mimariyi, neden bazı nesillerin savunmasız bazılarının sağlam olduğunu, ve **kendini nasıl koruyacağını** anlatıyoruz. İşin **yasal yolu** = test/araştırma ortamı, **kendi** baz istasyonun (lisanslı veya Faraday kafesinde), operatör/üniversite izni.
@@ -11,31 +11,31 @@
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [Sinyal Tanımlama Metodolojisi — "Bu da ne?"](#1)
 2. [Sinyalin Beş Parmak İzi (Merkez, Bant, Modülasyon, Sembol Hızı, Yapı)](#2)
 3. [Referans Kütüphaneleri — sigidwiki ve Arkadaşları](#3)
-4. [🔥 ADS-B — Uçakları Gökyüzünden Çek (1090 MHz)](#4)
-5. [🔥 AIS — Gemileri Denizden Çek (162 MHz)](#5)
+4. [ ADS-B — Uçakları Gökyüzünden Çek (1090 MHz)](#4)
+5. [ AIS — Gemileri Denizden Çek (162 MHz)](#5)
 6. [ACARS — Uçakların Metin Mesajları (131 MHz)](#6)
-7. [POCSAG / FLEX — Çağrı Cihazları (Pager) ⚠️](#7)
+7. [POCSAG / FLEX — Çağrı Cihazları (Pager) ](#7)
 8. [APRS — Amatör Paket Radyo (144.800 MHz)](#8)
-9. [🔥 NOAA APT & Meteor-M LRPT — Uydudan Hava Durumu Görüntüsü](#9)
-10. [🔥 rtl_433 — Evdeki Her Şeyin Telsizi (433/868 MHz)](#10)
+9. [ NOAA APT & Meteor-M LRPT — Uydudan Hava Durumu Görüntüsü](#9)
+10. [ rtl_433 — Evdeki Her Şeyin Telsizi (433/868 MHz)](#10)
 11. [LoRa — Uzun Menzilli IoT (868/915 MHz)](#11)
 12. [Amatör Dijital Modlar — FT8 / PSK31 / RTTY](#12)
 13. [Sinyal Tersine Mühendislik — URH ile KENDİ Kumandanı Çöz](#13)
-14. [🔥 HÜCRESEL — 2G/3G/4G/5G Mimarisi (Prensip + Yasal Sınır)](#14)
+14. [ HÜCRESEL — 2G/3G/4G/5G Mimarisi (Prensip + Yasal Sınır)](#14)
 15. [Net Çerçeve — Gözlem mi, Dinleme mi? (Yasal/Yasadışı Ayrımı)](#15)
-16. [🧪 ALIŞTIRMALAR — Hepsi Evde, Hepsi Yasal](#16)
+16. [ ALIŞTIRMALAR — Hepsi Evde, Hepsi Yasal](#16)
 17. [Hızlı Referans Tablosu (Protokol × Frekans × Araç)](#17)
 18. [Çapraz Referans & Sonraki Bölüm](#18)
 
 ---
 
 <a id="1"></a>
-## 1. 🧭 Sinyal Tanımlama Metodolojisi — "Bu da ne?"
+## 1.  Sinyal Tanımlama Metodolojisi — "Bu da ne?"
 
 Waterfall'da gezinirken er ya da geç şu an gelir: tanımadığın bir desen. Belki ritmik atan bir nokta dizisi, belki geniş bir "fırça darbesi", belki düzenli aralıklarla yanıp sönen iki çizgi. Acemi panikler ("hacklendim mi?"); usta ise **sistematik bir kimlik tespiti** akışına girer.
 
@@ -75,12 +75,12 @@ Sinyal çözümleme bir **eleme oyunudur**. Eline aldığın her ipucu (frekans,
    └─────────────────────────────────────────────────────┘
 ```
 
-> 🧠 **Altın kural:** Frekans **tek başına** çoğu zaman cevabı verir. Çünkü spektrum lisanslıdır — her bant belli bir kullanıma ayrılmıştır (uçak, denizcilik, amatör, ISM...). 1090 MHz'de bir sinyal görüyorsan, dünyada o frekans uçak transponderlarına ayrıldığı için %99 ADS-B'dir. **Önce "bu frekans kime ait?" diye sor.**
+> **Altın kural:** Frekans **tek başına** çoğu zaman cevabı verir. Çünkü spektrum lisanslıdır — her bant belli bir kullanıma ayrılmıştır (uçak, denizcilik, amatör, ISM...). 1090 MHz'de bir sinyal görüyorsan, dünyada o frekans uçak transponderlarına ayrıldığı için %99 ADS-B'dir. **Önce "bu frekans kime ait?" diye sor.**
 
 ---
 
 <a id="2"></a>
-## 2. 🔬 Sinyalin Beş Parmak İzi
+## 2.  Sinyalin Beş Parmak İzi
 
 Bir sinyali tanımlamak, bir insanı tanımlamak gibidir: boy, kilo, ten rengi yerine **merkez frekans, bant genişliği, modülasyon, sembol hızı, zaman yapısı.** Bu beşlisini doğru ölçersen kimliği neredeyse kesinleşir.
 
@@ -104,7 +104,7 @@ Bilgi taşıyıcıya **nasıl** bindiriliyor? Üç büyük aile:
 | **Frekans (FM/FSK/GFSK)** | Sinyalin **frekansı** | İki/çok paralel çizgi arası gidip gelir | FM radyo, POCSAG (FSK), rtl_433 sensörleri |
 | **Faz (PSK/QPSK)** | Sinyalin **fazı** | Tek çizgi, kulağa düz "tıslama"; constellation gerekir | PSK31, uydu telemetri, modern dijital |
 
-> 💡 **Püf:** **OOK (On-Off Keying)**, en ilkel ve en sık karşılaşacağın dijital moddur — sinyal ya **var** ya **yok** (Mors gibi). Garaj kumandaları, ucuz IoT, eski zil sistemleri OOK kullanır. Waterfall'da kesik kesik yanıp sönen yatay çizgi = büyük ihtimalle OOK.
+> **Püf:** **OOK (On-Off Keying)**, en ilkel ve en sık karşılaşacağın dijital moddur — sinyal ya **var** ya **yok** (Mors gibi). Garaj kumandaları, ucuz IoT, eski zil sistemleri OOK kullanır. Waterfall'da kesik kesik yanıp sönen yatay çizgi = büyük ihtimalle OOK.
 
 ### 2.4 Sembol / Baud Hızı (symbol rate)
 Saniyede kaç **sembol** (bilgi birimi) gönderiliyor? Bu, çözücüye söylemen gereken kritik parametredir (örn. POCSAG 512/1200/2400 bps, AIS 9600 bps). Görsel SDR araçlarında bir "burst"ün en dar darbesini ölçerek tahmin edersin; URH gibi araçlar bunu **otomatik** tespit edebilir.
@@ -114,12 +114,12 @@ Saniyede kaç **sembol** (bilgi birimi) gönderiliyor? Bu, çözücüye söyleme
 - **Patlamalı (burst):** Kısa paketler, aralarda sessizlik (ADS-B, AIS, sensörler — periyodik "tık").
 - **Periyodik:** Düzenli aralıklarla tekrar (her saniye, her 30 sn). NOAA uydusu geçişi gibi.
 
-> 🧠 **Hepsini birleştir:** "1090 MHz, çok kısa patlamalar, genlik modülasyonlu, ~1 Mbps" → bu profil **yalnızca ADS-B**'ye uyar. "162 MHz, 9600 baud GMSK, düzenli kısa paketler" → **AIS**. Parmak izleri çakıştığında kimlik kesinleşir.
+> **Hepsini birleştir:** "1090 MHz, çok kısa patlamalar, genlik modülasyonlu, ~1 Mbps" → bu profil **yalnızca ADS-B**'ye uyar. "162 MHz, 9600 baud GMSK, düzenli kısa paketler" → **AIS**. Parmak izleri çakıştığında kimlik kesinleşir.
 
 ---
 
 <a id="3"></a>
-## 3. 📚 Referans Kütüphaneleri — sigidwiki ve Arkadaşları
+## 3.  Referans Kütüphaneleri — sigidwiki ve Arkadaşları
 
 Sinyali ölçtün; şimdi **eşleştirme** zamanı. Tek tek ezberlemek imkânsız — referans veritabanları kullan:
 
@@ -128,12 +128,12 @@ Sinyali ölçtün; şimdi **eşleştirme** zamanı. Tek tek ezberlemek imkânsı
 - **RadioReference.com:** Özellikle bölgesel/yerel frekans veritabanı (ağırlıklı Kuzey Amerika ama metodoloji evrensel).
 - **SDR topluluk forumları** (RTL-SDR.com blog, r/RTLSDR): "şu görüntü ne?" diye sorulan binlerce çözülmüş vaka.
 
-> 💡 **İş akışı:** Beş parmak izini ölç → sigidwiki'de görsel/ses karşılaştır → aday protokolü bul → o protokolün adanmış çözücüsünü kur ve dene. Eşleşirse decode başlar; eşleşmezse parmak izlerinden birini yanlış ölçtün, geri dön.
+> **İş akışı:** Beş parmak izini ölç → sigidwiki'de görsel/ses karşılaştır → aday protokolü bul → o protokolün adanmış çözücüsünü kur ve dene. Eşleşirse decode başlar; eşleşmezse parmak izlerinden birini yanlış ölçtün, geri dön.
 
 ---
 
 <a id="4"></a>
-## 4. ✈️ ADS-B — Uçakları Gökyüzünden Çek
+## 4.  ADS-B — Uçakları Gökyüzünden Çek
 
 **ADS-B (Automatic Dependent Surveillance–Broadcast)**, SIGINT'e yeni başlayan herkesin ilk "vay be!" anıdır. Uçaklar konum, irtifa, hız ve kimliklerini **şifresiz** olarak yayınlar; sen bir antenle bunu yakalayıp kendi canlı uçak haritanı kurarsın. Tamamen meşru ve müthiş tatmin edici.
 
@@ -152,7 +152,7 @@ Sinyali ölçtün; şimdi **eşleştirme** zamanı. Tek tek ezberlemek imkânsı
 dump1090 --interactive --net
 
 # 2. Tarayıcıda haritayı aç (yerel sunucu)
-#    http://localhost:8080  → uçaklar harita üzerinde belirir
+# http://localhost:8080  → uçaklar harita üzerinde belirir
 ```
 
 `--interactive` terminalde canlı tablo, `--net` ise web haritası ve diğer araçlara veri akışı (Beast/SBS formatı, port 30003/30005) sağlar.
@@ -170,12 +170,12 @@ dump1090 --interactive --net
 - **Flight:** Çağrı işareti (THY1924 = Turkish Airlines seferi).
 - Konum/irtifa/hız → bunları harita üzerinde gerçek zamanlı izlersin.
 
-> 🔥 **Püf:** Topladığın veriyi **FlightAware / FlightRadar24 / OpenSky Network** gibi platformlara besleyebilirsin (feeder olursun) → karşılığında premium erişim alırsın. Kendi anteninle küresel bir izleme ağına katkı = en sevilen yasal SDR projelerinden. **Menzil sırrı:** Antenini ne kadar yükseğe (çatı, pencere) ve engelsiz koyarsan, ufuk çizgisi o kadar uzar — düz arazide 250+ deniz mili görmek mümkün.
+> **Püf:** Topladığın veriyi **FlightAware / FlightRadar24 / OpenSky Network** gibi platformlara besleyebilirsin (feeder olursun) → karşılığında premium erişim alırsın. Kendi anteninle küresel bir izleme ağına katkı = en sevilen yasal SDR projelerinden. **Menzil sırrı:** Antenini ne kadar yükseğe (çatı, pencere) ve engelsiz koyarsan, ufuk çizgisi o kadar uzar — düz arazide 250+ deniz mili görmek mümkün.
 
 ---
 
 <a id="5"></a>
-## 5. 🚢 AIS — Gemileri Denizden Çek
+## 5.  AIS — Gemileri Denizden Çek
 
 ADS-B'nin denizdeki kuzeni. **AIS (Automatic Identification System)**, gemilerin konum, hız, rota, isim ve MMSI kimliğini **şifresiz** yaydığı sistemdir. Sahil/liman yakınındaysan onlarca gemiyi haritalarsın.
 
@@ -206,12 +206,12 @@ rtl_ais -n -p 0
 
 Decoder bunu insan-okur alanlara dönüştürür: **MMSI** (gemi kimliği), enlem/boylam, SOG (hız), COG (rota), gemi adı/tipi.
 
-> 💡 **Not:** Tıpkı ADS-B gibi, AIS verisini **MarineTraffic / AISHub** gibi platformlara besleyebilirsin. Sahile uzaksan gemi göremezsin — AIS VHF'tir, menzili ufukla sınırlıdır (~40-50 deniz mili).
+> **Not:** Tıpkı ADS-B gibi, AIS verisini **MarineTraffic / AISHub** gibi platformlara besleyebilirsin. Sahile uzaksan gemi göremezsin — AIS VHF'tir, menzili ufukla sınırlıdır (~40-50 deniz mili).
 
 ---
 
 <a id="6"></a>
-## 6. 📨 ACARS — Uçakların Metin Mesajları
+## 6.  ACARS — Uçakların Metin Mesajları
 
 **ACARS (Aircraft Communications Addressing and Reporting System)**, uçaklarla yer istasyonları arasındaki kısa **metin** mesajlaşma sistemidir (kalkış/varış saatleri, motor verisi, hava durumu istekleri, bakım mesajları). VHF üzerinden açık yayınlanan operasyonel mesajları çözebilirsin.
 
@@ -239,12 +239,12 @@ Message:
 ]
 ```
 
-> 🧠 **Bağlam:** ACARS mesajları operasyoneldir, kişisel iletişim değildir — açık yayınlandıkları için dinlenmesi yaygın bir hobidir. Yine de **mesaj içeriğini kötüye kullanma** (gizliliğe saygı). Bir sonraki nesil sistem ise daha geniş bantlı VDL Mode 2'dir.
+> **Bağlam:** ACARS mesajları operasyoneldir, kişisel iletişim değildir — açık yayınlandıkları için dinlenmesi yaygın bir hobidir. Yine de **mesaj içeriğini kötüye kullanma** (gizliliğe saygı). Bir sonraki nesil sistem ise daha geniş bantlı VDL Mode 2'dir.
 
 ---
 
 <a id="7"></a>
-## 7. 📟 POCSAG / FLEX — Çağrı Cihazları (Pager) ⚠️
+## 7.  POCSAG / FLEX — Çağrı Cihazları (Pager)
 
 Çağrı cihazları (pager) hâlâ hastane, acil servis ve bazı kurumlarda kullanılır. **POCSAG** ve **FLEX**, pager mesajlarını taşıyan protokollerdir ve çoğunlukla **şifresizdir**.
 
@@ -261,12 +261,12 @@ Message:
 rtl_fm -f 153.350M -s 22050 - | multimon-ng -t raw -a POCSAG1200 -f alpha /dev/stdin
 ```
 
-> ⚠️ **GİZLİLİK UYARISI — DİKKAT:** Pager içeriği teknik olarak şifresiz yayınlansa da, **kişisel/tıbbi/özel bilgi** taşıyabilir (hasta isimleri, acil çağrılar). Birçok ülkede bu içeriği **kaydetmek, paylaşmak, kullanmak yasadışıdır** — sinyalin "açık" olması içeriğini kullanmanı meşru kılmaz. **Önerimiz:** Bu protokolü **yalnızca modülasyon/çözümleme mekaniğini öğrenmek** için, içeriğe odaklanmadan, kaydetmeden incele. Şüphedeysen hiç dokunma; bunun yerine ADS-B/AIS/NOAA gibi içeriği gerçekten kamusal olan protokollerle pratik yap.
+> **GİZLİLİK UYARISI — DİKKAT:** Pager içeriği teknik olarak şifresiz yayınlansa da, **kişisel/tıbbi/özel bilgi** taşıyabilir (hasta isimleri, acil çağrılar). Birçok ülkede bu içeriği **kaydetmek, paylaşmak, kullanmak yasadışıdır** — sinyalin "açık" olması içeriğini kullanmanı meşru kılmaz. **Önerimiz:** Bu protokolü **yalnızca modülasyon/çözümleme mekaniğini öğrenmek** için, içeriğe odaklanmadan, kaydetmeden incele. Şüphedeysen hiç dokunma; bunun yerine ADS-B/AIS/NOAA gibi içeriği gerçekten kamusal olan protokollerle pratik yap.
 
 ---
 
 <a id="8"></a>
-## 8. 📡 APRS — Amatör Paket Radyo
+## 8.  APRS — Amatör Paket Radyo
 
 **APRS (Automatic Packet Reporting System)**, amatör radyocuların konum, telemetri, kısa mesaj ve hava durumu paylaştığı bir paket sistemidir. Tamamen açık ve topluluk odaklıdır — amatör radyo dünyasının "canlı haritası".
 
@@ -292,12 +292,12 @@ TA1ABC-9>APRS,WIDE1-1:!4101.23N/02858.45E>Mobil istasyon, Istanbul
        └ gönderen çağrı işareti (amatör lisans)
 ```
 
-> 🧠 **Not:** APRS'i çözmek (RX) yasaldır. **Yayın yapmak (TX)** için **amatör telsiz lisansı** gerekir (Türkiye'de bu sınava girip lisans alabilirsin — SIGINT öğrenenler için harika bir resmi adım). Çözdüğün paketleri **aprs.fi** gibi haritalarda da görebilirsin.
+> **Not:** APRS'i çözmek (RX) yasaldır. **Yayın yapmak (TX)** için **amatör telsiz lisansı** gerekir (Türkiye'de bu sınava girip lisans alabilirsin — SIGINT öğrenenler için harika bir resmi adım). Çözdüğün paketleri **aprs.fi** gibi haritalarda da görebilirsin.
 
 ---
 
 <a id="9"></a>
-## 9. 🌍 NOAA APT & Meteor-M LRPT — Uydudan Hava Durumu Görüntüsü
+## 9.  NOAA APT & Meteor-M LRPT — Uydudan Hava Durumu Görüntüsü
 
 **SDR'ın taç mücevheri.** Başının üzerinden geçen bir **hava durumu uydusundan**, kendi antenınle, gerçek **görüntü** indirirsin. İlk başarılı APT görüntüsünü aldığında SDR'a tutkun olursun. %100 meşru, %100 büyüleyici.
 
@@ -348,12 +348,12 @@ Rus **Meteor-M N2** serisi, NOAA'nın **dijital** ve **renkli/daha yüksek çöz
 | **Araç** | **SatDump** (modern, çok-uydu, önerilen), eski zincir: meteor_demod + LRPToffline |
 | **Anten** | NOAA ile aynı (QFH / çapraz dipol, 137 MHz) |
 
-> 🔥 **Püf:** **SatDump** bugün hem NOAA APT hem Meteor LRPT hem de daha fazlasını tek çatı altında çözen modern araçtır — yeni başlıyorsan doğrudan SatDump öğren. **QFH anten** bu iş için altın standarttır çünkü uydular dairesel polarize yayar ve gökyüzünde hareket eder; yönlü anten gerektirmez. İlk denemende sabırlı ol: temiz görüntü için iyi anten + açık ufuk + doğru geçiş zamanı şart.
+> **Püf:** **SatDump** bugün hem NOAA APT hem Meteor LRPT hem de daha fazlasını tek çatı altında çözen modern araçtır — yeni başlıyorsan doğrudan SatDump öğren. **QFH anten** bu iş için altın standarttır çünkü uydular dairesel polarize yayar ve gökyüzünde hareket eder; yönlü anten gerektirmez. İlk denemende sabırlı ol: temiz görüntü için iyi anten + açık ufuk + doğru geçiş zamanı şart.
 
 ---
 
 <a id="10"></a>
-## 10. 🏠 rtl_433 — Evdeki Her Şeyin Telsizi
+## 10.  rtl_433 — Evdeki Her Şeyin Telsizi
 
 Etrafındaki onlarca cihaz **433.92 MHz** ve **868 MHz** (ISM bantları) üzerinden sürekli telsizle konuşuyor: meteoroloji istasyonları, lastik basıncı sensörleri (TPMS), akıllı prizler, kapı/pencere sensörleri, su/gaz sayaçları. **rtl_433**, bu yüzlerce protokolü **otomatik tanıyıp** çözen sihirli araçtır.
 
@@ -381,12 +381,12 @@ rtl_433 -f 433.92M -F json
   "pressure_kPa":230.0, "temperature_C":28 }
 ```
 
-> 🔥 **Püf — KENDİ sensörlerin:** En tatmin edici alıştırma, **kendi evindeki** kablosuz termometreni, hava istasyonunu ya da **kendi arabanın** lastik basıncı sensörünü (yanına park edip) rtl_433 ile görmektir. Burada **kendi cihazını** gözlemliyorsun = tamamen meşru. Sonuçları MQTT'ye basıp ev otomasyonuna (Home Assistant) bağlayabilirsin. ⚠️ Komşunun sensörlerini de görebilirsin — bunlar açık yayınlar olsa da, kişisel verisini (örn. evde var/yok çıkarımı) kötüye kullanmak etik/yasal sınırı aşar; gözlemle, kullanma.
+> **Püf — KENDİ sensörlerin:** En tatmin edici alıştırma, **kendi evindeki** kablosuz termometreni, hava istasyonunu ya da **kendi arabanın** lastik basıncı sensörünü (yanına park edip) rtl_433 ile görmektir. Burada **kendi cihazını** gözlemliyorsun = tamamen meşru. Sonuçları MQTT'ye basıp ev otomasyonuna (Home Assistant) bağlayabilirsin.  Komşunun sensörlerini de görebilirsin — bunlar açık yayınlar olsa da, kişisel verisini (örn. evde var/yok çıkarımı) kötüye kullanmak etik/yasal sınırı aşar; gözlemle, kullanma.
 
 ---
 
 <a id="11"></a>
-## 11. 📶 LoRa — Uzun Menzilli IoT
+## 11.  LoRa — Uzun Menzilli IoT
 
 **LoRa (Long Range)**, düşük güçle kilometrelerce menzil sağlayan bir IoT modülasyonudur (chirp spread spectrum — CSS). Akıllı şehir sensörleri, tarım telemetri, varlık takibi kullanır.
 
@@ -396,12 +396,12 @@ rtl_433 -f 433.92M -F json
 | **Modülasyon** | CSS (Chirp Spread Spectrum) — waterfall'da **karakteristik eğik "kayan" çizgiler** (chirp) |
 | **Araç** | **gr-lora / gr-lora_sdr** (GNU Radio), bazı SDRangel eklentileri |
 
-> 🧠 **Tanıma ipucu:** LoRa, waterfall'da **yukarı/aşağı süpüren eğik rampa** desenleriyle hemen belli olur — başka hiçbir yaygın sinyal böyle "kayan" görünmez. **LoRaWAN** (üst katman ağ protokolü) genelde **şifrelidir**; yani fiziksel chirp'i görebilir/demodüle edebilirsin ama uygulama verisi anahtarsız okunamaz. Kendi LoRa geliştirme kartınla (Heltec/TTGO) **kendi** paketlerini gönderip çözmek mükemmel bir öğrenme projesidir.
+> **Tanıma ipucu:** LoRa, waterfall'da **yukarı/aşağı süpüren eğik rampa** desenleriyle hemen belli olur — başka hiçbir yaygın sinyal böyle "kayan" görünmez. **LoRaWAN** (üst katman ağ protokolü) genelde **şifrelidir**; yani fiziksel chirp'i görebilir/demodüle edebilirsin ama uygulama verisi anahtarsız okunamaz. Kendi LoRa geliştirme kartınla (Heltec/TTGO) **kendi** paketlerini gönderip çözmek mükemmel bir öğrenme projesidir.
 
 ---
 
 <a id="12"></a>
-## 12. 🌐 Amatör Dijital Modlar — FT8 / PSK31 / RTTY
+## 12.  Amatör Dijital Modlar — FT8 / PSK31 / RTTY
 
 Kısa dalga (HF) bantlarında amatör radyocular, dünyanın öbür ucuyla **dijital modlarla** haberleşir. Bunları **dinlemek (RX)** tamamen yasaldır ve "zayıf sinyalle dünya çapı iletişim" mucizesini gözlemlemenin en iyi yoludur. (HF için **upconverter'lı RTL-SDR** ya da doğrudan HF SDR — örn. ham bant kapsayan cihaz — gerekir.)
 
@@ -422,16 +422,16 @@ Kısa dalga (HF) bantlarında amatör radyocular, dünyanın öbür ucuyla **dij
    "CQ JA1XYZ PM95"  → Japonya'dan bir istasyon çağrı yapıyor.
 ```
 
-> 🔥 **Püf:** **FT8'in büyüsü**, -20 dB SNR'da (yani sinyal gürültüden zayıfken!) bile çözebilmesidir — bu yüzden minik antenle, düşük güçle kıtalararası "görülmek" mümkündür. **Sadece RX yaparak** (lisans gerekmez) ekranında anlık olarak hangi ülkelerin "duyulduğunu" izlemek, propagasyonu (iyonosferik yayılım) öğrenmenin en somut yoludur. Aldığın spotları **PSK Reporter** haritasında dünya ölçeğinde görebilirsin.
+> **Püf:** **FT8'in büyüsü**, -20 dB SNR'da (yani sinyal gürültüden zayıfken!) bile çözebilmesidir — bu yüzden minik antenle, düşük güçle kıtalararası "görülmek" mümkündür. **Sadece RX yaparak** (lisans gerekmez) ekranında anlık olarak hangi ülkelerin "duyulduğunu" izlemek, propagasyonu (iyonosferik yayılım) öğrenmenin en somut yoludur. Aldığın spotları **PSK Reporter** haritasında dünya ölçeğinde görebilirsin.
 
 ---
 
 <a id="13"></a>
-## 13. 🔧 Sinyal Tersine Mühendislik — URH ile KENDİ Kumandanı Çöz
+## 13.  Sinyal Tersine Mühendislik — URH ile KENDİ Kumandanı Çöz
 
 Şimdiye kadar **bilinen** protokolleri hazır araçlarla çözdük. Peki ya **bilinmeyen** bir sinyal — örneğin **kendi garaj kapı kumandan**, kendi kablosuz kapı zilin, kendi oyuncağının uzaktan kumandası? İşte burada **tersine mühendislik** devreye girer ve en güçlü araç **Universal Radio Hacker (URH)**'tır.
 
-> ⚖️ **SINIR:** Bu teknik **yalnızca KENDİ cihazların** içindir. Kendi malın olan bir kumandanın sinyalini analiz etmek bir öğrenme egzersizidir. **Başkasının** garajını/aracını/kapısını hedef almak suçtur ve bu rehberin kapsamı dışındadır.
+> **SINIR:** Bu teknik **yalnızca KENDİ cihazların** içindir. Kendi malın olan bir kumandanın sinyalini analiz etmek bir öğrenme egzersizidir. **Başkasının** garajını/aracını/kapısını hedef almak suçtur ve bu rehberin kapsamı dışındadır.
 
 ### URH ile bilinmeyen OOK/FSK sinyalini çözme (kavram + akış)
 
@@ -462,14 +462,14 @@ Kısa dalga (HF) bantlarında amatör radyocular, dünyanın öbür ucuyla **dij
 
 Eski, basit bir garaj kumandası genelde **sabit kod (fixed code)** kullanır: her basışta **aynı** bit dizisini gönderir. URH'ta iki kez kaydedip karşılaştırırsan dizilerin birebir aynı olduğunu görürsün → bu, neden eski kumandaların güvensiz olduğunu öğretir (Bölüm 6'da "replay" zafiyeti). Modern kumandalar ise **rolling code** (her basışta değişen, senkron sayaç) kullanır → kaydedilen dizi tekrar işe yaramaz. **İşte tersine mühendilik, sana bir cihazın güvenli mi güvensiz mi tasarlandığını somut olarak gösterir** — bu da savunma mühendisliğinin özüdür.
 
-> 🧠 **Öğrenme değeri:** URH ile kendi cihazlarını çözmek, "modülasyon → sembol → bit → protokol alanı" zincirini **elinle** kurmanı sağlar. Hazır decoder'lar bu zinciri senin yerine yapar; URH ile bir kez kendin yaparsan **tüm dijital protokolleri** çok daha derin anlarsın.
+> **Öğrenme değeri:** URH ile kendi cihazlarını çözmek, "modülasyon → sembol → bit → protokol alanı" zincirini **elinle** kurmanı sağlar. Hazır decoder'lar bu zinciri senin yerine yapar; URH ile bir kez kendin yaparsan **tüm dijital protokolleri** çok daha derin anlarsın.
 
 ---
 
 <a id="14"></a>
-## 14. 📱 HÜCRESEL — 2G/3G/4G/5G Mimarisi (Prensip + Yasal Sınır)
+## 14.  HÜCRESEL — 2G/3G/4G/5G Mimarisi (Prensip + Yasal Sınır)
 
-> ⚠️ **EN ÖNEMLİ UYARI — TEKRAR:** Bu bölüm **mimariyi ve neden-savunmasız/savunmalı** sorusunu anlatır. **Hiçbir adım-adım yetkisiz dinleme reçetesi içermez ve içermeyecektir.** Başkasının hücresel haberleşmesini (görüşme/SMS/veri) izinsiz dinlemek/çözmek **ağır cezalı suçtur** — TCK ve uluslararası mevzuat. Burada amaç: bir savunmacının, saldırının nasıl mümkün olduğunu **anlayarak** kendini ve kurumunu koruyabilmesidir. Yasal pratik yolu Bölüm 15'te.
+> **EN ÖNEMLİ UYARI — TEKRAR:** Bu bölüm **mimariyi ve neden-savunmasız/savunmalı** sorusunu anlatır. **Hiçbir adım-adım yetkisiz dinleme reçetesi içermez ve içermeyecektir.** Başkasının hücresel haberleşmesini (görüşme/SMS/veri) izinsiz dinlemek/çözmek **ağır cezalı suçtur** — TCK ve uluslararası mevzuat. Burada amaç: bir savunmacının, saldırının nasıl mümkün olduğunu **anlayarak** kendini ve kurumunu koruyabilmesidir. Yasal pratik yolu Bölüm 15'te.
 
 Hücresel ağlar, açık yayınların (ADS-B/AIS) tam tersidir: **kullanıcı trafiği şifrelidir** ve dinlenmesi hem teknik hem yasal olarak engellenmiştir. Ama her nesil aynı derecede sağlam değildir — işte özü.
 
@@ -504,7 +504,7 @@ TRAFİK KANALLARI (TCH):  asıl ses/veri → ŞİFRELİ (A5 ailesi)
 - **Tek yönlü kimlik doğrulama:** GSM'de **ağ telefonu doğrular ama telefon ağı doğrulamaz.** Bu asimetri, sahte baz istasyonu (**IMSI catcher / "stingray"**) kavramının temelidir: telefon, kendini en güçlü hücre sanan sahte bir BTS'e bağlanabilir. *(Bu yapının nasıl çalıştığını **bilmek** seni korur — örn. neden 2G'yi kapatmak savunma sağlar.)*
 - **gr-gsm gibi araçlar** akademik olarak **downlink kontrol/yayın kanallarını** (BCCH gibi) gözlemlemek için kullanılır — yani *zaten yayınlanan* sinyalizasyonu incelemek. **Kullanıcı trafiğini çözmek bambaşka, yasadışı bir eylemdir** ve bu rehberde tarif edilmez.
 
-> 🛡️ **Savunma dersi:** Telefonunu/kurumunu korumak için **2G'yi devre dışı bırak** (modern telefonlarda "yalnızca 4G/5G" zorlanabilir), **IMSI catcher tespiti** olan güvenlik uygulamalarını değerlendir, kritik iletişimde **uçtan uca şifreli** uygulamalar (Signal vb.) kullan — çünkü E2E şifreleme, taşıyıcı katmanı ele geçirilse bile içeriği korur.
+> **Savunma dersi:** Telefonunu/kurumunu korumak için **2G'yi devre dışı bırak** (modern telefonlarda "yalnızca 4G/5G" zorlanabilir), **IMSI catcher tespiti** olan güvenlik uygulamalarını değerlendir, kritik iletişimde **uçtan uca şifreli** uygulamalar (Signal vb.) kullan — çünkü E2E şifreleme, taşıyıcı katmanı ele geçirilse bile içeriği korur.
 
 ### 14.2 3G / UMTS — Neden Dinlemesi Zorlaştı
 
@@ -526,7 +526,7 @@ LTE, "neyin açık, neyin kapalı" ayrımını net biçimde örnekler — SIGINT
 - **AKADEMİK araçlar:** **srsRAN** (açık kaynak LTE/5G yığını, *araştırma ve kendi test ağını kurmak* için) ve **FALCON** gibi araçlar, LTE **downlink kontrol kanalı (PDCCH) analizi** ve hücre ölçümü için akademik olarak kullanılır — yani **yayın/sinyalizasyon katmanını** incelemek için.
 - **Kullanıcı trafiği şifrelidir:** Asıl veri (PDSCH üzerindeki kullanıcı düzlemi), NAS/AS güvenlik bağlamıyla şifrelenir. **Bu yüzden LTE kullanıcı haberleşmesini çözmek hem teknik olarak engellenmiş hem yasadışıdır.**
 
-> 🧠 **Kritik ayrım (aklında kazınsın):** Bir LTE hücresinin **var olduğunu, hangi frekansta yayın yaptığını, MIB/SIB parametrelerini** ölçmek (akademik/araştırma, açık yayın) ile o hücredeki **bir kullanıcının verisini çözmek** (şifreli, özel, **SUÇ**) **tamamen farklı** iki şeydir. Birincisi radyo mühendisliği; ikincisi ağır suç.
+> **Kritik ayrım (aklında kazınsın):** Bir LTE hücresinin **var olduğunu, hangi frekansta yayın yaptığını, MIB/SIB parametrelerini** ölçmek (akademik/araştırma, açık yayın) ile o hücredeki **bir kullanıcının verisini çözmek** (şifreli, özel, **SUÇ**) **tamamen farklı** iki şeydir. Birincisi radyo mühendisliği; ikincisi ağır suç.
 
 ### 14.4 5G NR — Kısaca
 
@@ -535,12 +535,12 @@ LTE, "neyin açık, neyin kapalı" ayrımını net biçimde örnekler — SIGINT
 - Beamforming ve geniş bant, pasif gözlemi fiziksel olarak da daha zor kılar.
 - Yine: **yayın/senkronizasyon bilgisi** (SSB vb.) açıktır; **kullanıcı trafiği şifrelidir.**
 
-> 🛡️ **Genel savunma çıkarımı:** Nesil ilerledikçe (2G→5G) hem **şifreleme** hem **kimlik gizliliği** hem **karşılıklı doğrulama** güçlenir. En zayıf halka neredeyse her zaman **en eski nesle (2G) düşürme (downgrade) saldırısıdır** — bu yüzden cihazını mümkünse 2G'den arındırmak somut bir koruma sağlar.
+> **Genel savunma çıkarımı:** Nesil ilerledikçe (2G→5G) hem **şifreleme** hem **kimlik gizliliği** hem **karşılıklı doğrulama** güçlenir. En zayıf halka neredeyse her zaman **en eski nesle (2G) düşürme (downgrade) saldırısıdır** — bu yüzden cihazını mümkünse 2G'den arındırmak somut bir koruma sağlar.
 
 ---
 
 <a id="15"></a>
-## 15. ⚖️ Net Çerçeve — Gözlem mi, Dinleme mi?
+## 15.  Net Çerçeve — Gözlem mi, Dinleme mi?
 
 Tüm bu bölümün ahlaki/hukuki pusulası tek bir ayrımda toplanır:
 
@@ -565,58 +565,58 @@ Eğer bu teknolojiyi gerçekten ellerinle öğrenmek istiyorsan, **doğru ve yas
 3. **Operatör / üniversite / kurum izni:** Akademik araştırma laboratuvarları, operatör test sahaları — yazılı izinle, kontrollü ortamda.
 4. **Amatör radyo lisansı:** TX'e geçmenin (kendi sinyalini yayınlamanın) genel yasal yolu; sınava gir, çağrı işaretini al.
 
-> ⚖️ **Özet ilke:** *Açığı dinle, özeli dinleme.* *Kendi cihazını çöz, başkasınınkini çözme.* *Yayın/kontrol katmanını gözlemlemek (araştırma) ile kullanıcı içeriğini ele geçirmek (suç) arasındaki çizgiyi asla bulanıklaştırma.* Şüphedeysen: RX-only + açık yayın = güvenli liman.
+> **Özet ilke:** *Açığı dinle, özeli dinleme.* *Kendi cihazını çöz, başkasınınkini çözme.* *Yayın/kontrol katmanını gözlemlemek (araştırma) ile kullanıcı içeriğini ele geçirmek (suç) arasındaki çizgiyi asla bulanıklaştırma.* Şüphedeysen: RX-only + açık yayın = güvenli liman.
 
 ---
 
 <a id="16"></a>
-## 16. 🧪 ALIŞTIRMALAR — Hepsi Evde, Hepsi Yasal
+## 16.  ALIŞTIRMALAR — Hepsi Evde, Hepsi Yasal
 
 Bu bölümü "okuyup geçme" — **yap.** Aşağıdakilerin hepsi yasaldır, ucuz bir RTL-SDR ile mümkündür ve seni acemiden ustaya taşır:
 
-1. **🛰️ Uydudan görüntü indir (taç görev):** Bir NOAA (137 MHz) ya da Meteor-M geçişini Gpredict/Look4Sat ile yakala, **SatDump** veya **noaa-apt** ile görüntüye çevir. İlk bulut/kıyı görüntün — SDR'ın "vay be" anı.
-2. **✈️ Canlı uçak haritası:** **dump1090**'ı 1090 MHz'de çalıştır, tarayıcıda tependeki uçakların haritasını izle. Antenini yükselt, menzilin nasıl arttığını gör. İstersen OpenSky/FlightAware'e feeder ol.
-3. **🚢 Gemi haritası (sahildeysen):** **rtl-ais** + OpenCPN ile 162 MHz'den gemileri haritala.
-4. **🏠 Kendi sensörlerin:** **rtl_433 -f 433.92M -F json** ile evindeki kablosuz termometreyi/hava istasyonunu, kendi arabanın TPMS lastik sensörünü gör. JSON'u Home Assistant'a bağla.
-5. **🔧 Kendi kumandanı çöz:** **URH** ile kendi garaj/zil/oyuncak kumandanın OOK sinyalini kaydet, bit dizisini çıkar, "sabit kod mu, rolling code mu?" sorusunu yanıtla. (Yalnızca **kendi** malın.)
-6. **🌐 Dünyayı dinle (sadece RX):** HF-yetkin SDR + **WSJT-X** ile **FT8** (14.074 MHz) penceresini aç; gürültünün altından dünyanın dört bucağından gelen çağrı işaretlerini izle. **PSK Reporter**'da hangi ülkelerin "duyulduğunu" haritada gör. Lisans gerekmez (yalnızca dinliyorsun).
-7. **📡 APRS gözlemi:** 144.800 MHz'i **Direwolf** ile çöz, yerel amatör istasyonların konum/telemetri paketlerini gör; **aprs.fi**'de karşılaştır.
+1. ** Uydudan görüntü indir (taç görev):** Bir NOAA (137 MHz) ya da Meteor-M geçişini Gpredict/Look4Sat ile yakala, **SatDump** veya **noaa-apt** ile görüntüye çevir. İlk bulut/kıyı görüntün — SDR'ın "vay be" anı.
+2. ** Canlı uçak haritası:** **dump1090**'ı 1090 MHz'de çalıştır, tarayıcıda tependeki uçakların haritasını izle. Antenini yükselt, menzilin nasıl arttığını gör. İstersen OpenSky/FlightAware'e feeder ol.
+3. ** Gemi haritası (sahildeysen):** **rtl-ais** + OpenCPN ile 162 MHz'den gemileri haritala.
+4. ** Kendi sensörlerin:** **rtl_433 -f 433.92M -F json** ile evindeki kablosuz termometreyi/hava istasyonunu, kendi arabanın TPMS lastik sensörünü gör. JSON'u Home Assistant'a bağla.
+5. ** Kendi kumandanı çöz:** **URH** ile kendi garaj/zil/oyuncak kumandanın OOK sinyalini kaydet, bit dizisini çıkar, "sabit kod mu, rolling code mu?" sorusunu yanıtla. (Yalnızca **kendi** malın.)
+6. ** Dünyayı dinle (sadece RX):** HF-yetkin SDR + **WSJT-X** ile **FT8** (14.074 MHz) penceresini aç; gürültünün altından dünyanın dört bucağından gelen çağrı işaretlerini izle. **PSK Reporter**'da hangi ülkelerin "duyulduğunu" haritada gör. Lisans gerekmez (yalnızca dinliyorsun).
+7. ** APRS gözlemi:** 144.800 MHz'i **Direwolf** ile çöz, yerel amatör istasyonların konum/telemetri paketlerini gör; **aprs.fi**'de karşılaştır.
 
-> 🏅 **Ustalık rozeti:** Bu yedi alıştırmayı bitirdiğinde, "sinyal yakalama → tanımlama → çözme" zincirini hem **açık protokollerde** hem **kendi cihazlarında** uçtan uca yapmış olursun. Hücresel kısmı ise **anlamış** ama yasal sınırın hangi tarafında durduğunu **bilen** biri olarak tamamlarsın — gerçek bir SIGINT savunmacısının duruşu budur.
+> **Ustalık rozeti:** Bu yedi alıştırmayı bitirdiğinde, "sinyal yakalama → tanımlama → çözme" zincirini hem **açık protokollerde** hem **kendi cihazlarında** uçtan uca yapmış olursun. Hücresel kısmı ise **anlamış** ama yasal sınırın hangi tarafında durduğunu **bilen** biri olarak tamamlarsın — gerçek bir SIGINT savunmacısının duruşu budur.
 
 ---
 
 <a id="17"></a>
-## 17. 📋 Hızlı Referans Tablosu (Protokol × Frekans × Araç)
+## 17.  Hızlı Referans Tablosu (Protokol × Frekans × Araç)
 
 | Protokol | Frekans (tipik) | Modülasyon | Ana Araç | Yasal durum |
 |---|---|---|---|---|
-| **ADS-B** | 1090 MHz (978 UAT) | PPM | dump1090 / readsb | ✅ Açık yayın |
-| **AIS** | 161.975 / 162.025 MHz | GMSK 9600 | rtl-ais / gnuais | ✅ Açık yayın |
-| **ACARS** | ~131 MHz bandı | MSK 2400 | acarsdec | ✅ Açık (içeriğe saygı) |
-| **POCSAG/FLEX** | 138–175 / ~929 MHz* | FSK | multimon-ng / PDW | ⚠️ İçerik kişisel olabilir — kullanma |
-| **APRS** | 144.800 MHz (EU/TR) | AFSK 1200 / AX.25 | Direwolf | ✅ RX yasal (TX=lisans) |
-| **NOAA APT** | 137 MHz | APT (FM+AM) | SatDump / noaa-apt | ✅ Açık yayın |
-| **Meteor-M LRPT** | ~137 MHz* | QPSK (LRPT) | SatDump | ✅ Açık yayın |
-| **rtl_433 (IoT)** | 433.92 / 868 MHz | OOK/ASK/FSK | rtl_433 | ✅ Kendi cihazların |
-| **LoRa** | 868 / 915 MHz | CSS (chirp) | gr-lora_sdr | ✅ Kendi cihazların (LoRaWAN şifreli) |
-| **FT8 / PSK31 / RTTY** | HF ham bantları (14.074 vb.) | FSK/PSK | WSJT-X / fldigi | ✅ RX yasal |
-| **GSM / 2G** | 900 / 1800 MHz (ARFCN) | GMSK | (yalnızca kavram) | 🚫 Kullanıcı trafiği = SUÇ |
-| **3G / UMTS** | UMTS bantları | W-CDMA | (yalnızca kavram) | 🚫 Kullanıcı trafiği = SUÇ |
-| **4G / LTE** | LTE bantları (EARFCN) | OFDMA | srsRAN (test ağı) | 🚫 Kullanıcı trafiği = SUÇ |
-| **5G NR** | Sub-6 / mmWave | OFDMA + beamforming | Open5GS (test ağı) | 🚫 Kullanıcı trafiği = SUÇ |
+| **ADS-B** | 1090 MHz (978 UAT) | PPM | dump1090 / readsb |  Açık yayın |
+| **AIS** | 161.975 / 162.025 MHz | GMSK 9600 | rtl-ais / gnuais |  Açık yayın |
+| **ACARS** | ~131 MHz bandı | MSK 2400 | acarsdec |  Açık (içeriğe saygı) |
+| **POCSAG/FLEX** | 138–175 / ~929 MHz* | FSK | multimon-ng / PDW |  İçerik kişisel olabilir — kullanma |
+| **APRS** | 144.800 MHz (EU/TR) | AFSK 1200 / AX.25 | Direwolf |  RX yasal (TX=lisans) |
+| **NOAA APT** | 137 MHz | APT (FM+AM) | SatDump / noaa-apt |  Açık yayın |
+| **Meteor-M LRPT** | ~137 MHz* | QPSK (LRPT) | SatDump |  Açık yayın |
+| **rtl_433 (IoT)** | 433.92 / 868 MHz | OOK/ASK/FSK | rtl_433 |  Kendi cihazların |
+| **LoRa** | 868 / 915 MHz | CSS (chirp) | gr-lora_sdr |  Kendi cihazların (LoRaWAN şifreli) |
+| **FT8 / PSK31 / RTTY** | HF ham bantları (14.074 vb.) | FSK/PSK | WSJT-X / fldigi |  RX yasal |
+| **GSM / 2G** | 900 / 1800 MHz (ARFCN) | GMSK | (yalnızca kavram) |  Kullanıcı trafiği = SUÇ |
+| **3G / UMTS** | UMTS bantları | W-CDMA | (yalnızca kavram) |  Kullanıcı trafiği = SUÇ |
+| **4G / LTE** | LTE bantları (EARFCN) | OFDMA | srsRAN (test ağı) |  Kullanıcı trafiği = SUÇ |
+| **5G NR** | Sub-6 / mmWave | OFDMA + beamforming | Open5GS (test ağı) |  Kullanıcı trafiği = SUÇ |
 
 > \* **Teyit et:** Yıldızlı frekanslar bölgesel tahsise (Türkiye'de BTK band planı) ve uydu/dönem değişimine bağlıdır; uygulamadan önce güncel band planını ve uydu durumunu kontrol et.
 
 ---
 
 <a id="18"></a>
-## 18. 🧭 Çapraz Referans & Sonraki Bölüm
+## 18.  Çapraz Referans & Sonraki Bölüm
 
 Bu bölümde bir sinyali **tanıma** ve **çözme** sanatını öğrendin: beş parmak izi (frekans/bant/modülasyon/sembol/zaman), açık protokollerin uçtan uca akışı, kendi cihazlarını tersine mühendislik, ve hücresel mimarinin neden bazı nesillerde savunmasız bazılarında sağlam olduğu.
 
-**➡️ Bir sonraki adım — Bölüm 6: Güvenlik, Açıklar ve Savunma.** Burada öğrendiğin "nasıl çalışır" bilgisini, "nasıl saldırıya uğrar ve nasıl savunulur" perspektifine taşıyacağız: replay/rolling-code zafiyetleri (bu bölümde URH ile gördüğün sabit-kod kumandasının neden tehlikeli olduğu), GPS spoofing/jamming farkındalığı, IMSI-catcher tespiti ve karşı önlemler, spektrum izleme ile anomali tespiti, ve Kanije Kalesi'nin fiziksel/RF tehdit duruşuyla bağlantısı.
+** Bir sonraki adım — Bölüm 6: Güvenlik, Açıklar ve Savunma.** Burada öğrendiğin "nasıl çalışır" bilgisini, "nasıl saldırıya uğrar ve nasıl savunulur" perspektifine taşıyacağız: replay/rolling-code zafiyetleri (bu bölümde URH ile gördüğün sabit-kod kumandasının neden tehlikeli olduğu), GPS spoofing/jamming farkındalığı, IMSI-catcher tespiti ve karşı önlemler, spektrum izleme ile anomali tespiti, ve Kanije Kalesi'nin fiziksel/RF tehdit duruşuyla bağlantısı.
 
-> 🏰 **Kapanış:** Bir sinyali yakalamak teknikse, onu **anlamak** sanattır; ama onu **hangi sınıra kadar** çözebileceğini bilmek **bilgeliktir.** Açık gökyüzü senindir — uçakları, gemileri, uyduları, kendi cihazlarını dinle ve öğren. Özel/şifreli haberleşmenin kapısında ise dur: orası mühendisliğin değil, hukukun ve etiğin alanıdır. Gerçek bir uzman, **yapabildiği** ile **yapması gerekeni** ayırt edendir.
+> **Kapanış:** Bir sinyali yakalamak teknikse, onu **anlamak** sanattır; ama onu **hangi sınıra kadar** çözebileceğini bilmek **bilgeliktir.** Açık gökyüzü senindir — uçakları, gemileri, uyduları, kendi cihazlarını dinle ve öğren. Özel/şifreli haberleşmenin kapısında ise dur: orası mühendisliğin değil, hukukun ve etiğin alanıdır. Gerçek bir uzman, **yapabildiği** ile **yapması gerekeni** ayırt edendir.
 >
 > *Bu doküman Kanije Kalesi SIGINT El Kitabı serisinin **5. Bölümü**dür. İlgili: Bölüm 4 (SDR kurulumu/yakalama), **Bölüm 6 (Güvenlik, açıklar, savunma)**, ve repo'daki `WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md` (ağ katmanı analizi), `OSINT_ARAC_SETI_USTALIK_REHBERI.md` (açık kaynak istihbarat).*

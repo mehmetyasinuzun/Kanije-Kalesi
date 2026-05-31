@@ -73,6 +73,16 @@ Yol gösterici ilke: alıcı çoğu yerde serbesttir, verici her yerde sorumlulu
 | 21 | SIGINT Tarihi, Aktörler ve Elektronik Harp | [SIGINT_21_TARIH_AKTORLER_VE_ELEKTRONIK_HARP.md](SIGINT_21_TARIH_AKTORLER_VE_ELEKTRONIK_HARP.md) |
 | 22 | Egzotik Yayılım ve Geleceğin SIGINT'i | [SIGINT_22_EGZOTIK_VE_GELECEK.md](SIGINT_22_EGZOTIK_VE_GELECEK.md) |
 
+### Saldırı Yüzeyi, Zafiyet ve İleri Pratik Katman
+
+| # | Bölüm | Dosya |
+|---|---|---|
+| 23 | Kablosuz Saldırı Vektörleri ve Hizmet-Dışı Bırakma | [SIGINT_23_SALDIRI_VEKTORLERI_VE_DOS.md](SIGINT_23_SALDIRI_VEKTORLERI_VE_DOS.md) |
+| 24 | Güncel Zafiyet Manzarası (CVE'ler, prensip, savunma) | [SIGINT_24_GUNCEL_ZAFIYET_MANZARASI.md](SIGINT_24_GUNCEL_ZAFIYET_MANZARASI.md) |
+| 25 | Açık Kaynak Araç ve Kaynak Dizini (GitHub) | [SIGINT_25_ACIK_KAYNAK_ARAC_DIZINI_GITHUB.md](SIGINT_25_ACIK_KAYNAK_ARAC_DIZINI_GITHUB.md) |
+| 26 | Pratik Proje Rehberleri (uçtan uca, yasal lab) | [SIGINT_26_PRATIK_PROJE_REHBERLERI.md](SIGINT_26_PRATIK_PROJE_REHBERLERI.md) |
+| 27 | Anten Dizileri, Beamforming ve Massive MIMO | [SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md](SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md) |
+
 ---
 
 ## Önerilen Okuma Yolu

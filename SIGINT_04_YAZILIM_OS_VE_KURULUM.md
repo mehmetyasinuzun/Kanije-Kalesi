@@ -1,37 +1,37 @@
-# 💻 SIGINT EL KİTABI — BÖLÜM 4: İŞLETİM SİSTEMİ, YAZILIM VE KURULUM
+# SIGINT EL KİTABI — BÖLÜM 4: İŞLETİM SİSTEMİ, YAZILIM VE KURULUM
 ## SDR'ı Çalışır Hale Getirmek — "Donanım Geldi, Şimdi Ne Kuracağım?" (Sıfırdan Ustalığa)
 
 > **Amaç:** Elinde bir SDR (RTL-SDR, HackRF, Airspy…) var ama "hangi işletim sistemi, ne yüklenir, neden çalışmıyor?" duvarına çarptın. Bu bölüm, donanımı **ilk sinyali duyana kadar** götüren yazılım/OS/sürücü katmanını uçtan uca anlatır. Yalnızca *ne kurulur*'u değil, **neden o OS**, **sürücü katmanı tam olarak nasıl çalışır** ve **karşılaşacağın her tipik hatanın kökü ve çözümü**'nü içerir. Forum cevaplarında dağınık duran "Zadig", "DVB-T blacklist", "usb_claim_interface -6", "sample drop", "PPM kayması" gibi konuların tamamı burada, **bir mantık zincirinde** toplanmıştır.
 
-> ⚠️ **Önce bunu oku — YASAL ÇERÇEVE:** SDR ile **dinleme (RX) araçları geniştir** ve neredeyse her frekansı yakalayabilir. Ancak **yakaladığın bazı içeriklerin kaydı, çözümü veya paylaşımı** bulunduğun ülkede **suç** olabilir — özellikle **özel haberleşme** (telsiz telefon, çağrı cihazı/pager mesajı, şifresiz telsiz görüşmesi), **cep telefonu trafiği** ve **şifreli/lisanslı servisler**. Bu bölümdeki tüm alıştırmalar **yasal olarak açık yayınlar** (FM radyo, ADS-B uçak telemetrisi, kendi evindeki kendi IoT sensörlerin) üzerine kuruludur. "Teknik olarak yakalayabiliyor olmak" yasal olduğu anlamına gelmez. Detaylı hukuki sınır için bu el kitabının **hukuk/sınır bölümüne** bak.
+> **Önce bunu oku — YASAL ÇERÇEVE:** SDR ile **dinleme (RX) araçları geniştir** ve neredeyse her frekansı yakalayabilir. Ancak **yakaladığın bazı içeriklerin kaydı, çözümü veya paylaşımı** bulunduğun ülkede **suç** olabilir — özellikle **özel haberleşme** (telsiz telefon, çağrı cihazı/pager mesajı, şifresiz telsiz görüşmesi), **cep telefonu trafiği** ve **şifreli/lisanslı servisler**. Bu bölümdeki tüm alıştırmalar **yasal olarak açık yayınlar** (FM radyo, ADS-B uçak telemetrisi, kendi evindeki kendi IoT sensörlerin) üzerine kuruludur. "Teknik olarak yakalayabiliyor olmak" yasal olduğu anlamına gelmez. Detaylı hukuki sınır için bu el kitabının **hukuk/sınır bölümüne** bak.
 
-> ⚠️ **İkinci uyarı — yanlış beklenti:** "Dongle'ı taktım, neden hiçbir şey duymuyorum?" sorununun **%90'ı yazılım/sürücü/yakalama-noktası** kaynaklıdır, donanım arızası değil. Aşağıdaki **kurulum akışını sırayla** izle; adım atlama. Özellikle **Windows'ta Zadig/DVB-T** ve **Linux'ta blacklist** adımlarını atlarsan donanım "yokmuş gibi" davranır ve saatlerce yanlış yerde ararsın.
+> **İkinci uyarı — yanlış beklenti:** "Dongle'ı taktım, neden hiçbir şey duymuyorum?" sorununun **%90'ı yazılım/sürücü/yakalama-noktası** kaynaklıdır, donanım arızası değil. Aşağıdaki **kurulum akışını sırayla** izle; adım atlama. Özellikle **Windows'ta Zadig/DVB-T** ve **Linux'ta blacklist** adımlarını atlarsan donanım "yokmuş gibi" davranır ve saatlerce yanlış yerde ararsın.
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [Neden İşletim Sistemi Seçimi Her Şeyi Belirler](#1)
 2. [İşletim Sistemi Karşılaştırması — Linux / Windows / Pi / macOS](#2)
-3. [🔥 DragonOS — "Her Şey Kurulu Gelen" SDR Dağıtımı (Yeni Başlayana İdeal)](#3)
+3. [ DragonOS — "Her Şey Kurulu Gelen" SDR Dağıtımı (Yeni Başlayana İdeal)](#3)
 4. [Sanal Makine mi, Bare-Metal mi? (USB Geçişi Tuzağı)](#4)
-5. [🔥 Sürücü Katmanı — librtlsdr, Zadig, DVB-T Sorunu, SoapySDR](#5)
+5. [ Sürücü Katmanı — librtlsdr, Zadig, DVB-T Sorunu, SoapySDR](#5)
 6. [Diğer Cihaz Sürücüleri — HackRF / Airspy / SDRplay](#6)
-7. [🔥 GUI Yazılımlar — Ne İşe Yarar, Kime Uygun](#7)
+7. [ GUI Yazılımlar — Ne İşe Yarar, Kime Uygun](#7)
 8. [GNU Radio — "RF'in Programlama Dili" (Flowgraph Mantığı)](#8)
 9. [Sinyal Tersine Mühendislik — URH & Inspectrum](#9)
 10. [Hazır Çözücüler — rtl_433, dump1090, multimon-ng, WSJT-X](#10)
-11. [🔥 Komut Satırı Araçları — rtl_test / rtl_sdr / rtl_fm / rtl_power](#11)
-12. [🔥 Kurulum Adımları + Yaygın Sorunlar (Sorun→Çözüm)](#12)
+11. [ Komut Satırı Araçları — rtl_test / rtl_sdr / rtl_fm / rtl_power](#11)
+12. [ Kurulum Adımları + Yaygın Sorunlar (Sorun→Çözüm)](#12)
 13. [Sıfırdan Bir SDR İstasyonu Kurma Akışı](#13)
-14. [🧪 Alıştırmalar (Yasal, Ev Ortamı)](#14)
+14. [ Alıştırmalar (Yasal, Ev Ortamı)](#14)
 15. [Hızlı Referans & Kontrol Listesi](#15)
 16. [Çapraz Referans](#16)
 
 ---
 
 <a id="1"></a>
-## 1. 🧭 Neden İşletim Sistemi Seçimi Her Şeyi Belirler
+## 1.  Neden İşletim Sistemi Seçimi Her Şeyi Belirler
 
 SDR donanımı, kendi başına "aptal" bir analog-dijital dönüştürücüdür: antenden gelen radyo dalgalarını **IQ örneklerine** (ham sayı akışı) çevirir ve USB'den bilgisayara akıtır. **Tüm zekâ yazılımdadır** — demodülasyon, çözümleme, görselleştirme, kayıt. Dolayısıyla SDR'da "işletim sistemi seçimi", aslında **"hangi araç ekosistemine erişeceğim"** seçimidir.
 
@@ -45,14 +45,14 @@ SDR donanımı, kendi başına "aptal" bir analog-dijital dönüştürücüdür:
         Donanım sadece "örnek üretir".   Sinyali ANLAMLI kılan her şey burada.
 ```
 
-> 🔥 **Kritik gerçek — Linux neden RF dünyasında baskın:** SDR/RF araç ekosisteminin **ezici çoğunluğu önce Linux için yazılır** (genelde açık kaynak, C/C++/Python). GNU Radio, gr-* eklentileri, rtl_433, dump1090, multimon-ng, SoapySDR sürücüleri, URH, Inspectrum, kismet — hepsi Linux'ta **birinci sınıf vatandaştır**; bir kısmı Windows'a hiç gelmez ya da geç/eksik gelir. Sürücü kurulumu da Linux'ta genelde **tek paket** (`apt install rtl-sdr`) iken, Windows'ta **Zadig ile manuel WinUSB değişimi** gerektirir. Sonuç: **ciddi SDR işi yapacaksan Linux öğren** — Windows "SDR# ile dinleme" için iyidir, ama araç çeşitliliği ve otomasyon Linux'tadır.
+> **Kritik gerçek — Linux neden RF dünyasında baskın:** SDR/RF araç ekosisteminin **ezici çoğunluğu önce Linux için yazılır** (genelde açık kaynak, C/C++/Python). GNU Radio, gr-* eklentileri, rtl_433, dump1090, multimon-ng, SoapySDR sürücüleri, URH, Inspectrum, kismet — hepsi Linux'ta **birinci sınıf vatandaştır**; bir kısmı Windows'a hiç gelmez ya da geç/eksik gelir. Sürücü kurulumu da Linux'ta genelde **tek paket** (`apt install rtl-sdr`) iken, Windows'ta **Zadig ile manuel WinUSB değişimi** gerektirir. Sonuç: **ciddi SDR işi yapacaksan Linux öğren** — Windows "SDR# ile dinleme" için iyidir, ama araç çeşitliliği ve otomasyon Linux'tadır.
 
-> 🧠 **Yeni başlayana yol haritası:** (1) Eğer "hiç uğraşmadan hemen çalışsın" istiyorsan → **DragonOS** (Bölüm 3, her şey kurulu). (2) Eğer Windows'ta kalıp önce kulak dolgunluğu istiyorsan → **SDR# + Zadig** (Bölüm 7, Bölüm 5). (3) Ciddi öğrenme için → **Ubuntu/Debian bare-metal** üzerine kendi elinle kur (en çok öğretir).
+> **Yeni başlayana yol haritası:** (1) Eğer "hiç uğraşmadan hemen çalışsın" istiyorsan → **DragonOS** (Bölüm 3, her şey kurulu). (2) Eğer Windows'ta kalıp önce kulak dolgunluğu istiyorsan → **SDR# + Zadig** (Bölüm 7, Bölüm 5). (3) Ciddi öğrenme için → **Ubuntu/Debian bare-metal** üzerine kendi elinle kur (en çok öğretir).
 
 ---
 
 <a id="2"></a>
-## 2. 🖥️ İşletim Sistemi Karşılaştırması
+## 2.  İşletim Sistemi Karşılaştırması
 
 | OS | Güçlü yanı | Zayıf yanı | Kime / ne zaman |
 |---|---|---|---|
@@ -71,17 +71,17 @@ SDR donanımı, kendi başına "aptal" bir analog-dijital dönüştürücüdür:
 ### Raspberry Pi — taşınabilir/headless istasyon
 Pi, SDR dünyasının **"kur-unut"** cihazıdır. Tipik kullanım: bir RTL-SDR dongle + ADS-B anteni + Pi → çatıya/pencereye koy, **headless** (monitörsüz, SSH ile yönet) çalıştır, **dump1090/readsb** ile üzerinden geçen uçakları 7/24 besle (FlightAware/ADS-B Exchange gibi ağlara). Avantaj: düşük güç, sessiz, kalıcı. Sınır: **CPU zayıftır** — geniş bant tarama (`rtl_power` çok geniş aralık), GNU Radio ağır flowgraph'lar veya çoklu cihaz Pi'yi zorlar; ayrıca **USB bus** paylaşımı örnek düşmesine yol açabilir (Bölüm 12).
 
-> 💡 **Pi notu:** ADS-B/IoT gibi **dar-bant, tek-amaç** işler için Pi mükemmel. GNU Radio ile **geniş-bant DSP** ya da HackRF ile **20 MHz** akış için masaüstü/dizüstü daha uygun. Pi 4/5, Pi 3'e göre USB ve CPU'da belirgin daha iyidir.
+> **Pi notu:** ADS-B/IoT gibi **dar-bant, tek-amaç** işler için Pi mükemmel. GNU Radio ile **geniş-bant DSP** ya da HackRF ile **20 MHz** akış için masaüstü/dizüstü daha uygun. Pi 4/5, Pi 3'e göre USB ve CPU'da belirgin daha iyidir.
 
 ### macOS sınırları
 GQRX ve CubicSDR macOS'ta çalışır (Homebrew: `brew install gqrx`, `brew install --cask cubicsdr`); `rtl-sdr` araçları da Homebrew'de var. Ama **GNU Radio kurulumu sancılı**, birçok `gr-*` eklenti ve hazır çözücü (multimon-ng vb.) ya yok ya da güçlükle derlenir. Sonuç: macOS'ta **dinle/keşfet** yapabilirsin ama **ciddi tersine mühendislik/otomasyon** için Linux'a geç.
 
-> 🔑 **Püf — ikili yaklaşım:** Çoğu kişi **Windows'ta SDR# ile başlar** (kolay, görsel), sonra ciddi iş için **Linux'a (genelde DragonOS ya da Ubuntu) geçer**. İkisini birlikte tutmak (dual-boot ya da Linux'u VM/ayrı diskte) en pratik öğrenme yoludur.
+> **Püf — ikili yaklaşım:** Çoğu kişi **Windows'ta SDR# ile başlar** (kolay, görsel), sonra ciddi iş için **Linux'a (genelde DragonOS ya da Ubuntu) geçer**. İkisini birlikte tutmak (dual-boot ya da Linux'u VM/ayrı diskte) en pratik öğrenme yoludur.
 
 ---
 
 <a id="3"></a>
-## 3. 🐉 DragonOS — "Her Şey Kurulu Gelen" SDR Dağıtımı
+## 3.  DragonOS — "Her Şey Kurulu Gelen" SDR Dağıtımı
 
 **DragonOS**, Ubuntu (Lubuntu/genelde LXQt masaüstü) tabanlı, **SDR ve sinyal analiz araçlarının yüzlercesi önceden kurulu** gelen bir Linux dağıtımıdır (geliştirici: "Aaron"/cemaxecuter; sürümler "DragonOS Focal", "DragonOS FocalX" gibi adlanır — *güncel sürüm adını indirme sayfasından teyit et*). Yeni başlayan için **en az sürtünmeli** başlangıçtır: sürücüler hazır, GNU Radio + gr-eklentileri, GQRX, SDRangel, URH, Inspectrum, rtl_433, dump1090, kismet ve daha fazlası **kutudan çıkar çıkmaz** çalışır.
 
@@ -101,16 +101,16 @@ GQRX ve CubicSDR macOS'ta çalışır (Homebrew: `brew install gqrx`, `brew inst
 5. SDR'ı tak → bir terminal aç → `rtl_test` ya da doğrudan GQRX'i aç
 ```
 
-> ⚠️ **`dd` uyarısı:** `of=/dev/sdX` hedefini **yanlış girersen yanlış diski silersin** (geri dönüşü yok). `lsblk` ile USB'nin doğru aygıt adını teyit et. Bölüm değil, **disk** ver (`/dev/sdb`, `/dev/sdb1` değil).
+> **`dd` uyarısı:** `of=/dev/sdX` hedefini **yanlış girersen yanlış diski silersin** (geri dönüşü yok). `lsblk` ile USB'nin doğru aygıt adını teyit et. Bölüm değil, **disk** ver (`/dev/sdb`, `/dev/sdb1` değil).
 
-> 🔥 **Püf — DragonOS = "öğrenmeyi hızlandıran tekerlekli bisiklet":** Avantajı (her şey hazır) aynı zamanda dezavantajıdır: **sürücü/araç kurmayı öğrenmezsin.** İyi bir yol: önce DragonOS ile **hızla sinyal duymanın hazzını yaşa ve araçları keşfet**, sonra bir **Ubuntu** üzerinde **aynı araçları kendi elinle kurarak** kaputun altını öğren. İkisi birbirini tamamlar.
+> **Püf — DragonOS = "öğrenmeyi hızlandıran tekerlekli bisiklet":** Avantajı (her şey hazır) aynı zamanda dezavantajıdır: **sürücü/araç kurmayı öğrenmezsin.** İyi bir yol: önce DragonOS ile **hızla sinyal duymanın hazzını yaşa ve araçları keşfet**, sonra bir **Ubuntu** üzerinde **aynı araçları kendi elinle kurarak** kaputun altını öğren. İkisi birbirini tamamlar.
 
-> 💡 **Alternatifler:** "Skywave Linux" da SDR-hazır bir başka dağıtımdır (özellikle web-SDR/kısa dalga odaklı). Ama topluluk/araç genişliği bakımından **DragonOS** SDR'da en yaygın "hepsi-kurulu" tercihtir.
+> **Alternatifler:** "Skywave Linux" da SDR-hazır bir başka dağıtımdır (özellikle web-SDR/kısa dalga odaklı). Ama topluluk/araç genişliği bakımından **DragonOS** SDR'da en yaygın "hepsi-kurulu" tercihtir.
 
 ---
 
 <a id="4"></a>
-## 4. 🧱 Sanal Makine mi, Bare-Metal mi? — USB Geçişi Tuzağı
+## 4.  Sanal Makine mi, Bare-Metal mi? — USB Geçişi Tuzağı
 
 "Linux'u VM'de (VirtualBox/VMware) çalıştırıp SDR'ı oradan kullanayım" cazip görünür ama **en sık takılınan noktadır.**
 
@@ -128,14 +128,14 @@ SDR, USB üzerinden **yüksek hızlı, sürekli** veri akıtır. VM'in bu cihaz�
 | "Hemen denemek istiyorum" | **DragonOS canlı USB** (bare-metal hızında, kuruluma gerek yok) |
 | Windows'tasın, Linux araçları lazım | **Dual-boot** ya da **ayrı bir Linux diski** (VM yerine) |
 
-> 🔥 **Püf — VM yerine canlı USB:** Bare-metal'e geçmeden Linux denemek istiyorsan **VM kurma**, bunun yerine **DragonOS/Ubuntu canlı USB**'sinden boot et. Canlı USB **gerçek donanıma** doğrudan erişir (USB passthrough sorunu yoktur), bare-metal performansı verir ve diske hiçbir şey yazmaz. SDR + VM kombinasyonu, yeni başlayanın "neden sürekli kopuyor?" diye saatlerce dövüşmesinin baş sebebidir.
+> **Püf — VM yerine canlı USB:** Bare-metal'e geçmeden Linux denemek istiyorsan **VM kurma**, bunun yerine **DragonOS/Ubuntu canlı USB**'sinden boot et. Canlı USB **gerçek donanıma** doğrudan erişir (USB passthrough sorunu yoktur), bare-metal performansı verir ve diske hiçbir şey yazmaz. SDR + VM kombinasyonu, yeni başlayanın "neden sürekli kopuyor?" diye saatlerce dövüşmesinin baş sebebidir.
 
-> 💡 **WSL2 notu:** Windows üzerindeki WSL2 de bir VM'dir ve **doğrudan USB erişimi yoktur**; `usbipd-win` ile USB cihazı WSL'e bağlamak mümkündür ama RTL-SDR yüksek-hız akışında kırılgandır. Öğrenme için güvenilir değil; **gerçek Linux** tercih et.
+> **WSL2 notu:** Windows üzerindeki WSL2 de bir VM'dir ve **doğrudan USB erişimi yoktur**; `usbipd-win` ile USB cihazı WSL'e bağlamak mümkündür ama RTL-SDR yüksek-hız akışında kırılgandır. Öğrenme için güvenilir değil; **gerçek Linux** tercih et.
 
 ---
 
 <a id="5"></a>
-## 5. 🔥 Sürücü Katmanı — librtlsdr, Zadig, DVB-T Sorunu, SoapySDR
+## 5.  Sürücü Katmanı — librtlsdr, Zadig, DVB-T Sorunu, SoapySDR
 
 Burası, "donanım tanınmıyor" sorunlarının **kaynak kodudur.** Katmanları anlamadan sorun çözemezsin.
 
@@ -166,11 +166,11 @@ sudo apt update
 sudo apt install rtl-sdr librtlsdr-dev
 
 # (Gerekirse) son sürümü kaynaktan:
-#   git clone https://gitea.osmocom.org/sdr/rtl-sdr   (kaynağı teyit et)
-#   cmake → make → sudo make install → sudo ldconfig
+# git clone https://gitea.osmocom.org/sdr/rtl-sdr   (kaynağı teyit et)
+# cmake → make → sudo make install → sudo ldconfig
 ```
 
-### 5.2 🔥 DVB-T sürücüsü sorunu (Linux) — "cihaz görünüyor ama rtl_test açamıyor"
+### 5.2  DVB-T sürücüsü sorunu (Linux) — "cihaz görünüyor ama rtl_test açamıyor"
 Linux çekirdeği, RTL2832U'yu **bir DVB-T TV kartı sanıp** `dvb_usb_rtl28xxu` modülünü otomatik yükler ve cihazı **kapar** → SDR araçların erişemez. **Çözüm: bu modülü kara listeye al (blacklist).**
 
 ```bash
@@ -188,7 +188,7 @@ sudo depmod -a
 ```
 DragonOS gibi SDR-hazır dağıtımlarda bu **zaten yapılmıştır**.
 
-### 5.3 🔥 Zadig (Windows) — DVB-T'yi WinUSB'ye değiştirmek
+### 5.3  Zadig (Windows) — DVB-T'yi WinUSB'ye değiştirmek
 Windows'ta RTL-SDR takınca, Windows **DVB-T (Realtek) sürücüsünü** yükler. SDR yazılımının cihaza erişmesi için bu sürücüyü **WinUSB** (genel USB erişimi) ile değiştirmen gerekir — bunu **Zadig** yapar.
 
 ```
@@ -205,13 +205,13 @@ ZADIG ADIMLARI (Windows):
 7. SDR# / GQRX'i aç → cihaz artık görünür.
 ```
 
-> ⚠️ **Zadig'de en sık 2 ölümcül hata:**
+> **Zadig'de en sık 2 ölümcül hata:**
 > 1. **Yanlış cihaza WinUSB atamak:** Listede klavye/fare/ses kartı da görünür. **Yanlışına atarsan o aygıtın sürücüsünü bozarsın.** Cihaz adını (`Bulk-In Interface 0`, `RTL2838`) dikkatle teyit et; emin değilsen SDR'ı çıkar-tak, listede **kaybolup geri gelen** satır odur.
 > 2. **Geri alma:** Yanlış sürücü atadıysan → **Device Manager**'dan o aygıta sağ tık → "Uninstall device" → "Delete driver" → çıkar-tak (Windows orijinal sürücüyü tekrar yükler).
 
-> 🔥 **Püf — Zadig "tek seferlik" değildir:** Aynı dongle'ı **farklı bir USB portuna** takarsan Windows onu "yeni cihaz" sayıp **yeniden DVB-T sürücüsü** yükleyebilir → Zadig'i o port için tekrar çalıştırman gerekir. Çözüm: **hep aynı USB portunu** kullan, ya da her portu bir kez Zadig'le "eğit". SDR# bazı sürümlerde kendi `zadig` adımını içerir.
+> **Püf — Zadig "tek seferlik" değildir:** Aynı dongle'ı **farklı bir USB portuna** takarsan Windows onu "yeni cihaz" sayıp **yeniden DVB-T sürücüsü** yükleyebilir → Zadig'i o port için tekrar çalıştırman gerekir. Çözüm: **hep aynı USB portunu** kullan, ya da her portu bir kez Zadig'le "eğit". SDR# bazı sürümlerde kendi `zadig` adımını içerir.
 
-### 5.4 🔥 SoapySDR — evrensel soyutlama katmanı (neden var?)
+### 5.4  SoapySDR — evrensel soyutlama katmanı (neden var?)
 **SoapySDR**, farklı SDR donanımlarını (RTL-SDR, HackRF, Airspy, SDRplay, LimeSDR, USRP…) **tek ortak API** arkasında toplayan bir **soyutlama katmanıdır.** Her cihaz için ayrı bir "Soapy modülü" (`SoapyRTLSDR`, `SoapyHackRF`…) vardır.
 
 - **Neden işine yarar:** Bir yazılım (örn. CubicSDR, SDRangel, GNU Radio'nun `Soapy Source` bloğu) SoapySDR'a konuşursa, **donanımı değiştirdiğinde kodu/akışı değiştirmen gerekmez** — bugün RTL-SDR, yarın HackRF, aynı arayüz. "Donanım-bağımsız" SDR yazılımının temelidir.
@@ -228,7 +228,7 @@ ZADIG ADIMLARI (Windows):
 ---
 
 <a id="6"></a>
-## 6. 📡 Diğer Cihaz Sürücüleri — HackRF / Airspy / SDRplay
+## 6.  Diğer Cihaz Sürücüleri — HackRF / Airspy / SDRplay
 
 | Cihaz | Kütüphane / araç | Linux kurulum | Not |
 |---|---|---|---|
@@ -238,14 +238,14 @@ ZADIG ADIMLARI (Windows):
 | **LimeSDR** | `LimeSuite`, SoapyLMS | `sudo apt install limesuite soapysdr-module-lms7` | TX+RX, geniş bant; kurulum daha ağır |
 | **RTL-SDR Blog V3/V4** | `librtlsdr` (V4 için **güncel** sürüm şart) | apt (V4 için kaynaktan güncel rtl-sdr-blog forku) | **V4, eski librtlsdr ile çalışmaz** — güncel sürücü gerekir (teyit et) |
 
-> ⚠️ **HackRF / LimeSDR = VERİCİ:** Bu cihazlar **yayın yapabilir (TX)**. **Lisanssız/yetkisiz yayın yapmak yasaktır ve tehlikelidir** (acil servis/havacılık frekanslarını karıştırabilir). Bu el kitabının alıştırmaları **yalnızca RX (dinleme)** içindir. TX'i yalnızca lisanslı, izole (kablolu/dummy-load) ve yasal koşullarda kullan.
+> **HackRF / LimeSDR = VERİCİ:** Bu cihazlar **yayın yapabilir (TX)**. **Lisanssız/yetkisiz yayın yapmak yasaktır ve tehlikelidir** (acil servis/havacılık frekanslarını karıştırabilir). Bu el kitabının alıştırmaları **yalnızca RX (dinleme)** içindir. TX'i yalnızca lisanslı, izole (kablolu/dummy-load) ve yasal koşullarda kullan.
 
-> 🔑 **Püf — `hackrf_info` / `airspy_info` ilk test:** Yeni bir cihaz taktığında, GUI açmadan önce **cihazın kendi `_info` aracını** çalıştır. Seri numarası + firmware sürümü dönüyorsa donanım+sürücü sağlamdır; sorun yazılımdadır. Dönmüyorsa sorun **sürücü/USB/güç** katmanındadır (Bölüm 12).
+> **Püf — `hackrf_info` / `airspy_info` ilk test:** Yeni bir cihaz taktığında, GUI açmadan önce **cihazın kendi `_info` aracını** çalıştır. Seri numarası + firmware sürümü dönüyorsa donanım+sürücü sağlamdır; sorun yazılımdadır. Dönmüyorsa sorun **sürücü/USB/güç** katmanındadır (Bölüm 12).
 
 ---
 
 <a id="7"></a>
-## 7. 🔥 GUI Yazılımlar — Ne İşe Yarar, Kime Uygun
+## 7.  GUI Yazılımlar — Ne İşe Yarar, Kime Uygun
 
 Bunlar "spektrumu gör + bir kanalı dinle/demodüle et" işini görsel yapan ana alıcı programlarıdır.
 
@@ -267,12 +267,12 @@ Bunlar "spektrumu gör + bir kanalı dinle/demodüle et" işini görsel yapan an
 - **SDR#:** Bir plugin'le **frekans tarayıcı** (scanner) kur, "Frequency Manager" ile ilgi frekanslarını kaydet, **gürültü bastırma** (NR/NB) eklentisiyle zayıf sinyali netleştir.
 - **SDRangel:** Aynı anda **ADS-B + bir NFM kanalı** çöz; gömülü **AIS** ile gemi, **DMR** (yasal/açık olanlar) ile dijital ses dene.
 
-> 💡 **Ortak kavramlar (hepsinde aynı):** **Merkez frekans** (cihazın baktığı orta nokta), **örnekleme/bant genişliği** (aynı anda görebildiğin pencere genişliği), **mod** (WFM/NFM/AM/USB/LSB/CW), **squelch** (gürültü eşiği), **gain** (kazanç — Bölüm 12), **waterfall** (zaman-frekans şelalesi). Bir yazılımı öğrenince diğerine geçiş kolaydır.
+> **Ortak kavramlar (hepsinde aynı):** **Merkez frekans** (cihazın baktığı orta nokta), **örnekleme/bant genişliği** (aynı anda görebildiğin pencere genişliği), **mod** (WFM/NFM/AM/USB/LSB/CW), **squelch** (gürültü eşiği), **gain** (kazanç — Bölüm 12), **waterfall** (zaman-frekans şelalesi). Bir yazılımı öğrenince diğerine geçiş kolaydır.
 
 ---
 
 <a id="8"></a>
-## 8. 🧩 GNU Radio — "RF'in Programlama Dili"
+## 8.  GNU Radio — "RF'in Programlama Dili"
 
 GUI alıcılar "hazır mutfak"sa, **GNU Radio** "kendi yemeğini pişirdiğin laboratuvardır." Açık kaynak, **blok-tabanlı bir DSP (sayısal sinyal işleme) çerçevesidir.** Hazır bir araçta olmayan bir demodülatör/çözücü/işlemi **kendin kurarsın.** **GNU Radio Companion (GRC)**, bunu sürükle-bırak görsel akış şeması (**flowgraph**) ile yapmanı sağlar.
 
@@ -307,18 +307,18 @@ GUI alıcılar "hazır mutfak"sa, **GNU Radio** "kendi yemeğini pişirdiğin la
 ```bash
 sudo apt install gnuradio gr-osmosdr
 # (gr-osmosdr: RTL-SDR/HackRF/Airspy'ı GNU Radio'ya bağlayan blok seti.
-#  Modern kurulumlarda 'Soapy Source' bloğu da SoapySDR üzerinden cihaz verir.)
+# Modern kurulumlarda 'Soapy Source' bloğu da SoapySDR üzerinden cihaz verir.)
 gnuradio-companion   # GRC görsel editörünü açar
 ```
 
-> 🔥 **Püf — GNU Radio sürüm uyumu kâbusu:** İnternette bulduğun bir `.grc` dosyası, **farklı bir GNU Radio sürümünde** (3.7 vs 3.8 vs 3.10) yazıldıysa **açılmaz/çalışmaz** (blok adları/API değişti). Bir flowgraph hata veriyorsa **ilk kontrol: GNU Radio sürümü** (`gnuradio-config-info --version`). Bu yüzden **DragonOS** gibi sürümleri uyumlu paketlenmiş bir dağıtım yeni başlayanı çok dertten kurtarır.
+> **Püf — GNU Radio sürüm uyumu kâbusu:** İnternette bulduğun bir `.grc` dosyası, **farklı bir GNU Radio sürümünde** (3.7 vs 3.8 vs 3.10) yazıldıysa **açılmaz/çalışmaz** (blok adları/API değişti). Bir flowgraph hata veriyorsa **ilk kontrol: GNU Radio sürümü** (`gnuradio-config-info --version`). Bu yüzden **DragonOS** gibi sürümleri uyumlu paketlenmiş bir dağıtım yeni başlayanı çok dertten kurtarır.
 
-> 💡 **`gr-osmosdr` vs `Soapy`:** Eski belgeler `osmocom Source` bloğu kullanır; modern GNU Radio'da **`Soapy Source`** (SoapySDR üzerinden) yaygındır. İkisi de RTL-SDR/HackRF'i GNU Radio'ya bağlar — belgenin yaşına göre hangisinin mevcut olduğunu kontrol et.
+> **`gr-osmosdr` vs `Soapy`:** Eski belgeler `osmocom Source` bloğu kullanır; modern GNU Radio'da **`Soapy Source`** (SoapySDR üzerinden) yaygındır. İkisi de RTL-SDR/HackRF'i GNU Radio'ya bağlar — belgenin yaşına göre hangisinin mevcut olduğunu kontrol et.
 
 ---
 
 <a id="9"></a>
-## 9. 🔬 Sinyal Tersine Mühendislik — URH & Inspectrum
+## 9.  Sinyal Tersine Mühendislik — URH & Inspectrum
 
 Bilinmeyen bir sinyali (örn. bir kablosuz priz, garaj kumandası, kendi IoT cihazın) **çözmek/anlamak** istediğinde bu araçlar devreye girer.
 
@@ -343,12 +343,12 @@ sudo apt install urh    # ya da: pip install urh
 sudo apt install inspectrum
 ```
 
-> 🧠 **İş bölümü:** **rtl_sdr** kaydeder → **Inspectrum** görsel ölçer (sembol süresi/frekans) → **URH** bitlere çevirip protokolü etiketler. Üçü birlikte, "bu bilinmeyen sinyal ne diyor?" sorusunun standart tersine-mühendislik hattıdır.
+> **İş bölümü:** **rtl_sdr** kaydeder → **Inspectrum** görsel ölçer (sembol süresi/frekans) → **URH** bitlere çevirip protokolü etiketler. Üçü birlikte, "bu bilinmeyen sinyal ne diyor?" sorusunun standart tersine-mühendislik hattıdır.
 
 ---
 
 <a id="10"></a>
-## 10. 📥 Hazır Çözücüler — rtl_433, dump1090, multimon-ng, WSJT-X
+## 10.  Hazır Çözücüler — rtl_433, dump1090, multimon-ng, WSJT-X
 
 Bazı sinyalleri sıfırdan çözmene gerek yok — topluluk **hazır çözücüler** yazmıştır.
 
@@ -362,7 +362,7 @@ rtl_433 -f 868M               # 868 MHz bandı
 rtl_433 -F json               # JSON çıktı (loglamak/işlemek için)
 rtl_433 -R 0                  # tüm protokol denemelerini kapat (sonra -R ile seç)
 ```
-> 💡 **Örnek:** Terminalde `rtl_433` çalıştır, evindeki kablosuz dış-mekân termometresi ya da kablosuz priz uzaktan kumandasına bas → cihaz/marka, sıcaklık, ID, batarya durumu **anında** dökülür. (Bkz. Alıştırma 14.3 — **yalnızca kendi cihazların.**)
+> **Örnek:** Terminalde `rtl_433` çalıştır, evindeki kablosuz dış-mekân termometresi ya da kablosuz priz uzaktan kumandasına bas → cihaz/marka, sıcaklık, ID, batarya durumu **anında** dökülür. (Bkz. Alıştırma 14.3 — **yalnızca kendi cihazların.**)
 
 ### dump1090 / readsb — ADS-B uçak (1090 MHz)
 Uçaklar **ADS-B** ile konum/hız/irtifa/çağrı kodunu **1090 MHz**'te **açıkça** yayınlar (sivil havacılıkta açık/yasal veri). **dump1090** (ve modern çatalı **readsb**) bunu çözer ve harita üstünde gösterir.
@@ -372,7 +372,7 @@ Uçaklar **ADS-B** ile konum/hız/irtifa/çağrı kodunu **1090 MHz**'te **açı
 dump1090 --interactive                 # terminalde canlı uçak listesi
 dump1090 --net                         # web arayüzü + harita (tarayıcıda :8080)
 ```
-> 💡 **Örnek:** 1090 MHz için kısa bir anten (hatta varsayılan) yeterli olabilir; `dump1090 --net` çalıştır, tarayıcıda haritayı aç → **üzerinden geçen uçakları** çağrı koduyla canlı gör. ADS-B **dinlemesi açık/yasaldır** ve mükemmel bir başlangıç projesidir.
+> **Örnek:** 1090 MHz için kısa bir anten (hatta varsayılan) yeterli olabilir; `dump1090 --net` çalıştır, tarayıcıda haritayı aç → **üzerinden geçen uçakları** çağrı koduyla canlı gör. ADS-B **dinlemesi açık/yasaldır** ve mükemmel bir başlangıç projesidir.
 
 ### multimon-ng — POCSAG/pager & dijital modlar
 **multimon-ng**, `rtl_fm`'in ürettiği ses akışını alıp **POCSAG (çağrı cihazı/pager), FLEX, AFSK, DTMF, FSK** gibi dijital modları **çözer.** Genelde `rtl_fm | multimon-ng` borusu olarak kullanılır.
@@ -382,18 +382,18 @@ sudo apt install multimon-ng
 # Örnek boru (POCSAG çözme) — frekans örnektir:
 rtl_fm -f 153.350M -s 22050 -g 42 - | multimon-ng -t raw -a POCSAG1200 -
 ```
-> ⚠️ **HUKUK — pager içeriği:** Pager/POCSAG mesajları **özel haberleşmedir.** Çözmek teknik olarak kolay olsa da **başkasının çağrı mesajını okumak/kaydetmek/paylaşmak çoğu ülkede SUÇTUR.** Bunu yalnızca **modu öğrenmek** ve **kendi/izinli test sinyalin** için kullan; içerik avına çıkma.
+> **HUKUK — pager içeriği:** Pager/POCSAG mesajları **özel haberleşmedir.** Çözmek teknik olarak kolay olsa da **başkasının çağrı mesajını okumak/kaydetmek/paylaşmak çoğu ülkede SUÇTUR.** Bunu yalnızca **modu öğrenmek** ve **kendi/izinli test sinyalin** için kullan; içerik avına çıkma.
 
 ### WSJT-X & fldigi — zayıf sinyal amatör / dijital
 - **WSJT-X:** **FT8/FT4/JT65** gibi **çok zayıf sinyal** dijital modlarının amatör telsiz programı. Gürültü tabanının **altındaki** sinyalleri bile çözer; dünya çapında binlerce istasyonu dinleyebilirsin (HF anteni + uygun cihaz, örn. Airspy HF+ ya da yukarı-dönüştürücülü RTL-SDR gerekir).
 - **fldigi:** **RTTY, PSK31, CW** ve çok sayıda amatör dijital modun genel çözücüsü/terminali.
 
-> 💡 **Not:** Bu ikisi **amatör telsiz** dünyasındandır; HF (kısa dalga) dinlemek için RTL-SDR'a **upconverter** (ör. Ham It Up) ya da doğrudan-örnekleme modu, ya da **Airspy HF+/SDRplay** gibi HF-yetenekli cihaz gerekir. FT8 dinlemek (RX) genelde yasaldır; **yayın (TX) amatör lisansı ister.**
+> **Not:** Bu ikisi **amatör telsiz** dünyasındandır; HF (kısa dalga) dinlemek için RTL-SDR'a **upconverter** (ör. Ham It Up) ya da doğrudan-örnekleme modu, ya da **Airspy HF+/SDRplay** gibi HF-yetenekli cihaz gerekir. FT8 dinlemek (RX) genelde yasaldır; **yayın (TX) amatör lisansı ister.**
 
 ---
 
 <a id="11"></a>
-## 11. 🔥 Komut Satırı Araçları — rtl_test / rtl_sdr / rtl_fm / rtl_power
+## 11.  Komut Satırı Araçları — rtl_test / rtl_sdr / rtl_fm / rtl_power
 
 GUI olmadan, doğrudan **librtlsdr** araçları. SDR ustalığının temelini bunlar oluşturur; sorun gidermenin de ilk adımıdır.
 
@@ -403,15 +403,15 @@ rtl_test                 # cihazı bulur, örnekleme hızı dener, kayıp (drop)
 rtl_test -t              # tuner tipini ve frekans aralığını gösterir
 rtl_test -s 2400000      # belirli örnekleme hızını test et (drop var mı?)
 ```
-> 🔑 **İlk yapılacak her zaman `rtl_test`.** Cihaz adı + tuner tipi (örn. "R820T2") dönüyorsa donanım+sürücü tamam. "No supported devices found" → sürücü/Zadig/blacklist sorunu (Bölüm 12). `rtl_test` "lost samples" basıp duruyorsa → USB bant/güç sorunu (Bölüm 12).
+> **İlk yapılacak her zaman `rtl_test`.** Cihaz adı + tuner tipi (örn. "R820T2") dönüyorsa donanım+sürücü tamam. "No supported devices found" → sürücü/Zadig/blacklist sorunu (Bölüm 12). `rtl_test` "lost samples" basıp duruyorsa → USB bant/güç sorunu (Bölüm 12).
 
 ### rtl_sdr — ham IQ kaydı
 ```bash
 # 100.6 MHz'te, 2.048 MS/s, 10 sn'lik ham IQ'yu dosyaya yaz (cu8 formatı):
 rtl_sdr -f 100600000 -s 2048000 -g 30 -n 20480000 kayit.cu8
-#   -f frekans  -s örnekleme  -g gain (dB)  -n örnek sayısı (=süre×örnekleme)
+# -f frekans  -s örnekleme  -g gain (dB)  -n örnek sayısı (=süre×örnekleme)
 ```
-> 💡 Bu `.cu8` dosyasını sonra **Inspectrum**'da aç, **URH**'ye ver, ya da GNU Radio `File Source`'a koy. **IQ kaydı = sinyalin fotoğrafı**; çevrimdışı analizin temelidir.
+> Bu `.cu8` dosyasını sonra **Inspectrum**'da aç, **URH**'ye ver, ya da GNU Radio `File Source`'a koy. **IQ kaydı = sinyalin fotoğrafı**; çevrimdışı analizin temelidir.
 
 ### rtl_fm — FM/NFM demodülasyon borusu
 ```bash
@@ -420,15 +420,15 @@ rtl_fm -f 100.6M -M wbfm -s 200000 -r 48000 - | aplay -r 48000 -f S16_LE
 
 # Dar-bant FM (telsiz), squelch ile:
 rtl_fm -f 446.00625M -M fm -s 12500 -g 40 -l 50 - | aplay -r 24000 -f S16_LE
-#   -M mod (fm/wbfm/am/usb/lsb)  -l squelch  -r ses oranı
+# -M mod (fm/wbfm/am/usb/lsb)  -l squelch  -r ses oranı
 ```
-> 🔥 **Püf — `rtl_fm` bir "boru" aracıdır:** Ekranda pencere açmaz; sesi **stdout'a** basar. Onu `aplay`/`play`'e (dinlemek) ya da `multimon-ng`'ye (çözmek) **pipe** edersin. "Çıktı yok" sanma — borunun ikinci ucunu bağlamayı unutmuşsundur.
+> **Püf — `rtl_fm` bir "boru" aracıdır:** Ekranda pencere açmaz; sesi **stdout'a** basar. Onu `aplay`/`play`'e (dinlemek) ya da `multimon-ng`'ye (çözmek) **pipe** edersin. "Çıktı yok" sanma — borunun ikinci ucunu bağlamayı unutmuşsundur.
 
 ### rtl_power — geniş bant tarama / heatmap
 ```bash
 # 88–108 MHz FM bandını 25 kHz adımla, 30 sn boyunca tara → CSV:
 rtl_power -f 88M:108M:25k -i 30 -g 20 -1 fm_tarama.csv
-#   -f başlangıç:bitiş:adım  -i entegrasyon süresi  -1 tek geçiş (tek-shot)
+# -f başlangıç:bitiş:adım  -i entegrasyon süresi  -1 tek geçiş (tek-shot)
 
 # Geniş keşif: 400–500 MHz, 100 kHz adım, sürekli, 1 dk dilimler:
 rtl_power -f 400M:500M:100k -i 60 genis_tarama.csv
@@ -437,7 +437,7 @@ rtl_power -f 400M:500M:100k -i 60 genis_tarama.csv
 ```bash
 python heatmap.py fm_tarama.csv fm_heatmap.png
 ```
-> 💡 **rtl_power'ın gücü:** Tek seferde **dinleyemeyeceğin kadar geniş** bir bandı (cihazın anlık bant genişliğinden çok daha geniş) **adım adım** tarayıp "nerede enerji/taşıyıcı var?" haritası çıkarır. Bilinmeyen bir bantta **"sinyal nerede?"** sorusunun cevabı. (Bkz. Alıştırma 14.2.)
+> **rtl_power'ın gücü:** Tek seferde **dinleyemeyeceğin kadar geniş** bir bandı (cihazın anlık bant genişliğinden çok daha geniş) **adım adım** tarayıp "nerede enerji/taşıyıcı var?" haritası çıkarır. Bilinmeyen bir bantta **"sinyal nerede?"** sorusunun cevabı. (Bkz. Alıştırma 14.2.)
 
 ### HackRF komut satırı
 ```bash
@@ -445,12 +445,12 @@ hackrf_info                                   # cihaz + firmware teşhisi
 # Ham RX kaydı (örnek; -r dosyaya, -f frekans Hz, -s örnekleme):
 hackrf_transfer -r kayit.iq -f 433920000 -s 8000000 -n 8000000
 ```
-> ⚠️ `hackrf_transfer` **-t** ile **TX** (verici) yapar — **yetkisiz yayın yasaktır.** Yalnızca `-r` (RX/kayıt) ile, yasal/izleme amaçlı kullan.
+> `hackrf_transfer` **-t** ile **TX** (verici) yapar — **yetkisiz yayın yasaktır.** Yalnızca `-r` (RX/kayıt) ile, yasal/izleme amaçlı kullan.
 
 ---
 
 <a id="12"></a>
-## 12. 🔥 Kurulum Adımları + Yaygın Sorunlar (Sorun → Çözüm)
+## 12.  Kurulum Adımları + Yaygın Sorunlar (Sorun → Çözüm)
 
 Bu tablo, sahada zaman kaybettiren **hemen her tipik arızanın** kökü ve çözümüdür. Donanım çalışmıyorsa **buraya bak.**
 
@@ -472,14 +472,14 @@ Bu tablo, sahada zaman kaybettiren **hemen her tipik arızanın** kökü ve çö
 | **`rtl_433` cihazımı tanımıyor** | Eski sürüm / cihaz protokolü yeni eklenmiş | **Kaynaktan en güncel rtl_433** derle (apt'teki eski olabilir) |
 | **RTL-SDR Blog V4 çalışmıyor** | V4 **güncel librtlsdr** gerektirir | rtl-sdr-blog'un **güncel forkunu** kur (eski librtlsdr V4'ü tanımaz — teyit et) |
 
-> 🔥 **Püf — sorun giderme sırası (yukarıdan aşağı):** (1) `rtl_test` çalışıyor mu? → hayır ise **sürücü/Zadig/blacklist**. (2) Çalışıyor ama drop var → **USB/güç/örnekleme hızı**. (3) Sinyal var ama yerinde değil → **PPM/gain**. (4) Her yer gürültü → **RFI/USB3/ferrit**. **Her zaman en alttaki katmandan (donanım tanınıyor mu?) başla**, GUI'yi suçlamadan önce komut satırıyla teşhis et.
+> **Püf — sorun giderme sırası (yukarıdan aşağı):** (1) `rtl_test` çalışıyor mu? → hayır ise **sürücü/Zadig/blacklist**. (2) Çalışıyor ama drop var → **USB/güç/örnekleme hızı**. (3) Sinyal var ama yerinde değil → **PPM/gain**. (4) Her yer gürültü → **RFI/USB3/ferrit**. **Her zaman en alttaki katmandan (donanım tanınıyor mu?) başla**, GUI'yi suçlamadan önce komut satırıyla teşhis et.
 
-> 💡 **Püf — güç en çok ihmal edilen değişken:** RTL-SDR drop/ısınma sorunlarının çoğu **yetersiz USB gücüdür** (özellikle dizüstü, hub, uzun kablo). **Kaliteli kısa kablo + powered USB2 hub** çoğu "neden sürekli kopuyor?" sorununu çözer. Önce yazılımı değil, **gücü ve kabloyu** kontrol et.
+> **Püf — güç en çok ihmal edilen değişken:** RTL-SDR drop/ısınma sorunlarının çoğu **yetersiz USB gücüdür** (özellikle dizüstü, hub, uzun kablo). **Kaliteli kısa kablo + powered USB2 hub** çoğu "neden sürekli kopuyor?" sorununu çözer. Önce yazılımı değil, **gücü ve kabloyu** kontrol et.
 
 ---
 
 <a id="13"></a>
-## 13. 🚀 Sıfırdan Bir SDR İstasyonu Kurma Akışı
+## 13.  Sıfırdan Bir SDR İstasyonu Kurma Akışı
 
 Donanımı eline aldın. Sıfırdan ilk sinyale giden **doğru sıra** budur — adım atlama.
 
@@ -524,14 +524,14 @@ Donanımı eline aldın. Sıfırdan ilk sinyale giden **doğru sıra** budur —
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-> 🧠 **Altın kural — "önce FM":** İlk testte **mutlaka yerel, güçlü, bilinen bir FM istasyonuna** git. FM her şehirde güçlüdür, WFM demodülasyonu basittir, ses gelir-gelmez **tüm zincirin (anten→donanım→sürücü→yazılım) çalıştığını** kanıtlamış olursun. Egzotik/zayıf bir frekansla başlarsan, "duymuyorum"un sebebi donanım mı yoksa "orada zaten sinyal yok mu" ayırt edemezsin. **Bilinen-iyi referansla doğrula, sonra keşfet.**
+> **Altın kural — "önce FM":** İlk testte **mutlaka yerel, güçlü, bilinen bir FM istasyonuna** git. FM her şehirde güçlüdür, WFM demodülasyonu basittir, ses gelir-gelmez **tüm zincirin (anten→donanım→sürücü→yazılım) çalıştığını** kanıtlamış olursun. Egzotik/zayıf bir frekansla başlarsan, "duymuyorum"un sebebi donanım mı yoksa "orada zaten sinyal yok mu" ayırt edemezsin. **Bilinen-iyi referansla doğrula, sonra keşfet.**
 
 ---
 
 <a id="14"></a>
-## 14. 🧪 Alıştırmalar (Yasal, Ev Ortamı)
+## 14.  Alıştırmalar (Yasal, Ev Ortamı)
 
-> ✅ Bu alıştırmaların tamamı **yasal olarak açık yayınlar** ya da **senin kendi cihazların** üzerinedir. Başkasının haberleşmesini hedef alma.
+> Bu alıştırmaların tamamı **yasal olarak açık yayınlar** ya da **senin kendi cihazların** üzerinedir. Başkasının haberleşmesini hedef alma.
 
 ### 14.1 — İlk sinyal: yerel FM istasyonu dinle
 1. SDR'ı kur (Bölüm 13 akışı). **GQRX** (Linux) ya da **SDR#** (Windows) aç.
@@ -553,21 +553,21 @@ Donanımı eline aldın. Sıfırdan ilk sinyale giden **doğru sıra** budur —
 2. Evindeki **kendi** kablosuz cihazını tetikle: dış-mekân termometresi/higrometresi, kablosuz priz kumandası, kapı/hareket sensörü, araç anahtarı (TPMS lastik sensörü araç hareket edince).
 3. Terminale **cihaz/marka, ID, ölçüm değerleri** (sıcaklık, nem, batarya) dökülecek.
 4. **Başarı kriteri:** Kendi termometrenin yayınladığı sıcaklığı SDR ile yakalamak.
-> ⚠️ **Sınır:** Yalnızca **kendi cihazların.** Komşunun sensörünü izlemek/loglamak mahremiyet ihlalidir.
+> **Sınır:** Yalnızca **kendi cihazların.** Komşunun sensörünü izlemek/loglamak mahremiyet ihlalidir.
 
 ### 14.4 — `dump1090` ile üzerinden geçen uçakları izle (ADS-B, açık/yasal)
 1. **dump1090** kur (FlightAware/Mutability çatalı).
 2. Çalıştır: `dump1090 --interactive` (terminal listesi) ya da `dump1090 --net` → tarayıcıda `http://localhost:8080` harita.
 3. 1090 MHz anten (kısa dikey iyi olur) ile birkaç dakika bekle.
 4. **Başarı kriteri:** En az bir uçağı **çağrı kodu + irtifa + konum** ile haritada görmek.
-> 💡 ADS-B **açık ve dinlemesi yasaldır**; bu yüzden mükemmel, sürdürülebilir bir başlangıç projesidir (hatta Pi ile 7/24 besleme istasyonuna dönüştürülebilir).
+> ADS-B **açık ve dinlemesi yasaldır**; bu yüzden mükemmel, sürdürülebilir bir başlangıç projesidir (hatta Pi ile 7/24 besleme istasyonuna dönüştürülebilir).
 
-> 🔬 **İleri (opsiyonel):** Alıştırma 14.3'teki bir IoT sinyalini `rtl_sdr -f 433920000 -s 2048000 -n 20480000 iot.cu8` ile **kaydet**, **Inspectrum**'da aç, sembol süresini ölç, **URH**'ye verip bit yapısını çöz. Bu, **sinyal tersine mühendisliğinin** ilk gerçek adımıdır — yine **yalnızca kendi cihazın** üzerinde.
+> **İleri (opsiyonel):** Alıştırma 14.3'teki bir IoT sinyalini `rtl_sdr -f 433920000 -s 2048000 -n 20480000 iot.cu8` ile **kaydet**, **Inspectrum**'da aç, sembol süresini ölç, **URH**'ye verip bit yapısını çöz. Bu, **sinyal tersine mühendisliğinin** ilk gerçek adımıdır — yine **yalnızca kendi cihazın** üzerinde.
 
 ---
 
 <a id="15"></a>
-## 15. ✅ Hızlı Referans & Kontrol Listesi
+## 15.  Hızlı Referans & Kontrol Listesi
 
 ### OS / kurulum seçimi (özet)
 | Durum | Seç |
@@ -615,8 +615,8 @@ Donanımı eline aldın. Sıfırdan ilk sinyale giden **doğru sıra** budur —
 ---
 
 <a id="16"></a>
-## 16. 🔗 Çapraz Referans
+## 16.  Çapraz Referans
 
-> 🏰 **Kapanış:** SDR'da donanım yalnızca **örnek üreten bir musluktur**; suyu içilebilir kılan tüm zekâ **yazılım katmanındadır.** Doğru OS seçimi (Linux'un araç ekosistemi vs Windows'un konforu), sürücü katmanını gerçekten anlamak (Zadig/blacklist/SoapySDR), ve "neden çalışmıyor?" duvarını **katman katman** (donanım tanınıyor mu → drop → PPM/gain → RFI) yıkabilmek — ustalık budur. **Önce `rtl_test`, önce FM, önce komut satırı**: bilinen-iyi bir referansla zincirin çalıştığını kanıtla, sonra bilinmeyene aç. Bir yazılım butonu değil, bir **mühendislik disiplini** öğreniyorsun; ve her "duymuyorum"un arkasında çoğu zaman bir blacklist satırı, bir gain ayarı ya da bir USB portu vardır.
+> **Kapanış:** SDR'da donanım yalnızca **örnek üreten bir musluktur**; suyu içilebilir kılan tüm zekâ **yazılım katmanındadır.** Doğru OS seçimi (Linux'un araç ekosistemi vs Windows'un konforu), sürücü katmanını gerçekten anlamak (Zadig/blacklist/SoapySDR), ve "neden çalışmıyor?" duvarını **katman katman** (donanım tanınıyor mu → drop → PPM/gain → RFI) yıkabilmek — ustalık budur. **Önce `rtl_test`, önce FM, önce komut satırı**: bilinen-iyi bir referansla zincirin çalıştığını kanıtla, sonra bilinmeyene aç. Bir yazılım butonu değil, bir **mühendislik disiplini** öğreniyorsun; ve her "duymuyorum"un arkasında çoğu zaman bir blacklist satırı, bir gain ayarı ya da bir USB portu vardır.
 >
 > *Bu doküman, çok bölümlü Kanije Kalesi **SIGINT El Kitabı**'nın **4. bölümüdür.** Önceki/sonraki bölümler: RF temelleri ve sinyal kavramları, SDR donanım seçimi (RTL-SDR/HackRF/Airspy/SDRplay), anten ve RF zinciri, sinyal yakalama/demodülasyon, protokol tersine mühendisliği (URH derinlemesine), ADS-B/AIS/POCSAG çözümleme ve hukuki çerçeve. İlgili ustalık rehberleri: `WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md` (yakalanan veriyi/IOC'yi analiz), `VERACRYPT_USTALIK_REHBERI.md` (IQ kayıtlarını/bulguları şifreli sakla), `OSINT_ARAC_SETI_USTALIK_REHBERI.md`, `MALWARE_ANALIZ_USTALIK_REHBERI.md`.*

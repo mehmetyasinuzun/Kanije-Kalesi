@@ -1,34 +1,34 @@
-# 🛡️ SIGINT — BÖLÜM 6: SİNYAL GÜVENLİĞİ, AÇIKLAR VE SAVUNMA
+# SIGINT — BÖLÜM 6: SİNYAL GÜVENLİĞİ, AÇIKLAR VE SAVUNMA
 ## Manipülasyon, Zafiyetler ve Korunma — Zero-to-Hero (SON BÖLÜM)
 
 > **Amaç:** SIGINT El Kitabı'nın bu **altıncı ve son bölümü**, önceki bölümlerde "dinleme/çözümleme" gözüyle öğrendiğin sinyalleri bu kez **güvenlik gözüyle** ele alır: *Hangi sinyal manipüle edilebilir, hangisi edilemez? Neden? Ve en önemlisi — NASIL tespit eder, NASIL korunursun?* Bu bölüm bir **savunma ve farkındalık** kılavuzudur; her açığı "nasıl çalışır + neden savunmasız + nasıl tespit/korunulur" çerçevesinde anlatır.
 
-> ⚠️ **ÖNCE BUNU OKU — EN GÜÇLÜ YASAL UYARI:** Bu bölümdeki konuların **aktif uygulaması büyük ölçüde SUÇTUR ve tehlikelidir.** **Jamming (sinyal bastırma/karıştırma)** neredeyse her ülkede ağır cezalı bir telekomünikasyon suçudur, can güvenliğini (112/acil çağrı, havacılık, GPS) doğrudan tehlikeye atar ve insan öldürebilir. **Yetkisiz dinleme (interception)**, **spoofing (sahte sinyal üretme)**, **sahte baz istasyonu kurma** ve **başkasının haberleşmesine müdahale** suçtur (TR'de TCK 132–140 haberleşmenin gizliliği; ABD'de FCC/CALEA; AB'de ePrivacy). Bu bölüm sana **adım-adım saldırı reçetesi VERMEZ** — bilinçli olarak **prensip + savunma** düzeyinde kalır. Amaç: bu açıkların *var olduğunu bilerek* **kendini ve kurumunu savunman.** "Nasıl yapılır" değil, **"nasıl korunulur"** öğrenirsin.
+> **ÖNCE BUNU OKU — EN GÜÇLÜ YASAL UYARI:** Bu bölümdeki konuların **aktif uygulaması büyük ölçüde SUÇTUR ve tehlikelidir.** **Jamming (sinyal bastırma/karıştırma)** neredeyse her ülkede ağır cezalı bir telekomünikasyon suçudur, can güvenliğini (112/acil çağrı, havacılık, GPS) doğrudan tehlikeye atar ve insan öldürebilir. **Yetkisiz dinleme (interception)**, **spoofing (sahte sinyal üretme)**, **sahte baz istasyonu kurma** ve **başkasının haberleşmesine müdahale** suçtur (TR'de TCK 132–140 haberleşmenin gizliliği; ABD'de FCC/CALEA; AB'de ePrivacy). Bu bölüm sana **adım-adım saldırı reçetesi VERMEZ** — bilinçli olarak **prensip + savunma** düzeyinde kalır. Amaç: bu açıkların *var olduğunu bilerek* **kendini ve kurumunu savunman.** "Nasıl yapılır" değil, **"nasıl korunulur"** öğrenirsin.
 
-> 🧪 **Teyit notu:** Aşağıdaki **yıllar, CVE'ler, kırılma tarihleri, protokol sürümleri (A5/1, SS7, Diameter, 5G SA/NSA), araç adları ve araştırmacı isimleri** zamanla güncellenir veya hafızadan yanlış hatırlanabilir. Tarihsel olaylar ve "ilk demo" iddiaları **yaklaşıktır.** Kritik kararlar için **CVE/NVD, GSMA, 3GPP SA3, üreticinin advisory'si ve akademik kaynaktan teyit et.** Emin olmadığım yerleri "**teyit et**" notuyla işaretledim. Perspektif tamamen **savunma**dır.
+> **Teyit notu:** Aşağıdaki **yıllar, CVE'ler, kırılma tarihleri, protokol sürümleri (A5/1, SS7, Diameter, 5G SA/NSA), araç adları ve araştırmacı isimleri** zamanla güncellenir veya hafızadan yanlış hatırlanabilir. Tarihsel olaylar ve "ilk demo" iddiaları **yaklaşıktır.** Kritik kararlar için **CVE/NVD, GSMA, 3GPP SA3, üreticinin advisory'si ve akademik kaynaktan teyit et.** Emin olmadığım yerleri "**teyit et**" notuyla işaretledim. Perspektif tamamen **savunma**dır.
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [Tehdit Modeli — Sinyal Katmanında Saldırı Yüzeyi](#1)
-2. [🔥 SİNYAL MANİPÜLASYONU — Edilebilir mi, Edilemez mi? (Tablo)](#2)
+2. [ SİNYAL MANİPÜLASYONU — Edilebilir mi, Edilemez mi? (Tablo)](#2)
 3. [Manipülasyonun Mantığı — Replay'i ve Spoofing'i Ne Engeller](#3)
-4. [🔥 SALDIRI SINIFLARI — Prensip + Savunma (Reçete Değil)](#4)
-5. [🔥 HÜCRESEL & TELEKOM AÇIKLARI — A5/1, IMSI Catcher, SS7, Diameter](#5)
+4. [ SALDIRI SINIFLARI — Prensip + Savunma (Reçete Değil)](#4)
+5. [ HÜCRESEL & TELEKOM AÇIKLARI — A5/1, IMSI Catcher, SS7, Diameter](#5)
 6. [Downgrade Saldırıları — Zincirin En Zayıf Halkasına İtme](#6)
-7. [🔥 YILLARA GÖRE KRONOLOJİ — SIGINT/Telekom Güvenlik Zaman Çizelgesi](#7)
-8. [🔥 GÜNCEL AÇIKLARI TAKİP — MEŞRU KAYNAKLAR (Underground'a YÖNLENDİRMEZ)](#8)
-9. [🛡️ SAVUNMA ÖZETİ — Bireysel / Kurumsal / Operasyonel](#9)
-10. [🧪 ALIŞTIRMALAR — Yasal, Kendi Cihazında](#10)
-11. [☠️ Yaygın Hatalar & Yanılgılar](#11)
-12. [🏰 Kanije Kalesi ile — Sinyal Farkındalığı](#12)
-13. [⚖️ SIGINT Etik Manifestosu + Tüm Bölümlere Çapraz Referans](#13)
+7. [ YILLARA GÖRE KRONOLOJİ — SIGINT/Telekom Güvenlik Zaman Çizelgesi](#7)
+8. [ GÜNCEL AÇIKLARI TAKİP — MEŞRU KAYNAKLAR (Underground'a YÖNLENDİRMEZ)](#8)
+9. [ SAVUNMA ÖZETİ — Bireysel / Kurumsal / Operasyonel](#9)
+10. [ ALIŞTIRMALAR — Yasal, Kendi Cihazında](#10)
+11. [ Yaygın Hatalar & Yanılgılar](#11)
+12. [ Kanije Kalesi ile — Sinyal Farkındalığı](#12)
+13. [ SIGINT Etik Manifestosu + Tüm Bölümlere Çapraz Referans](#13)
 
 ---
 
 <a id="1"></a>
-## 1. 🎯 Tehdit Modeli — Sinyal Katmanında Saldırı Yüzeyi
+## 1.  Tehdit Modeli — Sinyal Katmanında Saldırı Yüzeyi
 
 Önceki bölümlerde sinyali **dinleyen/çözen** taraftaydık. Güvenlik için tarafı çevirip soralım: *Bir sinyale kötü niyetli biri ne yapabilir?* Saldırı yüzeyi dört temel eyleme indirgenir — ve her birinin bir savunma karşılığı vardır:
 
@@ -45,7 +45,7 @@
 
 Bu, klasik güvenlik üçgeninin (CIA: Confidentiality, Integrity, Availability) **artı Authenticity** ile telsiz dünyasına uyarlanmış halidir. Bir sinyalin "güçlü" mü "zayıf" mı olduğunu belirleyen tek şey vardır: **bu dört eylemden hangilerine karşı koruması var?**
 
-> 🧠 **Altın kural:** Telsiz, kablonun aksine **paylaşımlı ve halka açık** bir ortamdır — havadaki sinyali *herkes* alabilir. Bu yüzden telsiz güvenliği "kimse duymasın" üzerine değil, **"duysa bile anlamasın (şifreleme), taklit edemesin (kimlik doğrulama), değiştiremesin (bütünlük)"** üzerine kurulur. Fiziksel erişimi engellemek imkânsızdır; **kriptografik garanti** tek gerçek savunmadır.
+> **Altın kural:** Telsiz, kablonun aksine **paylaşımlı ve halka açık** bir ortamdır — havadaki sinyali *herkes* alabilir. Bu yüzden telsiz güvenliği "kimse duymasın" üzerine değil, **"duysa bile anlamasın (şifreleme), taklit edemesin (kimlik doğrulama), değiştiremesin (bütünlük)"** üzerine kurulur. Fiziksel erişimi engellemek imkânsızdır; **kriptografik garanti** tek gerçek savunmadır.
 
 ### Pasif vs Aktif — yasal uçurum
 
@@ -59,11 +59,11 @@ Bu bölümün geri kalanı bu ayrımı korur: pasif **tespit/gözlem** ile **sav
 ---
 
 <a id="2"></a>
-## 2. 🔥 SİNYAL MANİPÜLASYONU — Edilebilir mi, Edilemez mi?
+## 2.  SİNYAL MANİPÜLASYONU — Edilebilir mi, Edilemez mi?
 
 Kullanıcının özel sorusu buydu: **hangi sinyaller manipüle edilebilir, hangileri edilemez?** Cevap tek bir prensibe dayanır: **bir sinyal, ancak içine "tazelik" (freshness) ve "kimlik" (authenticity) konmamışsa manipüle edilebilir.** Aşağıdaki tablo bu mantığı somutlaştırır.
 
-### 🟥 Zayıf / Manipüle Edilebilir Sinyaller
+### Zayıf / Manipüle Edilebilir Sinyaller
 
 | Sinyal / Teknoloji | Neden zayıf? | Hangi saldırıya açık? | Savunma / Modern karşılığı |
 |---|---|---|---|
@@ -74,7 +74,7 @@ Kullanıcının özel sorusu buydu: **hangi sinyaller manipüle edilebilir, hang
 | **ADS-B (uçak konum yayını)** | Tasarımda **kimlik doğrulama yok**, açık yayın | Sahte uçak izi enjeksiyonu (kavram) | Çoklu-alıcı (MLAT) çapraz doğrulama |
 | **2G/GSM (A5/1, A5/2)** | Zayıf/kırık şifre, tek-yönlü kimlik doğrulama (ağ aboneyi doğrular, abone ağı doğrulamaz) | **Sahte BTS (IMSI catcher)**, downgrade | 2G'yi kapat; 4G/5G karşılıklı kimlik doğrulama |
 
-### 🟩 Dirençli / Güçlü Sinyaller
+### Dirençli / Güçlü Sinyaller
 
 | Sinyal / Teknoloji | Neden güçlü? | Hangi saldırıya direnir? |
 |---|---|---|
@@ -84,12 +84,12 @@ Kullanıcının özel sorusu buydu: **hangi sinyaller manipüle edilebilir, hang
 | **Spread Spectrum / DSSS** (GPS askeri M-kodu, bazı uydu) | Sinyal geniş banda **yayılır**, gürültü altına gömülür | Jamming + tespit + dinleme |
 | **Karşılıklı kimlik doğrulama (4G/5G)** | Ağ **ve** abone birbirini doğrular (AKA protokolü); kalıcı kimlik (SUPI) 5G'de şifrelenir (SUCI) | **Sahte baz istasyonu**, IMSI yakalama (5G'de büyük ölçüde) |
 
-> 💡 **Püf — "Manipüle edilebilir mi?" testini sen yap:** Bir sinyale bakıp üç soru sor: **(1)** Aynı eylem her seferinde *aynı* sinyali mi üretiyor? (Evet → replay'e açık.) **(2)** Sinyalin içinde *kim gönderdi* bilgisi kriptografik olarak var mı? (Yok → spoofing'e açık.) **(3)** İçerik açık mı? (Evet → dinlemeye açık.) Üçü de "kötü" cevap veriyorsa, o sinyal **kavramsal olarak zayıftır** — ama bu, *senin* ona saldırman gerektiği anlamına gelmez; **kendi cihazının zayıf olup olmadığını anlaman** için bir teşhis aracıdır.
+> **Püf — "Manipüle edilebilir mi?" testini sen yap:** Bir sinyale bakıp üç soru sor: **(1)** Aynı eylem her seferinde *aynı* sinyali mi üretiyor? (Evet → replay'e açık.) **(2)** Sinyalin içinde *kim gönderdi* bilgisi kriptografik olarak var mı? (Yok → spoofing'e açık.) **(3)** İçerik açık mı? (Evet → dinlemeye açık.) Üçü de "kötü" cevap veriyorsa, o sinyal **kavramsal olarak zayıftır** — ama bu, *senin* ona saldırman gerektiği anlamına gelmez; **kendi cihazının zayıf olup olmadığını anlaman** için bir teşhis aracıdır.
 
 ---
 
 <a id="3"></a>
-## 3. 🧮 Manipülasyonun Mantığı — Replay'i ve Spoofing'i Ne Engeller
+## 3.  Manipülasyonun Mantığı — Replay'i ve Spoofing'i Ne Engeller
 
 İki temel saldırı vardır ve her birini **tek bir kriptografik kavram** engeller. Bunu anlarsan, herhangi bir sinyalin neden güçlü/zayıf olduğunu kendi başına çözersin.
 
@@ -126,12 +126,12 @@ Spoofing, **sahte bir kaynaktan** geçerli görünen sinyal üretmektir. Bunu en
 
 GPS sivil sinyali imzasızdır → sahte sinyal üretmek (prensip olarak) mümkündür çünkü "bunu gerçek uydu gönderdi" kanıtı yoktur. Galileo'nun **OSNMA**'sı (Open Service Navigation Message Authentication) tam bu boşluğu kapatmak için navigasyon mesajına imza ekler (**teyit et** — yaygınlaşma durumu evrilmektedir).
 
-> 🧠 **Altın kural:** Bir sinyal **replay**'e karşı *tazelikle*, **spoofing**'e karşı *kimlik doğrulamayla*, **dinlemeye** karşı *şifrelemeyle*, **jamming**'e karşı *spread spectrum + yön bulmayla* korunur. Dört saldırı, dört ayrı savunma. Bir sinyalin "ne kadar güvenli" olduğunu sormak yerine **"bu dördünden hangisine karşı korunmuş?"** diye sor — gerçek cevap budur.
+> **Altın kural:** Bir sinyal **replay**'e karşı *tazelikle*, **spoofing**'e karşı *kimlik doğrulamayla*, **dinlemeye** karşı *şifrelemeyle*, **jamming**'e karşı *spread spectrum + yön bulmayla* korunur. Dört saldırı, dört ayrı savunma. Bir sinyalin "ne kadar güvenli" olduğunu sormak yerine **"bu dördünden hangisine karşı korunmuş?"** diye sor — gerçek cevap budur.
 
 ---
 
 <a id="4"></a>
-## 4. 🔥 SALDIRI SINIFLARI — Prensip + Savunma (Reçete Değil)
+## 4.  SALDIRI SINIFLARI — Prensip + Savunma (Reçete Değil)
 
 Aşağıda her saldırı sınıfı **kavramsal** olarak anlatılır: *nasıl çalışır (prensip), neden işe yarar (zafiyet), nasıl tespit/savunulur.* **Adım-adım uygulama yoktur** — bilinçli olarak. Çünkü çoğu suçtur; amacımız onları **tanımak ve durdurmaktır.**
 
@@ -157,9 +157,9 @@ Aşağıda her saldırı sınıfı **kavramsal** olarak anlatılır: *nasıl ça
 
 **Genel spoofing savunması:** Mesaja **kriptografik kimlik** (imza/MAC) + alıcı tarafında **anomali/tutarlılık** kontrolü.
 
-### 4.3 Jamming (Bastırma) — ⚠️ YASADIŞI ve TEHLİKELİ
+### 4.3 Jamming (Bastırma) —  YASADIŞI ve TEHLİKELİ
 
-> ⚠️ **NET UYARI:** Jamming **her yerde suçtur**, acil çağrıyı/GPS'i/havacılığı bozarak **can alabilir.** Burada **yalnızca kavramı** veriyoruz ki ona karşı *savunabilesin* — asla denenmemelidir, jammer satın almak/bulundurmak bile çoğu ülkede suçtur.
+> **NET UYARI:** Jamming **her yerde suçtur**, acil çağrıyı/GPS'i/havacılığı bozarak **can alabilir.** Burada **yalnızca kavramı** veriyoruz ki ona karşı *savunabilesin* — asla denenmemelidir, jammer satın almak/bulundurmak bile çoğu ülkede suçtur.
 
 **Prensip:** Hedef frekansa güçlü gürültü/sinyal basarak meşru iletişimi **boğmak** (availability saldırısı). Kavramsal türleri: sürekli dalga, gürültü, "protokol-bilinçli" (yalnızca kontrol kanalını hedefleyen) — hepsi **kavramsal**, reçete değil.
 **Savunma:**
@@ -183,7 +183,7 @@ Aşağıda her saldırı sınıfı **kavramsal** olarak anlatılır: *nasıl ça
    ┌──────────────┬──────────────────────────────────────────────┐
    │ Replay       │ Tazelik (nonce/sayaç/zaman)                   │
    │ Spoofing     │ Kimlik doğrulama (imza/MAC) + anomali tespiti │
-   │ Jamming ⚠️    │ Spread spectrum + yön bulma (kaynağı bul)     │
+   │ Jamming     │ Spread spectrum + yön bulma (kaynağı bul)     │
    │ Meaconing    │ Çoklu kaynak + atalet çapraz kontrol          │
    │ MitM         │ Karşılıklı kimlik doğrulama + uçtan uca şifre  │
    └──────────────┴──────────────────────────────────────────────┘
@@ -192,7 +192,7 @@ Aşağıda her saldırı sınıfı **kavramsal** olarak anlatılır: *nasıl ça
 ---
 
 <a id="5"></a>
-## 5. 🔥 HÜCRESEL & TELEKOM AÇIKLARI
+## 5.  HÜCRESEL & TELEKOM AÇIKLARI
 
 Telefon ağları SIGINT'in en hassas alanıdır — milyarlarca insanı etkiler. Burada **prensip + savunma** veriyoruz; hiçbiri "nasıl saldırılır" değil, **"neden savunmasız ve nasıl korunulur"** çerçevesindedir.
 
@@ -203,7 +203,7 @@ GSM'in ses şifrelemesi **A5/1** (ve daha da zayıf, ihracat sürümü **A5/2**)
 - **2G'nin asıl riski — DOWNGRADE:** Modern telefon 4G/5G kullansa bile, 2G'ye **düşürülebilirse** (Bölüm 6), tüm o eski zafiyetler geri gelir. 2G hâlâ açık olduğu için bir saldırgan cihazı 2G'ye zorlayıp zayıf şifrelemeye/sahte BTS'e mahkûm edebilir.
 - **Savunma:** Telefonunda **"yalnızca 4G/5G" / "2G'yi kapat"** seçeneğini etkinleştir (Android'de modern sürümlerde mevcut; iOS'ta "Lockdown Mode" 2G'yi devre dışı bırakır — **teyit et**). Operatörler 2G'yi kapattıkça (sunset) risk azalır.
 
-### 5.2 🔥 IMSI Catcher / Stingray (Sahte Baz İstasyonu)
+### 5.2  IMSI Catcher / Stingray (Sahte Baz İstasyonu)
 
 > "Stingray" bir ticari ürün markasıdır; jenerik adı **IMSI catcher** veya **sahte baz istasyonu**dur.
 
@@ -224,7 +224,7 @@ GSM'in ses şifrelemesi **A5/1** (ve daha da zayıf, ihracat sürümü **A5/2**)
 
 **Savunma:** 2G kapat, 5G SA tercih et, hassas konuşmayı **uygulama-tabanlı uçtan uca şifre** (Signal) üzerinden yap — böylece ağ ele geçirilse bile içerik korunur.
 
-### 5.3 🔥 SS7 — Telekom Sinyalleşme Ağının Güven Zafiyeti
+### 5.3  SS7 — Telekom Sinyalleşme Ağının Güven Zafiyeti
 
 Kullanıcının özel olarak istediği konu. **Dikkat:** Aşağıdaki tamamen **kavramsaldır**; SS7 erişimi operatör/ara bağlantı seviyesindedir, sıradan kişinin erişimi yoktur ve kötüye kullanımı **ağır suçtur.**
 
@@ -243,7 +243,7 @@ Kullanıcının özel olarak istediği konu. **Dikkat:** Aşağıdaki tamamen **
 - **Düzenleyiciler:** Operatörleri SS7 sıkılaştırmaya zorlar.
 
 **Bireysel savunma (en kritik çıkarım):**
-> 🔑 **SMS tabanlı 2FA'dan uzaklaş.** SS7 ve sahte BTS, SMS'i güvenilmez kılar. **Uygulama-tabanlı 2FA (TOTP — Google Authenticator/Aegis)** veya **donanım anahtarı (FIDO2/WebAuthn — YubiKey)** kullan. Bunlar SS7'den **tamamen bağımsızdır** — koddan değil, cihazındaki gizli anahtardan üretilir. Banka/e-posta/kripto hesaplarında SMS 2FA'yı **mümkünse kapat.**
+> **SMS tabanlı 2FA'dan uzaklaş.** SS7 ve sahte BTS, SMS'i güvenilmez kılar. **Uygulama-tabanlı 2FA (TOTP — Google Authenticator/Aegis)** veya **donanım anahtarı (FIDO2/WebAuthn — YubiKey)** kullan. Bunlar SS7'den **tamamen bağımsızdır** — koddan değil, cihazındaki gizli anahtardan üretilir. Banka/e-posta/kripto hesaplarında SMS 2FA'yı **mümkünse kapat.**
 
 ### 5.4 Diameter — 4G'nin SS7 Muadili (Benzer Riskler)
 
@@ -258,7 +258,7 @@ Kullanıcının özel olarak istediği konu. **Dikkat:** Aşağıdaki tamamen **
 ---
 
 <a id="6"></a>
-## 6. ⬇️ Downgrade Saldırıları — Zincirin En Zayıf Halkasına İtme
+## 6.  Downgrade Saldırıları — Zincirin En Zayıf Halkasına İtme
 
 **Prensip:** Modern güvenlik (5G/4G) güçlüdür; ama cihaz **geriye dönük uyumluluk** için eski/zayıf nesilleri (2G) hâlâ destekler. Bir saldırgan, cihazı **daha zayıf nesle "düşürmeye"** zorlayabilirse, o neslin tüm açıkları geri gelir. Klasik örnek: **4G/5G → 2G zorlama** (örn. 2G'yi taklit eden güçlü sahte hücre + üst nesli "kullanılamaz" gösterme) → zayıf A5/1 + tek-yönlü kimlik doğrulama + IMSI açık.
 
@@ -277,14 +277,14 @@ Kullanıcının özel olarak istediği konu. **Dikkat:** Aşağıdaki tamamen **
 - Kurumsal: cihaz politikasıyla 2G yasağı (MDM).
 - **Anomali tespiti:** Beklenmedik nesil düşüşü → uyarı.
 
-> 🧠 **Altın kural:** Güvenlik, **en zayıf desteklenen seçenek kadar** güçlüdür. "5G'm var" demek yetmez; cihazın **2G'ye düşebiliyorsa**, güvenliğin pratikte 2G seviyesine inebilir. Kullanmadığın eski nesilleri **kapatmak**, downgrade saldırılarına karşı en temiz savunmadır.
+> **Altın kural:** Güvenlik, **en zayıf desteklenen seçenek kadar** güçlüdür. "5G'm var" demek yetmez; cihazın **2G'ye düşebiliyorsa**, güvenliğin pratikte 2G seviyesine inebilir. Kullanmadığın eski nesilleri **kapatmak**, downgrade saldırılarına karşı en temiz savunmadır.
 
 ---
 
 <a id="7"></a>
-## 7. 🔥 YILLARA GÖRE KRONOLOJİ — SIGINT/Telekom Güvenlik Zaman Çizelgesi
+## 7.  YILLARA GÖRE KRONOLOJİ — SIGINT/Telekom Güvenlik Zaman Çizelgesi
 
-> 🧪 **Teyit notu:** Aşağıdaki yıllar **yaklaşıktır** ve hafızadan yazılmıştır; "ilk demo / ilk yayın" iddiaları tartışmalı olabilir. Önemli kararlar için **orijinal konferans bildirisi (CCC/DEF CON/USENIX), CVE ve akademik kaynaktan teyit et.** Tablo, alanın *gidişatını* göstermek içindir, kesin tarih otoritesi değil.
+> **Teyit notu:** Aşağıdaki yıllar **yaklaşıktır** ve hafızadan yazılmıştır; "ilk demo / ilk yayın" iddiaları tartışmalı olabilir. Önemli kararlar için **orijinal konferans bildirisi (CCC/DEF CON/USENIX), CVE ve akademik kaynaktan teyit et.** Tablo, alanın *gidişatını* göstermek içindir, kesin tarih otoritesi değil.
 
 | Yıl (yaklaşık) | Olay / Açık | Ne oldu | Etki / Çıkarım |
 |---|---|---|---|
@@ -301,16 +301,16 @@ Kullanıcının özel olarak istediği konu. **Dikkat:** Aşağıdaki tamamen **
 | **~2019–2020** | **4G/5G araştırma açıkları** (örn. "aLTEr", "5G AKA" çalışmaları, ToRPEDO) | LTE/5G katmanında izleme/yönlendirme/anomali çalışmaları (**teyit et**) | "5G mükemmel değil"; doğru yapılandırma + araştırma sürüyor |
 | **~2022** | **"Rolling-PWN" iddiası** (bazı araç markaları) | Bazı araçların rolling-code uygulamasında zafiyet iddiası (**doğrula — tartışmalı/markaya özel**) | Üreticiye özel; genelleme yapma, **teyit et** |
 
-> 🧠 **Altın kural — kronolojinin dersi:** SIGINT güvenliğinde her açık **önce akademik/konferans ortamında, sorumlu açıklamayla** ortaya çıkar; sonra üretici/operatör yamalar. "Kırıldı" demek "herkes kırabilir" demek değildir — çoğu uzmanlık + erişim + (sıkça) yasadışılık gerektirir. Senin işin **bu olayları izleyip kendi cihazını güncel/güvenli tutmaktır**, kırmak değil.
+> **Altın kural — kronolojinin dersi:** SIGINT güvenliğinde her açık **önce akademik/konferans ortamında, sorumlu açıklamayla** ortaya çıkar; sonra üretici/operatör yamalar. "Kırıldı" demek "herkes kırabilir" demek değildir — çoğu uzmanlık + erişim + (sıkça) yasadışılık gerektirir. Senin işin **bu olayları izleyip kendi cihazını güncel/güvenli tutmaktır**, kırmak değil.
 
 ---
 
 <a id="8"></a>
-## 8. 🔥 GÜNCEL AÇIKLARI TAKİP — MEŞRU KAYNAKLAR
+## 8.  GÜNCEL AÇIKLARI TAKİP — MEŞRU KAYNAKLAR
 
 Kullanıcı sordu: *"Hangi platformlardan takip edilir, kim yamalar, deep web forumları?"* Cevap nettir: **güncel ve doğru açık istihbaratı tamamen MEŞRU, açık kaynaklardan gelir.** Underground/deep web forumlarına **ihtiyaç yoktur ve oraya yönelmek zararlıdır** (nedeni aşağıda).
 
-### ✅ Birincil — Açık & Koordinasyon Kaynakları
+### Birincil — Açık & Koordinasyon Kaynakları
 
 | Kaynak | Ne sağlar | Kapsam |
 |---|---|---|
@@ -320,7 +320,7 @@ Kullanıcı sordu: *"Hangi platformlardan takip edilir, kim yamalar, deep web fo
 | **3GPP SA3** (3gpp.org) | 4G/5G **güvenlik standartları** ve çalışma grubu çıktıları | Hücresel standart güvenliği |
 | **CERT'ler** (US-CERT/CISA, ulusal CERT, USOM-TR) | Uyarılar, ICS/telekom danışmaları | Ulusal/kritik altyapı |
 
-### ✅ İkincil — Akademi, Konferans, Topluluk
+### İkincil — Akademi, Konferans, Topluluk
 
 | Kaynak | Ne sağlar |
 |---|---|
@@ -328,20 +328,20 @@ Kullanıcı sordu: *"Hangi platformlardan takip edilir, kim yamalar, deep web fo
 | **Konferanslar** — **CCC** (Chaos Communication Congress), **DEF CON**, **Black Hat**, **REcon** | İlk açıklamaların çoğu burada sunulur (kayıtlar genelde açık) |
 | **Bloglar/topluluk** — **RTL-SDR.com**, **/r/RTLSDR**, **/r/amateurradio**, SRLabs blogu | SDR/telsiz pratiği, araç haberleri, savunma ipuçları |
 
-### 🚫 Underground / Deep Web Forumları — NEDEN GEREKSİZ ve RİSKLİ
+### Underground / Deep Web Forumları — NEDEN GEREKSİZ ve RİSKLİ
 
-> ⚠️ **Bu rehber underground forum/pazaryeri ADRESİ vermez ve oraya yönlendirmez.** Nedenleri:
+> **Bu rehber underground forum/pazaryeri ADRESİ vermez ve oraya yönlendirmez.** Nedenleri:
 - **Yasal risk:** Bu mecralara erişim, oradaki içeriği bulundurma/kullanma çoğu yerde **suç delili** olabilir; çoğu kolluk gözetimindedir.
 - **Malware:** "Araç/exploit" diye paylaşılanların büyük kısmı **truva atı**dır — seni kurban yapar.
 - **Dezenformasyon:** İçeriğin doğruluğu denetimsizdir; **dolandırıcılık ve yanlış bilgi** doludur.
 - **Gereksiz:** **Meşru kaynaklar zaten daha hızlı, daha doğru ve daha kapsamlıdır.** Ciddi açıklar önce CVE/konferans/akademide çıkar; underground onları *kopyalar*, üretmez. Yani oraya giderek **eksik, zehirli ve riskli** bir kopya alırsın — kaynağı varken.
 
-> 🧠 **Altın kural:** Bir güvenlik profesyoneli, açıkları **savunmak için** takip eder ve bunu **CVE + vendor + GSMA + akademi + konferans** üçgeninden yapar. Bu kaynaklar **ücretsiz, açık, güncel ve yasaldır.** "Gizli yeraltı bilgisi" bir efsanedir — gerçek bilgi aydınlıkta, koordineli açıklamayla yayılır.
+> **Altın kural:** Bir güvenlik profesyoneli, açıkları **savunmak için** takip eder ve bunu **CVE + vendor + GSMA + akademi + konferans** üçgeninden yapar. Bu kaynaklar **ücretsiz, açık, güncel ve yasaldır.** "Gizli yeraltı bilgisi" bir efsanedir — gerçek bilgi aydınlıkta, koordineli açıklamayla yayılır.
 
 ---
 
 <a id="9"></a>
-## 9. 🛡️ SAVUNMA ÖZETİ — Bireysel / Kurumsal / Operasyonel
+## 9.  SAVUNMA ÖZETİ — Bireysel / Kurumsal / Operasyonel
 
 ### 9.1 Bireysel (herkes bugün yapabilir)
 
@@ -371,9 +371,9 @@ Kullanıcı sordu: *"Hangi platformlardan takip edilir, kim yamalar, deep web fo
 ---
 
 <a id="10"></a>
-## 10. 🧪 ALIŞTIRMALAR — Yasal, Kendi Cihazında
+## 10.  ALIŞTIRMALAR — Yasal, Kendi Cihazında
 
-> ✅ Hepsi **kendi malın** ve **pasif/yapılandırma** düzeyindedir. Hiçbiri başkasının sinyaline müdahale içermez. Jamming/spoofing/başkasını dinleme **YOK.**
+> Hepsi **kendi malın** ve **pasif/yapılandırma** düzeyindedir. Hiçbiri başkasının sinyaline müdahale içermez. Jamming/spoofing/başkasını dinleme **YOK.**
 
 1. **Kendi kumandanı sınıflandır (sabit-kod mu, rolling mi?).** *Sinyal yayınlamadan*, kavramsal teşhis: Kumandan **eski/ucuz garaj/araç** mı (muhtemelen sabit-kod riski) yoksa **modern marka** mı? Üreticinin dokümanında "rolling code / KeeLoq / hopping" geçiyor mu? (Eğer bir SDR ile *yalnızca alıp* kendi sinyaline bakacaksan: aynı tuşa iki basışta yayın **aynı mı** kalıyor? Aynıysa sabit-kod işaretidir. **Yalnızca dinle, asla tekrar yayma** — kendi cihazın olsa bile tekrar-yayın test etmek riskli ve bazı bağlamlarda yasal sorun.)
 2. **Telefonunda IMSI-catcher tespit uygulaması dene.** Uyumlu bir uygulamayı (AIMSICD/CellGuard/SnoopSnitch — cihaz uyumu **teyit et**) kur, normal günlük hücre davranışını **temel çizgi (baseline)** olarak gözle. Amacı "yakalamak" değil, **ne göründüğünü öğrenmek.**
@@ -384,7 +384,7 @@ Kullanıcı sordu: *"Hangi platformlardan takip edilir, kim yamalar, deep web fo
 ---
 
 <a id="11"></a>
-## 11. ☠️ Yaygın Hatalar & Yanılgılar
+## 11.  Yaygın Hatalar & Yanılgılar
 
 1. **"5G'm var, güvendeyim."** Cihaz 2G'ye düşebiliyorsa downgrade ile A5/1 seviyesine inebilirsin. **2G'yi kapat.**
 2. **SMS 2FA'ya güvenmek.** SS7/sahte-BTS ile ele geçirilebilir. **TOTP/FIDO2'ye geç.**
@@ -400,7 +400,7 @@ Kullanıcı sordu: *"Hangi platformlardan takip edilir, kim yamalar, deep web fo
 ---
 
 <a id="12"></a>
-## 12. 🏰 Kanije Kalesi ile — Sinyal Farkındalığı
+## 12.  Kanije Kalesi ile — Sinyal Farkındalığı
 
 Kanije Kalesi (bu repo) **fiziksel/cihaz tehdidini** yöneten bir muhafızdır; SIGINT savunması ise **haberleşme/sinyal** katmanındadır. İkisi farklı katmanları kapsar ama **felsefeleri örtüşür: tehdit yüzeyini daralt, anomaliyi tespit et, kanıtı koru.**
 
@@ -412,12 +412,12 @@ Kanije Kalesi (bu repo) **fiziksel/cihaz tehdidini** yöneten bir muhafızdır; 
 | Kanıt/forensik | Anomali raporlama | `/defender`, `/erisim` ile cihaz forensiği |
 | İz bırakmama | OPSEC, yayını minimize et | RAM-only mod, iz temizleme |
 
-> 🧠 **Felsefe örtüşmesi:** SIGINT savunması "**duysalar bile anlamasınlar, taklit edemesinler**" der (kriptografik garanti). Kanije "**sen yokken kapıyı ben kilitlerim**" der (fiziksel muhafız). İkisi de **"en zayıf halkayı kapat"** ilkesinde buluşur: SIGINT'te en zayıf halka çoğu zaman **2G/SMS-2FA**'dır; Kanije'de **gözetimsiz açık cihaz**dır. Her iki kaleyi de bu halkalardan sağlamlaştır.
+> **Felsefe örtüşmesi:** SIGINT savunması "**duysalar bile anlamasınlar, taklit edemesinler**" der (kriptografik garanti). Kanije "**sen yokken kapıyı ben kilitlerim**" der (fiziksel muhafız). İkisi de **"en zayıf halkayı kapat"** ilkesinde buluşur: SIGINT'te en zayıf halka çoğu zaman **2G/SMS-2FA**'dır; Kanije'de **gözetimsiz açık cihaz**dır. Her iki kaleyi de bu halkalardan sağlamlaştır.
 
 ---
 
 <a id="13"></a>
-## 13. ⚖️ SIGINT ETİK MANİFESTOSU + ÇAPRAZ REFERANS
+## 13.  SIGINT ETİK MANİFESTOSU + ÇAPRAZ REFERANS
 
 ### SIGINT Etik Manifestosu
 
@@ -433,11 +433,11 @@ Kanije Kalesi (bu repo) **fiziksel/cihaz tehdidini** yöneten bir muhafızdır; 
    └────────────────────────────────────────────────────────────────────┘
 ```
 
-> 🛡️ **Kapanış:** SIGINT, bir "dinleme sanatı" değil, **sinyallerin nasıl güven kazandığını (ya da kaybettiğini) anlama disiplinidir.** Bu son bölümün özü tek cümlede: **bir sinyal, ancak tazelik + kimlik doğrulama + şifreleme taşıdığı ölçüde güvenlidir; taşımadığında manipülasyona açıktır — ve senin işin onu kırmak değil, hangi cihazının açık olduğunu bilip kapatmaktır.** Jamming, spoofing ve yetkisiz dinleme **suçtur ve tehlikelidir**; bu kitap onları *tanıman ve savunman* için vardır. Gerçek ustalık, gücü **kullanmamayı bilmektir.**
+> **Kapanış:** SIGINT, bir "dinleme sanatı" değil, **sinyallerin nasıl güven kazandığını (ya da kaybettiğini) anlama disiplinidir.** Bu son bölümün özü tek cümlede: **bir sinyal, ancak tazelik + kimlik doğrulama + şifreleme taşıdığı ölçüde güvenlidir; taşımadığında manipülasyona açıktır — ve senin işin onu kırmak değil, hangi cihazının açık olduğunu bilip kapatmaktır.** Jamming, spoofing ve yetkisiz dinleme **suçtur ve tehlikelidir**; bu kitap onları *tanıman ve savunman* için vardır. Gerçek ustalık, gücü **kullanmamayı bilmektir.**
 
-### 📚 SIGINT El Kitabı — Tüm Bölümler
+### SIGINT El Kitabı — Tüm Bölümler
 
-> 🧪 Aşağıdaki bölüm dosyaları bu serinin parçalarıdır; mevcut olmayanlar yazıldıkça eklenir (**dosya adlarını kendi reponda teyit et**).
+> Aşağıdaki bölüm dosyaları bu serinin parçalarıdır; mevcut olmayanlar yazıldıkça eklenir (**dosya adlarını kendi reponda teyit et**).
 
 | Bölüm | Konu | Dosya (öneri) |
 |---|---|---|
@@ -448,7 +448,7 @@ Kanije Kalesi (bu repo) **fiziksel/cihaz tehdidini** yöneten bir muhafızdır; 
 | 5 | Pratik Yakalama & Çözümleme İş Akışı — Araçlar, GNU Radio | `SIGINT_05_YAKALAMA_VE_COZUMLEME.md` |
 | **6** | **Sinyal Güvenliği, Açıklar ve Savunma (BU BÖLÜM)** | `SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md` |
 
-### 🔗 İlgili Kanije Kalesi Ustalık Rehberleri
+### İlgili Kanije Kalesi Ustalık Rehberleri
 
 - **`WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md`** — Sinyal yerine paket: ağ trafiği çözümleme (aynı "dinle-anla-savun" mantığı, kablolu/IP dünyasında).
 - **`OSINT_ARAC_SETI_USTALIK_REHBERI.md`** — Açık kaynak istihbarat; SIGINT'in "açık" tarafıyla tamamlayıcı.
@@ -459,4 +459,4 @@ Kanije Kalesi (bu repo) **fiziksel/cihaz tehdidini** yöneten bir muhafızdır; 
 
 ---
 
-> 🏰 *Bu doküman, Kanije Kalesi güvenlik rehberleri koleksiyonunun ve **SIGINT El Kitabı'nın son (6.) bölümünün** parçasıdır. SIGINT'i öğrenmenin amacı **gücü kötüye kullanmak değil, onun var olduğunu bilerek kendini ve başkalarını savunmaktır.** Sinyaller yalan söyleyebilir — sen onları doğrulamayı öğren.*
+> *Bu doküman, Kanije Kalesi güvenlik rehberleri koleksiyonunun ve **SIGINT El Kitabı'nın son (6.) bölümünün** parçasıdır. SIGINT'i öğrenmenin amacı **gücü kötüye kullanmak değil, onun var olduğunu bilerek kendini ve başkalarını savunmaktır.** Sinyaller yalan söyleyebilir — sen onları doğrulamayı öğren.*

@@ -1,18 +1,18 @@
-# 📻 SIGINT EL KİTABI — BÖLÜM 2: SDR CİHAZLARI DERİNLEMESİNE
+# SIGINT EL KİTABI — BÖLÜM 2: SDR CİHAZLARI DERİNLEMESİNE
 ## Nedir, Hangisi, Neye Göre — RTL-SDR'dan KrakenSDR'a, Flipper Zero'ya Kadar
 
 > **Amaç:** "Bir SDR almak istiyorum ama hangisi?" sorusunu kökünden çözmek. Bu bölüm, SDR'ın *ne olduğunu*, bir cihazı belirleyen **parametreleri** (frekans, bant genişliği, ADC bit derinliği, TX, faz tutarlılığı), ve piyasadaki başlıca cihazları **tek tek, dürüstçe** anlatır — güçlü/zayıf yönleri, gerçek fiyat aralıkları, ve **hangi operasyon tipine** uyduklarıyla. Sonunda "senaryona göre hangisini al" karar rehberi ve alıştırmalar var. Zero-to-hero: hiç radyo bilmeyen de, ileri seviye de buradan beslenir.
 
-> ⚖️ **ÖNCE BUNU OKU — YASAL SINIR (atlamadan):** SDR cihazlarının **çoğu salt-alıcıdır (RX-only)** — yani yalnızca *dinlerler*, yayın yapmazlar. **Dinleme/alma**, dünyanın birçok yerinde (kişisel kullanım, açık yayınlar için) **serbesttir** ama ülkeden ülkeye değişir; bazı yargı bölgelerinde belirli bantları (telsiz telefon, polis sayısallaştırılmış telsizi, şifreli askeri/kurumsal) dinlemek/çözmek **yasaktır.** Buna karşılık **TX yeteneği olan cihazlarla (HackRF, LimeSDR, USRP, bladeRF, PlutoSDR, Flipper Zero)** *yetkisiz YAYIN yapmak, sinyal taklit etmek (replay), jamming (karıştırma), GPS/GNSS spoofing* neredeyse **her yerde suçtur**, lisans ve/veya özel yetki gerektirir ve ciddi cezası vardır. **Kendi ülkenin telekomünikasyon/radyo regülatörünün (ör. TR'de BTK/ICTA) kurallarını teyit etmeden TX yapma.** Bu rehber **eğitim, savunma (defansif SIGINT), spektrum farkındalığı ve meşru araştırma** içindir.
+> **ÖNCE BUNU OKU — YASAL SINIR (atlamadan):** SDR cihazlarının **çoğu salt-alıcıdır (RX-only)** — yani yalnızca *dinlerler*, yayın yapmazlar. **Dinleme/alma**, dünyanın birçok yerinde (kişisel kullanım, açık yayınlar için) **serbesttir** ama ülkeden ülkeye değişir; bazı yargı bölgelerinde belirli bantları (telsiz telefon, polis sayısallaştırılmış telsizi, şifreli askeri/kurumsal) dinlemek/çözmek **yasaktır.** Buna karşılık **TX yeteneği olan cihazlarla (HackRF, LimeSDR, USRP, bladeRF, PlutoSDR, Flipper Zero)** *yetkisiz YAYIN yapmak, sinyal taklit etmek (replay), jamming (karıştırma), GPS/GNSS spoofing* neredeyse **her yerde suçtur**, lisans ve/veya özel yetki gerektirir ve ciddi cezası vardır. **Kendi ülkenin telekomünikasyon/radyo regülatörünün (ör. TR'de BTK/ICTA) kurallarını teyit etmeden TX yapma.** Bu rehber **eğitim, savunma (defansif SIGINT), spektrum farkındalığı ve meşru araştırma** içindir.
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [SDR Nedir, Ne DEĞİLDİR?](#1)
 2. [SDR Mimarisi — Sinyalin Yolculuğu (Blok Diyagram)](#2)
 3. [Bir SDR'ı Belirleyen Parametreler](#3)
-4. [🔥 Cihaz Cihaz Derinlemesine](#4)
+4. [ Cihaz Cihaz Derinlemesine](#4)
    - 4.1 [RTL-SDR Blog V3 vs V4](#4-1)
    - 4.2 [HackRF One](#4-2)
    - 4.3 [Airspy (R2 / Mini / HF+ Discovery)](#4-3)
@@ -23,16 +23,16 @@
    - 4.8 [bladeRF](#4-8)
    - 4.9 [KrakenSDR / KerberosSDR — Yön Bulma](#4-9)
    - 4.10 [Flipper Zero — SDR DEĞİL ama RF Çakı](#4-10)
-5. [🔥 Karşılaştırma Matrisi (Büyük Tablo)](#5)
-6. [🔥 "Neye Göre Hangisi" — Karar Rehberi](#6)
+5. [ Karşılaştırma Matrisi (Büyük Tablo)](#5)
+6. [ "Neye Göre Hangisi" — Karar Rehberi](#6)
 7. [Manuel / Özel Yapım — Coherent Dizi & Açık Donanım](#7)
-8. [🧪 Alıştırmalar](#8)
+8. [ Alıştırmalar](#8)
 9. [Çapraz Referans & Sonraki Bölümler](#9)
 
 ---
 
 <a id="1"></a>
-## 1. 🧭 SDR Nedir, Ne DEĞİLDİR?
+## 1.  SDR Nedir, Ne DEĞİLDİR?
 
 **SDR = Software Defined Radio (Yazılımla Tanımlı Radyo).**
 
@@ -40,7 +40,7 @@ Geleneksel bir radyoda — örneğin eski bir FM alıcısında ya da bir telsizd
 
 SDR'da ise felsefe terstir: donanım **mümkün olduğunca "aptal" ve genel amaçlı** tutulur. Donanımın görevi yalnızca **geniş bir frekans bandını "olduğu gibi" sayısallaştırıp** (ham I/Q örnekleri) bilgisayara akıtmaktır. Demodülasyon, filtreleme, kod çözme, kanal seçimi — bütün "akıl" **yazılımda** (bilgisayarında, GNU Radio / SDR# / SDRangel gibi programlarda) yapılır.
 
-> 🧠 **Tek cümlelik tanım:** SDR, "radyo fonksiyonlarının donanımda sabit lehimlenmek yerine **yazılımda tanımlandığı**" radyodur. Aynı fiziksel kutu, bugün ADS-B alıcısı, yarın hava durumu uydusu çözücüsü, öbür gün geniş spektrum tarayıcısı olur — **tek değişen yazılımdır.**
+> **Tek cümlelik tanım:** SDR, "radyo fonksiyonlarının donanımda sabit lehimlenmek yerine **yazılımda tanımlandığı**" radyodur. Aynı fiziksel kutu, bugün ADS-B alıcısı, yarın hava durumu uydusu çözücüsü, öbür gün geniş spektrum tarayıcısı olur — **tek değişen yazılımdır.**
 
 ### "Yazılımda tanımlı" ne demek — somut fark
 
@@ -54,15 +54,15 @@ SDR'da ise felsefe terstir: donanım **mümkün olduğunca "aptal" ve genel ama�
 
 ### SDR NE DEĞİLDİR (yaygın yanlış anlamalar)
 
-- ❌ **"Her şeyi dinleyen sihirli kutu" değildir.** Cihazın frekans aralığı ve bant genişliği fiziksel sınırdır. Bir RTL-SDR 6 GHz'i göremez; bir Flipper Zero 2.4 GHz WiFi'yi sub-GHz radyosuyla çözemez.
-- ❌ **Şifreyi kıran araç değildir.** SDR sinyali *yakalar*. Sinyal şifreliyse (TETRA/P25 şifreli, askeri link), SDR sana yalnızca **şifreli bit akışını** verir; kriptoyu çözmek bambaşka bir iş (ve genelde yasadışı/imkânsızdır).
-- ❌ **Anten gerektirmeyen cihaz değildir.** Antensiz SDR neredeyse sağırdır. Çoğu zaman *cihazdan çok anten* sonucu belirler (bu, Bölüm 3'ün ve sonraki bölümlerin konusu).
-- ❌ **Otomatik olarak TX yapan cihaz değildir.** Çoğu ucuz SDR **yalnızca alıcıdır.** TX bambaşka, regüle ve riskli bir yetenektir.
+-  **"Her şeyi dinleyen sihirli kutu" değildir.** Cihazın frekans aralığı ve bant genişliği fiziksel sınırdır. Bir RTL-SDR 6 GHz'i göremez; bir Flipper Zero 2.4 GHz WiFi'yi sub-GHz radyosuyla çözemez.
+-  **Şifreyi kıran araç değildir.** SDR sinyali *yakalar*. Sinyal şifreliyse (TETRA/P25 şifreli, askeri link), SDR sana yalnızca **şifreli bit akışını** verir; kriptoyu çözmek bambaşka bir iş (ve genelde yasadışı/imkânsızdır).
+-  **Anten gerektirmeyen cihaz değildir.** Antensiz SDR neredeyse sağırdır. Çoğu zaman *cihazdan çok anten* sonucu belirler (bu, Bölüm 3'ün ve sonraki bölümlerin konusu).
+-  **Otomatik olarak TX yapan cihaz değildir.** Çoğu ucuz SDR **yalnızca alıcıdır.** TX bambaşka, regüle ve riskli bir yetenektir.
 
 ---
 
 <a id="2"></a>
-## 2. 🔧 SDR Mimarisi — Sinyalin Yolculuğu
+## 2.  SDR Mimarisi — Sinyalin Yolculuğu
 
 Bir SDR'ı "anlamak", sinyalin **antenden bilgisayara** nasıl aktığını anlamaktır. Cihazları karşılaştırırken (Bölüm 3-4) bu zincirin **her halkasının kalitesi** belirleyici olur.
 
@@ -103,12 +103,12 @@ Bir SDR'ı "anlamak", sinyalin **antenden bilgisayara** nasıl aktığını anla
   - **Half-duplex:** Aynı anda **ya** TX **ya** RX — ikisini birden yapamaz (telsiz gibi: konuşurken duyamazsın). **HackRF One** böyledir.
   - **Full-duplex:** TX ve RX **aynı anda** çalışır (telefon gibi). **LimeSDR, bladeRF, USRP B210, PlutoSDR** böyledir. Repeater, gerçek-zamanlı protokol, MIMO için şart.
 
-> 🧠 **Pratik çıkarım:** "Sadece dinleyeceğim" diyorsan TX/duplex tartışması seni ilgilendirmez — RX-only al, paranı **ADC bitine ve antene** harca. "Sinyal üreteceğim / repeater / 2 yönlü protokol" diyorsan full-duplex şart.
+> **Pratik çıkarım:** "Sadece dinleyeceğim" diyorsan TX/duplex tartışması seni ilgilendirmez — RX-only al, paranı **ADC bitine ve antene** harca. "Sinyal üreteceğim / repeater / 2 yönlü protokol" diyorsan full-duplex şart.
 
 ---
 
 <a id="3"></a>
-## 3. 📐 Bir SDR'ı Belirleyen Parametreler
+## 3.  Bir SDR'ı Belirleyen Parametreler
 
 Bir cihazı "iyi/kötü" yapan tek bir sayı yoktur; **kullanımına göre** önem sırası değişen birkaç parametre vardır. Cihaz seçerken (Bölüm 6) bunları tartman gerekir.
 
@@ -124,7 +124,7 @@ Cihazın **tek seferde, aynı anda** görebildiği spektrum genişliği. Örnekl
 - USRP B210: 56 MHz'e kadar.
 - **Neden önemli:** Geniş BW = aynı anda daha çok kanal/daha geniş spektrumu izleme. Trunking (frekans atlamalı) sistemleri, geniş tarama, çok kanallı analiz için kritik. **Dar BW** tek kanalı temiz dinlemeye yeter ama "geniş bakış" veremez.
 
-> 💡 **İncelik:** "Görmek" ile "kaydetmek" farklıdır. 56 MHz BW'yi gerçek zamanlı **kaydetmek** terabaytları ve hızlı disk/USB3 ister. Çoğu işte 2-20 MHz fazlasıyla yeter.
+> **İncelik:** "Görmek" ile "kaydetmek" farklıdır. 56 MHz BW'yi gerçek zamanlı **kaydetmek** terabaytları ve hızlı disk/USB3 ister. Çoğu işte 2-20 MHz fazlasıyla yeter.
 
 ### 3.3 ADC Bit Derinliği (Dinamik Aralık)
 Her örneğin kaç bitle sayısallaştırıldığı. **Dinamik aralığı** — yani *aynı anda* çok zayıf ve çok güçlü sinyalleri birlikte ayırt edebilme yeteneğini — belirler. Kabaca her bit ~6 dB dinamik aralık ekler.
@@ -138,7 +138,7 @@ Her örneğin kaç bitle sayısallaştırıldığı. **Dinamik aralığı** — 
 
 - **Neden önemli:** Şehirde, güçlü FM/GSM/yayın vericilerinin *yanında* zayıf bir sinyali avlıyorsan, **bit derinliği antenden bile önemli** olabilir. 8-bit'te güçlü komşu sinyal, ADC'yi doldurup zayıf sinyali ezer (overload, hayalet sinyaller).
 
-> 🧠 **Altın kural:** **Bant genişliği "ne kadar geniş görürsün"; bit derinliği "ne kadar temiz görürsün."** Ucuz cihazlar genişliği ucuza verir, temizliği değil.
+> **Altın kural:** **Bant genişliği "ne kadar geniş görürsün"; bit derinliği "ne kadar temiz görürsün."** Ucuz cihazlar genişliği ucuza verir, temizliği değil.
 
 ### 3.4 TX Yeteneği ve Gücü
 Cihaz yayın yapabiliyor mu, yapabiliyorsa **kaç dBm / mW** güçle?
@@ -159,7 +159,7 @@ Veriyi bilgisayara taşıyan kanal.
 Alıcının sinyale *kendi* eklediği gürültü; düşük NF = zayıf sinyalleri daha iyi duyma.
 - **Neden önemli:** Zayıf/uzak sinyal avında (uydu, uzak HF, zayıf telemetri) düşük NF ve iyi LNA fark yaratır. Çoğu zaman **harici, antene yakın bir LNA** takmak (özellikle kayıplı kablo varsa) NF'yi cihaz seçiminden daha çok iyileştirir.
 
-> ✅ **Özet — parametre öncelik sırası kullanıma göre değişir:**
+> **Özet — parametre öncelik sırası kullanıma göre değişir:**
 > - **Geniş tarama / trunking:** Bant genişliği + frekans aralığı önce.
 > - **Şehirde zayıf sinyal:** ADC bit + NF/LNA önce.
 > - **HF / kısa dalga:** Frekansın HF'i kapsaması (direct sampling/native HF) + bit derinliği.
@@ -169,12 +169,12 @@ Alıcının sinyale *kendi* eklediği gürültü; düşük NF = zayıf sinyaller
 ---
 
 <a id="4"></a>
-## 4. 🔥 Cihaz Cihaz Derinlemesine
+## 4.  Cihaz Cihaz Derinlemesine
 
-> 📏 **Spec uyarısı:** Aşağıdaki frekans/bit/MSPS/fiyat değerleri **yaklaşıktır** ve donanım revizyonu, firmware, ülke ve döviz kuruna göre değişir. **Kritik bir karar vermeden önce ilgili spec'i üreticinin güncel datasheet'inden / ürün sayfasından teyit et.** Fiyatlar 2020'lerin ortası için kaba ABD$ aralıklarıdır; vergi/kargo hariç.
+> **Spec uyarısı:** Aşağıdaki frekans/bit/MSPS/fiyat değerleri **yaklaşıktır** ve donanım revizyonu, firmware, ülke ve döviz kuruna göre değişir. **Kritik bir karar vermeden önce ilgili spec'i üreticinin güncel datasheet'inden / ürün sayfasından teyit et.** Fiyatlar 2020'lerin ortası için kaba ABD$ aralıklarıdır; vergi/kargo hariç.
 
 <a id="4-1"></a>
-### 4.1 📡 RTL-SDR Blog V3 vs V4 — "Herkesin İlk SDR'ı"
+### 4.1  RTL-SDR Blog V3 vs V4 — "Herkesin İlk SDR'ı"
 
 Aslen DVB-T (sayısal TV) USB çubuğu olan RTL2832U yongasının, alma frekansının yazılımla zorlanabildiğinin keşfiyle doğan efsane. **rtl-sdr.com (RTL-SDR Blog)** sürümleri, jenerik çubuklara göre TCXO (kararlı osilatör), daha iyi koruma, SMA anten ve yazılım uyumu sunar — **referans budur.**
 
@@ -185,7 +185,7 @@ Aslen DVB-T (sayısal TV) USB çubuğu olan RTL2832U yongasının, alma frekans�
 | HF (0-30 MHz) yöntemi | Direct sampling (Q-branch, biraz zahmetli) | **Geliştirilmiş direct sampling** + daha iyi ön-uç → **daha temiz HF** |
 | ADC | 8-bit | 8-bit |
 | Kullanılabilir BW | ~2.4 MSPS kararlı (3.2 teorik) | ~2.4 MSPS kararlı |
-| TX | ❌ Yok (RX-only) | ❌ Yok (RX-only) |
+| TX |  Yok (RX-only) |  Yok (RX-only) |
 | Öne çıkan | TCXO, bias-tee, direct samp., olgun | **Daha iyi görüntü/hayalet reddi**, geliştirilmiş HF, daha az intermod |
 | Fiyat | ~25-35 $ | ~30-40 $ |
 
@@ -206,17 +206,17 @@ Aslen DVB-T (sayısal TV) USB çubuğu olan RTL2832U yongasının, alma frekans�
 - **Somut örnek 1:** Evden, V4 + uygun anten + `dump1090` ile çevredeki uçakların canlı haritasını çıkarmak.
 - **Somut örnek 2:** `rtl_433` ile mahalledeki kablosuz hava istasyonlarının/araç TPMS sensörlerinin yayınlarını pasifçe loglamak (spektrum farkındalığı / IoT güvenlik dersi).
 
-> 🔥 **Püf:** İki ucuz RTL-SDR (her biri ~30$), bir dijital trunk sistemini (kontrol + ses kanalı) aynı anda izlemen için, tek pahalı geniş-BW cihazdan **daha pratik** olabilir. Ucuzluk = "çoğalt" stratejisi.
+> **Püf:** İki ucuz RTL-SDR (her biri ~30$), bir dijital trunk sistemini (kontrol + ses kanalı) aynı anda izlemen için, tek pahalı geniş-BW cihazdan **daha pratik** olabilir. Ucuzluk = "çoğalt" stratejisi.
 
 <a id="4-2"></a>
-### 4.2 🛠️ HackRF One — "TX'e İlk Adım, Deney Tahtası"
+### 4.2  HackRF One — "TX'e İlk Adım, Deney Tahtası"
 
 Great Scott Gadgets (Michael Ossmann) tarafından, **açık donanım** olarak tasarlanmış efsane. RX-only dünyasından çıkıp **yayın/deney** dünyasına açılan en yaygın giriş cihazı.
 
 - **Frekans aralığı:** **1 MHz – 6 GHz** (çok geniş — sub-GHz'den WiFi/5.8 GHz'e kadar tek cihazda).
 - **Anlık bant genişliği:** **20 MSPS** (≈20 MHz — RTL-SDR'ın ~8 katı).
 - **ADC bit:** **8-bit** (HackRF'in en büyük *zayıflığı*; geniş ama dar dinamik aralık).
-- **TX var/yok + güç:** ✅ **TX VAR**, **half-duplex** (aynı anda ya TX ya RX). Güç **düşüktür** ve frekansa göre değişir (kabaca -10 dBm ile birkaç mW arası; üst frekanslarda düşer) → **lab/kısa mesafe deney** seviyesi; ciddi menzil için harici PA gerekir.
+- **TX var/yok + güç:**  **TX VAR**, **half-duplex** (aynı anda ya TX ya RX). Güç **düşüktür** ve frekansa göre değişir (kabaca -10 dBm ile birkaç mW arası; üst frekanslarda düşer) → **lab/kısa mesafe deney** seviyesi; ciddi menzil için harici PA gerekir.
 - **Arayüz:** USB 2.0.
 - **Fiyat:** ~150-350 $ (orijinal vs klon; **klonların kalibrasyonu/kalitesi değişir**, orijinali tercih sebebi).
 - **Güçlü yönleri:** Devasa frekans aralığı, **TX yeteneği**, açık donanım/firmware, büyük topluluk, GNU Radio/Portapack ile mükemmel uyum, **Portapack** eklentisiyle taşınabilir bağımsız cihaza dönüşür.
@@ -230,10 +230,10 @@ Great Scott Gadgets (Michael Ossmann) tarafından, **açık donanım** olarak ta
 - **Somut örnek 1:** `hackrf_sweep` ile 1 MHz–6 GHz spektrumun "ısı haritasını" çıkarıp ortamdaki tüm aktif bantları görmek.
 - **Somut örnek 2:** Portapack + HackRF ile bilgisayarsız, taşınabilir bir spektrum analizörü/sinyal kaydedici kurmak (saha keşfi).
 
-> ⚠️ **Sınır:** HackRF "her şeyi yapan" diye anılır ama **8-bit + half-duplex + düşük güç** üçlüsü onu *temiz alıcı* ya da *ciddi verici* yapmaz; o bir **çok yönlü deney/öğrenme platformudur.** Temiz dinleme istiyorsan Airspy/SDRplay, full-duplex istiyorsan LimeSDR/bladeRF/USRP daha doğru.
+> **Sınır:** HackRF "her şeyi yapan" diye anılır ama **8-bit + half-duplex + düşük güç** üçlüsü onu *temiz alıcı* ya da *ciddi verici* yapmaz; o bir **çok yönlü deney/öğrenme platformudur.** Temiz dinleme istiyorsan Airspy/SDRplay, full-duplex istiyorsan LimeSDR/bladeRF/USRP daha doğru.
 
 <a id="4-3"></a>
-### 4.3 🎧 Airspy (R2 / Mini / HF+ Discovery) — "Dar Ama Tertemiz"
+### 4.3  Airspy (R2 / Mini / HF+ Discovery) — "Dar Ama Tertemiz"
 
 Airspy ailesi, **RX-only** ama **12-bit (ve HF+'da efektif 16-bit sınıfı)** ADC ile **temizlik/dinamik aralık** odaklı bir markadır. "Az ama öz": geniş BW yerine **kaliteli, düşük gürültülü** alım.
 
@@ -243,7 +243,7 @@ Airspy ailesi, **RX-only** ama **12-bit (ve HF+'da efektif 16-bit sınıfı)** A
 | **Airspy Mini** | ~24 MHz – 1.8 GHz | 6 MSPS (ve 3) | 12-bit | R2'nin daha küçük/ucuz, USB-stick formu |
 | **Airspy HF+ Discovery** | **0.5 kHz–31 MHz (HF) + 60-260 MHz (VHF)** | dar (~768 kHz) | 16-bit sınıfı, çok yüksek dinamik aralık | **HF/MW/kısa dalga avcısı**, olağanüstü temiz |
 
-- **TX var/yok:** ❌ Yok (hepsi RX-only).
+- **TX var/yok:**  Yok (hepsi RX-only).
 - **Fiyat:** R2 ~170-200 $, Mini ~100-120 $, HF+ Discovery ~170-200 $ (yaklaşık).
 - **Güçlü yönleri:** **Çok temiz** (12/16-bit), mükemmel dinamik aralık (özellikle HF+ Discovery HF'te efsane), düşük gürültü, kaliteli SDR# uyumu (aynı geliştirici).
 - **Zayıf yönleri:** **Dar BW** (HackRF/USRP gibi 20+ MHz yok), TX yok, R2/Mini HF'i doğal kapsamaz (HF için HF+ Discovery gerekir), üst sınır ~1.8 GHz.
@@ -253,10 +253,10 @@ Airspy ailesi, **RX-only** ama **12-bit (ve HF+'da efektif 16-bit sınıfı)** A
 - **Somut örnek 1:** HF+ Discovery + iyi HF anteniyle, gece okyanus aşırı (DX) kısa dalga istasyonlarını ucuz çubuğun göremeyeceği temizlikte almak.
 - **Somut örnek 2:** R2 ile gürültülü bir ortamda, FM bandının hemen yanındaki zayıf bir VHF sinyalini hayalet/overload olmadan dinlemek.
 
-> 💡 **Konum:** Airspy = "**dinleme kalitesi**" seçimi. Geniş bant ya da TX istiyorsan yanlış adres; **en temiz sesi/sinyali** istiyorsan (özellikle HF'te) en güçlü adaylardan.
+> **Konum:** Airspy = "**dinleme kalitesi**" seçimi. Geniş bant ya da TX istiyorsan yanlış adres; **en temiz sesi/sinyali** istiyorsan (özellikle HF'te) en güçlü adaylardan.
 
 <a id="4-4"></a>
-### 4.4 📶 SDRplay (RSP1A / RSPdx) — "Geniş + 14-bit Hepsi-Bir-Arada"
+### 4.4  SDRplay (RSP1A / RSPdx) — "Geniş + 14-bit Hepsi-Bir-Arada"
 
 SDRplay (Mirics yongası tabanlı), **14-bit** ADC ile **geniş frekans (HF dahil) + temizlik** dengesini RX-only'de sunar. SDRuno (kendi yazılımı) ve SDR++/SDRangel ile çalışır.
 
@@ -265,7 +265,7 @@ SDRplay (Mirics yongası tabanlı), **14-bit** ADC ile **geniş frekans (HF dahi
 | **RSP1A** | ~1 kHz – 2 GHz | ~10 MHz'e kadar | 14-bit | **Tek cihazda HF+VHF+UHF**, çok yönlü, uygun fiyat |
 | **RSPdx** | ~1 kHz – 2 GHz | ~10 MHz | 14-bit | Gelişmiş ön-uç/filtreler, HF için **HDR modu**, daha iyi seçicilik |
 
-- **TX var/yok:** ❌ Yok (RX-only).
+- **TX var/yok:**  Yok (RX-only).
 - **Fiyat:** RSP1A ~110-130 $, RSPdx ~200-230 $ (yaklaşık).
 - **Güçlü yönleri:** **14-bit** (8-bit cihazlara göre çok daha geniş dinamik aralık), **HF'i doğal kapsar** (upconverter gerekmez), tek cihazda 1 kHz–2 GHz, iyi filtre/ön-uç (özellikle RSPdx), uygun fiyat/yetenek oranı.
 - **Zayıf yönleri:** TX yok, üst sınır ~2 GHz (WiFi 2.4 GHz'in alt kenarı; 5/6 GHz yok), yongası kapalı (Mirics), bazı işlevler kendi yazılımına bağlı.
@@ -276,10 +276,10 @@ SDRplay (Mirics yongası tabanlı), **14-bit** ADC ile **geniş frekans (HF dahi
 - **Somut örnek 1:** RSP1A ile sabah HF amatör bandını, öğleden sonra 137 MHz NOAA uydusunu, akşam UHF amatör tekrarlayıcıyı **tek cihazla** takip etmek.
 - **Somut örnek 2:** RSPdx'in HDR modunda, güçlü MW yayın istasyonlarının yanındaki zayıf HF sinyalini overload olmadan ayıklamak.
 
-> 🧠 **RTL-SDR V4 vs SDRplay RSP1A:** İkisi de "her bandı dinle" der ama RSP1A **14-bit + daha geniş BW + doğal HF** ile belirgin üstündür — bedeli ~3-4 kat fiyat. "Hobi başlangıç" → V4; "ciddi tek-cihaz RX istasyonu" → RSP1A/RSPdx.
+> **RTL-SDR V4 vs SDRplay RSP1A:** İkisi de "her bandı dinle" der ama RSP1A **14-bit + daha geniş BW + doğal HF** ile belirgin üstündür — bedeli ~3-4 kat fiyat. "Hobi başlangıç" → V4; "ciddi tek-cihaz RX istasyonu" → RSP1A/RSPdx.
 
 <a id="4-5"></a>
-### 4.5 🔁 LimeSDR / LimeSDR Mini — "Full-Duplex, MIMO, Açık"
+### 4.5  LimeSDR / LimeSDR Mini — "Full-Duplex, MIMO, Açık"
 
 Lime Microsystems'in LMS7002M yongası tabanlı, **full-duplex TX/RX** ve (büyük modelde) **2×2 MIMO** sunan açık platform. Yazılım tanımlı baz istasyonu, repeater, protokol geliştirme için.
 
@@ -302,7 +302,7 @@ Lime Microsystems'in LMS7002M yongası tabanlı, **full-duplex TX/RX** ve (büy�
 - **Somut örnek 2:** Full-duplex sayesinde bir frekansta dinlerken başka frekansta eşzamanlı yayınla bir tekrarlayıcı (repeater) prototipi (lisanslı/yasal bantta).
 
 <a id="4-6"></a>
-### 4.6 🎓 Ettus USRP (B200 / B210) — "Profesyonel / Araştırma Standardı"
+### 4.6  Ettus USRP (B200 / B210) — "Profesyonel / Araştırma Standardı"
 
 Ettus Research (NI/National Instruments) USRP serisi, akademi/savunma/araştırmada **fiili standart.** Sağlamlık, sürücü olgunluğu (UHD), GNU Radio entegrasyonu ve performansla pahalı ama güvenilir.
 
@@ -323,17 +323,17 @@ Ettus Research (NI/National Instruments) USRP serisi, akademi/savunma/araştırm
 - **Somut örnek 1:** B210'un iki coherent kanalıyla bir **2-elemanlı dizi** kurup geliş açısı (AoA) tahmini araştırması yapmak.
 - **Somut örnek 2:** Üniversite laboratuvarında GNU Radio + B200 ile yeni bir modülasyon şemasını uçtan uca (TX→kanal→RX) doğrulamak.
 
-> 🧠 **USRP felsefesi:** "En çok bit" ya da "en ucuz" değil; **"deneyim tekrarlanabilir, sürücü güvenilir, yayın-kalitesinde sonuç"** istiyorsan USRP. Bedeli fiyat.
+> **USRP felsefesi:** "En çok bit" ya da "en ucuz" değil; **"deneyim tekrarlanabilir, sürücü güvenilir, yayın-kalitesinde sonuç"** istiyorsan USRP. Bedeli fiyat.
 
 <a id="4-7"></a>
-### 4.7 🔬 ADALM-PLUTO (PlutoSDR) — "Analog Devices'ın Hacklenebilir Eğitim Kutusu"
+### 4.7  ADALM-PLUTO (PlutoSDR) — "Analog Devices'ın Hacklenebilir Eğitim Kutusu"
 
 Analog Devices'in **eğitim/öğrenci** amaçlı, AD9363 transceiver tabanlı, ucuz full-duplex SDR'ı. MATLAB/Simulink ve GNU Radio ile sıkı entegre; ünlü bir **"frekans aralığını yazılımla genişletme" hilesiyle** popüler.
 
 - **Frekans aralığı:** Resmî **325 MHz – 3.8 GHz**; ama **yongası aslında ~70 MHz – 6 GHz yetenekli** ve topluluk, bir yazılım ayarıyla bu aralığı **"açar"** (resmî desteklenmez/kalibre değildir ama çalışır — eğitim/deney için meşhur hile).
 - **Anlık bant genişliği:** ~20 MHz (yongaya göre 56 MHz'e kadar zorlanabilir; resmî ~20).
 - **ADC bit:** 12-bit.
-- **TX var/yok:** ✅ **TX VAR**, **full-duplex** (AD9363 transceiver).
+- **TX var/yok:**  **TX VAR**, **full-duplex** (AD9363 transceiver).
 - **TX gücü:** Düşük (deney seviyesi).
 - **Arayüz:** USB 2.0.
 - **Fiyat:** ~150-230 $ (eğitim indirimi/sürüme göre).
@@ -347,14 +347,14 @@ Analog Devices'in **eğitim/öğrenci** amaçlı, AD9363 transceiver tabanlı, u
 - **Somut örnek 2:** Frekans hilesini açıp 1090 MHz ADS-B'yi almak ya da 70 MHz–6 GHz aralığında deney yapmak (eğitim/lab).
 
 <a id="4-8"></a>
-### 4.8 ⚡ bladeRF (2.0 micro) — "Full-Duplex, FPGA, Sağlam"
+### 4.8  bladeRF (2.0 micro) — "Full-Duplex, FPGA, Sağlam"
 
 Nuand'ın bladeRF serisi, **full-duplex**, güçlü **FPGA** (kullanıcı tarafından programlanabilir) ve iyi sürücü desteğiyle USRP ile HackRF arası bir konumda. 2.0 micro modelleri yaygın.
 
 - **Frekans aralığı:** bladeRF 2.0 micro **~47 MHz – 6 GHz** (orijinal bladeRF ~300 MHz–3.8 GHz, XB-200 ile HF'e iner).
 - **Anlık bant genişliği:** ~56 MHz'e kadar.
 - **ADC bit:** 12-bit.
-- **TX var/yok:** ✅ **TX VAR**, **full-duplex**, 2.0 micro'da **2×2 MIMO** (xA9 modeli).
+- **TX var/yok:**  **TX VAR**, **full-duplex**, 2.0 micro'da **2×2 MIMO** (xA9 modeli).
 - **Arayüz:** USB 3.0.
 - **Fiyat:** ~480-720 $ (model/FPGA boyutuna göre; xA4 daha ucuz, xA9 pahalı).
 - **Güçlü yönleri:** **Full-duplex + MIMO**, **programlanabilir FPGA** (cihaz üstünde DSP — düşük gecikme, gerçek-zamanlı işleme), geniş frekans, sağlam yapı, GNU Radio/SoapySDR uyumu, USRP'den ucuz.
@@ -367,14 +367,14 @@ Nuand'ın bladeRF serisi, **full-duplex**, güçlü **FPGA** (kullanıcı taraf�
 - **Somut örnek 2:** Full-duplex + MIMO ile 2 kanallı bir araştırma deneyi (USRP'ye uygun fiyatlı alternatif).
 
 <a id="4-9"></a>
-### 4.9 🧭 KrakenSDR / KerberosSDR — "5 Kanal Coherent: YÖN BULMA"
+### 4.9  KrakenSDR / KerberosSDR — "5 Kanal Coherent: YÖN BULMA"
 
 Bu kategori diğerlerinden **farklı** bir soruyu yanıtlar: "Sinyal **nereden geliyor?**" **KerberosSDR** (4 kanal, öncül) ve onun olgunlaşmış halefi **KrakenSDR** (5 kanal), faz-tutarlı (coherent) çoklu RTL-SDR alıcılarını tek kutuda birleştirir → **yön bulma (direction finding, DF)** ve **pasif radar** mümkün olur.
 
 - **Mimari:** **5 adet faz-tutarlı (coherent) RTL-SDR tabanlı kanal**, ortak saat (clock) ve dahili kalibrasyon/gürültü kaynağıyla senkronize.
 - **Frekans aralığı:** ~24 MHz – ~1.7 GHz (RTL-SDR tabanlı olduğundan).
 - **ADC bit:** 8-bit (kanal başına RTL-SDR sınıfı) — **ama** gücü bit derinliğinde değil, **faz tutarlılığında.**
-- **TX var/yok:** ❌ Yok (saf alıcı/DF cihazı).
+- **TX var/yok:**  Yok (saf alıcı/DF cihazı).
 - **Arayüz:** USB.
 - **Fiyat:** KrakenSDR ~500-600 $ (yaklaşık; 5 kanal + kalibrasyon donanımı).
 - **Güçlü yönleri:** **Faz-tutarlı 5 kanal** → gerçek **yön bulma / geliş açısı (AoA)**, **pasif radar**, beamforming; hazır yazılım (Kraken DoA / DF stack), araç üstü mobil DF (hareket ederken konumu üçgenleme), açık ekosistem.
@@ -386,10 +386,10 @@ Bu kategori diğerlerinden **farklı** bir soruyu yanıtlar: "Sinyal **nereden g
 - **Somut örnek 1:** KrakenSDR + 5 elemanlı dairesel anten dizisini araca kurup, şehirde dolaşırken bir test vericisinin yönünü gerçek zamanlı haritada izleyip kesişimlerden konumunu bulmak (amatör DF / fox hunting).
 - **Somut örnek 2:** Bir tesiste sürekli parazit yapan bilinmeyen bir kaynağın yönünü saptayıp fiziksel konumuna yürümek (spektrum hijyeni).
 
-> 🔥 **Kritik fark:** Tek SDR "**ne**" sorusunu (sinyal var mı, ne diyor) yanıtlar; KrakenSDR "**nerede**" sorusunu yanıtlar. Bu, SIGINT'te bambaşka bir yetenek katmanıdır (geolocation/DF). Detay: bkz. Bölüm 7 (coherent dizi mantığı) ve sonraki SIGINT bölümleri.
+> **Kritik fark:** Tek SDR "**ne**" sorusunu (sinyal var mı, ne diyor) yanıtlar; KrakenSDR "**nerede**" sorusunu yanıtlar. Bu, SIGINT'te bambaşka bir yetenek katmanıdır (geolocation/DF). Detay: bkz. Bölüm 7 (coherent dizi mantığı) ve sonraki SIGINT bölümleri.
 
 <a id="4-10"></a>
-### 4.10 🐬 Flipper Zero — "SDR DEĞİL, Ama Cebe Sığan RF Çakısı"
+### 4.10  Flipper Zero — "SDR DEĞİL, Ama Cebe Sığan RF Çakısı"
 
 **Önemli:** Flipper Zero bir **SDR DEĞİLDİR.** Buraya, sürekli SDR ile karıştırıldığı için ve gerçek sınırlarını netleştirmek için kondu. Flipper, geniş bantlı I/Q sayısallaştırma yapmaz; **sabit-fonksiyonlu, dar bantlı bir RF/donanım çok-aracıdır** (multi-tool). "Tamagotchi görünümlü hacker oyuncağı" popülaritesiyle ünlüdür.
 
@@ -406,11 +406,11 @@ Bu kategori diğerlerinden **farklı** bir soruyu yanıtlar: "Sinyal **nereden g
 - IR kumanda birleştirme, BadUSB betikleri, donanım hattı (GPIO) ile prototipleme.
 
 **Ne YAPAMAZ (sınırları):**
-- ❌ **Geniş spektrum tarama / waterfall** (SDR değil; göremez).
-- ❌ **Rolling-code (atlamalı kod) sistemleri kırma** (modern araba anahtarları, KeeLoq vb. — yakala-oynat işe yaramaz; "araba çalan cihaz" söylentileri abartı/yanlıştır).
-- ❌ **WiFi/Bluetooth saldırı** (ana cihazda WiFi yok; BLE sınırlı).
-- ❌ **Şifre çözme, GHz-üstü, geniş bant, dijital ses (P25/DMR) çözme.**
-- ❌ **2.4/5 GHz, ADS-B (1090 MHz CC1101 aralığı dışı), uydu** — bunların hiçbiri.
+-  **Geniş spektrum tarama / waterfall** (SDR değil; göremez).
+-  **Rolling-code (atlamalı kod) sistemleri kırma** (modern araba anahtarları, KeeLoq vb. — yakala-oynat işe yaramaz; "araba çalan cihaz" söylentileri abartı/yanlıştır).
+-  **WiFi/Bluetooth saldırı** (ana cihazda WiFi yok; BLE sınırlı).
+-  **Şifre çözme, GHz-üstü, geniş bant, dijital ses (P25/DMR) çözme.**
+-  **2.4/5 GHz, ADS-B (1090 MHz CC1101 aralığı dışı), uydu** — bunların hiçbiri.
 
 **Genişletme modülleri:**
 - **WiFi DevBoard (ESP32):** WiFi izleme/saldırı betikleri (Marauder vb.), Flipper'a kablosuz arayüz/firmware flaşlama.
@@ -426,42 +426,42 @@ Bu kategori diğerlerinden **farklı** bir soruyu yanıtlar: "Sinyal **nereden g
 - **Somut örnek 1:** Yetkili bir fiziksel pentest'te, bir tesisin 125 kHz RFID erişim kartının kopyalanabilirliğini (zayıf/korumasızsa) gösterip rapora eklemek.
 - **Somut örnek 2:** Kendi eski sabit-kodlu garaj kumandanı yakalayıp tekrar oynatarak "neden rolling-code'a geçmeli" dersini somutlaştırmak.
 
-> ⚖️ **Yasal/etik:** Flipper popülerdir ama **başkasının** erişim kartını kopyalamak, **başkasının** kumandasını/cihazını yakala-oynat ile açmak, kart/ödeme öykünmesi **suçtur.** Bazı ülkeler/kuruluşlar Flipper'ı kısıtlamıştır. Yalnızca **kendi cihazların** ve **yazılı yetkili** testlerde kullan.
+> **Yasal/etik:** Flipper popülerdir ama **başkasının** erişim kartını kopyalamak, **başkasının** kumandasını/cihazını yakala-oynat ile açmak, kart/ödeme öykünmesi **suçtur.** Bazı ülkeler/kuruluşlar Flipper'ı kısıtlamıştır. Yalnızca **kendi cihazların** ve **yazılı yetkili** testlerde kullan.
 
-> 🧠 **Flipper vs SDR — net ayrım:** Bir sinyali **incelemek/analiz etmek/geniş bakmak** istiyorsan → **SDR** (RTL-SDR/HackRF...). Sahada **belirli, basit, bilinen** bir RF/NFC/IR işini cep cihazıyla **hızlı yapmak** istiyorsan → **Flipper.** İkisi rakip değil, farklı işler; ciddi RF analizi için Flipper yetmez, SDR şart.
+> **Flipper vs SDR — net ayrım:** Bir sinyali **incelemek/analiz etmek/geniş bakmak** istiyorsan → **SDR** (RTL-SDR/HackRF...). Sahada **belirli, basit, bilinen** bir RF/NFC/IR işini cep cihazıyla **hızlı yapmak** istiyorsan → **Flipper.** İkisi rakip değil, farklı işler; ciddi RF analizi için Flipper yetmez, SDR şart.
 
 ---
 
 <a id="5"></a>
-## 5. 🔥 Karşılaştırma Matrisi
+## 5.  Karşılaştırma Matrisi
 
 > Değerler **yaklaşıktır** — revizyon/firmware/ülkeye göre değişir; karar öncesi **datasheet'ten teyit et.** Fiyatlar kaba ABD$ aralığı.
 
 | Cihaz | Frekans Aralığı | Anlık BW (≈örnekleme) | ADC Bit | TX? | Duplex | Arayüz | Fiyat (≈$) | Öne Çıkan Kullanım |
 |---|---|---|---|---|---|---|---|---|
-| **RTL-SDR V3** | ~0.5 MHz*–1.7 GHz | ~2.4 MHz | 8 | ❌ | RX-only | USB2 | 25-35 | Ucuz RX başlangıç, ADS-B, `rtl_433` |
-| **RTL-SDR V4** | ~0.5 MHz–1.7 GHz | ~2.4 MHz | 8 | ❌ | RX-only | USB2 | 30-40 | V3 + daha temiz HF & az hayalet |
-| **HackRF One** | 1 MHz–6 GHz | ~20 MHz | 8 | ✅ | Half-duplex | USB2 | 150-350 | Geniş + **TX deney**, replay/araştırma |
-| **Airspy R2** | ~24 MHz–1.8 GHz | ~10 MHz | 12 | ❌ | RX-only | USB2 | 170-200 | Temiz VHF/UHF |
-| **Airspy Mini** | ~24 MHz–1.8 GHz | ~6 MHz | 12 | ❌ | RX-only | USB2 | 100-120 | Temiz, ucuz çubuk form |
-| **Airspy HF+ Discovery** | ~0.5 kHz–31 MHz + 60-260 MHz | ~0.77 MHz | 16 sınıfı | ❌ | RX-only | USB2 | 170-200 | **HF/MW avcısı, en temiz** |
-| **SDRplay RSP1A** | ~1 kHz–2 GHz | ~10 MHz | 14 | ❌ | RX-only | USB2 | 110-130 | **Tek cihaz HF+VHF+UHF, 14-bit** |
-| **SDRplay RSPdx** | ~1 kHz–2 GHz | ~10 MHz | 14 | ❌ | RX-only | USB2 | 200-230 | RSP1A + gelişmiş ön-uç/HDR |
-| **LimeSDR Mini** | ~10 MHz–3.5 GHz | ~30 MHz | 12 | ✅ | **Full-duplex** | USB3 | 150-200 | Full-duplex deney, baz istasyonu |
-| **LimeSDR (USB)** | ~0.1 MHz–3.8 GHz | ~61 MHz | 12 | ✅ | **Full-duplex** | USB3 | 250-350+ | Full-duplex **+ 2×2 MIMO** |
-| **USRP B200** | ~70 MHz–6 GHz | ~56 MHz | 12 | ✅ | **Full-duplex** | USB3 | 1000-1300 | Araştırma standardı |
-| **USRP B210** | ~70 MHz–6 GHz | ~56 MHz | 12 | ✅ | **Full-duplex** | USB3 | 1200-1500 | **Coherent 2 kanal/MIMO**, araştırma |
-| **ADALM-PLUTO** | 325 MHz–3.8 GHz (hile: ~70 MHz–6 GHz) | ~20 MHz | 12 | ✅ | **Full-duplex** | USB2 | 150-230 | Eğitim, ucuz full-duplex+TX |
-| **bladeRF 2.0 micro** | ~47 MHz–6 GHz | ~56 MHz | 12 | ✅ | **Full-duplex** | USB3 | 480-720 | FPGA, full-duplex+MIMO |
-| **KrakenSDR** | ~24 MHz–1.7 GHz | ~2.4 MHz/kanal | 8 (×5) | ❌ | RX-only | USB | 500-600 | **5 kanal coherent → YÖN BULMA** |
-| **Flipper Zero** ⚠️*SDR değil* | sub-GHz bantlar (300-928 ISM) + NFC/RFID/IR | dar bant | — | ✅ (dar, sınırlı) | — | USB/BLE | 150-200 | Cep RF/NFC çok-aracı (geniş bant **yok**) |
+| **RTL-SDR V3** | ~0.5 MHz*–1.7 GHz | ~2.4 MHz | 8 |  | RX-only | USB2 | 25-35 | Ucuz RX başlangıç, ADS-B, `rtl_433` |
+| **RTL-SDR V4** | ~0.5 MHz–1.7 GHz | ~2.4 MHz | 8 |  | RX-only | USB2 | 30-40 | V3 + daha temiz HF & az hayalet |
+| **HackRF One** | 1 MHz–6 GHz | ~20 MHz | 8 |  | Half-duplex | USB2 | 150-350 | Geniş + **TX deney**, replay/araştırma |
+| **Airspy R2** | ~24 MHz–1.8 GHz | ~10 MHz | 12 |  | RX-only | USB2 | 170-200 | Temiz VHF/UHF |
+| **Airspy Mini** | ~24 MHz–1.8 GHz | ~6 MHz | 12 |  | RX-only | USB2 | 100-120 | Temiz, ucuz çubuk form |
+| **Airspy HF+ Discovery** | ~0.5 kHz–31 MHz + 60-260 MHz | ~0.77 MHz | 16 sınıfı |  | RX-only | USB2 | 170-200 | **HF/MW avcısı, en temiz** |
+| **SDRplay RSP1A** | ~1 kHz–2 GHz | ~10 MHz | 14 |  | RX-only | USB2 | 110-130 | **Tek cihaz HF+VHF+UHF, 14-bit** |
+| **SDRplay RSPdx** | ~1 kHz–2 GHz | ~10 MHz | 14 |  | RX-only | USB2 | 200-230 | RSP1A + gelişmiş ön-uç/HDR |
+| **LimeSDR Mini** | ~10 MHz–3.5 GHz | ~30 MHz | 12 |  | **Full-duplex** | USB3 | 150-200 | Full-duplex deney, baz istasyonu |
+| **LimeSDR (USB)** | ~0.1 MHz–3.8 GHz | ~61 MHz | 12 |  | **Full-duplex** | USB3 | 250-350+ | Full-duplex **+ 2×2 MIMO** |
+| **USRP B200** | ~70 MHz–6 GHz | ~56 MHz | 12 |  | **Full-duplex** | USB3 | 1000-1300 | Araştırma standardı |
+| **USRP B210** | ~70 MHz–6 GHz | ~56 MHz | 12 |  | **Full-duplex** | USB3 | 1200-1500 | **Coherent 2 kanal/MIMO**, araştırma |
+| **ADALM-PLUTO** | 325 MHz–3.8 GHz (hile: ~70 MHz–6 GHz) | ~20 MHz | 12 |  | **Full-duplex** | USB2 | 150-230 | Eğitim, ucuz full-duplex+TX |
+| **bladeRF 2.0 micro** | ~47 MHz–6 GHz | ~56 MHz | 12 |  | **Full-duplex** | USB3 | 480-720 | FPGA, full-duplex+MIMO |
+| **KrakenSDR** | ~24 MHz–1.7 GHz | ~2.4 MHz/kanal | 8 (×5) |  | RX-only | USB | 500-600 | **5 kanal coherent → YÖN BULMA** |
+| **Flipper Zero** *SDR değil* | sub-GHz bantlar (300-928 ISM) + NFC/RFID/IR | dar bant | — |  (dar, sınırlı) | — | USB/BLE | 150-200 | Cep RF/NFC çok-aracı (geniş bant **yok**) |
 
 \* RTL-SDR'ın HF'i (≈0.5–24 MHz) **direct sampling** ile alınır; V4 bunu iyileştirir ama doğal/temizlik açısından SDRplay/Airspy HF+ gerisindedir.
 
 ---
 
 <a id="6"></a>
-## 6. 🔥 "Neye Göre Hangisi" — Karar Rehberi
+## 6.  "Neye Göre Hangisi" — Karar Rehberi
 
 Tek "en iyi SDR" yoktur; **işine göre** en iyi vardır. Senaryondan cihaza:
 
@@ -492,12 +492,12 @@ Tek "en iyi SDR" yoktur; **işine göre** en iyi vardır. Senaryondan cihaza:
    - Sadece ucuz başlangıç / geniş hobi → **RTL-SDR V4**.
 4. **Cep/saha, hızlı belirli iş (geniş analiz değil)?** → **Flipper Zero** (ayrı kategori; SDR'a ek, alternatif değil).
 
-> 💡 **Akıllı başlangıç stratejisi:** Çoğu insan için doğru ilk adım **RTL-SDR V4** (~35$). Önce onunla öğren; hangi yöne (HF temizliği? TX? DF?) ilgi/ihtiyaç duyduğunu *anladıktan sonra* pahalı cihaza yatırım yap. **İlk cihazda pahalıya kaçma.**
+> **Akıllı başlangıç stratejisi:** Çoğu insan için doğru ilk adım **RTL-SDR V4** (~35$). Önce onunla öğren; hangi yöne (HF temizliği? TX? DF?) ilgi/ihtiyaç duyduğunu *anladıktan sonra* pahalı cihaza yatırım yap. **İlk cihazda pahalıya kaçma.**
 
 ---
 
 <a id="7"></a>
-## 7. 🧰 Manuel / Özel Yapım — Coherent Dizi & Açık Donanım
+## 7.  Manuel / Özel Yapım — Coherent Dizi & Açık Donanım
 
 Piyasada hazır satılmayan yetenekler, çoğu zaman **açık donanım + FPGA + senkronizasyon** ile *kendin* kurulabilir. Bunun mantığını bilmek, "neden bazı cihazlar yok ve nasıl yapılır"ı açar.
 
@@ -519,12 +519,12 @@ Hazır SDR'ın ön-ucu (LNA/filtre) ihtiyacına yetmiyorsa:
 - **FPGA tabanlı esneklik:** bladeRF/USRP/LimeSDR'ın FPGA'sı, cihaz üstünde özel DSP/filtre/zamanlama yüklemeye izin verir → "lehimden değil, **yazılım/gateware'den** tanımlı" derinleşir.
 - **Modülerlik:** SoapySDR/UHD/GNU Radio gibi soyutlama katmanları, farklı donanımı aynı yazılım zincirinde birleştirmeyi sağlar → kendi "cihazını" yazılımda kurmak.
 
-> 🧠 **Felsefe:** SDR'ın özü zaten "donanım genel, akıl yazılımda"dır. **Özel cihaz yapmak**, bu felsefeyi donanım katmanına taşımaktır: açık şematik + FPGA gateware + ortak saat. Bu yüzden ileri SIGINT'te "satın al" kadar "kur/birleştir" de bir seçenektir.
+> **Felsefe:** SDR'ın özü zaten "donanım genel, akıl yazılımda"dır. **Özel cihaz yapmak**, bu felsefeyi donanım katmanına taşımaktır: açık şematik + FPGA gateware + ortak saat. Bu yüzden ileri SIGINT'te "satın al" kadar "kur/birleştir" de bir seçenektir.
 
 ---
 
 <a id="8"></a>
-## 8. 🧪 Alıştırmalar
+## 8.  Alıştırmalar
 
 > Amaç: cihaz seçimini **kendi ihtiyacına göre** muhakeme etmeyi pekiştirmek. Önce kendin karar ver, sonra çözüme bak.
 
@@ -567,7 +567,7 @@ Bir arkadaşın diyor ki: *"RTL-SDR V4 aldım, onunla **şehir merkezinde, güç
 ---
 
 <a id="9"></a>
-## 9. 🔗 Çapraz Referans & Sonraki Bölümler
+## 9.  Çapraz Referans & Sonraki Bölümler
 
 Bu bölüm **SIGINT El Kitabı**'nın 2. parçasıdır ve cihaz seçimine odaklanır. Sinyali *yakaladıktan sonra* ne yapacağın (anten, demodülasyon, kod çözme, kayıt, analiz, yön bulma derinlemesine, yasal çerçeve) diğer bölümlerde işlenir:
 
@@ -578,6 +578,6 @@ Bu bölüm **SIGINT El Kitabı**'nın 2. parçasıdır ve cihaz seçimine odakla
 - **Bölüm 6 — Yön Bulma & Geolocation Derinlemesine:** Coherent diziler, AoA/TDoA, KrakenSDR pratiği, pasif radar — bu bölümdeki KrakenSDR'ın *kullanımı*.
 - **Bölüm 7 — Operasyonel & Yasal Güvenlik:** Pasif/aktif SIGINT ayrımı, kayıt/saklama, ülke bazlı yayın/dinleme yasaları, etik sınırlar.
 
-> 🏰 **Kapanış:** "En iyi SDR" diye bir şey yoktur — **işine en uygun** SDR vardır. Yön mü buluyorsun, TX mi deniyorsun, HF mi temizliyorsun, yoksa cebinde bir RF çakısı mı istiyorsun? Önce **soruyu** netleştir; cihaz kendini gösterir. Ve unutma: **çoğu zaman cihazdan çok anten ve operasyonel disiplin sonucu belirler** (Bölüm 3). Salt-alıcı dinleme çoğu yerde serbesttir; **TX'e elini atmadan önce kendi ülkenin kurallarını teyit et** — matematik suç değildir ama yetkisiz yayın suçtur.
+> **Kapanış:** "En iyi SDR" diye bir şey yoktur — **işine en uygun** SDR vardır. Yön mü buluyorsun, TX mi deniyorsun, HF mi temizliyorsun, yoksa cebinde bir RF çakısı mı istiyorsun? Önce **soruyu** netleştir; cihaz kendini gösterir. Ve unutma: **çoğu zaman cihazdan çok anten ve operasyonel disiplin sonucu belirler** (Bölüm 3). Salt-alıcı dinleme çoğu yerde serbesttir; **TX'e elini atmadan önce kendi ülkenin kurallarını teyit et** — matematik suç değildir ama yetkisiz yayın suçtur.
 >
 > *Bu doküman Kanije Kalesi güvenlik/SIGINT rehberleri koleksiyonunun parçasıdır. İlgili: `VERACRYPT_USTALIK_REHBERI.md`, `WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md`, `OSINT_ARAC_SETI_USTALIK_REHBERI.md`, `MITRE_ATTACK_USTALIK_REHBERI.md`.*
