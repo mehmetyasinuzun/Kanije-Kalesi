@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/kanije-kalesi/kanije/internal/clipboard"
+	"github.com/kanije-kalesi/kanije/internal/defender"
 	"github.com/kanije-kalesi/kanije/internal/event"
 	"github.com/kanije-kalesi/kanije/internal/sysinfo"
 )
@@ -22,6 +23,13 @@ const maxDocBytes = 45 * 1024 * 1024
 // cmdPil reports the battery status.
 func (b *Bot) cmdPil(ctx context.Context, chatID int64) {
 	b.reply(ctx, chatID, FormatBattery(sysinfo.CollectBattery()))
+}
+
+// cmdDefender reports Microsoft Defender's posture: whether real-time protection
+// is on, when it last scanned, signature freshness, and recent detections.
+func (b *Bot) cmdDefender(ctx context.Context, chatID int64) {
+	b.reply(ctx, chatID, "🛡️ Defender durumu okunuyor…")
+	b.reply(ctx, chatID, FormatDefender(defender.GetStatus()))
 }
 
 // cmdPano reads and returns the current clipboard text.

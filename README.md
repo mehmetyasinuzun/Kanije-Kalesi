@@ -79,6 +79,7 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 /olaylar   →  Son olaylar (/olaylar <tip> veya <sayı> ile filtrele)
 /ozet      →  Son 7 günün olay özeti (tip bazlı)
 /dogrula   →  Olay günlüğü bütünlüğünü doğrula (hash-chain)
+/defender  →  🛡️ Microsoft Defender durumu + son taramalar + tespitler
 /guncelle  →  Yeni sürümü kontrol et ve kur
 /dosya     →  📁 Dosya gez/indir (/dosya <yol> · /dosya al <yol>)
 /zamanla   →  ⏰ Komut zamanla (/zamanla 30dk /foto · liste · sil <id>)
@@ -130,6 +131,7 @@ Tüm ayarlar Telegram üzerinden yapılır. Config dosyasına hiç dokunmanıza 
 | 🎥 **Hareket algılama** | `/hareket ac` — kamera kare farkı (luma) eşiği aşınca otomatik foto + olay |
 | 🎧 **Canlı dinleme** | `/dinle 10` — mikrofonu 20 sn'lik parçalar halinde akıtır, `/dinle kapat` durdurur |
 | 🔒 **Binary bütünlüğü** | Watchdog exe SHA-256'sını izler; runtime'da değiştirilirse (kod enjeksiyonu / truva'lı kopya) kritik alarm |
+| 🛡️ **Defender izleme** | `/defender` — gerçek-zamanlı koruma durumu, son hızlı/tam tarama zamanı, imza sürümü ve son tespitler (AV seni ne kadar/ne zaman izliyor) |
 
 <br>
 

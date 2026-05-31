@@ -226,6 +226,7 @@ var commandCaps = map[string]access.Capability{
 	"/loglar": access.CapManage, "/audit": access.CapManage,
 	"/terminal": access.CapTerminal, "/terminalix": access.CapTerminal,
 	"/pil": access.CapStatus, "/battery": access.CapStatus,
+	"/defender": access.CapStatus, "/av": access.CapStatus,
 	"/pano": access.CapFiles, "/clipboard": access.CapFiles,
 	"/dosya": access.CapFiles, "/file": access.CapFiles,
 	"/panik": access.CapPanic, "/panic": access.CapPanic,
@@ -377,6 +378,8 @@ func (b *Bot) handleMessage(ctx context.Context, m *Message) {
 		b.cmdTerminal(ctx, chatID, text, true)
 	case "/pil", "/battery":
 		b.cmdPil(ctx, chatID)
+	case "/defender", "/av":
+		b.cmdDefender(ctx, chatID)
 	case "/pano", "/clipboard":
 		b.cmdPano(ctx, chatID)
 	case "/panik", "/panic":
@@ -465,6 +468,7 @@ func (b *Bot) registerCommands(ctx context.Context) {
 		{"ekran", "🖥️ Ekran görüntüsü"},
 		{"seskayit", "🎤 Mikrofon kaydı (saniye)"},
 		{"pil", "🔋 Pil durumu"},
+		{"defender", "🛡️ Defender durumu + son taramalar"},
 		{"pano", "📋 Pano içeriği"},
 		{"panik", "🆘 Panik — kanıt topla (foto+ekran+ses+IP)"},
 		{"dosya", "📁 Dosya gez/indir (/dosya al <yol>)"},

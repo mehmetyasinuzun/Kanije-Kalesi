@@ -5,6 +5,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/kanije-kalesi/kanije/internal/defender"
 	"github.com/kanije-kalesi/kanije/internal/event"
 	"github.com/kanije-kalesi/kanije/internal/storage"
 	"github.com/kanije-kalesi/kanije/internal/sysinfo"
@@ -411,6 +412,7 @@ func FormatHelp() string {
 /olaylar — Son olaylar (/olaylar &lt;tip&gt; veya &lt;sayı&gt; ile filtrele)
 /ozet — Son 7 günün olay özeti (tip bazlı)
 /dogrula — Olay günlüğü bütünlüğünü doğrula
+/defender — 🛡️ Microsoft Defender durumu + son taramalar + tespitler
 /ping — Bağlantı kontrolü
 
 <b>📷 Medya</b>
@@ -487,6 +489,59 @@ func FormatBattery(b sysinfo.Battery) string {
 		sb.WriteString("</b>\n")
 	}
 	return sb.String()
+}
+
+// FormatDefender renders the /defender Microsoft Defender status panel.
+func FormatDefender(s defender.Status) string {
+	if !s.Available {
+		return "🛡️ <b>Microsoft Defender</b>\n\nDurum okunamadı — Defender yok, devre dışı, ya da bu platform desteklemiyor."
+	}
+
+	var b strings.Builder
+	b.WriteString("🛡️ <b>Microsoft Defender</b>\n\n")
+	b.WriteString(onOff("Gerçek zamanlı koruma", s.RealTimeProtection))
+	b.WriteString(onOff("Antivirüs motoru", s.AntivirusEnabled))
+	b.WriteString(onOff("Kurcalama koruması", s.TamperProtection))
+
+	if s.LastQuickScan != "" || s.LastFullScan != "" {
+		b.WriteString("\n")
+		if s.LastQuickScan != "" {
+			b.WriteString("⚡ Son hızlı tarama: <b>" + safeHTML(s.LastQuickScan) + "</b>\n")
+		}
+		if s.LastFullScan != "" {
+			b.WriteString("🔍 Son tam tarama: <b>" + safeHTML(s.LastFullScan) + "</b>\n")
+		}
+	}
+	if s.SignatureVersion != "" {
+		b.WriteString("🧬 İmza: <code>" + safeHTML(s.SignatureVersion) + "</code>")
+		if s.SignatureUpdated != "" {
+			b.WriteString(" · " + safeHTML(s.SignatureUpdated))
+		}
+		b.WriteString("\n")
+	}
+
+	if len(s.RecentThreats) > 0 {
+		b.WriteString("\n⚠️ <b>Son tespitler:</b>\n")
+		for _, t := range s.RecentThreats {
+			b.WriteString("• " + safeHTML(t.Name))
+			if t.Time != "" {
+				b.WriteString(" <i>(" + safeHTML(t.Time) + ")</i>")
+			}
+			b.WriteString("\n")
+		}
+	} else {
+		b.WriteString("\n✅ Defender geçmişinde kayıtlı tehdit yok.\n")
+	}
+	return b.String()
+}
+
+// onOff renders an enabled/disabled status line.
+func onOff(label string, on bool) string {
+	state := "🔴 kapalı"
+	if on {
+		state = "🟢 açık"
+	}
+	return label + ": <b>" + state + "</b>\n"
 }
 
 // batteryEmoji picks a color by charge level.
