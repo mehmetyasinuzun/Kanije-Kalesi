@@ -1,4 +1,4 @@
-# 📡 SIGINT EL KİTABI — BÖLÜM 7: DİSİPLİNLER VE SİNYAL AYIKLAMA
+# SIGINT EL KİTABI — BÖLÜM 7: DİSİPLİNLER VE SİNYAL AYIKLAMA
 
 ## Yoğun Spektrumda Yayıcıyı Ayırmak — COMINT, ELINT, FISINT ve Otomatik Sınıflandırma
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [SIGINT'in Alt Disiplinleri: COMINT, ELINT, FISINT, MASINT İlişkisi](#1)
 2. [İstihbarat Üretim Zinciri: TCPED (Ham Sinyalden İstihbarata)](#2)

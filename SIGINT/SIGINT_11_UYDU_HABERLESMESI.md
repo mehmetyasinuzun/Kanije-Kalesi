@@ -1,4 +1,4 @@
-# 📡 SIGINT EL KİTABI — BÖLÜM 11: UYDU HABERLEŞMESİ
+# SIGINT EL KİTABI — BÖLÜM 11: UYDU HABERLEŞMESİ
 
 ## SATCOM Nasıl Çalışır, Nasıl Dinlenir (Pasif/Yasal), Nasıl Korunur
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [Yörünge Sınıfları: LEO, MEO, GEO, HEO](#1)
 2. [Yörünge Geometrisi: Neden GEO Sabit, Neden LEO Hızlı Geçer](#2)

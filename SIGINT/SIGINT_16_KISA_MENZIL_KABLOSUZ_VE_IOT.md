@@ -1,4 +1,4 @@
-# 📡 SIGINT EL KİTABI — BÖLÜM 16: KISA MENZİLLİ KABLOSUZ EKOSİSTEM VE IoT GÜVENLİĞİ
+# SIGINT EL KİTABI — BÖLÜM 16: KISA MENZİLLİ KABLOSUZ EKOSİSTEM VE IoT GÜVENLİĞİ
 
 ## Bluetooth, RFID/NFC, Sub-GHz, Zigbee, LoRa ve Keyless — Yakındaki Spektrumu Anlamak ve Savunmak
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [Kısa Menzilli Spektruma Genel Bakış: Bant, Mesafe, Saldırı Yüzeyi](#1)
 2. [Bluetooth Klasik ve BLE: Yığın, Reklam, Eşleşme, Adres Randomizasyonu](#2)

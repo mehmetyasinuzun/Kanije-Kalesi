@@ -1,4 +1,4 @@
-# 📡 SIGINT EL KİTABI — BÖLÜM 13: RF TEHDİT MANZARASI VE KARŞI-ÖNLEMLER
+# SIGINT EL KİTABI — BÖLÜM 13: RF TEHDİT MANZARASI VE KARŞI-ÖNLEMLER
 
 ## Karıştırma, Drone/İHA RF Saldırıları ve Sinyal Manipülasyonu — Tehdidi Tanıma, Tespit, Savunma ve Yasal Çerçeve
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [Elektronik Harp Taksonomisi: EA, EP, ES ve Sivil/Güvenlik Karşılığı](#1)
 2. [Karıştırma Fiziği: Sinyal-Karıştırma Oranı (J/S) ve Neden Zayıf Sinyaller Kolay Bastırılır](#2)

@@ -1,4 +1,4 @@
-# 📡 SIGINT EL KİTABI — BÖLÜM 9: YER TESPİTİ, YÖN BULMA VE TAKİP
+# SIGINT EL KİTABI — BÖLÜM 9: YER TESPİTİ, YÖN BULMA VE TAKİP
 
 ## Bir Vericinin Konumunu Yalnızca Sinyalinden Kestirmek — Geolocation, DF ve İz Sürme
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [Problem: Sinyalden Konuma — Pasif Geolocation'ın Doğası](#1)
 2. [Ölçüm Türleri ve Birbirleriyle İlişkisi (AOA, TDOA, FDOA, RSS)](#2)

@@ -1,4 +1,4 @@
-# 📡 SIGINT EL KİTABI — BÖLÜM 32: UYDU-IoT VE MEGA-KONSTELASYONLAR
+# SIGINT EL KİTABI — BÖLÜM 32: UYDU-IoT VE MEGA-KONSTELASYONLAR
 
 ## Starlink, Iridium ve Doğrudan-Cihaz (D2D): LEO Devrimi, Pasif Gözlem ve Savunma
 
@@ -10,7 +10,7 @@
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [Neden LEO? Mega-Konstelasyon Devriminin Fiziği](#1)
 2. [Yörünge Kabukları, İnter-Satellite Link ve Yer Ağı Geçitleri](#2)

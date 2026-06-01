@@ -1,4 +1,4 @@
-# 🛡️ SIGINT EL KİTABI — BÖLÜM 23: KABLOSUZ SALDIRI VEKTÖRLERİ TAKSONOMİSİ VE HİZMET-DIŞI BIRAKMA
+# SIGINT EL KİTABI — BÖLÜM 23: KABLOSUZ SALDIRI VEKTÖRLERİ TAKSONOMİSİ VE HİZMET-DIŞI BIRAKMA
 
 ## Erişim, Gizlilik, Bütünlük, Erişilebilirlik ve Kimlik — Kaynak/Paket Tüketme Saldırılarının Anatomisi, Tespiti ve Savunması
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [Neden Taksonomi: Saldırıyı Sınıflandırmadan Savunulamaz](#1)
 2. [CIA Üçlüsü ve Kablosuz Saldırı Yüzeyine Eşleme](#2)

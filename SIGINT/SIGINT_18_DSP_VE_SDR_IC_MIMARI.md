@@ -1,4 +1,4 @@
-# 📡 SIGINT EL KİTABI — BÖLÜM 18: SAYISAL SİNYAL İŞLEME VE YAZILIM RADYONUN İÇ MİMARİSİ
+# SIGINT EL KİTABI — BÖLÜM 18: SAYISAL SİNYAL İŞLEME VE YAZILIM RADYONUN İÇ MİMARİSİ
 
 ## Motorun Kaputunu Açmak — IQ'dan Bite Giden Matematiksel Zincir
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 📑 İÇİNDEKİLER
+## İÇİNDEKİLER
 
 1. [IQ Örneklemenin Matematiği: Karmaşık Taban-Bant ve Analitik Sinyal](#1)
 2. [Hilbert Dönüşümü, Negatif Frekans ve I/Q Dengesizliği](#2)
