@@ -204,6 +204,10 @@ Antenin hangi yöne ne kadar duyarlı olduğunun "haritası". (Antenler **karş�
 - **Omnidirectional (her yöne):** Dikey dipol/monopol → ufukta 360° dinler, dikeyde sınırlı. Tarama/keşif için ideal.
 - **Directional (yönlü):** Yagi, log-periyodik, çanak → bir yönde yüksek kazanç, diğer yönler bastırılmış. Zayıf/uzak hedef veya yön bulma (DF) için.
 
+![Yonlu antenin polar isima deseni: one bakan buyuk ana lob, yanlarda kucuk yan loblar, arkada zayif arka lob; konsantrik 0/-10/-20/-30 dB daireleri ve HPBW acisi](img/anten_isima_deseni.svg)
+
+*Yonlu bir antenin polar deseni: enerji one (ana lob) toplanir; yan ve arka loblar istenmeyen yonlerdir. Daireler kazanci dB olarak gosterir; HPBW, ana lobun -3 dB (yari-guc) genisligidir.*
+
 ### 3.4 Polarizasyon
 
 Elektrik alanının salınım **düzlemi**. Verici ve alıcı anten polarizasyonu **uyuşmazsa** ciddi kayıp olur (dik polarizasyonlar arası teorik kayıp **çok büyüktür**, ~20 dB+).
@@ -453,6 +457,12 @@ Anten (örn. 73 Ω dipol) ile hat/alıcı (50 Ω) **tam uyuşmaz** → küçük 
 ### 8.3 Ölçüm — SWR metre ve NanoVNA (kavram)
 - **SWR metre:** Hatta ileri/geri gücü ölçer → VSWR'ı söyler. Antenin "uyumlu mu" sorusunu cevaplar.
 - **NanoVNA (Vektör Network Analizörü):** Ucuz, taşınabilir mucize. Bir frekans aralığını **tarar**, her noktada **VSWR, empedans (R+jX), kazanç/kayıp (S11/S21)** verir. Anteni keserken/akort ederken **rezonansı gözle görürsün** (VSWR'ın dibe vurduğu frekans). "Tahmin etme, **ölç**" aracı.
+
+NanoVNA'nin S11'i genelde bir **Smith abagi** uzerinde gosterilir: empedansi (R+jX) tek bir noktaya esler. Merkez = mukemmel eslesme (50 Ohm, Γ=0); sag uc = acik devre, sol uc = kisa devre. Olcum noktasi merkeze ne kadar yakinsa eslesme o kadar iyidir.
+
+![Temel Smith abagi: dis birim daire, sabit-direnc daireleri (r=0,0.5,1,2 sag kenara teget), sabit-reaktans yaylari (x=+-0.5,+-1,+-2), merkezde 50 ohm eslesme, sol uc kisa devre, sag uc acik devre](img/smith_chart.svg)
+
+*Smith abagi empedansi (Z = R + jX) yansima katsayisina (Γ) esler. Mavi daireler sabit direnci, kirmizi yaylar sabit reaktansi temsil eder; ust yari enduktif (+jx), alt yari kapasitiftir (-jx). Eslesme agi tasariminda hedef, calisma noktasini merkeze (50 Ohm) tasimaktir.*
 
 > **Pratik akış:** Formülle (§2.2) teli yaklaşık kes → NanoVNA bağla → VSWR eğrisine bak → rezonans **istediğin frekanstan yüksekteyse tel kısadır → uzat**; **alçaktaysa tel uzundur → kırp.** Birkaç iterasyonda 1,2:1 VSWR'a oturtursun. **NanoVNA olmadan** bunu yapmanın yolu: formüle güven, biraz **uzun kes** (kırpmak eklemekten kolay), mümkünse bir alıcıda S-metre/SNR'ı izleyerek en iyi boyu **deneysel** bul.
 

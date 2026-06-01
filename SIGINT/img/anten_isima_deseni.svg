@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 520" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="560" height="520" fill="#f4f7fb"/>
+  <text x="280" y="32" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Yonlu Anten Polar Isima Deseni (kavramsal)</text>
+
+  <!-- merkez (280,270), 0 dB yaricapi 200 px -->
+  <!-- dB cemberleri: 0=200, -10=150, -20=100, -30=50 -->
+  <g fill="none" stroke="#c5d0dd" stroke-width="1">
+    <circle cx="280" cy="270" r="200"/>
+    <circle cx="280" cy="270" r="150"/>
+    <circle cx="280" cy="270" r="100"/>
+    <circle cx="280" cy="270" r="50"/>
+  </g>
+  <!-- radyal aci cizgileri her 30 derece -->
+  <g stroke="#dde5ee" stroke-width="0.8">
+    <line x1="280" y1="270" x2="480" y2="270"/>
+    <line x1="280" y1="270" x2="80"  y2="270"/>
+    <line x1="280" y1="270" x2="280" y2="70"/>
+    <line x1="280" y1="270" x2="280" y2="470"/>
+    <line x1="280" y1="270" x2="453" y2="170"/>
+    <line x1="280" y1="270" x2="453" y2="370"/>
+    <line x1="280" y1="270" x2="107" y2="170"/>
+    <line x1="280" y1="270" x2="107" y2="370"/>
+  </g>
+
+  <!-- dB etiketleri (yatay eksen uzerinde) -->
+  <g font-size="11" fill="#5a6b80">
+    <text x="284" y="225">-10 dB</text>
+    <text x="284" y="175">-20 dB</text>
+    <text x="284" y="125">-30 dB</text>
+    <text x="478" y="262" text-anchor="end">0 dB</text>
+  </g>
+
+  <!-- ana yon oklari: on = saga (+I yonu) -->
+  <text x="492" y="274" font-size="12" fill="#36506e" font-weight="bold">on</text>
+  <text x="50"  y="274" font-size="12" fill="#36506e" font-weight="bold">arka</text>
+
+  <!-- ISIMA DESENI: tek-parca polar desen. Merkez 280,270. On = +x (sag). -->
+  <!-- ana lob (sag) buyuk; yan loblar orta; arka lob (sol) kucuk -->
+  <!-- ust yari (saatin tersine: on -> ust null -> yan lob -> arka lob) -->
+  <path d="
+    M 480 270
+    C 478 218, 452 178, 405 168
+    C 360 160, 322 188, 312 232
+    C 310 246, 300 250, 292 240
+    C 278 222, 246 214, 222 230
+    C 214 236, 206 234, 206 224
+    C 204 198, 176 182, 150 196
+    C 162 214, 168 232, 170 252
+    C 150 244, 122 250, 118 270
+    C 122 290, 150 296, 170 288
+    C 168 308, 162 326, 150 344
+    C 176 358, 204 342, 206 316
+    C 206 306, 214 304, 222 310
+    C 246 326, 278 318, 292 300
+    C 300 290, 310 294, 312 308
+    C 322 352, 360 380, 405 372
+    C 452 362, 478 322, 480 270
+    Z" fill="#2e7d32" fill-opacity="0.18" stroke="#2e7d32" stroke-width="2"/>
+
+  <!-- etiketler ve oklar -->
+  <!-- ana lob -->
+  <text x="395" y="150" font-size="13" font-weight="bold" fill="#1b5e20">ana lob</text>
+  <line x1="420" y1="156" x2="452" y2="212" stroke="#1b5e20" stroke-width="1" marker-end="url(#ah)"/>
+  <!-- yan lob (alt-sol lob) -->
+  <text x="222" y="392" font-size="13" font-weight="bold" fill="#37474f">yan lob</text>
+  <line x1="232" y1="380" x2="170" y2="330" stroke="#37474f" stroke-width="1" marker-end="url(#ah)"/>
+  <!-- arka lob (en sol kucuk lob) -->
+  <text x="92" y="232" text-anchor="middle" font-size="13" font-weight="bold" fill="#37474f">arka lob</text>
+  <line x1="100" y1="238" x2="116" y2="262" stroke="#37474f" stroke-width="1" marker-end="url(#ah)"/>
+
+  <!-- HPBW: ana lobun -3 dB yarim guc acisi, on yonu etrafinda iki cizgi -->
+  <g stroke="#c62828" stroke-width="1.6" stroke-dasharray="5 3">
+    <line x1="280" y1="270" x2="475" y2="222"/>
+    <line x1="280" y1="270" x2="475" y2="318"/>
+  </g>
+  <path d="M 458 245 A 50 50 0 0 1 458 295" fill="none" stroke="#c62828" stroke-width="1.4"/>
+  <text x="372" y="200" font-size="12.5" font-weight="bold" fill="#c62828">HPBW</text>
+  <text x="338" y="216" font-size="10.5" fill="#c62828">(yari-guc huzme genisligi, -3 dB)</text>
+
+  <!-- merkez nokta -->
+  <circle cx="280" cy="270" r="3" fill="#1a2b40"/>
+
+  <defs>
+    <marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#37474f"/>
+    </marker>
+  </defs>
+
+  <text x="280" y="500" text-anchor="middle" font-size="11.5" fill="#4a5a70">Konsantrik daireler: kazanc seviyesi (dB). Ana lob enerjiyi one toplar; yan/arka loblar istenmeyen yonler.</text>
+</svg>

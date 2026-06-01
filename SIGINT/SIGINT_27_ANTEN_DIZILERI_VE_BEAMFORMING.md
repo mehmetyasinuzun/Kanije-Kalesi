@@ -135,6 +135,10 @@ Yarı-güç (−3 dB) hüzme genişliği (half-power beamwidth, HPBW), broadside
 
 Sekiz elemanlı, yarım-dalga aralıklı bir dizi broadside'da ~13° hüzme verir; bu, tek bir dipolün geniş donut'undan çok daha keskindir ve elemanların hiçbiri tek başına yönlü değildir. Yönlülük tamamen uzamsal toplamadan doğar.
 
+![Polar isima deseni semasi: baskin ana lob (main lobe), yaklasik -13 dB seviyesinde yan loblar (side lobes), zayif arka lob ve -3 dB yari-guc huzme genisligi (HPBW)](img/anten_isima_deseni.svg)
+
+*Dizi faktorunun kartezyen profili (yukaridaki ASCII) polar gosterimde boyle gorunur: ana hüzme bir yone toplanir, yan loblar (~-13.26 dB) ve arka lob istenmeyen yonlerdir; HPBW ana lobun -3 dB genisligidir. Eleman sayisi N arttikca ana hüzme daralir.*
+
 ### Tam ışıma deseni: eleman deseni × dizi faktörü
 
 Dizinin gerçek ışıma deseni, dizi faktörünün tek başına değil, eleman deseni (element pattern) ile çarpımıdır — buna desen çarpımı teoremi (pattern multiplication) denir:

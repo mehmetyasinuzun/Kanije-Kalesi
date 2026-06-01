@@ -484,6 +484,10 @@ Bit'e göre taşıyıcının **fazı** değişir. Genlik/frekans sabit.
    Her nokta 4 bit kodlar
 ```
 
+![16-QAM I/Q takimyildizi: yuksek SNR'da 16 nokta keskin ve ayrik, dusuk SNR'da her nokta gurultu bulutuna dagilir ve komsular karisir](img/constellation.svg)
+
+*Sol: yuksek SNR'da 16 sembol net ayrik. Sag: dusuk SNR'da gurultu bulutlari buyur, karar bolgeleri ortusur ve bit hatasi artar.*
+
 ### OFDM — Orthogonal Frequency Division Multiplexing
 Tek geniş kanal yerine, veriyi **yüzlerce/binlerce dar alt-taşıyıcıya** paralel böler; her alt-taşıyıcı kendi (genelde QAM) modülasyonunu taşır. Alt-taşıyıcılar **ortogonaldir** (birbirine girişmez).
 

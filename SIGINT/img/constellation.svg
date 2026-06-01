@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="420" fill="#f5f8fc"/>
+  <text x="380" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b40">16-QAM I/Q Takimyildizi: SNR Etkisi</text>
+
+  <!-- ===== SOL PANEL: yuksek SNR ===== -->
+  <g>
+    <rect x="30" y="55" width="320" height="320" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+    <text x="190" y="78" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a6e2e">16-QAM (yuksek SNR)</text>
+
+    <!-- eksenler: merkez (190,225) -->
+    <line x1="50" y1="225" x2="330" y2="225" stroke="#7a8aa0" stroke-width="1.2"/>
+    <line x1="190" y1="95" x2="190" y2="355" stroke="#7a8aa0" stroke-width="1.2"/>
+    <polygon points="330,225 322,221 322,229" fill="#7a8aa0"/>
+    <polygon points="190,95 186,103 194,103" fill="#7a8aa0"/>
+    <text x="338" y="222" font-size="13" fill="#36506e" font-style="italic">I</text>
+    <text x="197" y="105" font-size="13" fill="#36506e" font-style="italic">Q</text>
+
+    <!-- 4x4 keskin noktalar: konumlar -3,-1,1,3 -> piksel adimi 36 -->
+    <g fill="#1565c0">
+      <!-- satir +3 (y=117) --><circle cx="136" cy="117" r="4.5"/><circle cx="172" cy="117" r="4.5"/><circle cx="208" cy="117" r="4.5"/><circle cx="244" cy="117" r="4.5"/>
+      <!-- satir +1 (y=189) --><circle cx="136" cy="189" r="4.5"/><circle cx="172" cy="189" r="4.5"/><circle cx="208" cy="189" r="4.5"/><circle cx="244" cy="189" r="4.5"/>
+      <!-- satir -1 (y=261) --><circle cx="136" cy="261" r="4.5"/><circle cx="172" cy="261" r="4.5"/><circle cx="208" cy="261" r="4.5"/><circle cx="244" cy="261" r="4.5"/>
+      <!-- satir -3 (y=333) --><circle cx="136" cy="333" r="4.5"/><circle cx="172" cy="333" r="4.5"/><circle cx="208" cy="333" r="4.5"/><circle cx="244" cy="333" r="4.5"/>
+    </g>
+    <text x="190" y="368" text-anchor="middle" font-size="11.5" fill="#4a5a70">16 nokta ayrik, karar bolgeleri net</text>
+  </g>
+
+  <!-- ===== SAG PANEL: dusuk SNR ===== -->
+  <g>
+    <rect x="410" y="55" width="320" height="320" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+    <text x="570" y="78" text-anchor="middle" font-size="15" font-weight="bold" fill="#a3361b">16-QAM (dusuk SNR)</text>
+
+    <line x1="430" y1="225" x2="710" y2="225" stroke="#7a8aa0" stroke-width="1.2"/>
+    <line x1="570" y1="95" x2="570" y2="355" stroke="#7a8aa0" stroke-width="1.2"/>
+    <polygon points="710,225 702,221 702,229" fill="#7a8aa0"/>
+    <polygon points="570,95 566,103 574,103" fill="#7a8aa0"/>
+    <text x="718" y="222" font-size="13" fill="#36506e" font-style="italic">I</text>
+    <text x="577" y="105" font-size="13" fill="#36506e" font-style="italic">Q</text>
+
+    <!-- ayni 16 merkez (offset +380), her merkez etrafinda gurultu bulutu -->
+    <!-- merkez ideal noktalar soluk -->
+    <g fill="#e0a89a">
+      <circle cx="516" cy="117" r="2"/><circle cx="552" cy="117" r="2"/><circle cx="588" cy="117" r="2"/><circle cx="624" cy="117" r="2"/>
+      <circle cx="516" cy="189" r="2"/><circle cx="552" cy="189" r="2"/><circle cx="588" cy="189" r="2"/><circle cx="624" cy="189" r="2"/>
+      <circle cx="516" cy="261" r="2"/><circle cx="552" cy="261" r="2"/><circle cx="588" cy="261" r="2"/><circle cx="624" cy="261" r="2"/>
+      <circle cx="516" cy="333" r="2"/><circle cx="552" cy="333" r="2"/><circle cx="588" cy="333" r="2"/><circle cx="624" cy="333" r="2"/>
+    </g>
+    <!-- dagilmis nokta bulutlari (her merkez ~6 nokta) -->
+    <g fill="#c0392b" opacity="0.8">
+      <circle cx="513" cy="113" r="2.4"/><circle cx="520" cy="121" r="2.4"/><circle cx="511" cy="122" r="2.4"/><circle cx="519" cy="111" r="2.4"/><circle cx="516" cy="125" r="2.4"/><circle cx="509" cy="115" r="2.4"/>
+      <circle cx="549" cy="114" r="2.4"/><circle cx="556" cy="120" r="2.4"/><circle cx="548" cy="123" r="2.4"/><circle cx="555" cy="112" r="2.4"/><circle cx="551" cy="124" r="2.4"/><circle cx="558" cy="116" r="2.4"/>
+      <circle cx="585" cy="113" r="2.4"/><circle cx="592" cy="121" r="2.4"/><circle cx="584" cy="122" r="2.4"/><circle cx="591" cy="110" r="2.4"/><circle cx="588" cy="126" r="2.4"/><circle cx="582" cy="115" r="2.4"/>
+      <circle cx="621" cy="114" r="2.4"/><circle cx="628" cy="121" r="2.4"/><circle cx="620" cy="123" r="2.4"/><circle cx="627" cy="111" r="2.4"/><circle cx="623" cy="125" r="2.4"/><circle cx="630" cy="116" r="2.4"/>
+
+      <circle cx="513" cy="185" r="2.4"/><circle cx="520" cy="193" r="2.4"/><circle cx="511" cy="194" r="2.4"/><circle cx="519" cy="183" r="2.4"/><circle cx="516" cy="197" r="2.4"/><circle cx="509" cy="187" r="2.4"/>
+      <circle cx="549" cy="186" r="2.4"/><circle cx="556" cy="192" r="2.4"/><circle cx="548" cy="195" r="2.4"/><circle cx="555" cy="184" r="2.4"/><circle cx="551" cy="196" r="2.4"/><circle cx="558" cy="188" r="2.4"/>
+      <circle cx="585" cy="185" r="2.4"/><circle cx="592" cy="193" r="2.4"/><circle cx="584" cy="194" r="2.4"/><circle cx="591" cy="182" r="2.4"/><circle cx="588" cy="198" r="2.4"/><circle cx="582" cy="187" r="2.4"/>
+      <circle cx="621" cy="186" r="2.4"/><circle cx="628" cy="193" r="2.4"/><circle cx="620" cy="195" r="2.4"/><circle cx="627" cy="183" r="2.4"/><circle cx="623" cy="197" r="2.4"/><circle cx="630" cy="188" r="2.4"/>
+
+      <circle cx="513" cy="257" r="2.4"/><circle cx="520" cy="265" r="2.4"/><circle cx="511" cy="266" r="2.4"/><circle cx="519" cy="255" r="2.4"/><circle cx="516" cy="269" r="2.4"/><circle cx="509" cy="259" r="2.4"/>
+      <circle cx="549" cy="258" r="2.4"/><circle cx="556" cy="264" r="2.4"/><circle cx="548" cy="267" r="2.4"/><circle cx="555" cy="256" r="2.4"/><circle cx="551" cy="268" r="2.4"/><circle cx="558" cy="260" r="2.4"/>
+      <circle cx="585" cy="257" r="2.4"/><circle cx="592" cy="265" r="2.4"/><circle cx="584" cy="266" r="2.4"/><circle cx="591" cy="254" r="2.4"/><circle cx="588" cy="270" r="2.4"/><circle cx="582" cy="259" r="2.4"/>
+      <circle cx="621" cy="258" r="2.4"/><circle cx="628" cy="265" r="2.4"/><circle cx="620" cy="267" r="2.4"/><circle cx="627" cy="255" r="2.4"/><circle cx="623" cy="269" r="2.4"/><circle cx="630" cy="260" r="2.4"/>
+
+      <circle cx="513" cy="329" r="2.4"/><circle cx="520" cy="337" r="2.4"/><circle cx="511" cy="338" r="2.4"/><circle cx="519" cy="327" r="2.4"/><circle cx="516" cy="341" r="2.4"/><circle cx="509" cy="331" r="2.4"/>
+      <circle cx="549" cy="330" r="2.4"/><circle cx="556" cy="336" r="2.4"/><circle cx="548" cy="339" r="2.4"/><circle cx="555" cy="328" r="2.4"/><circle cx="551" cy="340" r="2.4"/><circle cx="558" cy="332" r="2.4"/>
+      <circle cx="585" cy="329" r="2.4"/><circle cx="592" cy="337" r="2.4"/><circle cx="584" cy="338" r="2.4"/><circle cx="591" cy="326" r="2.4"/><circle cx="588" cy="342" r="2.4"/><circle cx="582" cy="331" r="2.4"/>
+      <circle cx="621" cy="330" r="2.4"/><circle cx="628" cy="337" r="2.4"/><circle cx="620" cy="339" r="2.4"/><circle cx="627" cy="327" r="2.4"/><circle cx="623" cy="341" r="2.4"/><circle cx="630" cy="332" r="2.4"/>
+    </g>
+    <text x="570" y="368" text-anchor="middle" font-size="11.5" fill="#4a5a70">gurultu bulutlari buyur, komsular karisir, bit hatasi</text>
+  </g>
+</svg>

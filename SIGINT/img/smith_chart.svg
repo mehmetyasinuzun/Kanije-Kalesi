@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="600" height="500" fill="#f5f8fc"/>
+  <text x="300" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Temel Smith Abagi (empedans / yansima katsayisi)</text>
+
+  <defs>
+    <!-- dis birim daire ile kirpma: reaktans yaylari sadece abak icinde gorunsun -->
+    <clipPath id="unit">
+      <circle cx="300" cy="230" r="200"/>
+    </clipPath>
+  </defs>
+
+  <!-- dis birim daire (|Gamma| = 1) -->
+  <circle cx="300" cy="230" r="200" fill="#ffffff" stroke="#1a2b40" stroke-width="2"/>
+
+  <!-- yatay gercek eksen (x = 0 reaktans cizgisi) -->
+  <line x1="100" y1="230" x2="500" y2="230" stroke="#7a8aa0" stroke-width="1.3"/>
+
+  <g clip-path="url(#unit)">
+    <!-- ===== Sabit-DIRENC daireleri (merkezleri gercek eksende, sag kenara teget) ===== -->
+    <g fill="none" stroke="#1565c0" stroke-width="1.5">
+      <!-- r = 0.5 : merkez (366.7,230) yaricap 133.3 -->
+      <circle cx="366.7" cy="230" r="133.3"/>
+      <!-- r = 1 : merkez (400,230) yaricap 100 -->
+      <circle cx="400" cy="230" r="100"/>
+      <!-- r = 2 : merkez (433.3,230) yaricap 66.7 -->
+      <circle cx="433.3" cy="230" r="66.7"/>
+    </g>
+
+    <!-- ===== Sabit-REAKTANS yaylari (merkezleri x=500 dikey cizgide, sag kenara teget) ===== -->
+    <!-- ust yari = enduktif (+x), alt yari = kapasitif (-x) -->
+    <g fill="none" stroke="#c0392b" stroke-width="1.5">
+      <!-- x = +0.5 : merkez (500,-170) yaricap 400 -->
+      <circle cx="500" cy="-170" r="400"/>
+      <!-- x = +1 : merkez (500,30) yaricap 200 -->
+      <circle cx="500" cy="30" r="200"/>
+      <!-- x = +2 : merkez (500,130) yaricap 100 -->
+      <circle cx="500" cy="130" r="100"/>
+      <!-- x = -0.5 : merkez (500,630) yaricap 400 -->
+      <circle cx="500" cy="630" r="400"/>
+      <!-- x = -1 : merkez (500,430) yaricap 200 -->
+      <circle cx="500" cy="430" r="200"/>
+      <!-- x = -2 : merkez (500,330) yaricap 100 -->
+      <circle cx="500" cy="330" r="100"/>
+    </g>
+  </g>
+
+  <!-- ===== Onemli noktalar ===== -->
+  <!-- merkez: eslesme / 50 ohm (Gamma=0) -->
+  <circle cx="300" cy="230" r="5" fill="#1a8a3a"/>
+  <text x="300" y="212" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#0f5e26">merkez: eslesme</text>
+  <text x="300" y="259" text-anchor="middle" font-size="11" fill="#0f5e26">Z = 50 Ohm (r=1, x=0), Gamma=0</text>
+
+  <!-- sol uc: kisa devre (Gamma = -1, Z=0) -->
+  <circle cx="100" cy="230" r="5" fill="#1a2b40"/>
+  <text x="96" y="218" text-anchor="end" font-size="12" font-weight="bold" fill="#1a2b40">kisa devre</text>
+  <text x="96" y="248" text-anchor="end" font-size="10.5" fill="#445" >Z=0, r=0, Gamma=-1</text>
+
+  <!-- sag uc: acik devre (Gamma = +1, Z=sonsuz) -->
+  <circle cx="500" cy="230" r="5" fill="#1a2b40"/>
+  <text x="504" y="218" font-size="12" font-weight="bold" fill="#1a2b40">acik devre</text>
+  <text x="504" y="248" font-size="10.5" fill="#445">Z=sonsuz, Gamma=+1</text>
+
+  <!-- direnc daire etiketleri (gercek eksen kesisimleri: r noktasi u=(r-1)/(r+1)) -->
+  <!-- r=0 sol uc, r=0.5 u=-0.333 -> x=233.4, r=1 merkez, r=2 u=0.333 -> x=366.7 -->
+  <g font-size="10.5" fill="#0d3c6e">
+    <text x="233" y="282" text-anchor="middle">r=0.5</text>
+    <text x="367" y="282" text-anchor="middle">r=2</text>
+    <text x="120" y="282" text-anchor="middle">r=0</text>
+  </g>
+
+  <!-- reaktans etiketleri (ust = +x enduktif, alt = -x kapasitif) -->
+  <g font-size="10.5" fill="#a3261b">
+    <text x="372" y="120">+jx (enduktif)</text>
+    <text x="372" y="356">-jx (kapasitif)</text>
+  </g>
+
+  <text x="300" y="478" text-anchor="middle" font-size="11.5" fill="#4a5a70">Mavi: sabit-direnc daireleri (sag kenara teget). Kirmizi: sabit-reaktans yaylari (ust enduktif, alt kapasitif).</text>
+</svg>

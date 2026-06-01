@@ -970,6 +970,10 @@ Bu yöntem phase-wrapping'i otomatik halleder (atan2 her zaman `[−π,π]` dön
 
 Sezgi: karmaşık taban-bant, üç analog modülasyonu da tek bir veri yapısından çıkarmana izin verir. Aynı IQ akışından `|z|` alırsan AM, `∠(z·z*)` alırsan FM, `(I,Q)` noktasına bakarsan dijital dinlersin. SDR'ın gücü budur: tek donanım, yazılımda her modülasyon.
 
+![16-QAM I/Q takimyildizi: yuksek SNR'da 16 nokta keskin, dusuk SNR'da her noktanin etrafinda gurultu bulutu olusur](img/constellation.svg)
+
+*Her `z = I + jQ` ornegi karmasik duzlemde bir noktadir. Yuksek SNR'da 16 sembol ayrik (slicing kolay); dusuk SNR'da bulutlar yayilir ve karar aygiti komsu sembolleri karistirir. Tasiyici ve zamanlama geri kazanim (Kisim 15-16) bu noktalari donmekten ve dagilmaktan kurtarir.*
+
 ---
 
 <a id="15"></a>

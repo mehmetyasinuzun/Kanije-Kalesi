@@ -176,6 +176,10 @@ Denklemler konuma göre doğrusal değildir (karekök/norm içerir). Pratikte al
 
 Sadece uydu sayısı değil, uyduların gökyüzündeki **dağılımı** da doğruluğu belirler. Uydular gökte birbirine yakın kümelenmişse, küreler birbirini sığ açılarla keser ve küçük bir ölçüm hatası büyük bir konum hatasına dönüşür. Bu duyarlılık DOP (Dilution of Precision — Hassasiyet Seyrelmesi) ile ölçülür; düşük DOP iyi (uydular göğe iyi yayılmış), yüksek DOP kötüdür (uydular kümelenmiş). Telefonların GNSS durum ekranlarında uyduların gökyüzü haritası (skyplot) tam olarak bu geometriyi gösterir; alıştırmalarda buna bakacağız.
 
+![GNSS trilaterasyon semasi: uc uydudan alıcıya mesafe daireleri tek noktada kesisir; yanda iyi geometri (dusuk DOP, kucuk hata alani) ile kotu geometri (yuksek DOP, buyuk uzamis hata alani) karsilastirmasi](img/gnss_trilaterasyon.svg)
+
+*Sol: her uydudan olculen mesafe bir daire (3B'de kure) cizer; dairelerin kesisimi alıcı konumudur. Sag: uydular goge genis yayilinca daireler genis acilarla kesisir (dusuk DOP, keskin konum); kumelendiklerinde sig acilarla kesisir (yuksek DOP, belirsiz/uzamis hata alani).*
+
 ---
 
 <a id="5"></a>
