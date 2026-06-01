@@ -536,16 +536,15 @@ Bu bölümdeki her teknik pasif alım ve savunma içindir. GNSS sinyallerini alm
 
 ---
 
-### Serinin diğer bölümleri (çapraz referans)
-
-- SIGINT_01 — RF Fiziği, Spektrum ve Modülasyon: f = c/λ, dB/dBm, FSPL, SNR/Shannon, IQ örnekleme. (Pseudorange'deki c, FSPL asimetrisi ve yayılım kazancının dB temeli oradadır.)
-- SIGINT_02 — SDR Donanımları ve Yazılım Ekosistemi: RTL-SDR/HackRF/USRP, GNSS-SDR. (L1 gözlem ve yazılım-alıcı korelasyon alıştırmalarını orada kurarsın.)
-- SIGINT_03 — Anten Teorisi, Kapsama ve Yön Bulma (DF): geliş açısı (AOA) ölçümü. (Anten dizisi/null-steering savunmasının ölçüm temeli orada.)
-- SIGINT_04 — Sayısal Demodülasyon ve Protokol Kod Çözme: korelasyon, çerçeveleme. (Navigasyon mesajı çözümünün demodülasyon temeli orada.)
-- SIGINT_06 — TEMPEST, RF Sızıntısı ve SIGINT'e Karşı Savunma: emisyon güvenliği, OPSEC. (Faraday/ekranlama mantığının fiziksel temeli orada; test sınırının "dışarı sızmamalı" ilkesi orayla kardeştir.)
-- SIGINT_07 — Disiplinler ve Sinyal Ayıklama: korelasyon, parametre uzayı, AOA'nın en kararlı ayraç oluşu. (Spoofing tespitinde geliş-açısı ve tutarlılık mantığının ayıklama kökeni orada.)
-- SIGINT_08 — Frekans Tahsisi ve Bant Planı: GNSS L bandı tahsisleri (GPS 1575.42/1227.60/1176.45 MHz, GLONASS, Galileo, BeiDou). (Bu bölümün frekans tablosunun tahsis bağlamı orada.)
-
 > Kapanış: GNSS, görünmez ve neredeyse duyulamaz bir sinyalle çalışan olağanüstü bir mühendislik eseridir: gürültü tabanının altındaki bir fısıltıyı, bilinen bir kodla korelasyona sokarak metre ve nanosaniye doğruluğunda konum ve zaman üretir. Aynı tasarım tercihleri — açıklık, evrensel erişim, kimlik doğrulamasız sivil sinyal, aşırı düşük güç — onu hem her yerde kullanılabilir hem de yapısal olarak yanıltmaya açık kılar. Bu bölümün amacı saldırı reçetesi vermek değil, bu çift yüzü anlamandı: sinyal neden çalışır, neden kandırılabilir ve en önemlisi, katmanlı bir savunmanın bu kandırmayı neden ve nasıl imkânsızlaştırdığı. Bir GNSS alıcısının ekranındaki konum sıçramasını ya da AGC anomalisini gördüğünde, artık arkasındaki fiziği ve onu yakalayan savunmayı tanıyorsun.
->
-> Bu doküman Kanije Kalesi güvenlik/teknik rehberleri koleksiyonunun SIGINT serisinin 10. bölümüdür. İlgili: SIGINT_01–09, `VERACRYPT_USTALIK_REHBERI.md`, `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): pseudorange'deki c, FSPL ve DSSS yayılım kazancının temeli.
+- [SIGINT_08 — Frekans Tahsisi ve Bant Planı](SIGINT_08_FREKANS_TAHSISI_VE_BANT_PLANI.md): GNSS L bandı tahsislerinin (GPS/GLONASS/Galileo/BeiDou) bağlamı.
+- [SIGINT_09 — Yer Tespiti, Yön Bulma ve Takip](SIGINT_09_YER_TESPITI_YON_BULMA_VE_TAKIP.md): geliş açısı ve null-steering savunmasının ölçüm temeli.
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): jamming/spoofing tehdidi ve dayanıklılık savunması.
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): Faraday/ekranlama mantığı ve "dışarı sızmamalı" test ilkesi.

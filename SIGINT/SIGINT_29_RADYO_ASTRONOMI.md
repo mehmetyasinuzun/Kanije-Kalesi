@@ -787,14 +787,13 @@ Beklenen sonuç: İnsan yapımı sinyallerin ayıklandığı bir "doğal" taban 
 
 ### Diğer bölümlerle bağlantılar
 
-- Bölüm 1 (RF Fiziği, Spektrum, Modülasyon): Termal gürültü (kT), FSPL, dalga boyu-frekans ilişkisi, Shannon kapasitesi — astronomik duyarlılığın fiziksel temeli.
-- Bölüm 3 (Antenler, RF Donanımı, Devre Tasarımı): Anten kazancı, gürültü figürü (NF), Friis formülü, LNA, filtre — astronomi alıcı zincirinin tamamı buradan türer.
-- Bölüm 7 (Disiplinler ve Sinyal Ayıklama): İstenen/istenmeyen sinyal ayrımı — RFI ayıklama ve doğal taban karakterizasyonu.
-- Bölüm 8 (Frekans Tahsisi ve Bant Planı): Korunan radyo astronomi bantları, RFI kaynaklarının kim olduğu.
-- Bölüm 10 (GNSS): Zaman/frekans referansı, GPS-disiplinli saat — VLBI ve pulsar zamanlamasının temeli; zayıf-sinyal/kodlama kazancı felsefesi.
-- Bölüm 15 (Wi-Fi/WLAN), Bölüm 16 (Kısa Menzil/IoT): Yakın bantlardaki güçlü RFI kaynakları (GSM/hücresel 1420 MHz yakını).
-- Bölüm 18 (DSP ve SDR İç Mimari): FFT, kanalizasyon, toplam-güç ölçümü, bin maskeleme, dedispersiyonun eşitleme akrabalığı — astronomi DSP arkasının tamamı.
-- Bölüm 22 (Egzotik Yayılım ve Gelecek): İyonosfer (radyo penceresi alt sınırı), plazma dispersiyonu (whistler/pulsar ortak kökü), meteor scatter fiziği, güneş döngüsü.
-- Bölüm 27 (Anten Dizileri ve Beamforming): Dizi faktörü, iki-eleman faz farkı (ψ), null steering — interferometri, VLBI ve açıklık sentezinin doğrudan matematiksel temeli.
+Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): termal gürültü (kT), FSPL, Shannon — astronomik duyarlılığın fiziği.
+- [SIGINT_03 — Antenler, Donanım ve Devre Tasarımı](SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md): anten kazancı, NF, Friis, LNA — alıcı zincirinin tamamı.
+- [SIGINT_18 — Sayısal Sinyal İşleme ve SDR İç Mimarisi](SIGINT_18_DSP_VE_SDR_IC_MIMARI.md): FFT, kanalizasyon, dedispersiyon — astronomi DSP'sinin arkası.
+- [SIGINT_27 — Anten Dizileri, Beamforming ve Massive MIMO](SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md): interferometri, VLBI ve açıklık sentezinin matematiği.
+- [SIGINT_08 — Frekans Tahsisi ve Bant Planı](SIGINT_08_FREKANS_TAHSISI_VE_BANT_PLANI.md): korunan radyo astronomi bantları ve RFI kaynakları.
 
 > Kapanış: Bu bölüm, serinin becerilerini en saf pasif alım disiplinine taşıdı. Bir radyo gözlemevi ile bir SIGINT alıcısı, donanım olarak neredeyse aynıdır — anten, LNA, filtre, SDR, FFT. Fark, sinyalin kaynağı (yeryüzü mü, evren mi) ve ona karşı tutumdur (yeryüzünde sinyal hedef, gürültü düşman; astronomide gök gürültüsü hedef, insan yapımı sinyal düşman). Bu çift bakış — aynı zinciri bir gün yeryüzüne, ertesi gün gökyüzüne çevirebilmek — bu serinin sağladığı en geniş ufuktur. Gökyüzü, hiç susmayan ve içeriği insanlığa ait olmayan tek "yayın"dır; onu dinlemek tamamen yasal, tamamen pasif ve tamamen ödüllendiricidir.

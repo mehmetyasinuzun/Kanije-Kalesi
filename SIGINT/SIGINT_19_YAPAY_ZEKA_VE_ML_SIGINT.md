@@ -721,11 +721,13 @@ Hedef: "Normali öğren, sapmayı yakala" mantığını küçük ölçekte denem
 
 ### Diğer bölümlerle ilişki
 
-- Bölüm 1 — Temeller (RF ve modülasyon): IQ, SNR, modülasyon türleri; bu bölümün fiziksel zemini.
-- Bölüm 2 — SDR cihazları: IQ üretimi, örnekleme, uç donanım; edge ML'in (Bölüm 12) temeli.
-- Bölüm 4-5 — Yazılım/OS ve protokol çözümleme: demodülasyon ve kör analizin (Bölüm 10) klasik tarafı.
-- Bölüm 6 — Güvenlik ve savunma: karşıt RF ve OPSEC bağlamı (Bölüm 9'un savunma kökü).
-- Bölüm 7 — Disiplinler ve sinyal ayıklama: AMC, SEI/parmak izi ve çevrimsel özniteliğin klasik temeli; bu bölümün doğrudan ön koşulu.
-- Bölüm 9 — Yer tespiti, yön bulma ve takip: DF ve konumlandırmanın klasik tarafı; ML konumlandırmanın (Bölüm 11) temeli.
+Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): IQ, SNR, modülasyon türleri; bu bölümün fiziksel zemini.
+- [SIGINT_07 — SIGINT Disiplinleri ve Sinyal Ayıklama](SIGINT_07_DISIPLINLER_VE_SINYAL_AYIKLAMA.md): AMC, SEI/parmak izi ve çevrimsel özniteliğin klasik temeli; doğrudan ön koşul.
+- [SIGINT_09 — Yer Tespiti, Yön Bulma ve Takip](SIGINT_09_YER_TESPITI_YON_BULMA_VE_TAKIP.md): DF ve konumlandırmanın klasik tarafı, ML konumlandırmanın temeli.
+- [SIGINT_18 — Sayısal Sinyal İşleme ve SDR İç Mimarisi](SIGINT_18_DSP_VE_SDR_IC_MIMARI.md): öğrenen yöntemlerin altındaki klasik DSP zinciri.
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): karşıt RF ve OPSEC bağlamı.
 
 > Kapanış sezgisi: Yapay zeka, SIGINT'i klasik sinyal işlemenin yerine geçerek değil, onun ölçeklenmediği darboğazları açarak dönüştürüyor. Kazanç gerçek (ölçek, esneklik, bilinmeyene tolerans); ama bedel de gerçek (açıklanabilirlik kaybı, dağıtım kaymasına sessiz kırılganlık, etiket kıtlığı). Olgun bir RF mühendisi ML'i bir sihir değil, dikkatle doğrulanması gereken güçlü bir araç olarak kullanır: veriye şüpheyle, sonuca çapraz-kontrolle, "en güncel" iddiaya teyit refleksiyle yaklaşır. Bu bölümün tek cümlelik özü: öğrenen sistemler RF'te kapı açar, ama kapının ardında ne olduğunu hâlâ mühendislik disiplini doğrular.

@@ -717,17 +717,15 @@ Bu bölümdeki tüm teknikler tasarım gereği **kendi cihazların ve yetkili te
 
 ---
 
-### Serinin diğer bölümleri (çapraz referans)
-
-- **SIGINT_01** — RF Fiziği, Spektrum ve Modülasyon: ISM bantları, OOK/FSK/chirp, dB/menzil mantığı. (Bu bölümdeki tüm modülasyon ve bant kavramlarının fiziksel temeli orada.)
-- **SIGINT_02** — SDR Cihazları Derinlemesine: RTL-SDR, HackRF, Flipper Zero karşılaştırması. (Bu bölümün donanım envanterinin ayrıntılı hali orada.)
-- **SIGINT_03** — Antenler, Donanım & Devre (LNA, yön bulma): "kısa menzil neden uzatılabilir" — yönlü anten + LNA mantığı orada.
-- **SIGINT_05** — Protokoller & Sinyal Çözümleme: rtl_433 ile kendi sensörlerin, WiFi/BT/Zigbee imzaları, IoT spektrumu. (Bu bölümün çözümleme/protokol tarafı orada.)
-- **SIGINT_06** — Güvenlik, Açıklar & Savunma: replay/spoofing prensibi, savunma doktrini. (Bu bölümün savunma çerçevesinin kökü orada.)
-- **SIGINT_07** — Disiplinler ve Sinyal Ayıklama: SEI/RF parmak izi (cihazları fiziksel kusurdan ayırma), trafik analizi. (BLE adres-randomizasyonu ve meta-veri sızıntısının ayıklama bağlamı orada.)
-- **SIGINT_08** — Frekans Tahsisi ve Bant Planı: ISM bantlarının bölgesel tahsisi (433/868/915 farkı). (Bu bölümdeki bant tablolarının resmî dayanağı orada.)
-- **SIGINT_13** — RF Tehdit ve Karşı-Önlemler: replay/spoofing/relay derinlemesine, KeeLoq, keyless UWB savunması, drone RF, kritik altyapı. (Bu bölümün keyless/relay ve drone başlıklarının ana referansı orada.)
-
 > Kapanış: Kısa menzilli kablosuz ekosistem, modern hayatın görünmez sinir sistemidir — kapı kilidinden araç anahtarına, akıllı prizden tıbbi pompaya. Toplu olarak en geniş ve en az denetlenen saldırı yüzeyini oluşturur, çünkü çoğu cihaz maliyet baskısı altında, "kısa menzil zaten güvenlidir" yanılgısıyla tasarlanmıştır. Ama her teknolojinin güvenliği aynı beş soruya iner: şifreli mi, kimlik doğrulanıyor mu, taze mi, gerçekten yakın mı, kuşatılmış ve izlenir mi? Bu denetim listesini içselleştirdiğinde, eline aldığın her kablosuz cihaz artık bir kara kutu değil; nasıl konuştuğunu, nerede zayıf olduğunu ve nasıl savunulacağını gördüğün tanıdık bir sistemdir. Bir sonraki adım, bu sezgiyi yalnızca **kendi cihazlarının yasal gözlemi** üzerinde sınamaktır.
->
-> Bu doküman Kanije Kalesi güvenlik/teknik rehberleri koleksiyonunun SIGINT serisinin 16. bölümüdür. İlgili: SIGINT_01–13, `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`, `VERACRYPT_USTALIK_REHBERI.md`.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): ISM bantları, OOK/FSK/chirp ve menzil mantığının temeli.
+- [SIGINT_05 — Protokoller ve Sinyal Çözümleme](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md): rtl_433 ile kendi sensörlerin, WiFi/BT/Zigbee imzaları.
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): keyless relay/UWB savunması, KeeLoq, drone RF derinliği.
+- [SIGINT_30 — Otomotiv-İçi Ağlar ve Anahtarsız Sistemler](SIGINT_30_OTOMOTIV_AGLARI_VE_KEYLESS.md): keyless/immobilizer ve TPMS uygulaması.
+- [SIGINT_24 — Güncel Zafiyet Manzarası](SIGINT_24_GUNCEL_ZAFIYET_MANZARASI.md): KeeLoq/RollJam/Crypto-1/Zigbee/Z-Wave/LoRaWAN güncel kataloğu.

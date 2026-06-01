@@ -1176,20 +1176,17 @@ rtl_power -f baş:son:bin -i <sn> -e <süre> out.csv ; python3 heatmap.py out.cs
 | GNSS-SDR/gps-sdr-sim | §12 | Bölüm 6 (GPS spoofing), Bölüm 0 (yasal) |
 | IQ kayıt/oynatma/toplu | §13 | Bölüm 4 (GRC→Python) |
 
-### Diğer bölümler
-
-| # | Bölüm | İlişki |
-|---|---|---|
-| 0 | Başlangıç, Index, Yasal | Tüm araçların yasal çizgisi burada tanımlı |
-| 1 | Temeller: RF & Modülasyon | GRC akışı ve demod araçlarının fiziği |
-| 2 | SDR Cihazları | Hangi donanım hangi aracı besler (Kraken, HackRF, Airspy) |
-| 3 | Antenler & Donanım | SatDump/ADS-B/DF kalitesini belirleyen anten katmanı |
-| 4 | Yazılım, OS & Kurulum | DragonOS/sürücü/VM-USB; bu bölümün ön koşulu |
-| 5 | Protokoller & Çözümleme | rtl_433/ADS-B/AIS/NOAA/FT8/APRS'in protokol tarafı |
-| 6 | Güvenlik, Açıklar & Savunma | Replay/spoofing/IMSI-catcher/GPS spoofing yasal-teknik sınır |
-| 7 | Disiplinler & Sinyal Ayıklama | Tarama/DF'in üstündeki ayıklama-sınıflandırma kuramı |
-| 8 | Frekans Tahsisi & Band Planı | Tarama sonuçlarını "ne nereye ait" diye okuma |
-
 > Kapanış: Bu bölüm araçların *fiili* katmanıydı — hangi komut, hangi akış, hangi tuzak. Ama araç yalnızca eldir; onu yönlendiren mühendislik sezgisi (sinyalin fiziği, ayıklama kuramı, yasal sınır) diğer bölümlerdedir. Bir aracı açtığında "bu pencere ne, neden çalışmıyor, bu çıktı ne anlama geliyor" sorularına bu bölüm; "bu sinyal fiziksel olarak ne, neden böyle, yasal mı" sorularına diğer bölümler yanıt verir. İkisi birlikte, ham örnekten anlama giden zinciri tamamlar.
 
 > Son yasal hatırlatma: Bu bölümdeki her komut, kendi cihazların ve yasal/açık sinyaller içindir. RX araçları geniştir ama içerik çözme/kayıt/paylaşma ve her türlü TX (oynatma, üretme, test hücre yayını, GPS simülasyon yayını) ülkene göre suç olabilir ve bazıları (jamming, GPS spoofing, IMSI-catcher kurma) her yerde ağır suçtur. Şüphedeysen yapma; kendi ülkenin güncel mevzuatını teyit et. Bu kitap hukuki danışmanlık değildir.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_04 — Yazılım, İşletim Sistemi ve Kurulum](SIGINT_04_YAZILIM_OS_VE_KURULUM.md): DragonOS/sürücü/VM-USB; bu bölümün ön koşulu.
+- [SIGINT_02 — SDR Cihazları Derinlemesine](SIGINT_02_SDR_CIHAZLARI_DERINLEMESINE.md): hangi donanımın hangi aracı beslediği.
+- [SIGINT_25 — Açık Kaynak Araç ve Kaynak Dizini](SIGINT_25_ACIK_KAYNAK_ARAC_DIZINI_GITHUB.md): araçların depo/lisans/olgunluk dizini.
+- [SIGINT_05 — Protokoller ve Sinyal Çözümleme](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md): rtl_433/ADS-B/AIS çözücülerinin protokol tarafı.
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): IMSI-catcher/GPS spoofing araçlarının yasal-teknik sınırı.

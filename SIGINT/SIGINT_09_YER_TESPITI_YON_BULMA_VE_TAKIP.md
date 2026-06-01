@@ -783,17 +783,15 @@ Bu bölümdeki tüm teknikler tasarım gereği pasif yöntemlerdir; hiçbiri ile
 
 ---
 
-### Serinin diğer bölümleri (çapraz referans)
-
-- SIGINT_01 — RF Fiziği, Spektrum ve Modülasyon: `f = c/λ`, dB/dBm, FSPL, Doppler ve faz kavramlarının fiziksel temeli. (Bu bölümdeki `Δφ`, Doppler ve güç-mesafe formüllerinin kökeni oradadır.)
-- SIGINT_02 — SDR Donanımları ve Yazılım Ekosistemi: RTL-SDR/HackRF/USRP, faz-tutarlı çoklu-alıcı altyapısı. (KrakenSDR ve TDOA için gereken çok-kanallı/senkron donanımın bağlamı orada.)
-- SIGINT_03 — Antenler, RF Donanımı ve Devre Tasarımı (DF): dipol/Yagi/dizi, yön bulmanın anten temelleri, rezonans ve `λ/2` aralığı. (AOA ölçümünün, yani bu bölümün anten/faz altyapısı orada.)
-- SIGINT_04 — Sayısal Demodülasyon ve Protokol Kod Çözme: konumlandırılan sinyalin içeriğine inen kod çözme adımı. (Geolocation "nerede"yi, demodülasyon "ne"yi verir.)
-- SIGINT_05 — Hücresel, WiFi/BT ve IoT Spektrumu (Savunma Bakışı): GSM/LTE/5G, WiFi/BLE imzaları, cihaz sızıntı yüzeyi. (Bu bölümdeki modern konumlandırmanın — OTDOA, RTT, BLE AoA — protokol bağlamı orada.)
-- SIGINT_06 — TEMPEST, RF Sızıntısı ve SIGINT'e Karşı Savunma: emisyon güvenliği, OPSEC. (Pasif geolocation'a karşı savunma — yaymamak, izlenebilir imzayı azaltmak — oranın felsefesidir.)
-- SIGINT_07 — Disiplinler ve Sinyal Ayıklama: COMINT/ELINT/FISINT, PDW, deinterleaving, AMC, trafik analizi. (Bu bölüm, Bölüm 7'de ayıklanan yayıcıyı haritaya oturtur; AOA orada "en kararlı ayraç", burada bir konum kısıtıdır.)
-- SIGINT_08 — Frekans Tahsisi ve Bant Planı: hangi frekans kime ait. (Konumlandıracağın sinyalin hangi servise ait olduğunu, dolayısıyla yasal statüsünü oradan okursun.)
-
 > Kapanış: Bir verici konumunu asla doğrudan söylemez; ama yaydığı dalga, geldiği açıda, alıcılara varış zamanlarının farkında, hareketle değişen Doppler'inde ve zayıflayan gücünde konumunu istemeden ele verir. Yer tespiti bu geometrik ipuçlarını kısıt eğrilerine çevirmek, yön bulma açıyı ölçmek, multilateration eğrileri kesiştirmek, takip ise noktayı zaman içinde bir yörüngeye bağlamaktır. Bu zinciri kavradığında bir geolocation ekranındaki hata elipsi artık soyut bir leke değil, fiziğini ve geometrisini tanıdığın bir belirsizlik bütçesi olur. Ve her zaman olduğu gibi: bu sezgiyi yalnızca kendi cihazlarının ve yasal sinyallerin üzerinde, pasif ve savunma amaçlı sına.
->
-> Bu doküman Kanije Kalesi güvenlik/teknik rehberleri koleksiyonunun SIGINT serisinin 9. bölümüdür. İlgili: SIGINT_01–08, `VERACRYPT_USTALIK_REHBERI.md`, `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): Δφ, Doppler ve güç-mesafe formüllerinin fiziksel temeli.
+- [SIGINT_03 — Antenler, Donanım ve Devre Tasarımı](SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md): AOA ölçümünün anten ve faz altyapısı.
+- [SIGINT_07 — SIGINT Disiplinleri ve Sinyal Ayıklama](SIGINT_07_DISIPLINLER_VE_SINYAL_AYIKLAMA.md): ayıklanan yayıcıyı haritaya oturtma, AOA bir konum kısıtı.
+- [SIGINT_10 — GNSS/GPS Sistemleri](SIGINT_10_GNSS_GPS_SISTEMLERI.md): TDOA/zamanlama temelli konumlamanın referans sistemi.
+- [SIGINT_27 — Anten Dizileri, Beamforming ve Massive MIMO](SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md): MUSIC/ESPRIT ile DoA'nın dizi matematiği.

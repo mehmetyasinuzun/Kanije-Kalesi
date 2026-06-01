@@ -671,18 +671,16 @@ Not: Bu alıştırmaların hiçbiri başkasının ağına/cihazına yönlendiril
 
 ### İlgili bölümler
 
-| Konu | Bölüm |
-|---|---|
-| WiFi el-sıkışma, WPA2→WPA3, evil twin ayrıntısı | Bölüm 15 — WiFi/WLAN Güvenliği |
-| BLE/IoT, keyless, LoRa/Zigbee, cihaz güvenliği | Bölüm 16 — Kısa Menzilli Kablosuz ve IoT |
-| Karıştırma türleri, drone RF, replay/spoofing (RF) | Bölüm 13 — RF Tehdit ve Karşı-Önlemler |
-| Genel sinyal manipülasyonu, açık/savunma çerçevesi | Bölüm 6 — Güvenlik, Açıklar ve Savunma |
-| Sahte baz istasyonu, hücresel MitM | Bölüm 20 — İleri Hücresel 4G/5G Güvenlik |
-| Yön bulma (karıştırma kaynağı tespiti) | Bölüm 9 — Yer Tespiti ve Yön Bulma |
-| Ayıklama/sınıflandırma, trafik analizi | Bölüm 7 — Disiplinler ve Sinyal Ayıklama |
-| Paket analizi pratiği | Wireshark rehberi |
-| Saldırı zinciri taktik çerçevesi | MITRE ATT&CK rehberi |
-| Botnet/zararlı yazılım ekosistemi | Malware rehberi |
+Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): genel sinyal manipülasyonu, açık/savunma çerçevesi.
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): karıştırma türleri, drone RF, replay/spoofing.
+- [SIGINT_15 — WiFi/WLAN Güvenliği](SIGINT_15_WIFI_WLAN_GUVENLIGI.md): WiFi el-sıkışma, WPA2→WPA3, evil twin ayrıntısı.
+- [SIGINT_16 — Kısa Menzilli Kablosuz ve IoT](SIGINT_16_KISA_MENZIL_KABLOSUZ_VE_IOT.md): BLE/IoT, keyless, LoRa/Zigbee cihaz güvenliği.
+- [SIGINT_24 — Güncel Zafiyet Manzarası](SIGINT_24_GUNCEL_ZAFIYET_MANZARASI.md): bu taksonomiye oturan güncel CVE'ler ve savunma.
+
+İlgili Kanije rehberleri: `WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md` (paket analizi), `MITRE_ATTACK_USTALIK_REHBERI.md` (saldırı zinciri), `MALWARE_ANALIZ_USTALIK_REHBERI.md` (botnet/zararlı yazılım).
 
 ### Anahtar çıkarımlar
 

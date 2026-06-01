@@ -1486,19 +1486,17 @@ Adımlar (GNU Radio simülasyonu, hepsi kendi ürettiğin sinyalle):
    → de-interleave → FEC decode (Viterbi/RS/LDPC/Turbo) → ham veri → uygulama/protokol
 ```
 
-### Diğer bölümlerle bağ
-
-| Konu | İlgili bölüm |
-|---|---|
-| IQ örnekleme sezgisi, modülasyon tanımları, Nyquist, dB, SNR/Shannon | Bölüm 1 (RF Fiziği, Spektrum ve Modülasyon) — bu bölümün temeli |
-| SDR donanımı (RTL/HackRF/USRP), ADC bit derinliği, örnek hızı, ön-uç | Bölüm 2 (SDR Cihazları Derinlemesine) |
-| Anten, kazanç, gürültü figürü, ön-uç tasarımı | Bölüm 3 (Anten, Donanım ve Devre Tasarımı) |
-| GNU Radio kurulumu, sürücüler, işletim ortamı | Bölüm 4 (Yazılım, OS ve Kurulum) |
-| Protokol/çerçeve kod çözme, FEC/scrambler zinciri pratiği | Bölüm 5 (Protokoller ve Sinyal Çözümleme) |
-| Sinyal ayıklama, PDW, deinterleaving, AMC, korelasyon kümeleme | Bölüm 7 (Disiplinler ve Sinyal Ayıklama) |
-| Yön bulma, faz farkından AOA (senkron diziler) | Bölüm 9 (Yer Tespiti ve Yön Bulma) |
-| GNSS/GPS: C/A kodu, Gold dizileri, korelasyon, FEC | Bölüm 10 (GNSS/GPS Sistemleri) |
-
 > Mühendislik özeti: Bu bölüm, antenden gelen analog dalga ile çözülmüş bit arasındaki tüm matematiği açtı. Zincir tek bir mantıkla yürür: önce sinyali karmaşık taban-banda indir (IQ, DDC), sonra istediğin bandı yalıt (filtre, decimation), sonra senkronu yakala (carrier + timing + frame), en sonunda kararı al ve hatayı düzelt (slicer + FEC). Her blok bir önceki bölümün fiziğine dayanır; her formül, bir SDR uygulamasının kaputunun altında gerçekten dönen aritmetiktir. Bir GNU Radio akış grafiğine baktığında artık her bloğun arkasındaki denklemi görebilmelisin — motorun kaputu açık.
 
 > Yasal hatırlatma: Tüm bu teknikler pasif analiz ve eğitim içindir. Demodülasyon ve kod çözme matematiği evrenseldir; ama belirli bandların kaydı/çözülmesi/yayılması çoğu ülkede suçtur. Kendi cihazların ve yasal/açık sinyallerle sınırlı kal; ülkenin ve sürümünün mevzuatını teyit et.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): IQ, Nyquist, dB, SNR/Shannon ve modülasyon tanımları — bu bölümün temeli.
+- [SIGINT_05 — Protokoller ve Sinyal Çözümleme](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md): protokol/çerçeve kod çözme, FEC/scrambler zinciri pratiği.
+- [SIGINT_07 — SIGINT Disiplinleri ve Sinyal Ayıklama](SIGINT_07_DISIPLINLER_VE_SINYAL_AYIKLAMA.md): PDW, deinterleaving, AMC, korelasyon kümeleme.
+- [SIGINT_10 — GNSS/GPS Sistemleri](SIGINT_10_GNSS_GPS_SISTEMLERI.md): C/A kodu, Gold dizileri, korelasyon, FEC.
+- [SIGINT_27 — Anten Dizileri, Beamforming ve Massive MIMO](SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md): uzamsal işlemenin DSP akrabası.

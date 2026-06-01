@@ -660,7 +660,13 @@ Cihazsız: VSWR'ın *ne anlattığını* yaz (yansıma oranı; 1,5:1 → ~%4 yan
 
 > **Kapanış:** Anten görünmez bir el gibidir — uzaydaki dalgayı tutup tele indirir. Onu **boyuyla** akort eder, **empedansıyla** sisteme bağlar, **LNA'yla** ilk dokunuşu temiz tutar, **filtreyle** gürültüyü süzer, **kabloyla** kayıpsız taşırsın. "Watt'ı büyütmek" çoğu zaman yanlış sorudur; doğru soru **"sinyali nasıl daha temiz yakalarım"**dır — ve cevabın çoğu, watt değil, **geometri, empedans ve düşük gürültüdür.** Kendi kartını çizmek de erişilemez bir sihir değil; **datasheet okumak, 50 Ω'a saygı duymak ve ölçüp revize etmektir.**
 >
-> *Bu doküman Kanije Kalesi SIGINT El Kitabı serisinin **3. Bölümü**dür.*
-> *← Önceki: `SIGINT_02_*.md` (Sinyal Teorisi, Modülasyon ve SDR ile Örnekleme) — burada işlenen "sinyal/SNR/spektrum/SDR" kavramlarının temeli.*
-> *→ Sonraki: `SIGINT_04_*.md` (Yakalanan Sinyali Çözmek — Demodülasyon, Dekoderler ve Protokoller) — bu antenle topladığın RF'i **anlama** aşaması.*
-> *İlgili repo rehberleri: `VERACRYPT_USTALIK_REHBERI.md` (yakalanan/üretilen veriyi koruma), Kanije Kalesi güvenlik komutları.*
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): dalga boyu, dB ve rezonansın fiziksel temeli.
+- [SIGINT_02 — SDR Cihazları Derinlemesine](SIGINT_02_SDR_CIHAZLARI_DERINLEMESINE.md): bu anten zincirini besleyen alıcı donanımı.
+- [SIGINT_09 — Yer Tespiti, Yön Bulma ve Takip](SIGINT_09_YER_TESPITI_YON_BULMA_VE_TAKIP.md): yön bulmanın anten ve faz uygulaması.
+- [SIGINT_27 — Anten Dizileri, Beamforming ve Massive MIMO](SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md): tek antenden uzamsal işlemeye geçiş.
+- [SIGINT_28 — İzole Laboratuvar Kılavuzu ve TX Güvenliği](SIGINT_28_IZOLE_LAB_VE_TX_GUVENLIGI.md): dummy-load, attenuator ve NanoVNA ile ölçüm.

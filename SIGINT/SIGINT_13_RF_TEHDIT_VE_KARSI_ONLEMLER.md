@@ -731,15 +731,15 @@ Yasal gerçek nettir ve tekrar edilmeyi hak eder: Karıştırma, yetkisiz drone 
 
 ---
 
-### Serinin diğer bölümleri (çapraz referans)
-
-- SIGINT_01 — RF Fiziği, Spektrum ve Modülasyon: FSPL, dB/dBm, SNR, yayılı spektrum temeli. (J/S oranının ve mesafeyle güç düşüşünün fiziksel temeli; yayma/işleme kazancının kökü orada.)
-- SIGINT_02 — SDR Donanımları ve Yazılım Ekosistemi: RTL-SDR/HackRF/USRP, waterfall okuma. (Karıştırma tespiti ve RF imza alıştırmalarının pasif ölçüm tabanı orada.)
-- SIGINT_03 — Anten Teorisi, Kapsama ve Yön Bulma (DF): yön bulma, dizi, null-steering temeli. (Karıştırıcı ve drone kaynak tespitinin, null-steering savunmasının matematiği orada.)
-- SIGINT_04 — Sayısal Demodülasyon ve Protokol Kod Çözme: ADS-B, AIS vb. (Drone/telemetri bağlarının protokol bağlamı orada.)
-- SIGINT_05 — Hücresel, WiFi/BT ve IoT Spektrumu (Savunma Bakışı): GSM/LTE/5G, ISM imzaları. (Karıştırmanın hücresel etkisi ve IoT/keyless bağların yüzeyi orada.)
-- SIGINT_06 — TEMPEST, RF Sızıntısı ve SIGINT'e Karşı Savunma: emisyon güvenliği, ekranlama, OPSEC. (Bölüm 11'in yan-kanal/TEMPEST farkındalığının tam ayrıntısı orada.)
-- SIGINT_07 — Disiplinler ve Sinyal Ayıklama: PDW, kümeleme, deinterleaving, LPI/LPD, trafik analizi. (Karıştırıcı imza ayıklama, LPI/LPD'nin karıştırma-direnci olarak okunması ve drone tespit füzyonu oranın yöntemlerine dayanır.)
-- SIGINT_08 — Frekans Tahsisi ve Bant Planı: tahsis tabloları, hizmet eşleştirme. (Beklenmedik bantta enerji = anomali yorumunun referans tablosu orada.)
-
 > Bu bölüm, serinin aktif-tehdit yüzünü tamamen savunmacı/CTI perspektifinden kapatır: jamming, drone RF, replay/spoof/relay ve kritik altyapı riski — hepsi prensip + tespit + savunma + yasal çerçevede, hiçbir saldırı reçetesi olmadan. İlgili kale rehberleri: `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`, `VERACRYPT_USTALIK_REHBERI.md`.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): J/S oranının ve yayma/işleme kazancının fiziksel temeli.
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): replay/spoofing prensibi ve genel savunma doktrini.
+- [SIGINT_10 — GNSS/GPS Sistemleri](SIGINT_10_GNSS_GPS_SISTEMLERI.md): GNSS jamming/spoofing tehdidi ve savunma derinliği.
+- [SIGINT_17 — TEMPEST, Emanasyon ve Yan-Kanal](SIGINT_17_TEMPEST_EMANASYON_VE_YAN_KANAL.md): yan-kanal/TEMPEST farkındalığının ayrıntısı.
+- [SIGINT_24 — Güncel Zafiyet Manzarası](SIGINT_24_GUNCEL_ZAFIYET_MANZARASI.md): tehdit→tespit→savunma matrisinin güncel CVE bağlamı.

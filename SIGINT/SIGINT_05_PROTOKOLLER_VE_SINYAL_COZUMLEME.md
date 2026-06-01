@@ -618,5 +618,14 @@ Bu bölümde bir sinyali **tanıma** ve **çözme** sanatını öğrendin: beş 
 ** Bir sonraki adım — Bölüm 6: Güvenlik, Açıklar ve Savunma.** Burada öğrendiğin "nasıl çalışır" bilgisini, "nasıl saldırıya uğrar ve nasıl savunulur" perspektifine taşıyacağız: replay/rolling-code zafiyetleri (bu bölümde URH ile gördüğün sabit-kod kumandasının neden tehlikeli olduğu), GPS spoofing/jamming farkındalığı, IMSI-catcher tespiti ve karşı önlemler, spektrum izleme ile anomali tespiti, ve Kanije Kalesi'nin fiziksel/RF tehdit duruşuyla bağlantısı.
 
 > **Kapanış:** Bir sinyali yakalamak teknikse, onu **anlamak** sanattır; ama onu **hangi sınıra kadar** çözebileceğini bilmek **bilgeliktir.** Açık gökyüzü senindir — uçakları, gemileri, uyduları, kendi cihazlarını dinle ve öğren. Özel/şifreli haberleşmenin kapısında ise dur: orası mühendisliğin değil, hukukun ve etiğin alanıdır. Gerçek bir uzman, **yapabildiği** ile **yapması gerekeni** ayırt edendir.
->
-> *Bu doküman Kanije Kalesi SIGINT El Kitabı serisinin **5. Bölümü**dür. İlgili: Bölüm 4 (SDR kurulumu/yakalama), **Bölüm 6 (Güvenlik, açıklar, savunma)**, ve repo'daki `WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md` (ağ katmanı analizi), `OSINT_ARAC_SETI_USTALIK_REHBERI.md` (açık kaynak istihbarat).*
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): modülasyon ailelerinin ve IQ'nun fiziksel temeli.
+- [SIGINT_04 — Yazılım, İşletim Sistemi ve Kurulum](SIGINT_04_YAZILIM_OS_VE_KURULUM.md): çözümleme araçlarının kurulumu (rtl_433, dump1090, URH).
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): "nasıl çalışır"dan "nasıl saldırılır ve savunulur"a.
+- [SIGINT_07 — SIGINT Disiplinleri ve Sinyal Ayıklama](SIGINT_07_DISIPLINLER_VE_SINYAL_AYIKLAMA.md): tanımanın üstündeki ayıklama ve sınıflandırma kuramı.
+- [SIGINT_18 — Sayısal Sinyal İşleme ve SDR İç Mimarisi](SIGINT_18_DSP_VE_SDR_IC_MIMARI.md): demodülasyon ve FEC zincirinin matematiği.

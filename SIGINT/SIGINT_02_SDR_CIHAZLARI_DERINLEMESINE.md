@@ -569,15 +569,17 @@ Bir arkadaşın diyor ki: *"RTL-SDR V4 aldım, onunla **şehir merkezinde, güç
 <a id="9"></a>
 ## 9.  Çapraz Referans & Sonraki Bölümler
 
-Bu bölüm **SIGINT El Kitabı**'nın 2. parçasıdır ve cihaz seçimine odaklanır. Sinyali *yakaladıktan sonra* ne yapacağın (anten, demodülasyon, kod çözme, kayıt, analiz, yön bulma derinlemesine, yasal çerçeve) diğer bölümlerde işlenir:
+Bu bölüm **SIGINT El Kitabı**'nın cihaz seçimine odaklanan parçasıdır. Sinyali *yakaladıktan sonra* ne yapacağın (anten, demodülasyon, kod çözme, analiz, yön bulma, yasal çerçeve) diğer bölümlerde işlenir.
 
-- **Bölüm 1 — SIGINT'e Giriş & Sinyal Temelleri:** Frekans/dalga boyu, modülasyon (AM/FM/SSB/dijital), spektrum/waterfall okuma, RF güvenlik ve yasal çerçeve girişi. *(Cihaz almadan önce kavramsal temel.)*
-- **Bölüm 3 — Antenler & RF Ön-Uç:** "Cihazdan çok anten belirler." Anten tipleri (dipol, diskon, Yagi, dizi), kazanç, empedans, kablo/konnektör, LNA/filtre/upconverter — bu bölümdeki cihazların *gerçek* performansını bu belirler.
-- **Bölüm 4 — Yazılım Zinciri:** GNU Radio, SDR#, SDRangel, SDR++, `rtl_433`, `dump1090`, GQRX — sinyali işleyen "akıl".
-- **Bölüm 5 — Demodülasyon & Kod Çözme:** AM/FM/SSB, dijital modlar, ADS-B/AIS/POCSAG/ACARS, dijital ses (P25/DMR/TETRA — *yalnızca şifresiz & yasalsa*).
-- **Bölüm 6 — Yön Bulma & Geolocation Derinlemesine:** Coherent diziler, AoA/TDoA, KrakenSDR pratiği, pasif radar — bu bölümdeki KrakenSDR'ın *kullanımı*.
-- **Bölüm 7 — Operasyonel & Yasal Güvenlik:** Pasif/aktif SIGINT ayrımı, kayıt/saklama, ülke bazlı yayın/dinleme yasaları, etik sınırlar.
+> **Kapanış:** "En iyi SDR" diye bir şey yoktur — **işine en uygun** SDR vardır. Yön mü buluyorsun, TX mi deniyorsun, HF mi temizliyorsun, yoksa cebinde bir RF çakısı mı istiyorsun? Önce **soruyu** netleştir; cihaz kendini gösterir. Ve unutma: **çoğu zaman cihazdan çok anten ve operasyonel disiplin sonucu belirler.** Salt-alıcı dinleme çoğu yerde serbesttir; **TX'e elini atmadan önce kendi ülkenin kurallarını teyit et** — matematik suç değildir ama yetkisiz yayın suçtur.
 
-> **Kapanış:** "En iyi SDR" diye bir şey yoktur — **işine en uygun** SDR vardır. Yön mü buluyorsun, TX mi deniyorsun, HF mi temizliyorsun, yoksa cebinde bir RF çakısı mı istiyorsun? Önce **soruyu** netleştir; cihaz kendini gösterir. Ve unutma: **çoğu zaman cihazdan çok anten ve operasyonel disiplin sonucu belirler** (Bölüm 3). Salt-alıcı dinleme çoğu yerde serbesttir; **TX'e elini atmadan önce kendi ülkenin kurallarını teyit et** — matematik suç değildir ama yetkisiz yayın suçtur.
->
-> *Bu doküman Kanije Kalesi güvenlik/SIGINT rehberleri koleksiyonunun parçasıdır. İlgili: `VERACRYPT_USTALIK_REHBERI.md`, `WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md`, `OSINT_ARAC_SETI_USTALIK_REHBERI.md`, `MITRE_ATTACK_USTALIK_REHBERI.md`.*
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): cihaz almadan önceki kavramsal temel.
+- [SIGINT_03 — Antenler, Donanım ve Devre Tasarımı](SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md): cihazdan çok anten belirler; RF ön-uç.
+- [SIGINT_04 — Yazılım, İşletim Sistemi ve Kurulum](SIGINT_04_YAZILIM_OS_VE_KURULUM.md): GNU Radio, SDR#, GQRX, sürücüler.
+- [SIGINT_12 — DragonOS ve Araç Ekosistemi](SIGINT_12_DRAGONOS_VE_ARAC_EKOSISTEMI.md): hangi donanımın hangi aracı beslediği.
+- [SIGINT_09 — Yer Tespiti, Yön Bulma ve Takip](SIGINT_09_YER_TESPITI_YON_BULMA_VE_TAKIP.md): KrakenSDR ve faz-tutarlı çoklu-alıcı kullanımı.

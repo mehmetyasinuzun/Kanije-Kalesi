@@ -1198,19 +1198,16 @@ Aşağıdaki alıştırmalar Kısım A-B-C'yi pekiştirir; hepsi kendi cihazın/
    5) Kendi cihazın, izole ortam, yetkili sen — üçü yoksa başlama.
 ```
 
-### Diğer bölümlerle bağlantı
-
-- Bölüm 2 — SDR cihazları: TX-yetenekli cihazların (HackRF/LimeSDR/Pluto/bladeRF) yetenek ve farkları; bu bölümün TX donanım temeli.
-- Bölüm 3 — Anten, devre, filtre, NanoVNA: dummy-load, attenuator, BPF ve kaçak/yük ölçümünün fiziği ve ölçüm tekniği.
-- Bölüm 4 ve 12 — Yazılım/OS ve araç ekosistemi: DragonOS/Kali, VM/snapshot, gps-sdr-sim/srsRAN/URH/Proxmark/Sniffle araç kurulumları.
-- Bölüm 8 — Frekans tahsisi ve band planı: korunan bantların düzenleyici çerçevesi; "hangi band kime ait".
-- Bölüm 10 — GNSS/GPS: Senaryo 5'in spoofing/tespit teorisi ve GNSS güvenliği derinliği.
-- Bölüm 13 — RF tehdit ve karşı önlemler: jamming/spoofing savunması, girişim; bu bölümün TX-güvenliği savunma tarafı.
-- Bölüm 15 — WiFi: Senaryo 1'in 802.11/WPA2/WPA3/PMF derinliği.
-- Bölüm 16 — Kısa menzil/IoT: Senaryo 2 (BLE/LESC), 3 (sub-GHz/rolling), 4 (RFID/DESFire) derinliği.
-- Bölüm 20 — İleri hücresel 4G/5G: Senaryo 6'nın srsRAN/Open5GS, kayıt akışı, SUCI derinliği.
-- Bölüm 23 — Saldırı vektörleri taksonomisi: bu bölümdeki senaryoların hangi saldırı sınıfına oturduğu ve savunma haritası.
-- Bölüm 26 — Pratik proje rehberleri: bu bölümün RX/istasyon kardeşi; çekirdek kit, GNU Radio, rtl_433, ADS-B, DF projeleri.
-
 > Kapanış: Bu bölümün tek bir cümlesini hatırlarsan, şu olsun — *gerçek operasyonel beceri, izole ve yasal bir kutuda kazanılır.* Bir saldırıyı kendi cihazına, kendi laboratuvarında, kaçak yapmayan bir ortamda uçtan uca kurup sonra onu doğru savunma karşısında çökerken izlemek; aynı saldırıyı canlıda denemekten hem çok daha öğretici hem de tek meşru yoldur. Beceriyi al, sınırı asla aşma.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_02 — SDR Cihazları Derinlemesine](SIGINT_02_SDR_CIHAZLARI_DERINLEMESINE.md): TX-yetenekli cihazlar (HackRF/LimeSDR/Pluto/bladeRF); TX donanım temeli.
+- [SIGINT_03 — Antenler, Donanım ve Devre Tasarımı](SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md): dummy-load, attenuator, BPF ve NanoVNA ölçümü.
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): jamming/spoofing savunması; TX-güvenliğinin savunma tarafı.
+- [SIGINT_23 — Kablosuz Saldırı Vektörleri ve DoS](SIGINT_23_SALDIRI_VEKTORLERI_VE_DOS.md): senaryoların hangi saldırı sınıfına oturduğu.
+- [SIGINT_26 — Pratik Proje Rehberleri](SIGINT_26_PRATIK_PROJE_REHBERLERI.md): bu bölümün RX/istasyon kardeşi.
 

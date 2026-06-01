@@ -766,15 +766,14 @@ Amaç: Frekans bandının sistem türünü ele verdiğini içselleştirmek (Böl
 
 **Diğer bölümlere köprüler:**
 
-- **Bölüm 1** — sinyal/modülasyon temelleri (OFDM, PSK/QAM, FSPL); bu bölümdeki dalga biçimlerinin alt yapısı.
-- **Bölüm 2** — SDR donanımı; L-bant/IF gözlemi için alıcı seçimi.
-- **Bölüm 3** — anten/devre; L-bant yama/heliks, Ku LNB ön kademe.
-- **Bölüm 10** — protokol/sinyal çözümleme yöntemleri; patlama/çerçeve ayrıştırma mantığı.
-- **Bölüm 11** — uydu haberleşmesi genel (yörünge sınıfları, Doppler, transponder, link bütçesi, DVB, SatNOGS, GEO/Inmarsat); bu bölüm onun LEO/mega-konstelasyon ileri uzantısıdır.
-- **Bölüm 20** — spektrum tehditleri/jamming-spoofing; uydu bağına uygulanışı.
-- **Bölüm 22** — mega-konstelasyon giriş; bu bölüm onun derinleştirilmiş devamı.
-- **Bölüm 23** — saldırı vektörleri/DoS; terminal ve IoT saldırı yüzeyi, donanım/yan-kanal.
-- **Bölüm 27** — anten dizileri ve beamforming; faz-dizili kullanıcı terminalinin (Dishy) ve uydu hüzme oluşturmanın fiziği.
+Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_11 — Uydu Haberleşmesi](SIGINT_11_UYDU_HABERLESMESI.md): yörünge sınıfları, Doppler, link bütçesi; bu bölüm onun LEO/mega-konstelasyon uzantısı.
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): OFDM, PSK/QAM, FSPL — dalga biçimlerinin alt yapısı.
+- [SIGINT_22 — Egzotik Yayılım ve Geleceğin SIGINT'i](SIGINT_22_EGZOTIK_VE_GELECEK.md): mega-konstelasyon girişi; bu bölüm onun derinleştirilmiş devamı.
+- [SIGINT_27 — Anten Dizileri, Beamforming ve Massive MIMO](SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md): faz-dizili kullanıcı terminali (Dishy) ve uydu hüzme oluşturma.
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): jamming/spoofing tehdidinin uydu bağına uygulanışı.
 
 ---
 

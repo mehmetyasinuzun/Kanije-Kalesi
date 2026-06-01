@@ -762,19 +762,15 @@ Bu bölümdeki her olay, kurum ve kavram, kamuya mal olmuş ve açık kaynak dü
 
 ---
 
-### Serinin diğer bölümleri (çapraz referans)
-
-- SIGINT_00 — Başlangıç, İndeks ve Yasal Manifesto: serinin yasal/etik çerçevesi ve öğrenme yolu. (Bu bölümün etik duruşunun kökü oradadır.)
-- SIGINT_01 — RF Fiziği, Spektrum ve Modülasyon: HF/iyonosfer yayılımı, dalga boyu, modülasyon. (Sayı istasyonu ve DXing'in HF yayılım fiziği oradadır.)
-- SIGINT_03 — Anten Teorisi, Kapsama ve Yön Bulma (DF): yön bulma temelleri. (Burst transmission'a karşı DF ve kaçak verici avının tekniği orada.)
-- SIGINT_05 — Hücresel, WiFi/BT ve IoT Spektrumu: RFID ve protokol bağlamı. (The Thing'in modern akrabası pasif RFID oradadır.)
-- SIGINT_06 — TEMPEST, RF Sızıntısı ve Savunma: yan-kanal, emisyon güvenliği, OPSEC. (ANT katalog fenomeninin savunma dersi ve The Thing savunması oraya bağlanır.)
-- SIGINT_07 — Disiplinler ve Sinyal Ayıklama: COMINT/ELINT/FISINT, trafik analizi, kütüphane eşleştirme, SEI. (RWR ve ELINT kütüphanesinin teknik mekaniği oradadır.)
-- SIGINT_08 — Frekans Tahsisi ve Bant Planı: spektrum tahsisi ve düzenleme. (Sivil spektrum izleme ve Türkiye/BTK çerçevesi oraya bağlanır.)
-- SIGINT_09 — Yer Tespiti, Yön Bulma ve Takip: geolocation ve takip. (Ticari ADS-B/AIS geolocation ve fox hunting oraya bağlanır.)
-- SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler: EW taksonomisi (EA/EP/ES), karıştırma, savunma. (Bu bölümün EW doktrini başlığı, oranın savunma odaklı işlenişinin tarihsel/kültürel tamamlayıcısıdır.)
-- SIGINT_14 — İstihbarat Kaynakları ve Takip: kaynak değerlendirme ve doğrulama. (Tarihsel olay araştırmasının kaynak hijyeni oraya bağlanır.)
-
 > Kapanış: Sinyal istihbaratı, bir asır önce havaya verilen ilk telsiz mesajıyla başlayan, Room 40'ın el yazısı çözümlerinden Bletchley'in bombe'larına, soğuk bir gecenin sayı istasyonundan modern bilişsel elektronik harbe uzanan yaşayan bir tarihtir. Bu tarih iki şeyi birden öğretir: tekniğin gücünü ve o gücün sorumluluğunu. Bir analiz ekranındaki küme, bir histogram ya da HF'de duyulan bir sayı dizisi, yalnızca fizik değil; yüz yıllık bir insanlık birikiminin, kurumların, doktrinlerin ve etik tartışmaların izidir. Bu izi tanımak, tekniği hem daha derin hem daha sorumlu kılar.
 >
-> Bu doküman Kanije Kalesi güvenlik/teknik rehberleri koleksiyonunun SIGINT serisinin 21. bölümüdür. İlgili: SIGINT_00–14, `VERACRYPT_USTALIK_REHBERI.md`, `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`.
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): sayı istasyonu ve DXing'in HF/iyonosfer yayılım fiziği.
+- [SIGINT_07 — SIGINT Disiplinleri ve Sinyal Ayıklama](SIGINT_07_DISIPLINLER_VE_SINYAL_AYIKLAMA.md): RWR ve ELINT kütüphanesinin teknik mekaniği.
+- [SIGINT_09 — Yer Tespiti, Yön Bulma ve Takip](SIGINT_09_YER_TESPITI_YON_BULMA_VE_TAKIP.md): DF, fox hunting ve ticari ADS-B/AIS geolocation.
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): EW taksonomisi (EA/EP/ES), karıştırma ve savunma.
+- [SIGINT_14 — İstihbarat Kaynakları ve Güncel Takip](SIGINT_14_ISTIHBARAT_KAYNAKLARI_VE_TAKIP.md): tarihsel olay araştırmasının kaynak hijyeni.

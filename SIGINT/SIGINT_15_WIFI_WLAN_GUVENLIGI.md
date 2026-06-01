@@ -712,16 +712,15 @@ Amaç: Bölüm 13 savunma katmanlarını kendi ağına uygulamak.
 
 ### Serinin diğer bölümleriyle bağ
 
-- SIGINT_01 (Temeller: RF ve Modülasyon) — OFDM, IQ, dB, spektrum: WiFi fiziksel katmanının altyapısı bu bölümdedir.
-- SIGINT_02 (SDR Cihazları) — Flipper Zero ve genel RF donanımı; WiFi'a özel adaptör seçiminde yonga-seti/enjeksiyon mantığı buraya bağlanır.
-- SIGINT_03 (Antenler ve Donanım) — yönlü anten, kazanç, menzil: WiFi keşif/menzil mantığı.
-- SIGINT_04 (Yazılım, OS ve Kurulum) — monitor mode, sürücüler, Linux araç zinciri kurulumu (airodump/Kismet/bettercap ortamı).
-- SIGINT_05 (Protokoller ve Sinyal Çözümleme) — hücresel/ISM yanında WiFi'ın protokol-çözümleme komşusu; Wireshark ile 802.11 çerçeve okuma.
-- SIGINT_06 (Güvenlik, Açıklar ve Savunma) — replay/spoofing/jamming ve OPSEC: deauth (bir DoS/spoofing biçimi) ve trafik-meta-veri savunması buranın WiFi karşılığıdır.
-- SIGINT_07 (Disiplinler ve Sinyal Ayıklama) — RF parmak izi/SEI ve trafik analizi: WiFi'da cihaz parmak izi (IE/MAC) ve şifreli-trafik meta-verisi aynı mantığın uygulamasıdır.
-- SIGINT_09 (Yer Tespiti ve Yön Bulma) — bir AP/istemcinin konumunu çok-antenli/RSSI ile kestirme.
-- SIGINT_13 (RF Tehdit ve Karşı Önlemler) — kendi kablosuz cihazlarının spektral baseline'ı ve anomali tespiti, drone Remote ID (Wi-Fi/BT tabanlı).
-- SIGINT_14 (İstihbarat Kaynakları ve Takip) — WiFi güvenliği için güncel CVE/araç/standart takibi, akademik literatür (Dragonblood, KRACK makaleleri).
-- Kanije CTI kütüphanesi: WIRESHARK_AG_ANALIZ_USTALIK_REHBERI (802.11 çerçeve analizi), OSINT_ARAC_SETI_USTALIK_REHBERI (SSID/BSSID OSINT — örn. WiGLE benzeri kaynaklar), MITRE_ATTACK_USTALIK_REHBERI (kablosuz erişim teknikleri).
+Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): OFDM, IQ, dB; WiFi fiziksel katmanının altyapısı.
+- [SIGINT_04 — Yazılım, İşletim Sistemi ve Kurulum](SIGINT_04_YAZILIM_OS_VE_KURULUM.md): monitor mode, sürücüler, airodump/Kismet/bettercap ortamı.
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): deauth (DoS/spoofing) ve trafik-meta-veri savunmasının kökü.
+- [SIGINT_16 — Kısa Menzilli Kablosuz ve IoT](SIGINT_16_KISA_MENZIL_KABLOSUZ_VE_IOT.md): WiFi'ın komşusu BLE/RFID/Zigbee/LoRa güvenliği.
+- [SIGINT_24 — Güncel Zafiyet Manzarası](SIGINT_24_GUNCEL_ZAFIYET_MANZARASI.md): KRACK/Kr00k/Dragonblood/FragAttacks/WPS güncel kataloğu.
+
+İlgili Kanije CTI kütüphanesi: `WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md` (802.11 çerçeve analizi), `OSINT_ARAC_SETI_USTALIK_REHBERI.md` (SSID/BSSID OSINT), `MITRE_ATTACK_USTALIK_REHBERI.md` (kablosuz erişim teknikleri).
 
 > Kapanış: WiFi güvenliği, kullanıcının sorduğu "handshake yakalayan cihazlar" merakının çok ötesinde, tek bir mühendislik dersine indirgenir. O cihazların hepsi (Pineapple, Pwnagotchi, ESP, Flipper) aynı iki fiziksel olguyu — açık yönetim çerçeveleri ve parolaya bağlı doğrulama materyali — paketler; hiçbiri yeni kriptografi kırmaz. Ve hepsi aynı üç savunmaya çarpar: güçlü/rastgele parola çevrimdışı kırmayı, PMF deauth'u, WPA3 ise yakala-kır zincirinin tamamını kör eder. Saldırıyı anlamak korkutucu değil eğitici olmalıdır; çünkü onu anladığında savunmanın ne kadar erişilebilir olduğunu görürsün. Asıl güç, izinsiz erişimde değil; kendi ağını kusursuz savunabilmek ve bunu yalnızca yetkili sınırlar içinde sınamaktadır.

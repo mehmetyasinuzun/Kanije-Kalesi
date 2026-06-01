@@ -731,13 +731,14 @@ Pasif **dinleme** çoğu yerde serbest olsa da **kayıt/yayma**, **iletim** ve *
 
 ---
 
-### Serinin diğer bölümleri (çapraz referans)
-- **SIGINT_02 — SDR Donanımları ve Yazılım Ekosistemi:** RTL-SDR, HackRF, Airspy, LimeSDR, USRP; SDR#, GQRX, GNU Radio, SDRangel kurulumu. *(→ Bölüm 2'de teoriyi gerçek cihaza döküyoruz: ilk waterfall'ını açıyorsun.)*
-- **SIGINT_03 — Anten Teorisi, Kapsama ve Yön Bulma (DF):** dipol/Yagi/diskon/log-periyodik, empedans/SWR, yön bulma temelleri.
-- **SIGINT_04 — Sayısal Demodülasyon ve Protokol Kod Çözme:** ADS-B, AIS, POCSAG/FLEX, ACARS, LoRa, dijital ses (DMR/P25) tanıma.
-- **SIGINT_05 — Hücresel, WiFi/BT ve IoT Spektrumu (Savunma Bakışı):** GSM/LTE/5G yapısı, IMSI kavramı, WiFi/BT/Zigbee imzaları; **kendi cihazlarının sızıntı yüzeyi.**
-- **SIGINT_06 — TEMPEST, RF Sızıntısı ve SIGINT'e Karşı Savunma:** istem dışı yayınlar, ekranlama, emisyon güvenliği, OPSEC; **bu kitabın savunma doruğu.**
-
 > **Kapanış:** Sinyal görünmez ama **rastgele değildir** — fizik onu yönetir. f = c/λ ile başlayıp Shannon ile biten bu zincir, havadaki her dalganın gramerini verir. Bunu içselleştirdiğinde, bir waterfall'a baktığında artık "renkli gürültü" değil, **anatomisini tanıdığın sinyaller** görürsün. Sonraki adım onları gerçek bir cihazla duymak — **Bölüm 2'de SDR donanımına geçiyoruz.**
->
-> *Bu doküman Kanije Kalesi güvenlik/teknik rehberleri koleksiyonunun SIGINT serisinin 1. bölümüdür. İlgili: `VERACRYPT_USTALIK_REHBERI.md`, `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`.*
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_02 — SDR Cihazları Derinlemesine](SIGINT_02_SDR_CIHAZLARI_DERINLEMESINE.md): teoriyi gerçek cihaza dökmek, ilk waterfall.
+- [SIGINT_03 — Antenler, Donanım ve Devre Tasarımı](SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md): dalga boyu-anten ilişkisinin donanım uygulaması.
+- [SIGINT_05 — Protokoller ve Sinyal Çözümleme](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md): modülasyon tanındıktan sonra sinyali çözmek.
+- [SIGINT_18 — Sayısal Sinyal İşleme ve SDR İç Mimarisi](SIGINT_18_DSP_VE_SDR_IC_MIMARI.md): IQ, Nyquist ve demodülasyon matematiğinin derinliği.

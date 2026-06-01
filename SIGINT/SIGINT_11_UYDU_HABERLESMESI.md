@@ -925,18 +925,15 @@ Pratikte: 1, 2, 5 alıştırmaları ~40$'lık bir RTL-SDR + basit antenle yapıl
 | VSAT terminal yüzeyi | internete açık/varsayılan parola/eski firmware | ağ hijyeni, yama, out-of-band yönetim, uçtan uca şifreleme |
 | TT&C zayıflığı | eski sistemlerde zayıf/yok şifreleme | komut kimlik doğrulama + TT&C şifreleme + replay/jam dayanıklılık + erişim ayrımı |
 
-### Çapraz referans — diğer bölümler
-
-- **Bölüm 0 — Başlangıç & Yasal:** RX/TX altın kuralı, TCK 132–140, BTK çerçevesi. Uydu downlink dinleme vs uplink/içerik çözme ayrımının yasal temeli.
-- **Bölüm 1 — Temeller (RF & Modülasyon):** dB matematiği, FSPL, modülasyon (QPSK/8PSK/QAM), IQ. Link bütçesi ve DVB modülasyonunun fizik temeli.
-- **Bölüm 2 — SDR Cihazları:** RTL-SDR/HackRF/Airspy seçimi; uydu alımı için bant genişliği ve saat kararlılığı (TCXO) notları.
-- **Bölüm 3 — Antenler & Donanım:** QFH/turnike/Yagi/çanak, LNA, polarizasyon, kazanç. Uydu anten zincirinin temeli (Bölüm 14 buna dayanır).
-- **Bölüm 4 — Yazılım & OS:** SatDump, GNU Radio, gpredict kurulumu; Doppler ve rotator otomasyonu.
-- **Bölüm 5 — Protokoller & Çözümleme:** NOAA/AIS/uydu çözümleme detayı; bu bölüm uydu-haberleşmesi perspektifini ekler.
-- **Bölüm 6 — Güvenlik & Savunma:** RF güvenlik mantığı, replay/spoof/jam, konumlandırma (DF/TDOA). Bölüm 15–17 bunu uydu bağlamına taşır.
-- **Bölüm 7 — Disiplinler & Ayıklama:** yoğun spektrumda taşıyıcı ayırma, parametre tanıma. Carrier monitoring (Bölüm 16) bunun operatör tarafı.
-- **Bölüm 8 — Frekans Tahsisi & Bant Planı:** ITU bantları, uydu/seyrüsefer/yayın tahsisi. Bant tablolarının (Bölüm 7) kaynağı.
+> **Bölüm özeti.** Uydu haberleşmesi, karasal radyonun aynı fiziğini mesafe (yol kaybı ~205 dB GEO), hız (LEO Doppler ve hızlı geçiş) ve görüş alanı (tek GEO bir kıta) eksenlerinde uca taşır; yörünge sınıfı (LEO/MEO/GEO/HEO) gecikmeyi, kapsamayı ve anteni birlikte belirler, transponder mimarisi (bent-pipe vs regenerative) hem performansı hem güvenliği şekillendirir. Pasif ve yasal pratik zengindir: NOAA APT/Meteor LRPT/GOES HRIT'ten kendi elinle hava görüntüsü, ISS SSTV/APRS, açık çerçevede ağ gözlemi ve SatNOGS — hepsi RX'tir ve yörünge → geçiş → Doppler → demod → görüntü zincirini somutlaştırır. Güvenlik tarafı savunma ve tespit perspektifindedir: şifresiz bent-pipe'ın neden açık olduğu, "satellite piracy"nin neden mümkün ama kesinlikle yasadışı (lisanssız uplink + hırsızlık + girişim) olduğu ve operatörün bunu carrier monitoring + dual-satellite geolocation (TDOA/FDOA) ile nasıl tespit ettiği; en kritik sınır ise TT&C güvenliğidir (payload zafiyeti veri, TT&C zafiyeti uydu kaybettirir) — bu kitap yetkisiz erişim reçetesi vermez, yalnızca mekanizma + savunma + tespit öğretir.
 
 ---
 
-> **Bölüm özeti.** Uydu haberleşmesi, karasal radyonun aynı fiziğini mesafe (yol kaybı ~205 dB GEO), hız (LEO Doppler ve hızlı geçiş) ve görüş alanı (tek GEO bir kıta) eksenlerinde uca taşır; yörünge sınıfı (LEO/MEO/GEO/HEO) gecikmeyi, kapsamayı ve anteni birlikte belirler, transponder mimarisi (bent-pipe vs regenerative) hem performansı hem güvenliği şekillendirir. Pasif ve yasal pratik zengindir: NOAA APT/Meteor LRPT/GOES HRIT'ten kendi elinle hava görüntüsü, ISS SSTV/APRS, açık çerçevede ağ gözlemi ve SatNOGS — hepsi RX'tir ve yörünge → geçiş → Doppler → demod → görüntü zincirini somutlaştırır. Güvenlik tarafı savunma ve tespit perspektifindedir: şifresiz bent-pipe'ın neden açık olduğu, "satellite piracy"nin neden mümkün ama kesinlikle yasadışı (lisanssız uplink + hırsızlık + girişim) olduğu ve operatörün bunu carrier monitoring + dual-satellite geolocation (TDOA/FDOA) ile nasıl tespit ettiği; en kritik sınır ise TT&C güvenliğidir (payload zafiyeti veri, TT&C zafiyeti uydu kaybettirir) — bu kitap yetkisiz erişim reçetesi vermez, yalnızca mekanizma + savunma + tespit öğretir.
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): link bütçesi, FSPL ve DVB modülasyonunun fizik temeli.
+- [SIGINT_03 — Antenler, Donanım ve Devre Tasarımı](SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md): QFH/turnike/çanak, LNB, polarizasyon.
+- [SIGINT_10 — GNSS/GPS Sistemleri](SIGINT_10_GNSS_GPS_SISTEMLERI.md): uydu zamanlama ve düşük güçlü uydu sinyali.
+- [SIGINT_32 — Uydu-IoT ve Mega-Konstelasyonlar](SIGINT_32_UYDU_IOT_VE_MEGA_KONSTELASYON.md): bu bölümün LEO/mega-konstelasyon ileri uzantısı.
+- [SIGINT_31 — SCADA, Endüstriyel Kontrol ve Telemetri RF'i](SIGINT_31_SCADA_ENDUSTRIYEL_RF.md): uydu SCADA/VSAT bağlarının güvenliği.

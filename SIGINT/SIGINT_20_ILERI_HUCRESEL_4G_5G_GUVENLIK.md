@@ -759,15 +759,17 @@ Bu bölümdeki tüm içerik prensip, mimari ve savunma odaklıdır. Hiçbir yerd
 
 ---
 
-### Serinin diğer bölümleri (çapraz referans)
-
-- SIGINT_01 — RF Fiziği, Spektrum ve Modülasyon: OFDM, IQ, dB/FSPL, modülasyon temelleri. (LTE/NR'nin OFDMA/SC-FDMA hava arayüzünün ve açık-anahtar/şifreleme sezgisinin fiziksel/temel zemini oradadır.)
-- SIGINT_02 — SDR Donanımları ve Yazılım Ekosistemi: RTL-SDR/HackRF/USRP, GNU Radio. (Bölüm 15'teki test hücresi ve Bölüm 17'deki pasif gözlem donanımını burada seçersin.)
-- SIGINT_03 — Anten Teorisi ve Yön Bulma: dizi/faz, hüzme. (5G beamforming/Massive MIMO'nun anten-dizisi temeli oradadır.)
-- SIGINT_05 — Hücresel, WiFi/BT ve IoT Spektrumu (Savunma Bakışı): 2G/3G/4G/5G mimari ve prensip giriş düzeyi. (Bu bölüm, oradaki hücresel temeli ileri seviyeye taşır.)
-- SIGINT_06 — TEMPEST, RF Sızıntısı ve SIGINT'e Karşı Savunma: sahte baz istasyonu (IMSI catcher), SS7, genel telekom saldırı yüzeyi kavramları. (Bu bölümün sahte-BTS, SS7/Diameter ve SUCI tartışmaları, oradaki kavramların mimari derinleştirmesidir.)
-- SIGINT_07 — Disiplinler ve Sinyal Ayıklama: COMINT/ELINT, trafik analizi (içeriği çözmeden meta-veriden istihbarat). (Bu bölümün "ağa değil kendi ucuna güven" ve meta-veri/OPSEC refleksi, oradaki trafik-analizi dersinin hücresel uygulamasıdır.)
-
 > Kapanış: Hücresel ağ güvenliği, bir "kırma" hikâyesi değil, bir güven mimarisi hikâyesidir. Her nesil, bir öncekinin güven varsayımlarını sorgulayarak ilerledi: 2G'nin tek yönlü güveni 3G'de karşılıklı oldu, 4G'nin açık kimliği 5G'de SUCI ile şifrelendi, çekirdeğin "güvenilen ağ" varsayımı SBA ve SEPP ile denetlenen sınıra dönüştü. Ama hiçbir nesil mükemmel değildir: en zayıf mod tavanı belirler, doğrulamadan önceki an kalıcı bir yumuşak noktadır ve yeni mimariler (SBA, dilimleme, Open RAN) güçle birlikte yeni yüzeyler getirir. Bir hücresel güvenlik uzmanının olgunluğu, "5G güvenli mi" sorusuna ne "evet" ne "hayır" demekte; "hangi konuşlandırmada, hangi yapılandırmayla, hangi tehdide karşı" diye sormaktadır. Ve her durumda, kullanıcının elindeki en sağlam iki savunma değişmez: zayıf nesli kapat, kendi ucunu uçtan uca şifrele.
 >
-> Bu doküman Kanije Kalesi güvenlik/teknik rehberleri koleksiyonunun SIGINT serisinin ileri hücresel güvenlik bölümüdür. İlgili: SIGINT_01–07, `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`, `VERACRYPT_USTALIK_REHBERI.md`.
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): OFDM, IQ ve LTE/NR hava arayüzünün fiziksel zemini.
+- [SIGINT_05 — Protokoller ve Sinyal Çözümleme](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md): 2G/3G/4G/5G mimari ve prensip giriş düzeyi.
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): sahte BTS/IMSI catcher, SS7 ve telekom saldırı yüzeyi kavramları.
+- [SIGINT_24 — Güncel Zafiyet Manzarası](SIGINT_24_GUNCEL_ZAFIYET_MANZARASI.md): A5, IMSI catcher, aLTeR, ToRPEDO, SS7/Diameter güncel kataloğu.
+- [SIGINT_27 — Anten Dizileri, Beamforming ve Massive MIMO](SIGINT_27_ANTEN_DIZILERI_VE_BEAMFORMING.md): 5G beamforming/Massive MIMO'nun anten-dizisi temeli.
+
+İlgili kale rehberleri: `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`, `VERACRYPT_USTALIK_REHBERI.md`.

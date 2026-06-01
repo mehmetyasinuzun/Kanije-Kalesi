@@ -618,5 +618,13 @@ Donanımı eline aldın. Sıfırdan ilk sinyale giden **doğru sıra** budur —
 ## 16.  Çapraz Referans
 
 > **Kapanış:** SDR'da donanım yalnızca **örnek üreten bir musluktur**; suyu içilebilir kılan tüm zekâ **yazılım katmanındadır.** Doğru OS seçimi (Linux'un araç ekosistemi vs Windows'un konforu), sürücü katmanını gerçekten anlamak (Zadig/blacklist/SoapySDR), ve "neden çalışmıyor?" duvarını **katman katman** (donanım tanınıyor mu → drop → PPM/gain → RFI) yıkabilmek — ustalık budur. **Önce `rtl_test`, önce FM, önce komut satırı**: bilinen-iyi bir referansla zincirin çalıştığını kanıtla, sonra bilinmeyene aç. Bir yazılım butonu değil, bir **mühendislik disiplini** öğreniyorsun; ve her "duymuyorum"un arkasında çoğu zaman bir blacklist satırı, bir gain ayarı ya da bir USB portu vardır.
->
-> *Bu doküman, çok bölümlü Kanije Kalesi **SIGINT El Kitabı**'nın **4. bölümüdür.** Önceki/sonraki bölümler: RF temelleri ve sinyal kavramları, SDR donanım seçimi (RTL-SDR/HackRF/Airspy/SDRplay), anten ve RF zinciri, sinyal yakalama/demodülasyon, protokol tersine mühendisliği (URH derinlemesine), ADS-B/AIS/POCSAG çözümleme ve hukuki çerçeve. İlgili ustalık rehberleri: `WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md` (yakalanan veriyi/IOC'yi analiz), `VERACRYPT_USTALIK_REHBERI.md` (IQ kayıtlarını/bulguları şifreli sakla), `OSINT_ARAC_SETI_USTALIK_REHBERI.md`, `MALWARE_ANALIZ_USTALIK_REHBERI.md`.*
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_02 — SDR Cihazları Derinlemesine](SIGINT_02_SDR_CIHAZLARI_DERINLEMESINE.md): kuracağın yazılımı besleyen donanım seçimi.
+- [SIGINT_05 — Protokoller ve Sinyal Çözümleme](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md): kurulan araçlarla ADS-B/AIS/POCSAG çözümleme.
+- [SIGINT_12 — DragonOS ve Araç Ekosistemi](SIGINT_12_DRAGONOS_VE_ARAC_EKOSISTEMI.md): hazır dağıtım ve araç komut/iş akışı katmanı.
+- [SIGINT_25 — Açık Kaynak Araç ve Kaynak Dizini](SIGINT_25_ACIK_KAYNAK_ARAC_DIZINI_GITHUB.md): bağımlılık, derleme ve depo dizini.

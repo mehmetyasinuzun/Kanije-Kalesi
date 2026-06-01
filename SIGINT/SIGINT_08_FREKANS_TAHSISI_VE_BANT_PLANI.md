@@ -573,15 +573,17 @@ Resmi bir tahsis tablosunu okumayı, bu dokümandaki "tipik" değerlerle ülkeni
 <a id="14"></a>
 ## 14. Çapraz Referans ve Sonraki Bölümler
 
-Bu bölüm, SIGINT El Kitabı'nın frekans tahsisi ve bant planı parçasıdır. Bir frekansın "kime ait" olduğunu belirledikten sonra, o sinyali yakalamak, çözmek ve yasal çerçevede ele almak diğer bölümlerin konusudur:
-
-- **Bölüm 1 — SIGINT'e Giriş ve Sinyal Temelleri:** Frekans/dalga boyu, yayılım (HF iyonosfer vs VHF görüş hattı), modülasyon (AM/FM/SSB/sayısal), spektrum ve şelale okuma. Bu bölümdeki bant mantığının fiziksel temeli.
-- **Bölüm 2 — SDR Cihazları:** Hangi bandı görmek için hangi cihaz (frekans aralığı, bant genişliği, bit derinliği). Bir bandı dinleyebilmek için cihazın o aralığı kapsaması şarttır.
-- **Bölüm 3 — Antenler ve RF Ön-Uç:** Her bant için uygun anten ve filtre; FM çentik filtresi gibi girişim azaltma. Doğru bandı doğru antenle dinlemek.
-- **Bölüm 5 — Demodülasyon ve Kod Çözme:** ADS-B, AIS, NAVTEX, POCSAG, sayısal ses (yalnızca şifresiz ve yasal sistemlerde) — bu bölümde tanımlanan sinyallerin içeriğine erişme.
-- **Bölüm 6 — Yön Bulma ve Geolocation:** Bir frekansın *nereden* geldiğini bulma; bant kimliği + yön bulma birlikte tam tablo verir.
-- **Bölüm 7 — Operasyonel ve Yasal Güvenlik:** Hangi bandı dinlemek serbest, hangi içeriği çözmek/yaymak yasak; ülke bazlı kurallar, etik sınırlar.
+Bu bölüm, SIGINT El Kitabı'nın frekans tahsisi ve bant planı parçasıdır. Bir frekansın "kime ait" olduğunu belirledikten sonra, o sinyali yakalamak, çözmek ve yasal çerçevede ele almak diğer bölümlerin konusudur.
 
 Kapanış: "Bir frekans duydum, kime ait?" sorusunun cevabı sihir değil, sistemdir: önce hangi dilimde olduğuna bak, sonra tahsis tablosuyla hizmeti daralt, kanal planı ve modülasyonla kimliği doğrula. Bu bölümün tabloları o sistemin haritasıdır; ancak küresel hizmetler (havacılık, denizcilik, GNSS) dışında ülke/bölge bağımlı her değer, kesin karar için ulusal tahsis tablosundan (Türkiye'de BTK) teyit edilmelidir. Ve sınır nettir: tahsisi bilmek ve açık bantları dinlemek farkındalıktır; şifreli içeriği çözmek, acil/seyrüsefer/askeri bantlarda yayın yapmak ya da araya girmek suçtur. Bu rehber haritayı verir; haritanın hangi yollarının yasal olduğunu kendi ülkenin kuralları belirler.
 
-*Bu doküman Kanije Kalesi güvenlik/SIGINT rehberleri koleksiyonunun parçasıdır. İlgili bölümler: `SIGINT_02_SDR_CIHAZLARI_DERINLEMESINE.md` ve koleksiyondaki diğer SIGINT başlıkları.*
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): bant mantığının ve yayılımın fiziksel temeli.
+- [SIGINT_05 — Protokoller ve Sinyal Çözümleme](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md): bu bölümde tanımlanan sinyallerin içeriğine erişme.
+- [SIGINT_09 — Yer Tespiti, Yön Bulma ve Takip](SIGINT_09_YER_TESPITI_YON_BULMA_VE_TAKIP.md): bir frekansın nereden geldiğini bulma.
+- [SIGINT_10 — GNSS/GPS Sistemleri](SIGINT_10_GNSS_GPS_SISTEMLERI.md): GNSS L bandı tahsislerinin sistem tarafı.
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): hangi içeriği çözmenin/yaymanın yasal sınırı.

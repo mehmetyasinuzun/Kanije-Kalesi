@@ -595,24 +595,17 @@ YASAL:             açık kaynak ≠ yasal kullanım; RX geniş, TX/içerik/pent
                    ülkeye-yetkiye-hedefe bağlı → Bölüm 00/06
 ```
 
-### Diğer bölümler
-
-| # | Bölüm | İlişki |
-|---|---|---|
-| 0 | Başlangıç, Index, Yasal | Tüm araçların yasal çizgisi burada tanımlı |
-| 4 | Yazılım, OS & Kurulum | Bağımlılık/sürücü/derleme; bu dizinin kurulum tarafı |
-| 5 | Protokoller & Çözümleme | §5 çözücülerinin protokol prensibi |
-| 6 | Güvenlik, Açıklar & Savunma | Hücresel/GNSS/WiFi araçlarının yasal-teknik sınırı |
-| 8 | Frekans Tahsisi & Band Planı | §13 kaynaklarının "ne nereye ait" tarafı |
-| 9 | Yer Tespiti & Yön Bulma | §9 DF araçlarının kuramı |
-| 10 | GNSS/GPS Sistemleri | §8 GNSS araçlarının sistem tarafı |
-| 12 | DragonOS & Araç Ekosistemi | §2-§9 araçlarının FİİLİ kullanımı (komut/iş akışı) |
-| 14 | İstihbarat Kaynakları & Takip | §13 topluluk/veritabanı kaynaklarının yöntemi |
-| 15 | WiFi/WLAN Güvenliği | §10 WiFi araçlarının derinliği |
-| 16 | Kısa Menzil Kablosuz & IoT | §11 BLE/RFID/IoT araçlarının derinliği |
-| 19 | Yapay Zeka & ML SIGINT | §12 veri/ML kaynaklarının uygulaması |
-| 20 | İleri Hücresel 4G/5G | §7 hücresel araçlarının derinliği |
-
 > Kapanış: Bu bölüm bir *dizindi* — hangi açık-kaynak araç, hangi resmî depo, ne kadar olgun, hangi lisans, hangi görevde ne ölçüde. Ama dizin yalnızca bir haritadır; her aracın *fiili* kullanımı (komut, akış, tuzak) Bölüm 12'de, *fiziği* Bölüm 01-03'te, *yasal sınırı* Bölüm 00/06'dadır. Bir araç ararken buraya bak, doğru hattı (§16/§17) teyit et, sonra ilgili derinlik bölümüne geç.
 
 > Son yasal hatırlatma: Bu dizindeki her araç meşru ve açık-kaynaktır; ama "açık kaynak ve indirilebilir olmak" yasal kullanım garantisi DEĞİLDİR. Alıcı/çözücü araçları geniştir ama içerik çözme/kayıt/paylaşma; her türlü TX (GPS üretme, hücresel test hücresi yayını, deauth); yetkisiz pentest — ülkene, yazılı yetkine ve hedefe göre suç olabilir ve bazıları (GPS spoofing, sahte baz istasyonu, yetkisiz ağ saldırısı) her yerde ağır suçtur. Şüphedeysen yapma; yalnızca kendi cihazların, izole/Faraday test ortamın, yazılı yetkili kapsamın veya açık/kamuya yayınlanan sinyaller üzerinde çalış. Bu kitap hukuki danışmanlık değildir; kendi ülkenin güncel mevzuatını teyit et.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_12 — DragonOS ve Araç Ekosistemi](SIGINT_12_DRAGONOS_VE_ARAC_EKOSISTEMI.md): bu dizindeki araçların fiili kullanımı (komut/iş akışı).
+- [SIGINT_04 — Yazılım, İşletim Sistemi ve Kurulum](SIGINT_04_YAZILIM_OS_VE_KURULUM.md): bağımlılık/sürücü/derleme; kurulum tarafı.
+- [SIGINT_05 — Protokoller ve Sinyal Çözümleme](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md): çözücülerin protokol prensibi.
+- [SIGINT_26 — Pratik Proje Rehberleri](SIGINT_26_PRATIK_PROJE_REHBERLERI.md): araçların uçtan uca projeye dizilişi.
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): araçların yasal-teknik sınırı.

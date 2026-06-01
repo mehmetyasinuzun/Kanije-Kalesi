@@ -907,16 +907,14 @@ Adımlar (kendi kaydın üzerinde, çevrimdışı işleme):
 
 ### Diğer bölümlerle bağ
 
-| Konu | İlgili bölüm |
-|---|---|
-| Tek anten fiziği: rezonans, kazanç (dBi/dBd), yönlülük, λ/2, polarizasyon, eleman desenleri | Bölüm 3 (Anten, Donanım ve Devre Tasarımı) — bu bölümün eleman temeli |
-| Yön bulma: AOA, faz interferometri, MUSIC/ESPRIT pratiği, KrakenSDR DOA, GDOP, hata elipsleri | Bölüm 9 (Yer Tespiti ve Yön Bulma) — DoA'nın uygulama tarafı |
-| Anti-jam null-steering, J/S oranı, karıştırma tespiti, DF ile kaynak yer tespiti | Bölüm 13 (RF Tehdit ve Karşı-Önlemler) — null steering'in savunma bağlamı |
-| IQ/karmaşık taban-bant, NCO, FFT, uzamsal-frekans benzeşimi, polyphase channelizer, CIC sinc | Bölüm 18 (DSP ve SDR İç Mimari) — uzamsal işlemenin DSP akrabası |
-| 5G NR FR1/FR2, beamforming, Massive MIMO, mmWave, OFDM | Bölüm 20 (İleri Hücresel 4G/5G Güvenlik) — Massive MIMO'nun hücresel uygulaması |
-| Çok-kanallı/faz-tutarlı SDR donanımı (KrakenSDR, USRP), ADC, ön-uç | Bölüm 2 (SDR Cihazları Derinlemesine) |
-| Shannon kapasitesi, SNR, dB, modülasyon, Nyquist | Bölüm 1 (RF Fiziği, Spektrum ve Modülasyon) |
-| Pasif radar (PCL), çapraz-belirsizlik, Kalman izleme | Bölüm 9 (Yer Tespiti) + Bölüm 11 (Uydu) |
+Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_03 — Antenler, Donanım ve Devre Tasarımı](SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md): tek anten fiziği — bu bölümün eleman temeli.
+- [SIGINT_09 — Yer Tespiti, Yön Bulma ve Takip](SIGINT_09_YER_TESPITI_YON_BULMA_VE_TAKIP.md): AOA, MUSIC/ESPRIT ve DoA'nın uygulama tarafı.
+- [SIGINT_18 — Sayısal Sinyal İşleme ve SDR İç Mimarisi](SIGINT_18_DSP_VE_SDR_IC_MIMARI.md): uzamsal işlemenin DSP akrabası (NCO, FFT, channelizer).
+- [SIGINT_20 — İleri Hücresel: 4G/5G Güvenlik](SIGINT_20_ILERI_HUCRESEL_4G_5G_GUVENLIK.md): Massive MIMO ve beamforming'in hücresel uygulaması.
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): null-steering'in anti-jam savunma bağlamı.
 
 > Mühendislik özeti: Bu bölüm, tek antenden uzamsal işlemeye geçişi tamamladı. Tüm dizi matematiği tek bir niceliğe — elemanlar arası faz farkı `ψ = (2π/λ)d sin θ` — ve tek bir vektöre — yönlendirme vektörü `a(θ)` — indirgenir. Bundan sonrası bu vektörlerle lineer cebirdir: ağırlıklarla topla (beamforming), kovaryansı tersine çevir (MVDR), gürültü alt-uzayına dikliği ara (MUSIC), kanal matrisini ayrıştır (MIMO). Bir dizi, uzayda çalışan bir FIR filtresi, bir uzamsal Fourier dönüşümü, bir eşleştirilmiş filtredir — Bölüm 18'in tüm sezgileri buraya, frekans ekseninden açı eksenine taşınır. Frekans ve zaman bir sinyalin "ne" ve "ne zaman"ını verir; dizi "nereden"i ekler ve bu üçüncü eksen, modern SIGINT'in, 5G'nin ve pasif radarın temelidir.
 

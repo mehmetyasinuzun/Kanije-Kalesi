@@ -1365,23 +1365,14 @@ Tek bakışta tüm projeler: ne istediğine göre nereden başlayacağını seç
 
 ### Bu bölümün diğer bölümlerle bağı
 
-| İlgili bölüm | Bu bölümde nerede kullanılır |
-|---|---|
-| Bölüm 0 — Başlangıç, Index, Yasal | Tüm projelerin yasal çizgisinin kökü |
-| Bölüm 1 — Temeller: RF & Modülasyon | P9 (demod fiziği), P3 (analog/sayısal), P5 (Shannon sezgisi) |
-| Bölüm 2 — SDR Cihazları | Donanım seçimi: RTL V3/V4, KrakenSDR (P8), HF SDR (P5) |
-| Bölüm 3 — Antenler & Donanım | P2/P3 anten+LNA, §13 yerleşim/RFI, P6 discone |
-| Bölüm 4 — Yazılım, OS & Kurulum | Tüm projelerin ön koşulu (DragonOS, sürücü, blacklist, §13 Pi) |
-| Bölüm 5 — Protokoller & Çözümleme | ADS-B (P2), NOAA/Meteor (P3), FT8/WSPR (P5), ISM (P4), sinyal yapısı (P10) |
-| Bölüm 6 — Güvenlik, Açıklar & Savunma | P10 replay/rolling-code, P7 savunma felsefesi |
-| Bölüm 7 — Disiplinler & Sinyal Ayıklama | P6 tarama→ayıklama→sınıflandırma metodolojisi |
-| Bölüm 8 — Frekans Tahsisi & Band Planı | P6 heatmap'i "ne nereye ait" diye okuma |
-| Bölüm 9 — Yer Tespiti, Yön Bulma & Takip | P8 DF/triangülasyon, P11 MLAT/TDOA |
-| Bölüm 11 — Uydu Haberleşmesi | P3 NOAA/Meteor/GOES uydu prensibi |
-| Bölüm 12 — DragonOS & Araç Ekosistemi | Tüm projelerin araçları: bu bölüm onları *projeye* dizer |
-| Bölüm 15 — WiFi/WLAN Güvenliği | P7'nin tam teknik temeli (handshake, WPA3, PMF) |
-| Bölüm 16 — Kısa Menzil Kablosuz & IoT | P4 (ISM sensör), P10 (kumanda protokolleri) |
-| Bölüm 17 — TEMPEST, Emanasyon & Yan Kanal | §13 RFI/gürültü perspektifi |
+Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_04 — Yazılım, İşletim Sistemi ve Kurulum](SIGINT_04_YAZILIM_OS_VE_KURULUM.md): tüm projelerin ön koşulu (DragonOS, sürücü, blacklist).
+- [SIGINT_12 — DragonOS ve Araç Ekosistemi](SIGINT_12_DRAGONOS_VE_ARAC_EKOSISTEMI.md): projelerin araçları ve fiili komut/iş akışı.
+- [SIGINT_05 — Protokoller ve Sinyal Çözümleme](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md): ADS-B/NOAA/FT8/ISM çözümlemenin protokol tarafı.
+- [SIGINT_28 — İzole Laboratuvar Kılavuzu ve TX Güvenliği](SIGINT_28_IZOLE_LAB_VE_TX_GUVENLIGI.md): bu RX projelerinin izole TX kardeşi.
+- [SIGINT_25 — Açık Kaynak Araç ve Kaynak Dizini](SIGINT_25_ACIK_KAYNAK_ARAC_DIZINI_GITHUB.md): projelerde kullanılan araçların dizini.
 
 > Kapanış: Bu bölüm, kitabın geri kalanını *birleştiren* katmandı. Diğer bölümler tek tek katmanları (fizik, donanım, anten, yazılım, protokol, güvenlik, araç) öğretti; bu bölüm onları gerçek, çalışan, yasal projelerde bir araya getirdi. Bir projeyi tamamladığında yalnızca bir çıktı (uçak haritası, uydu görüntüsü, bit dizisi) elde etmedin — o çıktıya götüren *zinciri* anladın ve bir sonrakini kendi başına kurabilecek sezgiyi kazandın. "Balık tutmayı öğret" buydu: artık reçete değil, mühendislik refleksi.
 

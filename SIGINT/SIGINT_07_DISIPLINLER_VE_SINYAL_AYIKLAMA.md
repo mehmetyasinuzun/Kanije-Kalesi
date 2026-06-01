@@ -617,15 +617,15 @@ Bu bölümdeki tüm teknikler tasarım gereği pasif analiz yöntemleridir; hiç
 
 ---
 
-### Serinin diğer bölümleri (çapraz referans)
-
-- SIGINT_01 — RF Fiziği, Spektrum ve Modülasyon: f = c/λ, dB/dBm, FSPL, SNR/Shannon, modülasyon temelleri, IQ örnekleme. (Bu bölümdeki PW/PRI/SNR ve modülasyon ailelerinin fiziksel temeli oradadır.)
-- SIGINT_02 — SDR Donanımları ve Yazılım Ekosistemi: RTL-SDR/HackRF/USRP, GNU Radio, SDRangel. (Alıştırmalardaki waterfall kayıtlarını burada üretirsin.)
-- SIGINT_03 — Anten Teorisi, Kapsama ve Yön Bulma (DF): dipol/Yagi/dizi, yön bulma temelleri. (AOA'nın, yani en kararlı ayracın ölçüm tekniği orada.)
-- SIGINT_04 — Sayısal Demodülasyon ve Protokol Kod Çözme: ADS-B, AIS, POCSAG/FLEX, LoRa, dijital ses tanıma. (Modülasyon tanındıktan sonraki kod çözme adımı orada.)
-- SIGINT_05 — Hücresel, WiFi/BT ve IoT Spektrumu (Savunma Bakışı): GSM/LTE/5G, WiFi/BT/Zigbee imzaları, cihaz sızıntı yüzeyi. (Trafik analizinin haberleşme-protokol bağlamı orada.)
-- SIGINT_06 — TEMPEST, RF Sızıntısı ve SIGINT'e Karşı Savunma: istem dışı yayınlar, ekranlama, emisyon güvenliği, OPSEC. (Bu bölümün trafik-analizi savunması, oranın fiziksel-sızıntı savunmasının meta-veri kardeşidir.)
-
 > Kapanış: Yoğun bir spektrum ilk bakışta çözülemez bir gürültü denizidir; ama her yayıcı, parametre uzayında bir bulut, zamanda bir ritim ve donanımında silinmez bir kusur bırakır. Ayıklama bu izleri ayırmak, sınıflandırma onları bir kimliğe bağlamak, atıf ise tek tek cihaza inmektir. Bu zinciri kavradığında bir analiz ekranındaki kümeler artık soyut renkler değil, fiziği ve algoritması tanıdığın yayıcılar olur. Bir sonraki adım, bu sezgiyi kendi cihazlarının yasal sinyalleri üzerinde sınamaktır.
->
-> Bu doküman Kanije Kalesi güvenlik/teknik rehberleri koleksiyonunun SIGINT serisinin 7. bölümüdür. İlgili: SIGINT_01–06, `VERACRYPT_USTALIK_REHBERI.md`, `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): PW/PRI/SNR ve modülasyon ailelerinin fiziksel temeli.
+- [SIGINT_05 — Protokoller ve Sinyal Çözümleme](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md): modülasyon tanındıktan sonraki kod çözme adımı.
+- [SIGINT_09 — Yer Tespiti, Yön Bulma ve Takip](SIGINT_09_YER_TESPITI_YON_BULMA_VE_TAKIP.md): AOA, ayıklanan yayıcıyı haritaya oturtma.
+- [SIGINT_18 — Sayısal Sinyal İşleme ve SDR İç Mimarisi](SIGINT_18_DSP_VE_SDR_IC_MIMARI.md): deinterleaving, korelasyon ve kümelemenin DSP tabanı.
+- [SIGINT_19 — Yapay Zeka ve ML ile SIGINT](SIGINT_19_YAPAY_ZEKA_VE_ML_SIGINT.md): AMC ve RF parmak izinin öğrenen yöntemleri.

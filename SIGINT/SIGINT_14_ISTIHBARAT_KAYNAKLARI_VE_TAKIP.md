@@ -408,37 +408,20 @@ Amaç: Öğrenmeyi olaydan alışkanlığa çevirmek; teori-pratik-etik dengesin
 ---
 
 <a id="11"></a>
-## 11. Kapanış: Tüm SIGINT Serisinin Haritası ve Etik Manifesto
+## 11. Kapanış: Çapraz Referans ve Etik Manifesto
 
-Bu bölüm serinin teknik içeriğini kapatır. Geriye, tüm yolculuğun haritasını çıkarmak ve baştan beri taşıdığımız etik çizgiyi son kez yinelemek kalıyor.
-
-### Serinin haritası (00-14)
-
-| Bölüm | Konu | Bir cümlelik öz |
-|---|---|---|
-| 00 | Başlangıç, İndeks ve Yasal Manifesto | Kitabın kapsamı, kime hitap ettiği ve "alıcı serbest, verici sorumluluk" çizgisi |
-| 01 | Temeller: RF Fiziği ve Modülasyon | f=c/λ, dB/dBm, FSPL, SNR/Shannon, AM/FM/PSK/QAM/OFDM, IQ örnekleme |
-| 02 | SDR Cihazları Derinlemesine | RTL-SDR/HackRF/Airspy/USRP/Pluto/KrakenSDR — hangisi, neden |
-| 03 | Antenler, Donanım ve Devre | Anten türleri/boyu, LNA, filtre, güç mantığı, yön bulma (DF) temeli |
-| 04 | Yazılım, OS ve Kurulum | Linux/DragonOS/Windows, sürücüler, GQRX/SDR#/GNU Radio/URH, lab kurulumu |
-| 05 | Protokoller ve Sinyal Çözümleme | ADS-B, AIS, NOAA, rtl_433, APRS, FT8; 2G/3G/4G/5G mimari ve güvenlik |
-| 06 | Güvenlik, Açıklar ve Savunma | Manipüle edilebilir/edilemez sinyaller, replay/spoofing/jamming, SS7/IMSI-catcher, TEMPEST, OPSEC |
-| 07 | Disiplinler ve Sinyal Ayıklama | COMINT/ELINT/FISINT, TCPED, PDW, deinterleaving, AMC, SEI, trafik analizi, LPI/LPD |
-| 08 | Frekans Tahsisi ve Bant Planı | ITU/regülatör, havacılık/denizcilik/askeri/amatör/ISM/uydu/hücresel bantları, frekans-sahibi metodolojisi |
-| 14 | İstihbarat Kaynakları, Topluluk ve Güncel Takip | Bilgi hijyeni, clear web kaynakları, akademik/konferans, zafiyet ekosistemi, standartlar, underground (yasal çerçeve), senior yol haritası |
-
-Not: Bölüm numaralandırmasında 08 ile 14 arasındaki bölümler bu dosya kapsamında ele alınmadı; mevcut seri dosyaları 00-08 ve bu 14. bölümdür. Ara bölümlerin başlık/kapsamı, koleksiyonun ilgili dosyalarından teyit edilmelidir.
+Bu bölüm, serinin istihbarat-kaynakları ve güncel-takip parçasıdır. Geriye, ilgili bölümlere bağlanmak ve baştan beri taşıdığımız etik çizgiyi yinelemek kalıyor.
 
 ### Çapraz referans (tüm seri ve CTI kütüphanesi)
 
-Bu bölüm, serinin en "yatay" parçasıdır; hepsine bağlanır. Doğrudan ilişkiler:
+Bu bölüm, serinin en "yatay" parçasıdır; hepsine bağlanır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
 
-- SIGINT_01 — Bilgi hijyenindeki "sayıyı koşuluyla oku" ilkesi, oradaki dB/SNR/Shannon değerlerinin nasıl okunacağına dayanır.
-- SIGINT_02 / SIGINT_04 — Donanım ve yazılım için birincil kaynak (üretici dokümanı, proje wiki'si) bu bölümün "birincil kaynak" disiplininin uygulamasıdır; lab güncel-tutma oraya bağlanır.
-- SIGINT_05 — Telekom güvenliği literatürü (WiSec) ve 3GPP SA3 / GSMA CVD çerçevesi, oradaki hücresel mimari ve zafiyetlerin güncel takip ucudur.
-- SIGINT_06 — Zafiyet ekosistemi ve sorumlu açıklama etiği, oradaki saldırı/savunma ve OPSEC anlatısının "kaynak ve etik" tamamlayıcısıdır.
-- SIGINT_07 — Sinyal günlüğü, oradaki ELINT parametre kütüphanesinin kişisel/yasal halidir; sigidwiki ve sinyal-DB'leri oradaki ayıklama/sınıflandırmanın açık referansıdır.
-- SIGINT_08 — Tahsis veritabanları ve ulusal tablolar (BTK/FCC/ITU), oradaki frekans-sahibi metodolojisinin birincil kaynaklarıdır.
+Doğrudan ilgili bölümler ve CTI kütüphanesi:
+
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): zafiyet ekosistemi ve sorumlu açıklama etiğinin "kaynak ve etik" tamamlayıcısı.
+- [SIGINT_07 — SIGINT Disiplinleri ve Sinyal Ayıklama](SIGINT_07_DISIPLINLER_VE_SINYAL_AYIKLAMA.md): sigidwiki ve sinyal-DB'leri, ELINT parametre kütüphanesinin açık referansı.
+- [SIGINT_24 — Güncel Zafiyet Manzarası](SIGINT_24_GUNCEL_ZAFIYET_MANZARASI.md): CVE/KEV yaşam döngüsü ve atıflı zafiyet kataloğu.
+- [SIGINT_25 — Açık Kaynak Araç ve Kaynak Dizini](SIGINT_25_ACIK_KAYNAK_ARAC_DIZINI_GITHUB.md): topluluk/depo kaynaklarının dizini.
 - MISP_THREAT_INTEL_USTALIK_REHBERI.md — Meşru tehdit-istihbaratını süzülmüş/yapılandırılmış almanın (ISAC/ISAO, açık feed, CERT) ana referansı; underground'ın yasal alternatifi.
 - MITRE_ATTACK_USTALIK_REHBERI.md / TTP_AVCILIGI_USTALIK_REHBERI.md — Tehdit-aktörü ve TTP izlemenin çerçevesi; zafiyet ekosisteminin tehdit-davranışı tarafı.
 - OSINT_ARAC_SETI_USTALIK_REHBERI.md — Araştırırken kendini ele vermeme (OPSEC, "duvar", attribution kaçınma); underground/araştırma takibinin güvenlik disiplini bu rehberin OPSEC bölümüne çapraz referanstır.
@@ -446,12 +429,12 @@ Bu bölüm, serinin en "yatay" parçasıdır; hepsine bağlanır. Doğrudan ili�
 
 ### Etik manifesto (son kez)
 
-Bu serinin baştan sona değişmeyen çizgisi tek bir cümlede özetlenir: anlamak serbesttir, suç işlemek değildir. On dört bölüm boyunca elektromanyetik spektrumun fiziğini, donanımını, çözümlemesini, savunmasını ve takibini ele aldık; hiçbir yerde yetkisiz yayın, karıştırma, başkasının haberleşmesini çözme ya da yetkisiz erişim için reçete vermedik. Bu bölümde de underground'ı anlattık ama kapısını açmadık; çünkü altın kural değişmez: alıcı çoğu yerde serbesttir, verici her yerde sorumluluktur, ve sınırın ötesi bilgiyle değil yetkiyle aşılır.
+Bu serinin baştan sona değişmeyen çizgisi tek bir cümlede özetlenir: anlamak serbesttir, suç işlemek değildir. Seri boyunca elektromanyetik spektrumun fiziğini, donanımını, çözümlemesini, savunmasını ve takibini ele aldık; hiçbir yerde yetkisiz yayın, karıştırma, başkasının haberleşmesini çözme ya da yetkisiz erişim için reçete vermedik. Bu bölümde de underground'ı anlattık ama kapısını açmadık; çünkü altın kural değişmez: alıcı çoğu yerde serbesttir, verici her yerde sorumluluktur, ve sınırın ötesi bilgiyle değil yetkiyle aşılır.
 
 Senior olmak, bu sınırı en iyi bilen kişidir; çünkü tekniği en iyi bilen, onun nerede biteceğini de en iyi bilir. Bir junior "yapabilir miyim" diye sorar; bir senior "yapmalı mıyım, yetkim var mı, kime zarar verir" diye sorar. Bu kitabın sana kazandırmak istediği son şey budur: gücü değil, gücü taşıma olgunluğunu. Spektrum görünmezdir ama her yerdedir; onu görünür kıldın, anlamayı öğrendin, şimdi sorumlu kullanmayı sürdür. Ülkeni, bandını ve sürümünü teyit et; ve daima sınırın doğru tarafında kal.
 
 ---
 
-> Kapanış: Yoğun bir spektrum gibi, bilgi denizi de ilk bakışta gürültüdür; ama doğru kaynak, doğru doğrulama ve düzenli takip onu ayıklanabilir bir sinyale çevirir. Senior olmak bir varış değil, sürdürülen bir disiplindir: birincil kaynağa inmek, iddiayı doğrulamak, lab'ı yaşatmak, topluluğa katkı vermek ve sınırın doğru tarafında durmak. Bu bölüm serinin son teknik halkasıdır; ama öğrenme, tanımı gereği, hiç kapanmaz.
+> Kapanış: Yoğun bir spektrum gibi, bilgi denizi de ilk bakışta gürültüdür; ama doğru kaynak, doğru doğrulama ve düzenli takip onu ayıklanabilir bir sinyale çevirir. Senior olmak bir varış değil, sürdürülen bir disiplindir: birincil kaynağa inmek, iddiayı doğrulamak, lab'ı yaşatmak, topluluğa katkı vermek ve sınırın doğru tarafında durmak. Öğrenme, tanımı gereği, hiç kapanmaz.
 >
-> Bu doküman Kanije Kalesi güvenlik/SIGINT rehberleri koleksiyonunun SIGINT serisinin 14. ve kapanış bölümüdür. İlgili: `SIGINT_00`–`SIGINT_08`, `MISP_THREAT_INTEL_USTALIK_REHBERI.md`, `MITRE_ATTACK_USTALIK_REHBERI.md`, `OSINT_ARAC_SETI_USTALIK_REHBERI.md`, `TTP_AVCILIGI_USTALIK_REHBERI.md`, `WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md`.
+> Bu doküman Kanije Kalesi güvenlik/SIGINT rehberleri koleksiyonunun SIGINT serisinin istihbarat-kaynakları ve güncel-takip bölümüdür. Tüm bölümler için: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md). İlgili: `MISP_THREAT_INTEL_USTALIK_REHBERI.md`, `MITRE_ATTACK_USTALIK_REHBERI.md`, `OSINT_ARAC_SETI_USTALIK_REHBERI.md`, `TTP_AVCILIGI_USTALIK_REHBERI.md`, `WIRESHARK_AG_ANALIZ_USTALIK_REHBERI.md`.

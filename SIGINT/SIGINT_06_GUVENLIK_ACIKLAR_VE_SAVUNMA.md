@@ -1,7 +1,7 @@
 # SIGINT — BÖLÜM 6: SİNYAL GÜVENLİĞİ, AÇIKLAR VE SAVUNMA
-## Manipülasyon, Zafiyetler ve Korunma — Zero-to-Hero (SON BÖLÜM)
+## Manipülasyon, Zafiyetler ve Korunma — Zero-to-Hero
 
-> **Amaç:** SIGINT El Kitabı'nın bu **altıncı ve son bölümü**, önceki bölümlerde "dinleme/çözümleme" gözüyle öğrendiğin sinyalleri bu kez **güvenlik gözüyle** ele alır: *Hangi sinyal manipüle edilebilir, hangisi edilemez? Neden? Ve en önemlisi — NASIL tespit eder, NASIL korunursun?* Bu bölüm bir **savunma ve farkındalık** kılavuzudur; her açığı "nasıl çalışır + neden savunmasız + nasıl tespit/korunulur" çerçevesinde anlatır.
+> **Amaç:** SIGINT El Kitabı'nın bu **güvenlik ve savunma bölümü**, önceki bölümlerde "dinleme/çözümleme" gözüyle öğrendiğin sinyalleri bu kez **güvenlik gözüyle** ele alır: *Hangi sinyal manipüle edilebilir, hangisi edilemez? Neden? Ve en önemlisi — NASIL tespit eder, NASIL korunursun?* Bu bölüm bir **savunma ve farkındalık** kılavuzudur; her açığı "nasıl çalışır + neden savunmasız + nasıl tespit/korunulur" çerçevesinde anlatır.
 
 > **ÖNCE BUNU OKU — EN GÜÇLÜ YASAL UYARI:** Bu bölümdeki konuların **aktif uygulaması büyük ölçüde SUÇTUR ve tehlikelidir.** **Jamming (sinyal bastırma/karıştırma)** neredeyse her ülkede ağır cezalı bir telekomünikasyon suçudur, can güvenliğini (112/acil çağrı, havacılık, GPS) doğrudan tehlikeye atar ve insan öldürebilir. **Yetkisiz dinleme (interception)**, **spoofing (sahte sinyal üretme)**, **sahte baz istasyonu kurma** ve **başkasının haberleşmesine müdahale** suçtur (TR'de TCK 132–140 haberleşmenin gizliliği; ABD'de FCC/CALEA; AB'de ePrivacy). Bu bölüm sana **adım-adım saldırı reçetesi VERMEZ** — bilinçli olarak **prensip + savunma** düzeyinde kalır. Amaç: bu açıkların *var olduğunu bilerek* **kendini ve kurumunu savunman.** "Nasıl yapılır" değil, **"nasıl korunulur"** öğrenirsin.
 
@@ -23,7 +23,7 @@
 10. [ ALIŞTIRMALAR — Yasal, Kendi Cihazında](#10)
 11. [ Yaygın Hatalar & Yanılgılar](#11)
 12. [ Kanije Kalesi ile — Sinyal Farkındalığı](#12)
-13. [ SIGINT Etik Manifestosu + Tüm Bölümlere Çapraz Referans](#13)
+13. [ SIGINT Etik Manifestosu + Çapraz Referans](#13)
 
 ---
 
@@ -433,20 +433,18 @@ Kanije Kalesi (bu repo) **fiziksel/cihaz tehdidini** yöneten bir muhafızdır; 
    └────────────────────────────────────────────────────────────────────┘
 ```
 
-> **Kapanış:** SIGINT, bir "dinleme sanatı" değil, **sinyallerin nasıl güven kazandığını (ya da kaybettiğini) anlama disiplinidir.** Bu son bölümün özü tek cümlede: **bir sinyal, ancak tazelik + kimlik doğrulama + şifreleme taşıdığı ölçüde güvenlidir; taşımadığında manipülasyona açıktır — ve senin işin onu kırmak değil, hangi cihazının açık olduğunu bilip kapatmaktır.** Jamming, spoofing ve yetkisiz dinleme **suçtur ve tehlikelidir**; bu kitap onları *tanıman ve savunman* için vardır. Gerçek ustalık, gücü **kullanmamayı bilmektir.**
+> **Kapanış:** SIGINT, bir "dinleme sanatı" değil, **sinyallerin nasıl güven kazandığını (ya da kaybettiğini) anlama disiplinidir.** Bu bölümün özü tek cümlede: **bir sinyal, ancak tazelik + kimlik doğrulama + şifreleme taşıdığı ölçüde güvenlidir; taşımadığında manipülasyona açıktır — ve senin işin onu kırmak değil, hangi cihazının açık olduğunu bilip kapatmaktır.** Jamming, spoofing ve yetkisiz dinleme **suçtur ve tehlikelidir**; bu kitap onları *tanıman ve savunman* için vardır. Gerçek ustalık, gücü **kullanmamayı bilmektir.**
 
-### SIGINT El Kitabı — Tüm Bölümler
+### SIGINT El Kitabı — Bölümlere Erişim
 
-> Aşağıdaki bölüm dosyaları bu serinin parçalarıdır; mevcut olmayanlar yazıldıkça eklenir (**dosya adlarını kendi reponda teyit et**).
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
 
-| Bölüm | Konu | Dosya (öneri) |
-|---|---|---|
-| 1 | SIGINT'e Giriş — RF Spektrumu, COMINT/ELINT, Temel Kavramlar | `SIGINT_01_GIRIS_VE_TEMELLER.md` |
-| 2 | Donanım & SDR — RTL-SDR/HackRF, Anten, Alıcı Zinciri | `SIGINT_02_DONANIM_VE_SDR.md` |
-| 3 | Modülasyon & Demodülasyon — AM/FM/OOK/FSK/PSK, IQ | `SIGINT_03_MODULASYON_VE_SINYAL.md` |
-| 4 | Sayısal Sinyaller & Protokoller — Çözümleme, ADS-B/POCSAG/ACARS | `SIGINT_04_SAYISAL_PROTOKOLLER.md` |
-| 5 | Pratik Yakalama & Çözümleme İş Akışı — Araçlar, GNU Radio | `SIGINT_05_YAKALAMA_VE_COZUMLEME.md` |
-| **6** | **Sinyal Güvenliği, Açıklar ve Savunma (BU BÖLÜM)** | `SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md` |
+Doğrudan ilgili bölümler:
+- [SIGINT_05 — Protokoller ve Sinyal Çözümleme](SIGINT_05_PROTOKOLLER_VE_SINYAL_COZUMLEME.md): "nasıl çalışır" tarafı; bu bölüm onu savunmaya taşır.
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): aktif RF tehdit, jamming/spoofing savunması.
+- [SIGINT_17 — TEMPEST, Emanasyon ve Yan-Kanal](SIGINT_17_TEMPEST_EMANASYON_VE_YAN_KANAL.md): fiziksel sızıntı ve emisyon güvenliği derinliği.
+- [SIGINT_20 — İleri Hücresel: 4G/5G Güvenlik](SIGINT_20_ILERI_HUCRESEL_4G_5G_GUVENLIK.md): sahte BTS, SS7/Diameter, SUCI mimari derinliği.
+- [SIGINT_24 — Güncel Zafiyet Manzarası](SIGINT_24_GUNCEL_ZAFIYET_MANZARASI.md): CVE'ler, prensip, savunma ve kronoloji.
 
 ### İlgili Kanije Kalesi Ustalık Rehberleri
 
@@ -459,4 +457,4 @@ Kanije Kalesi (bu repo) **fiziksel/cihaz tehdidini** yöneten bir muhafızdır; 
 
 ---
 
-> *Bu doküman, Kanije Kalesi güvenlik rehberleri koleksiyonunun ve **SIGINT El Kitabı'nın son (6.) bölümünün** parçasıdır. SIGINT'i öğrenmenin amacı **gücü kötüye kullanmak değil, onun var olduğunu bilerek kendini ve başkalarını savunmaktır.** Sinyaller yalan söyleyebilir — sen onları doğrulamayı öğren.*
+> *Bu doküman, Kanije Kalesi güvenlik rehberleri koleksiyonunun ve **SIGINT El Kitabı'nın güvenlik/savunma bölümünün** parçasıdır. SIGINT'i öğrenmenin amacı **gücü kötüye kullanmak değil, onun var olduğunu bilerek kendini ve başkalarını savunmaktır.** Sinyaller yalan söyleyebilir — sen onları doğrulamayı öğren.*

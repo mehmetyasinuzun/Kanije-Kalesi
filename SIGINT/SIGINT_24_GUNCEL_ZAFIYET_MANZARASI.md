@@ -383,3 +383,14 @@ Bu bölüm bir indeks/zaman çizelgesi katmanıdır; derin işleyiş için ilgil
 Çapraz kavram bağları: Bu bölümdeki her "saldırı sınıfı", Bölüm 6'nın manipüle-edilebilir/edilemez çerçevesiyle (replay/spoofing'i ne engeller), Bölüm 13'ün tehdit→tespit→savunma matrisiyle ve MITRE ATT&CK / MISP / OSINT akışlarıyla (Bölüm 14) eşlenebilir. Bir zafiyeti yalnızca "CVE" olarak değil, bir TTP, bir tespit imzası ve bir yama önceliği olarak görmek, bu kataloğu istihbarata çeviren bakıştır.
 
 > Kapanış: Zafiyet manzarası durağan değildir; bu katalog bir fotoğraftır, harita değil. Değeri, ezberinde değil, ürettiği reflekstedir: yeni bir açık duyduğunda onu §1'in dört ekseninde sınıflandırmak, §11'in yaşam döngüsünde konumlandırmak, §12'nin kaynaklarından teyit etmek ve §13'ün yetkili çerçevesinde — yalnızca kendi sistemlerinde — doğrulamak. CVE numaraları ve tarihler için daima birincil kaynağa (NVD, üretici advisory, akademik makale) dönülmeli; bu bölüm emin olmadığı her yerde bunu açıkça not etmiştir.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): manipüle-edilebilir/edilemez çerçevesi (replay/spoofing'i ne engeller).
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): tehdit→tespit→savunma matrisi.
+- [SIGINT_15 — WiFi/WLAN Güvenliği](SIGINT_15_WIFI_WLAN_GUVENLIGI.md): WiFi zafiyetlerinin (KRACK, Dragonblood, WPS) derinliği.
+- [SIGINT_16 — Kısa Menzilli Kablosuz ve IoT](SIGINT_16_KISA_MENZIL_KABLOSUZ_VE_IOT.md): BLE/IoT/keyless zafiyetlerinin derinliği.
+- [SIGINT_14 — İstihbarat Kaynakları ve Güncel Takip](SIGINT_14_ISTIHBARAT_KAYNAKLARI_VE_TAKIP.md): CVE/KEV ve güncel kalma disiplini.

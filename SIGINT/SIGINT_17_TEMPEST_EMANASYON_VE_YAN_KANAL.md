@@ -486,15 +486,15 @@ Bu bölümdeki her teknik savunma, farkındalık ve mühendislik sezgisi içindi
 
 ---
 
-### Serinin diğer bölümleri (çapraz referans)
-
-- SIGINT_01 — RF Fiziği, Spektrum ve Modülasyon: değişken akımın alan üretmesi, harmonikler, FSPL, SNR. (Emanasyonun neden var olduğunun ve mesafeyle neden zayıfladığının fiziksel temeli oradadır.)
-- SIGINT_02 — SDR Donanımları ve Yazılım Ekosistemi: RTL-SDR/HackRF/SDR yazılımları. (Alıştırmalardaki emanasyon gözlemini burada anlatılan araçlarla yaparsın; TempestSDR türü projeler kavramsal olarak bu ekosistemde yaşar.)
-- SIGINT_03 — Anten Teorisi, LNA ve Yön Bulma: anten, düşük gürültülü yükselteç, yakın-alan kavramı. (Emanasyon ölçümünün anten/LNA tarafı oradadır.)
-- SIGINT_06 — Güvenlik, Açıklar ve Savunma: TEMPEST/yan-kanal farkındalığı, OPSEC, emisyon güvenliği. (Bu bölüm, oranın TEMPEST farkındalığının derin/ölçümlü karşılığıdır.)
-- SIGINT_07 — Disiplinler ve Sinyal Ayıklama (Trafik Analizi): "şifreleme içeriği korur, meta-veri sızar." (Bu bölümün fiziksel-emanasyon dersi, oranın meta-veri-sızıntısı dersinin fizik düzeyindeki kardeşidir.)
-- SIGINT_13 — RF Tehdit ve Karşı Önlemler: aktif RF tehdidi + TEMPEST/yan-kanal manzarası. (Bu bölüm, oranın "yan-kanal/TEMPEST" başlığının tam ayrıntısıdır.)
-
 > Kapanış: Bir bilgisayar açıldığı andan itibaren, hiç istemediği halde, etrafına zayıf bir radyo yayını, duyulmaz bir ses, dalgalanan bir güç çekişi ve titreşen bir ışık saçar. Bu sızıntıların çoğu anlamsız gürültüdür; ama bir kısmı, cihazın işlediği bilginin gölgesini taşır. TEMPEST'in dersi karamsarlık değil, dürüstlüktür: güvenlik yalnızca şifrelediğin veride değil, o veriyi işleyen fiziksel makinenin sustuğu yerde bile bıraktığı izde yatar. Ekranlama havayı, filtreleme bakırı, mesafe ve zon coğrafyayı, sabit-zaman tasarım algoritmayı susturur; ve bunların hiçbiri tek başına yetmez. Bir sonraki adım, bu sezgiyi kendi cihazının yaydığı gerçek gürültüyü kendi SDR'ınla, kendi ortamında, pasifçe gözleyerek sınamaktır — çünkü emanasyon soyut bir tehdit değil, ölçülebilir bir fiziktir.
->
-> Bu doküman Kanije Kalesi güvenlik/teknik rehberleri koleksiyonunun SIGINT serisinin 17. bölümüdür. İlgili: SIGINT_01–13, `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`, `VERACRYPT_USTALIK_REHBERI.md`.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): emanasyonun neden var olduğunun ve mesafeyle neden zayıfladığının fiziği.
+- [SIGINT_03 — Antenler, Donanım ve Devre Tasarımı](SIGINT_03_ANTEN_DONANIM_VE_DEVRE_TASARIMI.md): emanasyon ölçümünün anten/LNA ve yakın-alan tarafı.
+- [SIGINT_06 — Güvenlik, Açıklar ve Savunma](SIGINT_06_GUVENLIK_ACIKLAR_VE_SAVUNMA.md): TEMPEST/yan-kanal farkındalığı, OPSEC, emisyon güvenliği.
+- [SIGINT_07 — SIGINT Disiplinleri ve Sinyal Ayıklama](SIGINT_07_DISIPLINLER_VE_SINYAL_AYIKLAMA.md): "şifreleme içeriği korur, meta-veri sızar" dersinin kardeşi.
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): aktif RF tehdidi ve yan-kanal/TEMPEST manzarası.

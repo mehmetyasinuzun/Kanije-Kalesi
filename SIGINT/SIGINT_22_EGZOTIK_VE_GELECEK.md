@@ -876,23 +876,15 @@ Bu bölümün bazı konuları yerleşik fizik değil, araştırma/erken-konuşla
 | Pulsar tabanlı navigasyon | Araştırma/kavram aşamasında |
 | Derin-uzay optik haberleşme | Test/gösterim aşamasında |
 
-### Serinin diğer bölümleri (çapraz referans)
-
-- SIGINT_01 — RF Fiziği, Spektrum ve Modülasyon: FSPL, dB/dBm, Shannon kapasitesi, IQ. (Bu bölümdeki EME yol kaybı, zayıf-sinyal kodlama kazancı ve ELF kapasite-takasının fiziksel temeli oradadır.)
-- SIGINT_02 — SDR Donanımları ve Yazılım Ekosistemi: RTL-SDR/HackRF/USRP, GNU Radio. (Alıştırmalardaki WSPR/VLF/LEO gözlemlerini burada üretirsin.)
-- SIGINT_03 — Anten Teorisi, Kapsama ve Yön Bulma (DF): dizi antenler, DF temelleri. (EME'nin büyük yönlü dizileri ve faz dizili anten ilkesinin temeli orada.)
-- SIGINT_05 — Hücresel/WiFi/BT ve IoT Spektrumu: protokol imzaları. (Direct-to-device ve uydu-IoT'nin karasal komşusu orada.)
-- SIGINT_06 — TEMPEST, RF Sızıntısı ve Savunma: istem dışı yayın, OPSEC. (Ducting'in "uzaktan duyulma" riski ve Li-Fi'nin "duvar geçmeyen" gizliliği oranın kardeşidir.)
-- SIGINT_07 — Disiplinler ve Sinyal Ayıklama: AMC, deinterleaving, kütüphane eşleştirme, cyclostationarity. (Bilinmeyen-sinyal metodolojisinin ayıklama/sınıflandırma çekirdeği orada.)
-- SIGINT_08 — Frekans Tahsisi ve Bant Planı: "bu bandda ne beklenir" referansı. (Bilinmeyen sinyal akışının ilk adımı oraya dayanır.)
-- SIGINT_09 — Yer Tespiti, Yön Bulma ve Takip: TDOA, AOA, çoklu-alıcı konumlama. (eLORAN'ın TDOA mantığı ve metodolojinin "nereden" adımı orada.)
-- SIGINT_10 — GNSS/GPS Sistemleri: uydu zamanlama, zayıf sinyal, jamming/spoofing. (eLORAN'ın yedeklediği birincil PNT ve "GNSS kırılganlığı" oradadır.)
-- SIGINT_11 — Uydu Haberleşmesi: GEO/LEO temelleri, link bütçesi. (Mega-konstelasyon ve Doppler/handover ayrıntısının temeli oradadır.)
-- SIGINT_13 — RF Tehdit ve Karşı Önlemler: jamming, spoofing, dayanıklılık. (eLORAN yedekleme ve AI-radyonun karıştırmadan kaçma gerekçesi orada.)
-- SIGINT_18 — Massive MIMO ve Beamforming (planlanan): uzamsal işleme derinlemesine. (Faz dizili anten ve hüzme yönlendirmenin tam matematiği orada.)
-- SIGINT_19 — Yapay Zekâ-Tanımlı Radyo (planlanan): öğrenen radyo derinlemesine. (Bu bölümdeki AI-radyo özetinin tam işlenişi orada.)
-- SIGINT_20 — İleri Hücresel 4G/5G Güvenlik: modern hücresel mimari. (OFDM, beamforming ve yeni dalga formlarının hücresel bağlamı orada.)
-
 > Kapanış: Sıradan spektrum, çizgi-görüş ve sabit tahsisten ibaret görünür; ama kenarlarında atmosfer bir aynaya, bir meteorun izi geçici bir yansıtıcıya, Ay uzak bir hedefe dönüşür — ve dibinde, yıldırımın doğal radyosu hiç susmaz. Geleceğe baktığımızda ise spektrum giderek daha kalabalık (mega-konstelasyonlar), daha akıllı (bilişsel/AI radyo), daha yüksek (mmWave/THz) ve daha güvenli-ama-yeni-tehditli (post-kuantum) bir ekosisteme dönüşüyor. Bu bölümün tek bir sezgisi varsa o da şudur: spektrum statik bir tablo değil, fiziği güneşe ve havaya, geleceği insanın mühendisliğine bağlı, sürekli yaşayan bir ortamdır. Bir araştırmacının ustalığı, tanımadığı bir sinyalle karşılaştığında paniğe değil metoda — nerede, ne zaman, nasıl, hangi ritimde, nereden, neye benziyor, nasıl teyit ederim — başvurabilmesidir. Bandını, ülkeni ve sürümünü teyit et; bu kitap anlama, savunma ve merak içindir.
->
-> Bu doküman Kanije Kalesi güvenlik/teknik rehberleri koleksiyonunun SIGINT serisinin 22. bölümüdür. İlgili: SIGINT_01–20, `VERACRYPT_USTALIK_REHBERI.md`, `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): EME yol kaybı, zayıf-sinyal kodlama kazancı ve ELF kapasite-takasının fiziği.
+- [SIGINT_10 — GNSS/GPS Sistemleri](SIGINT_10_GNSS_GPS_SISTEMLERI.md): eLORAN'ın yedeklediği birincil PNT ve GNSS kırılganlığı.
+- [SIGINT_11 — Uydu Haberleşmesi](SIGINT_11_UYDU_HABERLESMESI.md): GEO/LEO ve link bütçesi; mega-konstelasyonun temeli.
+- [SIGINT_19 — Yapay Zeka ve ML ile SIGINT](SIGINT_19_YAPAY_ZEKA_VE_ML_SIGINT.md): bu bölümdeki AI-radyo özetinin tam işlenişi.
+- [SIGINT_32 — Uydu-IoT ve Mega-Konstelasyonlar](SIGINT_32_UYDU_IOT_VE_MEGA_KONSTELASYON.md): mega-konstelasyon ve direct-to-device derinliği.

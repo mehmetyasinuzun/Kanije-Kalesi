@@ -631,18 +631,17 @@ Bu bölümdeki tüm teknikler tasarım gereği **kendi aracında ve yetkili test
 
 ---
 
-### Serinin diğer bölümleri (çapraz referans)
-
-- **SIGINT_01** — RF Fiziği, Spektrum ve Modülasyon: UHF/LF bantları, OOK/FSK, dB/menzil mantığı. (RKE/PKES/TPMS modülasyon ve bant kavramlarının fiziksel temeli.)
-- **SIGINT_02** — SDR Cihazları Derinlemesine: RTL-SDR, HackRF, Flipper Zero. (Anahtar fob/TPMS dinleme alıştırmalarının donanım dayanağı.)
-- **SIGINT_03** — Antenler, Donanım & Devre (LNA, yön bulma): "kısa menzil neden uzatılabilir" — relay'in fiziksel mantığının arkası.
-- **SIGINT_05** — Protokoller & Sinyal Çözümleme: rtl_433 ile kendi sensörlerin (TPMS dahil), IoT/sub-GHz çözümleme.
-- **SIGINT_06** — Güvenlik, Açıklar & Savunma: replay/spoofing/relay prensibi ve savunma doktrininin kökü; "tekrar edilebilen güvenli değildir".
-- **SIGINT_13** — RF Tehdit ve Karşı-Önlemler: keyless relay/UWB savunması, KeeLoq, jamming, drone RF — bu bölümün anahtarsız/relay tarafının ana RF-tehdit referansı.
-- **SIGINT_16** — Kısa Menzilli Kablosuz ve IoT: BLE/RFID/Sub-GHz/keyless'in genel çerçevesi; MIFARE Crypto-1 dersi (immobilizer transponder kriptosuyla aynı ders); TPMS gizliliği.
-- **SIGINT_23** — Saldırı Vektörleri ve DoS Taksonomisi: bus monopolizasyonu/jamming gibi kaynak-tüketme sınıflarının çatısı; CIA eşlemesi.
-- **SIGINT_24** — Güncel Zafiyet Manzarası: otomotiv saldırı yüzeyinin yakınlıktan uzaktan-bağlanabilirliğe (telematik/bulut) kayışının güncel bağlamı.
-
 > Kapanış: Modern otomobil, mühendislik tarihinin en görünür "kapalı sanılan ağın açılması" örneğidir. CAN ve kardeş veriyolları, kötü niyetli bir düğümün asla bağlanmayacağı varsayımıyla tasarlandı; anahtarsız sistemler "LF'i duyan yakındır" varsayımına; immobilizer'lar gizli kriptoya güvendi. Her varsayım, bağlanabilirlik ve araştırma ilerledikçe sınandı ve kısmen çöktü — ve her çöküş, aynı beş soruyla onarılıyor: şifreli mi, kimlik doğrulanıyor mu, taze mi, gerçekten yakın mı, kuşatılmış ve izlenir mi? Bir otomotiv güvenlik araştırmacısının işi, bu soruları bir aracın her katmanında — iç veriyolundan bulut servisine — sormak ve cevapları **savunmayı güçlendirmek** için kullanmaktır; asla başkasının aracına zarar vermek için değil. Bir sonraki adım, bu sezgiyi yalnızca **kendi aracının ve anahtarının yasal, pasif gözlemi** üzerinde sınamaktır.
->
-> Bu doküman Kanije Kalesi güvenlik/teknik rehberleri koleksiyonunun SIGINT serisinin 30. bölümüdür. İlgili: SIGINT_01–24, `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`, `VERACRYPT_USTALIK_REHBERI.md`.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_01 — RF Fiziği ve Modülasyon](SIGINT_01_TEMELLER_RF_VE_MODULASYON.md): UHF/LF bantları, OOK/FSK ve menzil mantığının temeli.
+- [SIGINT_16 — Kısa Menzilli Kablosuz ve IoT](SIGINT_16_KISA_MENZIL_KABLOSUZ_VE_IOT.md): BLE/RFID/sub-GHz/keyless çerçevesi; MIFARE Crypto-1 dersi.
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): keyless relay/UWB savunması, KeeLoq, drone RF.
+- [SIGINT_23 — Kablosuz Saldırı Vektörleri ve DoS](SIGINT_23_SALDIRI_VEKTORLERI_VE_DOS.md): bus monopolizasyonu/jamming gibi kaynak-tüketme sınıfları.
+- [SIGINT_24 — Güncel Zafiyet Manzarası](SIGINT_24_GUNCEL_ZAFIYET_MANZARASI.md): otomotiv saldırı yüzeyinin telematik/buluta kayışı.
+
+İlgili kale rehberleri: `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`, `VERACRYPT_USTALIK_REHBERI.md`.

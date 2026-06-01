@@ -738,20 +738,15 @@ Yasal gerçek nettir ve tekrar edilmeyi hak eder: Kritik altyapıya ve endüstri
 
 ---
 
-### Serinin diğer bölümleri (çapraz referans)
-
-- SIGINT_01 — RF Fiziği, Spektrum ve Modülasyon: FSPL, dB/dBm, SNR, yayılı spektrum temeli. (J/S oranının, karıştırma fiziğinin ve FHSS/DSSS karıştırma-direncinin fiziksel kökü orada.)
-- SIGINT_02 — SDR Donanımları ve Yazılım Ekosistemi: RTL-SDR/HackRF, waterfall okuma, rtl_433. (Telemetri imza gözlemi ve karıştırma tespiti alıştırmalarının pasif ölçüm tabanı orada.)
-- SIGINT_03 — Anten Teorisi, Kapsama ve Yön Bulma (DF): yön bulma, dizi, null-steering. (Karıştırıcı/kaçak yayıcı kaynak tespitinin matematiği orada.)
-- SIGINT_04 — Sayısal Demodülasyon ve Protokol Kod Çözme. (Telemetri protokollerinin demodülasyon/çözümleme bağlamı orada.)
-- SIGINT_06 — TEMPEST, RF Sızıntısı ve SIGINT'e Karşı Savunma: emisyon güvenliği, şifreleme/kimlik doğrulama temeli. (Güvenli protokol varyantlarının kriptografik temeli ve yan-kanal farkındalığı orada.)
-- SIGINT_08 — Frekans Tahsisi ve Bant Planı: tahsis tabloları, hizmet eşleştirme. ("Beklenmedik bantta enerji = anomali" yorumunun ve telemetri bant tahsislerinin referansı orada.)
-- SIGINT_10 — GNSS/GPS Sistemleri: konum ve özellikle zaman bağımlılığı, GNSS kırılganlığı. (Enerji şebekesi zaman senkronu ve GNSS karıştırma/sahteleme savunmasının tam ayrıntısı orada.)
-- SIGINT_11 — Uydu Haberleşmesi: VSAT, footprint, uydu link güvenliği. (Uydu SCADA bağlarının bağlamı ve güvenlik tartışması orada.)
-- SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler: J/S, karıştırma türleri/tespiti/savunması, replay/spoof/relay, dayanıklılık merdiveni. (Bu bölümün RF tehdit ve dayanıklılık çekirdeği orada; ICS uyarlaması bu bölümde.)
-- SIGINT_16 — Kısa Menzilli Kablosuz ve IoT: Zigbee, LoRa, sub-GHz, rolling-code, endüstriyel telemetri değinisi. (Endüstriyel Zigbee/LoRaWAN/sub-GHz zafiyet bağlamı orada.)
-- SIGINT_20 — İleri Hücresel 4G/5G Güvenlik: özel APN, NB-IoT/LTE-M, çekirdek ağ zafiyetleri. (Hücresel endüstriyel bağların ve çekirdek-taraf risklerin ayrıntısı orada.)
-- SIGINT_23 — Kablosuz Saldırı Vektörleri Taksonomisi ve DoS: CIA/AIC, MitM, kaynak/erişilebilirlik saldırıları. (ICS saldırı yüzeyinin genel taksonomik çatısı orada.)
-- SIGINT_24 — Güncel Zafiyet Manzarası: bilinen açıklar, prensip+etki+savunma, CVE disiplini. (Endüstriyel/IoT protokol ve cihaz zafiyetlerinin atıflı kataloğu orada.)
-
 > Bu bölüm, serinin kritik altyapı yüzünü ICS/OT güvenlik uzmanı perspektifinden ele alır: SCADA/ICS mimarisi, IT/OT farkı, endüstriyel kablosuz teknolojiler, telemetri protokolleri, saldırı yüzeyi ve derinlemesine savunma — hepsi prensip + tespit + savunma + yasal çerçevede, hiçbir operasyonel saldırı reçetesi olmadan. İlgili kale rehberleri: `WINDOWS11_HARDENING_KALE.md`, `LINUX_HARDENING_KALE.md`.
+
+---
+
+Bu bölüm, Kanije Kalesi SIGINT El Kitabı'nın parçasıdır. Tüm bölümler ve önerilen okuma sırası için indekse bakın: [SIGINT_00 — Başlangıç ve İndeks](SIGINT_00_BASLANGIC_INDEX_VE_YASAL.md).
+
+Doğrudan ilgili bölümler:
+- [SIGINT_13 — RF Tehdit Manzarası ve Karşı-Önlemler](SIGINT_13_RF_TEHDIT_VE_KARSI_ONLEMLER.md): J/S, karıştırma türleri/savunması ve dayanıklılık merdiveni — RF tehdit çekirdeği.
+- [SIGINT_10 — GNSS/GPS Sistemleri](SIGINT_10_GNSS_GPS_SISTEMLERI.md): enerji şebekesi zaman senkronu ve GNSS karıştırma/sahteleme savunması.
+- [SIGINT_16 — Kısa Menzilli Kablosuz ve IoT](SIGINT_16_KISA_MENZIL_KABLOSUZ_VE_IOT.md): endüstriyel Zigbee/LoRaWAN/sub-GHz zafiyet bağlamı.
+- [SIGINT_20 — İleri Hücresel: 4G/5G Güvenlik](SIGINT_20_ILERI_HUCRESEL_4G_5G_GUVENLIK.md): özel APN, NB-IoT/LTE-M ve çekirdek ağ zafiyetleri.
+- [SIGINT_24 — Güncel Zafiyet Manzarası](SIGINT_24_GUNCEL_ZAFIYET_MANZARASI.md): endüstriyel/IoT protokol ve cihaz zafiyetlerinin atıflı kataloğu.
