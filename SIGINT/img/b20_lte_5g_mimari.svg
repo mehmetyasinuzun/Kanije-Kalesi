@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">LTE EPC ve 5G NR/5GC Mimari Karsilastirmasi</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#6b7a90">EPC dugum → 5GC karsili ve SBA donusumu — eslesme oklari + Servis-Tabanli Mimari notu</text>
+
+  <defs>
+    <marker id="arrowb" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#1565c0"/>
+    </marker>
+    <marker id="arrowg" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#1a8a3a"/>
+    </marker>
+    <marker id="arrowgray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#6b7a90"/>
+    </marker>
+  </defs>
+
+  <!-- LTE Sol Sutun -->
+  <rect x="20" y="60" width="340" height="380" rx="5" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="190" y="82" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565c0">LTE / EPC</text>
+  <text x="190" y="96" text-anchor="middle" font-size="10" fill="#6b7a90">Evolved Packet Core — Kontrol + Veri birlesi</text>
+
+  <!-- UE -->
+  <rect x="80" y="108" width="110" height="40" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="135" y="124" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">UE</text>
+  <text x="135" y="138" text-anchor="middle" font-size="9" fill="#4a5a70">Cihaz + USIM</text>
+
+  <!-- eNodeB -->
+  <rect x="55" y="168" width="160" height="40" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="135" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">eNodeB</text>
+  <text x="135" y="198" text-anchor="middle" font-size="9" fill="#4a5a70">Baz ist. — radyo + AS sif.</text>
+
+  <!-- E-UTRAN etiketi -->
+  <rect x="42" y="102" width="184" height="116" rx="3" fill="none" stroke="#1565c0" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="55" y="115" font-size="8" fill="#1565c0">E-UTRAN (radyo)</text>
+
+  <!-- Ok: UE-eNB -->
+  <line x1="135" y1="148" x2="135" y2="168" stroke="#1565c0" stroke-width="1.5" marker-end="url(#arrowb)"/>
+
+  <!-- MME -->
+  <rect x="50" y="238" width="96" height="44" rx="4" fill="#bbdefb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="98" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">MME</text>
+  <text x="98" y="268" text-anchor="middle" font-size="9" fill="#1a2b40">Kontrol beyni</text>
+  <text x="98" y="280" text-anchor="middle" font-size="9" fill="#4a5a70">Kimlik dogr.</text>
+
+  <!-- HSS -->
+  <rect x="162" y="238" width="76" height="44" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="200" y="257" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">HSS</text>
+  <text x="200" y="270" text-anchor="middle" font-size="9" fill="#4a5a70">Abone DB</text>
+  <text x="200" y="282" text-anchor="middle" font-size="9" fill="#4a5a70">Anahtar kaynagi</text>
+
+  <!-- SGW -->
+  <rect x="50" y="302" width="88" height="44" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="94" y="319" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">SGW</text>
+  <text x="94" y="332" text-anchor="middle" font-size="9" fill="#4a5a70">Kullanici veri</text>
+  <text x="94" y="344" text-anchor="middle" font-size="9" fill="#4a5a70">yerel GW</text>
+
+  <!-- PGW -->
+  <rect x="155" y="302" width="88" height="44" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="199" y="319" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">PGW</text>
+  <text x="199" y="332" text-anchor="middle" font-size="9" fill="#4a5a70">Internet/PDN</text>
+  <text x="199" y="344" text-anchor="middle" font-size="9" fill="#4a5a70">cikis kapisi</text>
+
+  <!-- PCRF -->
+  <rect x="260" y="302" width="80" height="44" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="300" y="323" text-anchor="middle" font-size="10" font-weight="bold" fill="#6b7a90">PCRF</text>
+  <text x="300" y="337" text-anchor="middle" font-size="9" fill="#4a5a70">Politika</text>
+  <text x="300" y="349" text-anchor="middle" font-size="9" fill="#4a5a70">kurallari</text>
+
+  <!-- EPC iç baglantı okları -->
+  <line x1="135" y1="208" x2="98" y2="238" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arrowb)"/>
+  <line x1="135" y1="208" x2="135" y2="302" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arrowg)"/>
+  <line x1="98" y1="282" x2="94" y2="302" stroke="#1565c0" stroke-width="1" marker-end="url(#arrowb)"/>
+  <line x1="138" y1="324" x2="155" y2="324" stroke="#1a8a3a" stroke-width="1" marker-end="url(#arrowg)"/>
+
+  <!-- EPC etiket altında internet icin ok -->
+  <text x="199" y="360" text-anchor="middle" font-size="9" fill="#1a8a3a">↓ Internet</text>
+
+  <!-- LTE ozetle -->
+  <text x="190" y="410" text-anchor="middle" font-size="9" fill="#4a5a70">S1: eNB↔EPC | X2: eNB↔eNB</text>
+  <text x="190" y="424" text-anchor="middle" font-size="9" fill="#4a5a70">Kontrol: NAS (UE↔MME) | Veri: AS (UE↔eNB↔SGW)</text>
+  <text x="190" y="438" text-anchor="middle" font-size="9" fill="#c0392b">Zayiflik: UP butunluk yok; IMSI acik gidebilir</text>
+
+  <!-- Orta: esleme oklari -->
+  <rect x="368" y="100" width="124" height="300" rx="5" fill="#ffffff" stroke="#d3dde8" stroke-width="1"/>
+  <text x="430" y="118" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Eslesme</text>
+  <line x1="390" y1="126" x2="470" y2="126" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- Eslesme satirları -->
+  <text x="430" y="148" text-anchor="middle" font-size="9" fill="#4a5a70">eNodeB → gNB</text>
+  <line x1="385" y1="153" x2="474" y2="153" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="430" y="170" text-anchor="middle" font-size="9" fill="#4a5a70">MME → AMF</text>
+  <line x1="385" y1="175" x2="474" y2="175" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="430" y="192" text-anchor="middle" font-size="9" fill="#4a5a70">HSS → UDM+AUSF</text>
+  <line x1="385" y1="197" x2="474" y2="197" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="430" y="214" text-anchor="middle" font-size="9" fill="#4a5a70">SGW → UPF</text>
+  <line x1="385" y1="219" x2="474" y2="219" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="430" y="236" text-anchor="middle" font-size="9" fill="#4a5a70">PGW → UPF+SMF</text>
+  <line x1="385" y1="241" x2="474" y2="241" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="430" y="258" text-anchor="middle" font-size="9" fill="#4a5a70">PCRF → PCF</text>
+
+  <!-- Eslesme oklari (2 tarafli) -->
+  <line x1="362" y1="148" x2="368" y2="148" stroke="#ff8f00" stroke-width="1.5" marker-end="url(#arrowgray)"/>
+  <line x1="492" y1="148" x2="498" y2="148" stroke="#ff8f00" stroke-width="1.5" marker-end="url(#arrowgray)"/>
+  <line x1="362" y1="170" x2="368" y2="170" stroke="#ff8f00" stroke-width="1.5"/>
+  <line x1="492" y1="170" x2="498" y2="170" stroke="#ff8f00" stroke-width="1.5"/>
+
+  <!-- SBA notu -->
+  <rect x="374" y="280" width="112" height="110" rx="4" fill="#fff3e0" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="430" y="298" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">SBA Notu</text>
+  <line x1="382" y1="304" x2="482" y2="304" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="430" y="318" text-anchor="middle" font-size="9" fill="#4a5a70">5GC dugumler</text>
+  <text x="430" y="330" text-anchor="middle" font-size="9" fill="#4a5a70">HTTP/2 + TLS</text>
+  <text x="430" y="342" text-anchor="middle" font-size="9" fill="#4a5a70">uzerinden</text>
+  <text x="430" y="354" text-anchor="middle" font-size="9" fill="#4a5a70">birbirine</text>
+  <text x="430" y="366" text-anchor="middle" font-size="9" fill="#4a5a70">konusur</text>
+  <text x="430" y="378" text-anchor="middle" font-size="9" fill="#ff8f00">(API/bulut yüzeyi)</text>
+
+  <!-- 5G Sag Sutun -->
+  <rect x="500" y="60" width="340" height="380" rx="5" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="670" y="82" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a8a3a">5G NR / 5GC</text>
+  <text x="670" y="96" text-anchor="middle" font-size="10" fill="#6b7a90">Next Gen Core — Servis Tabanli Mimari (SBA)</text>
+
+  <!-- UE 5G -->
+  <rect x="600" y="108" width="110" height="40" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="655" y="124" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">UE</text>
+  <text x="655" y="138" text-anchor="middle" font-size="9" fill="#4a5a70">USIM + SUCI</text>
+
+  <!-- gNB -->
+  <rect x="570" y="168" width="160" height="40" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="650" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">gNB</text>
+  <text x="650" y="198" text-anchor="middle" font-size="9" fill="#4a5a70">NR baz ist. — beamforming</text>
+
+  <!-- NG-RAN etiketi -->
+  <rect x="558" y="102" width="184" height="116" rx="3" fill="none" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="570" y="115" font-size="8" fill="#1a8a3a">NG-RAN (radyo)</text>
+
+  <!-- Ok: UE-gNB -->
+  <line x1="655" y1="148" x2="650" y2="168" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#arrowg)"/>
+
+  <!-- AMF -->
+  <rect x="516" y="238" width="80" height="44" rx="4" fill="#b2dfdb" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="556" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">AMF</text>
+  <text x="556" y="268" text-anchor="middle" font-size="9" fill="#1a2b40">Erisim+Hareketlilik</text>
+  <text x="556" y="280" text-anchor="middle" font-size="9" fill="#4a5a70">(MME≈)</text>
+
+  <!-- UDM -->
+  <rect x="608" y="238" width="68" height="44" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="642" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">UDM</text>
+  <text x="642" y="270" text-anchor="middle" font-size="9" fill="#4a5a70">Unif. Veri Yon.</text>
+  <text x="642" y="282" text-anchor="middle" font-size="9" fill="#4a5a70">(HSS≈)</text>
+
+  <!-- AUSF -->
+  <rect x="690" y="238" width="68" height="44" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="724" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">AUSF</text>
+  <text x="724" y="270" text-anchor="middle" font-size="9" fill="#4a5a70">Kimlik dogr.</text>
+  <text x="724" y="282" text-anchor="middle" font-size="9" fill="#4a5a70">Sunucu fonk.</text>
+
+  <!-- SIDF notu -->
+  <text x="724" y="295" text-anchor="middle" font-size="8" fill="#c0392b">SIDF: SUCI coz</text>
+
+  <!-- SMF -->
+  <rect x="516" y="302" width="70" height="44" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="551" y="319" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">SMF</text>
+  <text x="551" y="332" text-anchor="middle" font-size="9" fill="#4a5a70">Oturum Yon.</text>
+  <text x="551" y="344" text-anchor="middle" font-size="9" fill="#4a5a70">(PGW-C≈)</text>
+
+  <!-- UPF -->
+  <rect x="602" y="302" width="70" height="44" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="637" y="319" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">UPF</text>
+  <text x="637" y="332" text-anchor="middle" font-size="9" fill="#4a5a70">Kullanici Duzl.</text>
+  <text x="637" y="344" text-anchor="middle" font-size="9" fill="#4a5a70">→ Internet</text>
+
+  <!-- PCF -->
+  <rect x="688" y="302" width="70" height="44" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="723" y="319" text-anchor="middle" font-size="10" font-weight="bold" fill="#6b7a90">PCF</text>
+  <text x="723" y="332" text-anchor="middle" font-size="9" fill="#4a5a70">Politika</text>
+  <text x="723" y="344" text-anchor="middle" font-size="9" fill="#4a5a70">(PCRF≈)</text>
+
+  <!-- 5GC iç baglan okları -->
+  <line x1="650" y1="208" x2="556" y2="238" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arrowg)"/>
+  <line x1="650" y1="208" x2="650" y2="302" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arrowg)"/>
+
+  <!-- SBA halkasi etrafinda SBA basligi -->
+  <text x="670" y="408" text-anchor="middle" font-size="9" fill="#1a8a3a">N1/N2: gNB↔AMF | N3/N4: UPF↔SMF/gNB</text>
+  <text x="670" y="422" text-anchor="middle" font-size="9" fill="#1a8a3a">SBA: tum 5GC dugumler HTTP/2+TLS ile haberlesir</text>
+  <text x="670" y="436" text-anchor="middle" font-size="9" fill="#1565c0">5G-AKA + SUCI + UP butunluk destegi</text>
+
+  <!-- Alt ozet bar -->
+  <rect x="20" y="448" width="820" height="24" rx="3" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="430" y="464" text-anchor="middle" font-size="10" fill="#4a5a70">NSA (Non-Standalone): 5G NR radyo + LTE EPC cekirdek — SIMirli guvenlik. SA (Standalone): tam 5GC — SUCI + SBA + EAP-AKA' tam aktif.</text>
+</svg>

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="500" fill="#f4f7fb"/>
+  <text x="380" y="27" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">SDR Cihaz Karar Agaci — Neye Gore Hangisi</text>
+
+  <!-- ===== BASLANGIC ===== -->
+  <rect x="300" y="40" width="160" height="40" fill="#1565c0" rx="6"/>
+  <text x="380" y="65" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">BASLA</text>
+
+  <!-- ok asagi -->
+  <line x1="380" y1="80" x2="380" y2="100" stroke="#6b7a90" stroke-width="1.8"/>
+  <polygon points="380,104 375,94 385,94" fill="#6b7a90"/>
+
+  <!-- SORU 1: Yon bulma? -->
+  <rect x="270" y="104" width="220" height="40" fill="#fff8e8" stroke="#ff8f00" stroke-width="1.5" rx="4"/>
+  <text x="380" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">Yon bulma / DF gerekli mi?</text>
+  <text x="380" y="134" text-anchor="middle" font-size="11" fill="#5a6b80">(pasif radar, konum tespiti)</text>
+
+  <!-- Evet -> sol -->
+  <line x1="270" y1="124" x2="170" y2="124" stroke="#1a8a3a" stroke-width="1.8"/>
+  <line x1="170" y1="124" x2="170" y2="162" stroke="#1a8a3a" stroke-width="1.8"/>
+  <polygon points="170,166 165,156 175,156" fill="#1a8a3a"/>
+  <text x="205" y="118" font-size="10" fill="#1a8a3a" font-weight="bold">EVET</text>
+
+  <!-- Hayir -> asagi -->
+  <line x1="380" y1="144" x2="380" y2="170" stroke="#c0392b" stroke-width="1.8"/>
+  <polygon points="380,174 375,164 385,164" fill="#c0392b"/>
+  <text x="390" y="160" font-size="10" fill="#c0392b" font-weight="bold">HAYIR</text>
+
+  <!-- CEVAP: KrakenSDR -->
+  <rect x="80" y="166" width="180" height="52" fill="#1a8a3a" stroke="#0d5c26" stroke-width="1" rx="5"/>
+  <text x="170" y="184" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">KrakenSDR</text>
+  <text x="170" y="198" text-anchor="middle" font-size="10" fill="#d5f5e3">5 kanal coherent</text>
+  <text x="170" y="210" text-anchor="middle" font-size="10" fill="#d5f5e3">24 MHz–1.7 GHz</text>
+
+  <!-- SORU 2: TX gerekli? -->
+  <rect x="270" y="174" width="220" height="40" fill="#fff8e8" stroke="#ff8f00" stroke-width="1.5" rx="4"/>
+  <text x="380" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">TX (yayin) gerekli mi?</text>
+  <text x="380" y="204" text-anchor="middle" font-size="11" fill="#5a6b80">(deney, protokol test, amatör)</text>
+
+  <!-- Evet -> sag (TX kollar) -->
+  <line x1="490" y1="194" x2="580" y2="194" stroke="#1a8a3a" stroke-width="1.8"/>
+  <line x1="580" y1="194" x2="580" y2="220" stroke="#1a8a3a" stroke-width="1.8"/>
+  <polygon points="580,224 575,214 585,214" fill="#1a8a3a"/>
+  <text x="530" y="188" font-size="10" fill="#1a8a3a" font-weight="bold">EVET</text>
+
+  <!-- Hayir -> asagi -->
+  <line x1="380" y1="214" x2="380" y2="244" stroke="#c0392b" stroke-width="1.8"/>
+  <polygon points="380,248 375,238 385,238" fill="#c0392b"/>
+  <text x="390" y="232" font-size="10" fill="#c0392b" font-weight="bold">HAYIR</text>
+
+  <!-- TX alt-soru: Full-duplex? -->
+  <rect x="498" y="224" width="164" height="40" fill="#fff8e8" stroke="#ff8f00" stroke-width="1.5" rx="4"/>
+  <text x="580" y="240" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">Full-duplex + MIMO?</text>
+  <text x="580" y="254" text-anchor="middle" font-size="10" fill="#5a6b80">(baz ist., repeater)</text>
+
+  <!-- Full-duplex evet -->
+  <line x1="662" y1="244" x2="710" y2="244" stroke="#1a8a3a" stroke-width="1.8"/>
+  <polygon points="714,244 704,240 704,248" fill="#1a8a3a"/>
+  <text x="670" y="238" font-size="9" fill="#1a8a3a" font-weight="bold">EVET</text>
+
+  <!-- Full-duplex hayir -->
+  <line x1="580" y1="264" x2="580" y2="292" stroke="#c0392b" stroke-width="1.8"/>
+  <polygon points="580,296 575,286 585,286" fill="#c0392b"/>
+  <text x="590" y="282" font-size="9" fill="#c0392b" font-weight="bold">HAYIR</text>
+
+  <!-- CEVAP: LimeSDR/USRP -->
+  <rect x="670" y="220" width="82" height="58" fill="#1a8a3a" stroke="#0d5c26" stroke-width="1" rx="5"/>
+  <text x="711" y="237" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">LimeSDR</text>
+  <text x="711" y="249" text-anchor="middle" font-size="9" fill="#d5f5e3">LimeSDR Mini</text>
+  <text x="711" y="261" text-anchor="middle" font-size="9" fill="#d5f5e3">bladeRF 2.0</text>
+  <text x="711" y="273" text-anchor="middle" font-size="9" fill="#d5f5e3">USRP B210</text>
+
+  <!-- CEVAP: HackRF -->
+  <rect x="498" y="296" width="164" height="52" fill="#1565c0" stroke="#0a3a70" stroke-width="1" rx="5"/>
+  <text x="580" y="314" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">HackRF One</text>
+  <text x="580" y="328" text-anchor="middle" font-size="10" fill="#cfe4fa">Half-duplex TX/RX</text>
+  <text x="580" y="340" text-anchor="middle" font-size="10" fill="#cfe4fa">1 MHz–6 GHz, 20 MSPS</text>
+  <text x="580" y="352" text-anchor="middle" font-size="9" fill="#cfe4fa">(PlutoSDR de gecer)</text>
+
+  <!-- SORU 3: HF gerekli? -->
+  <rect x="270" y="248" width="220" height="40" fill="#fff8e8" stroke="#ff8f00" stroke-width="1.5" rx="4"/>
+  <text x="380" y="264" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">HF (0-30 MHz) + temizlik?</text>
+  <text x="380" y="278" text-anchor="middle" font-size="11" fill="#5a6b80">(kisa dalga, DX, amatör HF)</text>
+
+  <!-- Evet -> sol -->
+  <line x1="270" y1="268" x2="170" y2="268" stroke="#1a8a3a" stroke-width="1.8"/>
+  <line x1="170" y1="268" x2="170" y2="296" stroke="#1a8a3a" stroke-width="1.8"/>
+  <polygon points="170,300 165,290 175,290" fill="#1a8a3a"/>
+  <text x="205" y="262" font-size="10" fill="#1a8a3a" font-weight="bold">EVET</text>
+
+  <!-- Hayir -> asagi -->
+  <line x1="380" y1="288" x2="380" y2="318" stroke="#c0392b" stroke-width="1.8"/>
+  <polygon points="380,322 375,312 385,312" fill="#c0392b"/>
+  <text x="390" y="305" font-size="10" fill="#c0392b" font-weight="bold">HAYIR</text>
+
+  <!-- CEVAP: SDRplay/Airspy HF+ -->
+  <rect x="60" y="300" width="200" height="64" fill="#1a8a3a" stroke="#0d5c26" stroke-width="1" rx="5"/>
+  <text x="160" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">SDRplay RSPdx</text>
+  <text x="160" y="331" text-anchor="middle" font-size="10" fill="#d5f5e3">14-bit, 1 kHz–2 GHz</text>
+  <text x="160" y="344" text-anchor="middle" font-size="10" fill="#d5f5e3">Airspy HF+ Discovery</text>
+  <text x="160" y="357" text-anchor="middle" font-size="10" fill="#d5f5e3">16-bit, 0.5 kHz–31 MHz</text>
+
+  <!-- SORU 4: Baslangic / butce? -->
+  <rect x="270" y="322" width="220" height="40" fill="#fff8e8" stroke="#ff8f00" stroke-width="1.5" rx="4"/>
+  <text x="380" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">Giris seviyesi / dar butce?</text>
+  <text x="380" y="352" text-anchor="middle" font-size="11" fill="#5a6b80">(ilk SDR, yasal dinleme)</text>
+
+  <!-- Evet -> sol -->
+  <line x1="270" y1="342" x2="170" y2="342" stroke="#1a8a3a" stroke-width="1.8"/>
+  <line x1="170" y1="342" x2="170" y2="374" stroke="#1a8a3a" stroke-width="1.8"/>
+  <polygon points="170,378 165,368 175,368" fill="#1a8a3a"/>
+  <text x="205" y="336" font-size="10" fill="#1a8a3a" font-weight="bold">EVET</text>
+
+  <!-- Hayir -> asagi -->
+  <line x1="380" y1="362" x2="380" y2="392" stroke="#c0392b" stroke-width="1.8"/>
+  <polygon points="380,396 375,386 385,386" fill="#c0392b"/>
+  <text x="390" y="380" font-size="10" fill="#c0392b" font-weight="bold">HAYIR</text>
+
+  <!-- CEVAP: RTL-SDR V4 -->
+  <rect x="60" y="378" width="200" height="64" fill="#1565c0" stroke="#0a3a70" stroke-width="1" rx="5"/>
+  <text x="160" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">RTL-SDR Blog V4</text>
+  <text x="160" y="409" text-anchor="middle" font-size="10" fill="#cfe4fa">~30-40$, 8-bit</text>
+  <text x="160" y="421" text-anchor="middle" font-size="10" fill="#cfe4fa">500 kHz–1.7 GHz</text>
+  <text x="160" y="433" text-anchor="middle" font-size="10" fill="#cfe4fa">Geniş topluluk destegi</text>
+
+  <!-- CEVAP: Airspy R2 -->
+  <rect x="270" y="396" width="220" height="64" fill="#1565c0" stroke="#0a3a70" stroke-width="1" rx="5"/>
+  <text x="380" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Airspy R2 / SDRplay RSP1A</text>
+  <text x="380" y="427" text-anchor="middle" font-size="10" fill="#cfe4fa">12/14-bit, VHF/UHF temiz</text>
+  <text x="380" y="440" text-anchor="middle" font-size="10" fill="#cfe4fa">~100-200$, RX-only</text>
+  <text x="380" y="453" text-anchor="middle" font-size="10" fill="#cfe4fa">Sehirde gurultusuz dinleme</text>
+
+  <!-- Alt ozet notu -->
+  <rect x="20" y="472" width="720" height="22" fill="#ffffff" stroke="#d3dde8" stroke-width="1" rx="2"/>
+  <text x="380" y="487" text-anchor="middle" font-size="10.5" fill="#4a5a70">Kural: RX-only yeter → bit+anten harca  |  TX gerekli → yasal siniri bil  |  DF → coherent kanallar şart</text>
+</svg>

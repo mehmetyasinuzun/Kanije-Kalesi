@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 520" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="700" height="520" fill="#f4f7fb"/>
+  <text x="350" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">AMC: 1B-CNN ile Modulasyon Siniflandirma</text>
+  <text x="350" y="46" text-anchor="middle" font-size="11" fill="#6b7a90">Ham IQ'dan olasiliğa — ogrenilen oznitelik hiyerarsisi, dikey blok akisi</text>
+
+  <defs>
+    <marker id="arrd" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#6b7a90"/>
+    </marker>
+  </defs>
+
+  <!-- Girdi blogu -->
+  <rect x="200" y="66" width="300" height="50" rx="5" fill="#ffffff" stroke="#1565c0" stroke-width="2"/>
+  <text x="350" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">Girdi: Ham IQ</text>
+  <text x="350" y="102" text-anchor="middle" font-size="10" fill="#4a5a70">Sekil: [2 × N] — I ve Q kanali, N ornek</text>
+
+  <line x1="350" y1="116" x2="350" y2="132" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- Conv1D Blok 1 -->
+  <rect x="170" y="134" width="360" height="52" rx="5" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="350" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">Conv1D — Blok 1</text>
+  <text x="350" y="169" text-anchor="middle" font-size="9" fill="#4a5a70">K filtre, cekirdek boyu w → yerel desen (sembol gecisi, frekans atlamasi)</text>
+  <text x="350" y="180" text-anchor="middle" font-size="9" fill="#6b7a90">+ ReLU aktivasyon | Ogrenilen: dusuk seviye IQ ornuntuleri</text>
+
+  <line x1="350" y1="186" x2="350" y2="202" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- Conv1D Blok 2 -->
+  <rect x="155" y="204" width="390" height="52" rx="5" fill="#bbdefb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="350" y="225" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">Conv1D — Blok 2  (Daha Fazla Filtre)</text>
+  <text x="350" y="239" text-anchor="middle" font-size="9" fill="#4a5a70">Ornuntulerin bilesileri → desenleri eslestiriyor (bilesel: takim yildizi geometrisi)</text>
+  <text x="350" y="250" text-anchor="middle" font-size="9" fill="#6b7a90">+ ReLU | Ogrenilen: orta seviye soyut RF oznitelikleri</text>
+
+  <line x1="350" y1="256" x2="350" y2="272" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- Conv1D Blok N -->
+  <rect x="140" y="274" width="420" height="52" rx="5" fill="#90caf9" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="350" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">Conv1D — Blok N  (Derin Katmanlar)</text>
+  <text x="350" y="309" text-anchor="middle" font-size="9" fill="#1a2b40">Yuksek-seviye modulasyon ayrimi → takim yildiz bicimleri, faz gecisleri</text>
+  <text x="350" y="320" text-anchor="middle" font-size="9" fill="#36506e">Ogrenilen: tum modulasyonu ayiran soyut vektorler</text>
+
+  <line x1="350" y1="326" x2="350" y2="342" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- Global Average Pooling -->
+  <rect x="195" y="344" width="310" height="40" rx="5" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="350" y="360" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">Kuresel Ortalama Havuzlama</text>
+  <text x="350" y="375" text-anchor="middle" font-size="9" fill="#4a5a70">Her filtrenin ornek ortalamasi → sabit boyut, konuma duyarsiz oznitelik vektoru</text>
+
+  <line x1="350" y1="384" x2="350" y2="400" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- Tam baglilar -->
+  <rect x="215" y="402" width="270" height="36" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="350" y="418" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a5a70">Tam-Bagli Katmanlar (Dense)</text>
+  <text x="350" y="432" text-anchor="middle" font-size="9" fill="#4a5a70">Oznitelik → karar hiperduzlemi; dropout ile duzenlilestirme</text>
+
+  <line x1="350" y1="438" x2="350" y2="454" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- Softmax cikis -->
+  <rect x="155" y="456" width="390" height="50" rx="5" fill="#fff8e6" stroke="#ff8f00" stroke-width="2"/>
+  <text x="350" y="472" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">Softmax Cikis — M Sinif</text>
+  <text x="350" y="487" text-anchor="middle" font-size="9" fill="#4a5a70">BPSK: 0.72 | QPSK: 0.05 | 16QAM: 0.18 | 64QAM: 0.03 | ... (toplam = 1.00)</text>
+
+  <!-- Sol yan: oznitelik hiyerarsisi notlari -->
+  <rect x="18" y="134" width="140" height="200" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="88" y="152" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2b40">Oznitelik</text>
+  <text x="88" y="164" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2b40">Hiyerarsisi</text>
+  <line x1="28" y1="170" x2="148" y2="170" stroke="#d3dde8" stroke-width="1"/>
+  <text x="88" y="186" text-anchor="middle" font-size="9" fill="#6b7a90">Blok 1 ogrenir:</text>
+  <text x="88" y="198" text-anchor="middle" font-size="9" fill="#6b7a90">ham IQ dalgacik</text>
+  <text x="88" y="210" text-anchor="middle" font-size="9" fill="#6b7a90">desenleri</text>
+  <line x1="28" y1="218" x2="148" y2="218" stroke="#d3dde8" stroke-width="1"/>
+  <text x="88" y="234" text-anchor="middle" font-size="9" fill="#6b7a90">Blok 2 ogrenir:</text>
+  <text x="88" y="246" text-anchor="middle" font-size="9" fill="#6b7a90">takim yildiz</text>
+  <text x="88" y="258" text-anchor="middle" font-size="9" fill="#6b7a90">geometrisi</text>
+  <line x1="28" y1="266" x2="148" y2="266" stroke="#d3dde8" stroke-width="1"/>
+  <text x="88" y="282" text-anchor="middle" font-size="9" fill="#6b7a90">Blok N ogrenir:</text>
+  <text x="88" y="294" text-anchor="middle" font-size="9" fill="#6b7a90">modulasyon</text>
+  <text x="88" y="306" text-anchor="middle" font-size="9" fill="#6b7a90">sinif sezgisi</text>
+  <line x1="28" y1="314" x2="148" y2="314" stroke="#d3dde8" stroke-width="1"/>
+  <text x="88" y="328" text-anchor="middle" font-size="9" fill="#6b7a90">Hepsi geri</text>
+  <text x="88" y="340" text-anchor="middle" font-size="9" fill="#6b7a90">yayilimla</text>
+
+  <!-- Sag yan: karsitlik: klasik vs derin -->
+  <rect x="542" y="134" width="148" height="200" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="616" y="152" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2b40">Klasik vs</text>
+  <text x="616" y="164" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2b40">Derin (AMC)</text>
+  <line x1="552" y1="170" x2="680" y2="170" stroke="#d3dde8" stroke-width="1"/>
+  <text x="616" y="184" text-anchor="middle" font-size="9" fill="#c0392b">Klasik:</text>
+  <text x="616" y="196" text-anchor="middle" font-size="9" fill="#6b7a90">Uzman kumalant</text>
+  <text x="616" y="208" text-anchor="middle" font-size="9" fill="#6b7a90">veya SCF</text>
+  <text x="616" y="220" text-anchor="middle" font-size="9" fill="#6b7a90">+ SVM/orman</text>
+  <line x1="552" y1="230" x2="680" y2="230" stroke="#d3dde8" stroke-width="1"/>
+  <text x="616" y="244" text-anchor="middle" font-size="9" fill="#1565c0">Derin:</text>
+  <text x="616" y="256" text-anchor="middle" font-size="9" fill="#6b7a90">Ham IQ</text>
+  <text x="616" y="268" text-anchor="middle" font-size="9" fill="#6b7a90">+ CNN</text>
+  <text x="616" y="280" text-anchor="middle" font-size="9" fill="#6b7a90">Oznitelik &amp;</text>
+  <text x="616" y="292" text-anchor="middle" font-size="9" fill="#6b7a90">karar birlikte</text>
+  <line x1="552" y1="302" x2="680" y2="302" stroke="#d3dde8" stroke-width="1"/>
+  <text x="616" y="316" text-anchor="middle" font-size="9" fill="#ff8f00">Uyari:</text>
+  <text x="616" y="328" text-anchor="middle" font-size="9" fill="#6b7a90">Dagitim</text>
+  <text x="616" y="340" text-anchor="middle" font-size="9" fill="#6b7a90">kaymasi!</text>
+</svg>

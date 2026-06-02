@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="ioB" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1565c0"/>
+    </marker>
+    <marker id="ioG" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1a8a3a"/>
+    </marker>
+    <marker id="ioO" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#ff8f00"/>
+    </marker>
+    <marker id="ioR" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Uydu-IoT Yildiz Topoloji ve D2D Senaryosu</text>
+
+  <!-- Kucuk LEO uydu (merkez ust) -->
+  <rect x="340" y="50" width="180" height="64" rx="8" fill="#e8f4fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="430" y="74" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">LEO UYDU</text>
+  <text x="430" y="90" text-anchor="middle" font-size="9" fill="#4a5a70">(CubeSat / kucuk uydu)</text>
+  <text x="430" y="104" text-anchor="middle" font-size="9" fill="#6b7a90">Swarm / Kineis / Astrocast / Lacuna</text>
+
+  <!-- IoT dugum 1: Deniz samandirasi -->
+  <rect x="20" y="200" width="110" height="62" rx="5" fill="#ffffff" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="75" y="220" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">IoT</text>
+  <text x="75" y="234" text-anchor="middle" font-size="9" fill="#1a8a3a">Samandira</text>
+  <text x="75" y="248" text-anchor="middle" font-size="8" fill="#6b7a90">deniz/basinc</text>
+  <text x="75" y="260" text-anchor="middle" font-size="8" fill="#6b7a90">periyodik msg</text>
+
+  <!-- IoT dugum 2: Tarim sensoru -->
+  <rect x="20" y="296" width="110" height="62" rx="5" fill="#ffffff" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="75" y="316" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">IoT</text>
+  <text x="75" y="330" text-anchor="middle" font-size="9" fill="#1a8a3a">Tarim Sensoru</text>
+  <text x="75" y="344" text-anchor="middle" font-size="8" fill="#6b7a90">toprak nemi</text>
+  <text x="75" y="356" text-anchor="middle" font-size="8" fill="#6b7a90">dusuk guc, pil y.</text>
+
+  <!-- IoT dugum 3: Varlık takip -->
+  <rect x="150" y="340" width="110" height="62" rx="5" fill="#ffffff" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="205" y="360" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">IoT</text>
+  <text x="205" y="374" text-anchor="middle" font-size="9" fill="#1a8a3a">Varlik Takip</text>
+  <text x="205" y="388" text-anchor="middle" font-size="8" fill="#6b7a90">konteyner/arac</text>
+  <text x="205" y="400" text-anchor="middle" font-size="8" fill="#6b7a90">GPS+uydu-IoT</text>
+
+  <!-- IoT dugum 4: Hayvan izleme -->
+  <rect x="280" y="340" width="110" height="62" rx="5" fill="#ffffff" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="335" y="360" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">IoT</text>
+  <text x="335" y="374" text-anchor="middle" font-size="9" fill="#1a8a3a">Hayvan Tasma</text>
+  <text x="335" y="388" text-anchor="middle" font-size="8" fill="#6b7a90">Argos/Kineis</text>
+  <text x="335" y="400" text-anchor="middle" font-size="8" fill="#6b7a90">koy/kutup</text>
+
+  <!-- IoT dugum 5: Boru hatti RTU -->
+  <rect x="150" y="200" width="110" height="62" rx="5" fill="#ffffff" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="205" y="220" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">IoT/RTU</text>
+  <text x="205" y="234" text-anchor="middle" font-size="9" fill="#ff8f00">Boru Hatti</text>
+  <text x="205" y="248" text-anchor="middle" font-size="8" fill="#6b7a90">basınc/akıs</text>
+  <text x="205" y="260" text-anchor="middle" font-size="8" fill="#6b7a90">SCADA IoT</text>
+
+  <!-- Store-and-forward ok: IoT dugumler -> uydu -->
+  <line x1="130" y1="218" x2="340" y2="97" stroke="#1a8a3a" stroke-width="2" marker-end="url(#ioG)"/>
+  <line x1="130" y1="314" x2="340" y2="100" stroke="#1a8a3a" stroke-width="1.8" marker-end="url(#ioG)"/>
+  <line x1="205" y1="218" x2="340" y2="95" stroke="#ff8f00" stroke-width="1.8" marker-end="url(#ioO)"/>
+  <line x1="205" y1="340" x2="350" y2="114" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#ioG)"/>
+  <line x1="335" y1="340" x2="380" y2="114" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#ioG)"/>
+
+  <!-- Store-and-forward aciklama -->
+  <rect x="10" y="148" width="250" height="40" rx="4" fill="#fff8e1" stroke="#ff8f00" stroke-width="1"/>
+  <text x="135" y="165" text-anchor="middle" font-size="9" font-weight="bold" fill="#ff8f00">Store-and-Forward</text>
+  <text x="135" y="180" text-anchor="middle" font-size="8" fill="#5a6b80">Uydu gecer → mesaji depolar → gateway'e indirger</text>
+
+  <!-- Yer istasyonu -->
+  <rect x="580" y="200" width="130" height="62" rx="5" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="645" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">YER ISTASYONU</text>
+  <text x="645" y="236" text-anchor="middle" font-size="9" fill="#4a5a70">gateway</text>
+  <text x="645" y="250" text-anchor="middle" font-size="9" fill="#6b7a90">VHF/UHF/L/S</text>
+  <text x="645" y="263" text-anchor="middle" font-size="8" fill="#6b7a90">SatNOGS tarzi dag. a.</text>
+
+  <!-- Bulut/Sunucu -->
+  <rect x="714" y="290" width="126" height="60" rx="5" fill="#ffffff" stroke="#6b7a90" stroke-width="1.5"/>
+  <text x="777" y="316" text-anchor="middle" font-size="11" font-weight="bold" fill="#36506e">BULUT /</text>
+  <text x="777" y="332" text-anchor="middle" font-size="11" font-weight="bold" fill="#36506e">SUNUCU</text>
+  <text x="777" y="346" text-anchor="middle" font-size="8" fill="#6b7a90">IoT platformu</text>
+
+  <!-- Uydu -> yer istasyonu ok -->
+  <line x1="520" y1="91" x2="580" y2="218" stroke="#1565c0" stroke-width="2" marker-end="url(#ioB)"/>
+  <text x="556" y="152" font-size="9" fill="#1565c0" font-weight="bold">RF indirme</text>
+  <text x="550" y="165" font-size="8" fill="#6b7a90">VHF/UHF/L</text>
+
+  <!-- Yer ist -> bulut ok -->
+  <line x1="710" y1="248" x2="730" y2="290" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#ioB)"/>
+  <text x="736" y="272" font-size="9" fill="#6b7a90">fiber/IP</text>
+
+  <!-- D2D senaryosu - sag alt -->
+  <rect x="580" y="380" width="260" height="86" rx="5" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="400" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">D2D Senaryosu (Telefon → LEO)</text>
+  <text x="710" y="416" text-anchor="middle" font-size="9" fill="#5a6b80">Normal telefon → LEO uydu (Starlink D2C)</text>
+  <text x="710" y="430" text-anchor="middle" font-size="9" fill="#5a6b80">Uydu devasa anten + LEO yakinligi = baglanti</text>
+  <text x="710" y="444" text-anchor="middle" font-size="8" fill="#4a5a70">PCS ~1900 MHz / LTE Band 25</text>
+  <text x="710" y="458" text-anchor="middle" font-size="8" fill="#c0392b">GEO'da (FSPL +37 dB) mumkun degil</text>
+
+  <!-- D2D ok: telefon -> uydu -->
+  <line x1="630" y1="380" x2="510" y2="114" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ioR)"/>
+  <text x="584" y="248" font-size="9" fill="#c0392b">D2D</text>
+  <text x="578" y="260" font-size="8" fill="#6b7a90">uplink</text>
+
+  <!-- Teknoloji listesi -->
+  <rect x="420" y="150" width="148" height="152" rx="4" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1"/>
+  <text x="494" y="168" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2b40">Uydu-IoT Oyunc.</text>
+  <text x="436" y="183" font-size="9" fill="#1565c0">Swarm (SpaceX)</text>
+  <text x="436" y="197" font-size="9" fill="#1a8a3a">Kineis / Argos</text>
+  <text x="436" y="211" font-size="9" fill="#ff8f00">Lacuna (LoRaWAN)</text>
+  <text x="436" y="225" font-size="9" fill="#6b7a90">Astrocast</text>
+  <text x="436" y="239" font-size="9" fill="#6b7a90">Iridium SBD</text>
+  <text x="436" y="253" font-size="9" fill="#c0392b">Starlink D2C</text>
+  <text x="436" y="267" font-size="9" fill="#6b7a90">Globalstar SOS</text>
+  <text x="436" y="283" font-size="8" fill="#4a5a70">AST / Lynk (D2D)</text>
+
+  <!-- Alt bilgi -->
+  <text x="430" y="464" text-anchor="middle" font-size="10" fill="#36506e">Store-and-forward: uydu gecer → mesaj alinir → yer istasyonuna indirilir | gecikme toleranslı (dak-saat)</text>
+</svg>

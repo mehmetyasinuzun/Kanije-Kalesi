@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="460" fill="#f4f7fb"/>
+  <text x="380" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b40">Saldiri Sinif Matrisi — Kavramsal 2x2</text>
+
+  <defs>
+    <marker id="ax" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#6b7a90"/>
+    </marker>
+  </defs>
+
+  <!-- Eksenler -->
+  <!-- X ekseni: Pasif — Aktif -->
+  <line x1="120" y1="250" x2="710" y2="250" stroke="#6b7a90" stroke-width="2" marker-end="url(#ax)"/>
+  <text x="120" y="268" font-size="12" fill="#6b7a90" font-weight="bold">PASIF</text>
+  <text x="670" y="268" font-size="12" fill="#6b7a90" font-weight="bold">AKTIF</text>
+  <text x="415" y="270" text-anchor="middle" font-size="11" fill="#7a8aa0">(sinyal ortamina mudahale)</text>
+
+  <!-- Y ekseni: Erisim hedef — Icerik hedef -->
+  <line x1="415" y1="430" x2="415" y2="60" stroke="#6b7a90" stroke-width="2" marker-end="url(#ax)"/>
+  <text x="415" y="445" text-anchor="middle" font-size="12" fill="#6b7a90" font-weight="bold">ERISIM HEDEF</text>
+  <text x="415" y="75" text-anchor="middle" font-size="12" fill="#6b7a90" font-weight="bold">ICERIK HEDEF</text>
+
+  <!-- Eksen etiket cizgisi -->
+  <line x1="120" y1="60" x2="120" y2="430" stroke="#d3dde8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="710" y1="60" x2="710" y2="430" stroke="#d3dde8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="120" y1="430" x2="710" y2="430" stroke="#d3dde8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="120" y1="60" x2="710" y2="60" stroke="#d3dde8" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Dortgen dolgu hafif -->
+  <rect x="120" y="60" width="295" height="190" fill="#e8f0fb" fill-opacity="0.4"/>
+  <rect x="415" y="60" width="295" height="190" fill="#fce8e8" fill-opacity="0.4"/>
+  <rect x="120" y="250" width="295" height="180" fill="#e8f4e8" fill-opacity="0.4"/>
+  <rect x="415" y="250" width="295" height="180" fill="#fffbe6" fill-opacity="0.4"/>
+
+  <!-- Kare etiketleri -->
+  <text x="267" y="82" text-anchor="middle" font-size="10" fill="#7a8aa0" font-style="italic">Pasif / Icerik</text>
+  <text x="562" y="82" text-anchor="middle" font-size="10" fill="#7a8aa0" font-style="italic">Aktif / Icerik</text>
+  <text x="267" y="268" text-anchor="middle" font-size="10" fill="#7a8aa0" font-style="italic">Pasif / Erisim</text>
+  <text x="562" y="268" text-anchor="middle" font-size="10" fill="#7a8aa0" font-style="italic">Aktif / Erisim</text>
+
+  <!-- PASIF ICERIK: Dinleme/Replay -->
+  <!-- Dinleme balonu -->
+  <ellipse cx="200" cy="130" rx="60" ry="36" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="200" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">Dinleme</text>
+  <text x="200" y="140" text-anchor="middle" font-size="10" fill="#4a5a70">(Passive RX)</text>
+
+  <!-- Replay balonu -->
+  <ellipse cx="320" cy="185" rx="60" ry="33" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="320" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">Replay</text>
+  <text x="320" y="195" text-anchor="middle" font-size="10" fill="#4a5a70">(kaydet-oynat)</text>
+  <!-- Dinleme-replay baglantisi -->
+  <line x1="255" y1="142" x2="268" y2="168" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- AKTIF ICERIK: Spoofing / MitM -->
+  <ellipse cx="520" cy="115" rx="65" ry="36" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="520" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Spoofing</text>
+  <text x="520" y="126" text-anchor="middle" font-size="10" fill="#4a5a70">(sahte sinyal uret)</text>
+
+  <ellipse cx="640" cy="185" rx="60" ry="33" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="640" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">MitM</text>
+  <text x="640" y="195" text-anchor="middle" font-size="10" fill="#4a5a70">(araya gir)</text>
+  <line x1="578" y1="130" x2="592" y2="165" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- PASIF ERISIM: Trafik analizi -->
+  <ellipse cx="220" cy="340" rx="75" ry="38" fill="#e8f4e8" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="220" y="335" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a8a3a">Trafik Analizi</text>
+  <text x="220" y="350" text-anchor="middle" font-size="10" fill="#4a5a70">(meta-veri / ritim)</text>
+
+  <!-- AKTIF ERISIM: Jamming -->
+  <ellipse cx="570" cy="340" rx="68" ry="38" fill="#fffbe6" stroke="#ff8f00" stroke-width="2"/>
+  <text x="570" y="333" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">Jamming</text>
+  <text x="570" y="348" text-anchor="middle" font-size="10" fill="#4a5a70">(erisimi engelle)</text>
+  <text x="570" y="362" text-anchor="middle" font-size="9" fill="#c0392b">YASADISI</text>
+
+  <!-- Savunma etiketleri kose -->
+  <rect x="130" y="90" width="78" height="16" fill="#e8f0fb" stroke="#1565c0" stroke-width="0.5" rx="2"/>
+  <text x="169" y="101" text-anchor="middle" font-size="9" fill="#1565c0">Savunma: Sifrele</text>
+
+  <rect x="425" y="90" width="114" height="16" fill="#fce8e8" stroke="#c0392b" stroke-width="0.5" rx="2"/>
+  <text x="482" y="101" text-anchor="middle" font-size="9" fill="#c0392b">Savunma: Imza/MAC + Anomali</text>
+
+  <rect x="130" y="258" width="120" height="16" fill="#e8f4e8" stroke="#1a8a3a" stroke-width="0.5" rx="2"/>
+  <text x="190" y="269" text-anchor="middle" font-size="9" fill="#1a8a3a">Savunma: Meta-veri sekillendirme</text>
+
+  <rect x="425" y="258" width="132" height="16" fill="#fffbe6" stroke="#ff8f00" stroke-width="0.5" rx="2"/>
+  <text x="491" y="269" text-anchor="middle" font-size="9" fill="#ff8f00">Savunma: Spread-spec + Yon bulma</text>
+
+  <!-- Alt aciklama -->
+  <line x1="30" y1="438" x2="730" y2="438" stroke="#d3dde8" stroke-width="1"/>
+  <text x="380" y="452" text-anchor="middle" font-size="10" fill="#6b7a90">Kavramsal cerceve — reçete yok; amac: sinif tanima ve savunma esleme</text>
+</svg>

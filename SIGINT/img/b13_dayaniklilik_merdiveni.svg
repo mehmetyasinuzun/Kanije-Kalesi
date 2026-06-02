@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Sinyal Dayaniklilik Merdiveni — Tehdit Sinifi Matrisi</text>
+
+  <!-- MERDIVENIN SOL TARAFI: Dayaniklilik basamaklari -->
+  <!-- Sol panel basligi -->
+  <rect x="16" y="44" width="230" height="22" rx="4" fill="#1a2b40"/>
+  <text x="131" y="59" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Dayaniklilik Basamagi</text>
+
+  <!-- Basamak 6 - en ust (en guclu) -->
+  <rect x="16" y="70" width="230" height="52" rx="4" fill="#1565c0"/>
+  <text x="131" y="91" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">6. YEDEKLİLİK</text>
+  <text x="131" y="108" text-anchor="middle" font-size="10" fill="#e3f0fd">Coklu bant / INS / coklu GNSS</text>
+
+  <!-- Basamak 5 -->
+  <rect x="28" y="124" width="218" height="52" rx="4" fill="#1565c0" opacity="0.88"/>
+  <text x="137" y="145" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">5. YAYILMA / ATLAMA</text>
+  <text x="137" y="162" text-anchor="middle" font-size="10" fill="#e3f0fd">FHSS + DSSS isleme kazanci</text>
+
+  <!-- Basamak 4 -->
+  <rect x="40" y="178" width="206" height="52" rx="4" fill="#1565c0" opacity="0.76"/>
+  <text x="143" y="199" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">4. MESAFE DOGRULAMA</text>
+  <text x="143" y="216" text-anchor="middle" font-size="10" fill="#e3f0fd">UWB time-of-flight</text>
+
+  <!-- Basamak 3 -->
+  <rect x="52" y="232" width="194" height="52" rx="4" fill="#1565c0" opacity="0.64"/>
+  <text x="149" y="253" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">3. BUTUNLUK</text>
+  <text x="149" y="270" text-anchor="middle" font-size="10" fill="#e3f0fd">MAC / imza ile degisiklik tespiti</text>
+
+  <!-- Basamak 2 -->
+  <rect x="64" y="286" width="182" height="52" rx="4" fill="#1565c0" opacity="0.52"/>
+  <text x="155" y="307" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">2. TAZELİK</text>
+  <text x="155" y="324" text-anchor="middle" font-size="10" fill="#e3f0fd">Nonce / sayac / zaman damgasi</text>
+
+  <!-- Basamak 1 - en alt (temel) -->
+  <rect x="76" y="340" width="170" height="52" rx="4" fill="#1565c0" opacity="0.40"/>
+  <text x="161" y="361" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">1. KİMLİK DOGRULAMA</text>
+  <text x="161" y="378" text-anchor="middle" font-size="10" fill="#36506e">Kriptografik auth — temel</text>
+
+  <!-- Yukari ok (guclu yoni) -->
+  <text x="10" y="340" font-size="18" fill="#1565c0">▲</text>
+  <text x="10" y="160" font-size="18" fill="#1565c0">▲</text>
+  <text x="7" y="210" font-size="9" fill="#6b7a90">daha</text>
+  <text x="7" y="222" font-size="9" fill="#6b7a90">guclu</text>
+
+  <!-- TEHDIT SINIFLARI BASLIK -->
+  <rect x="260" y="44" width="580" height="22" rx="4" fill="#c0392b"/>
+  <text x="550" y="59" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Hangi Tehdit Sinifini Engeller?</text>
+
+  <!-- Sutun basliklari -->
+  <rect x="260" y="70" width="95" height="322" rx="3" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="357" y="70" width="95" height="322" rx="3" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="454" y="70" width="95" height="322" rx="3" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="551" y="70" width="95" height="322" rx="3" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="648" y="70" width="95" height="322" rx="3" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="745" y="70" width="95" height="322" rx="3" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Sutun basliklari (tehdit isimleri) -->
+  <text x="307" y="86" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">SPOOFING</text>
+  <text x="404" y="86" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">REPLAY</text>
+  <text x="501" y="86" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">MANIPULAS.</text>
+  <text x="598" y="86" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">RELAY</text>
+  <text x="695" y="86" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">KARISTIRMA</text>
+  <text x="792" y="86" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">TEK NOKTA</text>
+
+  <!-- Yatay cizgiler (her basamak seviyesinde) -->
+  <line x1="260" y1="124" x2="840" y2="124" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="260" y1="178" x2="840" y2="178" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="260" y1="232" x2="840" y2="232" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="260" y1="286" x2="840" y2="286" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="260" y1="340" x2="840" y2="340" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- HUCRE DEGERLERI -->
+  <!-- Renk kodlari: Yesil = Engeller, Sari = Kismi, Gri = Etkisiz -->
+  <!-- YEDEKLİLİK (basamak 6, satir 1: y=70..124) -->
+  <rect x="263" y="96" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="307" y="112" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="360" y="96" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="404" y="112" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="457" y="96" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="501" y="112" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="554" y="96" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="598" y="112" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="651" y="96" width="89" height="24" rx="3" fill="#c8f5d4"/><text x="695" y="112" text-anchor="middle" font-size="11" fill="#1a8a3a" font-weight="bold">Engeller</text>
+  <rect x="748" y="96" width="89" height="24" rx="3" fill="#c8f5d4"/><text x="792" y="112" text-anchor="middle" font-size="11" fill="#1a8a3a" font-weight="bold">Engeller</text>
+
+  <!-- YAYILMA (basamak 5, y=124..178) -->
+  <rect x="263" y="150" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="307" y="166" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="360" y="150" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="404" y="166" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="457" y="150" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="501" y="166" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="554" y="150" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="598" y="166" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="651" y="150" width="89" height="24" rx="3" fill="#c8f5d4"/><text x="695" y="166" text-anchor="middle" font-size="11" fill="#1a8a3a" font-weight="bold">Engeller</text>
+  <rect x="748" y="150" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="792" y="166" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+
+  <!-- MESAFE (basamak 4, y=178..232) -->
+  <rect x="263" y="204" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="307" y="220" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="360" y="204" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="404" y="220" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="457" y="204" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="501" y="220" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="554" y="204" width="89" height="24" rx="3" fill="#c8f5d4"/><text x="598" y="220" text-anchor="middle" font-size="11" fill="#1a8a3a" font-weight="bold">Engeller</text>
+  <rect x="651" y="204" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="695" y="220" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="748" y="204" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="792" y="220" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+
+  <!-- BUTUNLUK (basamak 3, y=232..286) -->
+  <rect x="263" y="258" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="307" y="274" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="360" y="258" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="404" y="274" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="457" y="258" width="89" height="24" rx="3" fill="#c8f5d4"/><text x="501" y="274" text-anchor="middle" font-size="11" fill="#1a8a3a" font-weight="bold">Engeller</text>
+  <rect x="554" y="258" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="598" y="274" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="651" y="258" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="695" y="274" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="748" y="258" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="792" y="274" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+
+  <!-- TAZELİK (basamak 2, y=286..340) -->
+  <rect x="263" y="312" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="307" y="328" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="360" y="312" width="89" height="24" rx="3" fill="#c8f5d4"/><text x="404" y="328" text-anchor="middle" font-size="11" fill="#1a8a3a" font-weight="bold">Engeller</text>
+  <rect x="457" y="312" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="501" y="328" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="554" y="312" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="598" y="328" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="651" y="312" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="695" y="328" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="748" y="312" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="792" y="328" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+
+  <!-- KİMLİK (basamak 1, y=340..392) -->
+  <rect x="263" y="366" width="89" height="24" rx="3" fill="#c8f5d4"/><text x="307" y="382" text-anchor="middle" font-size="11" fill="#1a8a3a" font-weight="bold">Engeller</text>
+  <rect x="360" y="366" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="404" y="382" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="457" y="366" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="501" y="382" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="554" y="366" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="598" y="382" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="651" y="366" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="695" y="382" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+  <rect x="748" y="366" width="89" height="24" rx="3" fill="#e3f0fd"/><text x="792" y="382" text-anchor="middle" font-size="11" fill="#6b7a90">—</text>
+
+  <!-- Aciklama -->
+  <rect x="260" y="400" width="580" height="24" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="550" y="416" text-anchor="middle" font-size="10" fill="#36506e">Yesil = Engeller | — = O katman tek basina o tehdidi durdurmaz; kombinasyon gerekir.</text>
+
+  <!-- Alt bilgi -->
+  <line x1="16" y1="432" x2="844" y2="432" stroke="#d3dde8" stroke-width="1"/>
+  <text x="430" y="447" text-anchor="middle" font-size="10" fill="#6b7a90">Bolum 13 — Temel (auth) olmadan ust basamaklar tam koruma saglamaz; merdivenin tamami birlikte en gucludur.</text>
+  <text x="430" y="462" text-anchor="middle" font-size="10" fill="#6b7a90">Spoof=sahte kimlik | Replay=eski mesaj | Manip.=icerik degisikl. | Relay=mesafe yaniltma | Karistirma=gurultu | Tek Nokta=tek bagimlilik</text>
+</svg>

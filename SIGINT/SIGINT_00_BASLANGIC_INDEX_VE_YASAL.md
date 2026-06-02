@@ -18,6 +18,8 @@ Sinyal istihbaratı meşru, akademik ve son derece öğretici bir mühendislik a
 | Kendi cihazını ve sinyalini analiz etmek | Başkasının haberleşmesini dinlemek veya çözmek |
 | Kendi ağında yetkili penetrasyon testi | Başkasının ağına, kartına, cihazına izinsiz erişim |
 
+![Yasal ve etik cerceve: sol panel izin verilen (RX, dinleme, kendi cihaz, acik yayin), sag panel yasak (TX, jamming, yetkisiz dinleme)](img/b00_yasal_cizgi.svg)
+
 Türkiye'de ilgili çerçeve: TCK 132-140 (haberleşmenin gizliliği) ve TCK 243-244 (bilişim sistemlerine yetkisiz erişim), BTK telsiz mevzuatı, amatör telsiz için BTK sınav ve lisansı. Amerika Birleşik Devletleri: FCC ve Wiretap Act. Avrupa Birliği: ePrivacy. Kuralın kendisini kendi ülkenden ve güncel mevzuattan teyit et; bu kitap hukuki danışmanlık değildir.
 
 Yol gösterici ilke: alıcı çoğu yerde serbesttir, verici her yerde sorumluluktur. Şüphedeysen yapma veya önce lisans ve izin al. Bu kitaptaki her alıştırma bilinçli olarak kendi cihazların, açık yayınlar ve ev ortamı üzerine kuruludur. Jamming, yetkisiz dinleme, spoofing ve sistemlere izinsiz müdahale bu kitabın kapsamı dışındadır; bu konular yalnızca nasıl çalıştıkları ve nasıl savunulacakları yönüyle, savunma perspektifiyle ele alınır.
@@ -92,6 +94,8 @@ Yol gösterici ilke: alıcı çoğu yerde serbesttir, verici her yerde sorumlulu
 | 30 | Otomotiv-İçi Ağlar ve Anahtarsız Sistemler (CAN, keyless) | [SIGINT_30_OTOMOTIV_AGLARI_VE_KEYLESS.md](SIGINT_30_OTOMOTIV_AGLARI_VE_KEYLESS.md) |
 | 31 | SCADA, Endüstriyel Kontrol Sistemleri ve Telemetri RF'i | [SIGINT_31_SCADA_ENDUSTRIYEL_RF.md](SIGINT_31_SCADA_ENDUSTRIYEL_RF.md) |
 | 32 | Uydu-IoT ve Mega-Konstelasyonlar (Starlink, Iridium) | [SIGINT_32_UYDU_IOT_VE_MEGA_KONSTELASYON.md](SIGINT_32_UYDU_IOT_VE_MEGA_KONSTELASYON.md) |
+
+![Kitap mimarisi: 32 bolum 4 katmanda gruplandı — Temel, Istihbarat ve Konum, Ileri ve Guncel, Sektorel Derinlik](img/b00_kitap_katman_haritasi.svg)
 
 ---
 

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="460" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Guc Hatti Yan-Kanali: SPA ve DPA</text>
+
+  <!-- Sol panel: SPA -->
+  <rect x="30" y="44" width="390" height="394" fill="#fff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="30" y="44" width="390" height="28" fill="#c0392b" opacity="0.12"/>
+  <text x="225" y="63" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">SPA — Basit Guc Analizi</text>
+  <text x="225" y="84" text-anchor="middle" font-size="10" fill="#6b7a90">Tek guc izi → tepe sekillerinden anahtar biti okuma</text>
+
+  <!-- SPA: tek iz -->
+  <!-- Koordinat sistemi -->
+  <text x="48" y="108" font-size="9" fill="#6b7a90" font-weight="bold">akım</text>
+  <line x1="58" y1="112" x2="58" y2="230" stroke="#d3dde8" stroke-width="1.5"/>
+  <line x1="58" y1="230" x2="395" y2="230" stroke="#d3dde8" stroke-width="1.5"/>
+  <text x="430" y="234" font-size="9" fill="#6b7a90">t &#x2192;</text>
+
+  <!-- Y ekseni cizgileri -->
+  <line x1="54" y1="130" x2="62" y2="130" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="54" y1="155" x2="62" y2="155" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="54" y1="180" x2="62" y2="180" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="54" y1="205" x2="62" y2="205" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- Guc izi: bazi tepeler yuksek (bit=1), bazilari alcak (bit=0) -->
+  <!-- Tur 1: bit=0 alcak tepe -->
+  <polyline points="70,220 82,205 90,208 100,220 110,205 118,208 128,220"
+            fill="none" stroke="#1565c0" stroke-width="2"/>
+  <!-- Tur 2: bit=1 yuksek tepe -->
+  <polyline points="138,220 150,145 160,152 170,220 182,145 192,152 202,220"
+            fill="none" stroke="#1565c0" stroke-width="2"/>
+  <!-- Tur 3: bit=0 -->
+  <polyline points="212,220 222,205 230,208 240,220 250,205 258,208 268,220"
+            fill="none" stroke="#1565c0" stroke-width="2"/>
+  <!-- Tur 4: bit=1 -->
+  <polyline points="278,220 290,145 300,152 310,220 322,145 332,152 342,220"
+            fill="none" stroke="#1565c0" stroke-width="2"/>
+  <!-- Tur 5: bit=0 -->
+  <polyline points="352,220 362,205 370,208 380,220 388,205 395,208"
+            fill="none" stroke="#1565c0" stroke-width="2"/>
+
+  <!-- Bit etiketleri -->
+  <text x="99" y="245" text-anchor="middle" font-size="10" fill="#6b7a90">bit=0</text>
+  <text x="170" y="245" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="bold">bit=1</text>
+  <text x="241" y="245" text-anchor="middle" font-size="10" fill="#6b7a90">bit=0</text>
+  <text x="311" y="245" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="bold">bit=1</text>
+  <text x="371" y="245" text-anchor="middle" font-size="10" fill="#6b7a90">bit=0</text>
+
+  <!-- Ok + aciklama: yuksek tepe -->
+  <line x1="162" y1="148" x2="200" y2="128" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="202" y="125" font-size="9.5" fill="#c0392b">Yuksek tepe → bit=1</text>
+  <line x1="88" y1="206" x2="120" y2="192" stroke="#6b7a90" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="122" y="190" font-size="9.5" fill="#6b7a90">Alcak tepe → bit=0</text>
+
+  <!-- SPA aciklama -->
+  <rect x="44" y="262" width="362" height="100" fill="#fff3f3" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="225" y="282" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">SPA Nasil Calisir</text>
+  <text x="54" y="300" font-size="10" fill="#4a5a70">&#x2022; Tek iz (hatta birkaç) yeterli</text>
+  <text x="54" y="316" font-size="10" fill="#4a5a70">&#x2022; Islem akisi gizli bilgiye bagliysa (if/else anahtar biti)</text>
+  <text x="54" y="332" font-size="10" fill="#4a5a70">&#x2022; Guc sekli dogrudan biti ele verir</text>
+  <text x="54" y="348" font-size="10" fill="#4a5a70">&#x2022; Savunma: veriden bagimsiz sabit akis (dalsiz kripto)</text>
+
+  <!-- SPA savunma etiket -->
+  <rect x="44" y="372" width="362" height="46" fill="#1a8a3a" opacity="0.10" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="225" y="392" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1a8a3a">Savunma: Sabit Akis + Veri-Bagimsiz Dal</text>
+  <text x="225" y="408" text-anchor="middle" font-size="10" fill="#4a5a70">Islem akisi gizli anahtara gore dallanmamali; her yol ayni guc</text>
+
+  <!-- Sag panel: DPA -->
+  <rect x="440" y="44" width="390" height="394" fill="#fff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="440" y="44" width="390" height="28" fill="#c0392b" opacity="0.18"/>
+  <text x="635" y="63" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">DPA — Diferansiyel Guc Analizi</text>
+  <text x="635" y="84" text-anchor="middle" font-size="10" fill="#6b7a90">N iz → istatistiksel korelasyon farki → anahtar parcasi</text>
+
+  <!-- DPA: cok iz + ayrisma -->
+  <!-- Ekseni -->
+  <line x1="468" y1="112" x2="468" y2="225" stroke="#d3dde8" stroke-width="1.5"/>
+  <line x1="468" y1="225" x2="810" y2="225" stroke="#d3dde8" stroke-width="1.5"/>
+  <text x="642" y="240" text-anchor="middle" font-size="9" fill="#6b7a90">t &#x2192;</text>
+  <text x="458" y="110" font-size="9" fill="#6b7a90" text-anchor="end">akım</text>
+
+  <!-- Cok iz (N adet - gri) -->
+  <polyline points="475,190 500,160 520,175 545,190 570,155 595,170 620,185 645,160 670,175 695,185 720,162 745,177 770,190 800,175" fill="none" stroke="#b0b8c4" stroke-width="1" opacity="0.7"/>
+  <polyline points="475,195 500,165 520,180 545,192 570,158 595,172 620,188 645,163 670,180 695,188 720,164 745,179 770,192 800,178" fill="none" stroke="#b0b8c4" stroke-width="1" opacity="0.7"/>
+  <polyline points="475,185 500,155 520,170 545,186 570,150 595,166 620,182 645,156 670,171 695,182 720,158 745,173 770,186 800,172" fill="none" stroke="#b0b8c4" stroke-width="1" opacity="0.7"/>
+  <polyline points="475,192 500,162 520,178 545,192 570,156 595,171 620,186 645,161 670,178 695,186 720,162 745,178 770,190 800,176" fill="none" stroke="#b0b8c4" stroke-width="1" opacity="0.7"/>
+  <polyline points="475,188 500,158 520,173 545,188 570,152 595,168 620,183 645,158 670,173 695,183 720,160 745,174 770,188 800,173" fill="none" stroke="#b0b8c4" stroke-width="1" opacity="0.7"/>
+
+  <!-- Ortalama 2 grup: dogru tahmin ayrisir -->
+  <!-- Grup A: tahmin dogru - kirmizi -->
+  <polyline points="475,195 510,145 540,160 570,190 600,138 630,148 660,188 690,135 720,145 750,185 800,150" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- Grup B: tahmin yanlis - mavi -->
+  <polyline points="475,190 510,178 540,180 570,190 600,178 630,180 660,188 690,178 720,180 750,188 800,178" fill="none" stroke="#1565c0" stroke-width="2.5"/>
+
+  <!-- Ayrisma oku -->
+  <line x1="600" y1="178" x2="600" y2="138" stroke="#ff8f00" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="608" y="155" font-size="9.5" fill="#ff8f00" font-weight="bold">&#916;</text>
+  <text x="615" y="161" font-size="9" fill="#ff8f00">ayrisma</text>
+
+  <!-- Efsane -->
+  <line x1="468" y1="244" x2="490" y2="244" stroke="#b0b8c4" stroke-width="1.5"/>
+  <text x="495" y="248" font-size="9.5" fill="#6b7a90">N bireysel iz (gürültu)</text>
+  <line x1="468" y1="258" x2="490" y2="258" stroke="#c0392b" stroke-width="2"/>
+  <text x="495" y="262" font-size="9.5" fill="#c0392b">Tahmin dogru → ortalama ayrisir</text>
+  <line x1="468" y1="272" x2="490" y2="272" stroke="#1565c0" stroke-width="2"/>
+  <text x="495" y="276" font-size="9.5" fill="#1565c0">Tahmin yanlis → ortalama duz</text>
+
+  <!-- DPA aciklama -->
+  <rect x="454" y="290" width="362" height="100" fill="#fff3f3" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="635" y="310" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">DPA Nasil Calisir</text>
+  <text x="464" y="328" font-size="10" fill="#4a5a70">&#x2022; Binlerce/yuzsinlerce iz gerekli (N >> 1)</text>
+  <text x="464" y="344" font-size="10" fill="#4a5a70">&#x2022; Anahtar tahmini yapilir → izleri gruplara ayir</text>
+  <text x="464" y="360" font-size="10" fill="#4a5a70">&#x2022; Dogru tahmin → belirli anda istatistiksel fark</text>
+  <text x="464" y="376" font-size="10" fill="#4a5a70">&#x2022; Yanlis tahmin → fark gurultude kaybolur</text>
+
+  <!-- DPA savunma -->
+  <rect x="454" y="400" width="362" height="32" fill="#1a8a3a" opacity="0.10" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="635" y="420" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1a8a3a">Savunma: Maskeleme + Guc Dengeleme + Gurultu Enjeksiyonu</text>
+</svg>

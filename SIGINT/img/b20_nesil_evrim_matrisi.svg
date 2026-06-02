@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="460" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Hucresel Guvenlik Evrimi: 2G — 3G — 4G — 5G</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#6b7a90">Guvenlik ozelligi x nesil matrisi — yok / kismi / var / zorunlu renk kodu</text>
+
+  <!-- Legend -->
+  <rect x="20" y="58" width="14" height="12" rx="2" fill="#c0392b" fill-opacity="0.85"/>
+  <text x="38" y="69" font-size="10" fill="#4a5a70">Yok / Zayif</text>
+  <rect x="100" y="58" width="14" height="12" rx="2" fill="#ff8f00" fill-opacity="0.85"/>
+  <text x="118" y="69" font-size="10" fill="#4a5a70">Kismi</text>
+  <rect x="160" y="58" width="14" height="12" rx="2" fill="#1a8a3a" fill-opacity="0.85"/>
+  <text x="178" y="69" font-size="10" fill="#4a5a70">Var</text>
+  <rect x="210" y="58" width="14" height="12" rx="2" fill="#1565c0" fill-opacity="0.85"/>
+  <text x="228" y="69" font-size="10" fill="#4a5a70">Zorunlu / Guclu</text>
+
+  <!-- Matris alan -->
+  <!-- Sutun genislikleri: ozellik (220) | 2G (130) | 3G (130) | 4G (130) | 5G (160) -->
+  <!-- Sutun basliklarI -->
+  <rect x="20" y="80" width="220" height="36" rx="3" fill="#1a2b40"/>
+  <text x="130" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Guvenlik Ozelligi</text>
+
+  <rect x="242" y="80" width="130" height="36" rx="3" fill="#6b7a90"/>
+  <text x="307" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="white">2G</text>
+  <text x="307" y="112" text-anchor="middle" font-size="10" fill="#d3dde8">GSM</text>
+
+  <rect x="374" y="80" width="130" height="36" rx="3" fill="#7a8aa0"/>
+  <text x="439" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="white">3G</text>
+  <text x="439" y="112" text-anchor="middle" font-size="10" fill="#d3dde8">UMTS</text>
+
+  <rect x="506" y="80" width="130" height="36" rx="3" fill="#1565c0"/>
+  <text x="571" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="white">4G</text>
+  <text x="571" y="112" text-anchor="middle" font-size="10" fill="#d3dde8">LTE/EPC</text>
+
+  <rect x="638" y="80" width="202" height="36" rx="3" fill="#1a2b40"/>
+  <text x="739" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="white">5G</text>
+  <text x="739" y="112" text-anchor="middle" font-size="10" fill="#d3dde8">NR/5GC (SA)</text>
+
+  <!-- Satir yukseklik: 44px -->
+  <!-- Satir 1: Cihaz->ag kimlik dogrulama -->
+  <rect x="20" y="118" width="220" height="44" rx="0" fill="#f8fafc" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="30" y="134" font-size="10" font-weight="bold" fill="#1a2b40">Cihaz→Ag Kimlik Dogr.</text>
+  <text x="30" y="148" font-size="9" fill="#6b7a90">Abone agi dogrulayan mi?</text>
+  <text x="30" y="160" font-size="9" fill="#6b7a90">Challenge-response</text>
+
+  <rect x="242" y="118" width="130" height="44" rx="0" fill="#ff8f00" fill-opacity="0.25" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="307" y="137" text-anchor="middle" font-size="11" fill="#ff8f00">Var</text>
+  <text x="307" y="153" text-anchor="middle" font-size="9" fill="#4a5a70">(A3/A8, zayif</text>
+  <text x="307" y="163" text-anchor="middle" font-size="9" fill="#4a5a70">varyant kırıldı)</text>
+
+  <rect x="374" y="118" width="130" height="44" rx="0" fill="#1a8a3a" fill-opacity="0.18" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="439" y="140" text-anchor="middle" font-size="11" fill="#1a8a3a">Var (AKA)</text>
+  <text x="439" y="154" text-anchor="middle" font-size="9" fill="#4a5a70">KASUMI/MILENAGE</text>
+
+  <rect x="506" y="118" width="130" height="44" rx="0" fill="#1565c0" fill-opacity="0.18" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="571" y="140" text-anchor="middle" font-size="11" fill="#1565c0">Var (EPS-AKA)</text>
+  <text x="571" y="154" text-anchor="middle" font-size="9" fill="#4a5a70">Anahtar hiyerarsisi</text>
+
+  <rect x="638" y="118" width="202" height="44" rx="0" fill="#1565c0" fill-opacity="0.28" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="739" y="140" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">Var + Ev-Ag Kontrol</text>
+  <text x="739" y="154" text-anchor="middle" font-size="9" fill="#4a5a70">5G-AKA / EAP-AKA'</text>
+
+  <!-- Satir 2: Ag->cihaz (karsili dogrulama) -->
+  <rect x="20" y="164" width="220" height="44" rx="0" fill="#f0f4ff" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="30" y="180" font-size="10" font-weight="bold" fill="#1a2b40">Ag→Cihaz Karsilik Dogr.</text>
+  <text x="30" y="194" font-size="9" fill="#6b7a90">Sahte-BTS'nin temel panzehiri</text>
+  <text x="30" y="206" font-size="9" fill="#6b7a90">AUTN ile tazelik dogrulama</text>
+
+  <rect x="242" y="164" width="130" height="44" rx="0" fill="#c0392b" fill-opacity="0.18" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="307" y="183" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">YOK</text>
+  <text x="307" y="200" text-anchor="middle" font-size="9" fill="#c0392b">Sahte BTS mumkun!</text>
+
+  <rect x="374" y="164" width="130" height="44" rx="0" fill="#1565c0" fill-opacity="0.22" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="439" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">VAR (AKA)</text>
+  <text x="439" y="200" text-anchor="middle" font-size="9" fill="#4a5a70">AUTN + SQN tazelik</text>
+
+  <rect x="506" y="164" width="130" height="44" rx="0" fill="#1565c0" fill-opacity="0.22" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="571" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">VAR</text>
+  <text x="571" y="200" text-anchor="middle" font-size="9" fill="#4a5a70">EPS-AKA (guclu)</text>
+
+  <rect x="638" y="164" width="202" height="44" rx="0" fill="#1565c0" fill-opacity="0.32" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="739" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">ZORUNLU + GUCLU</text>
+  <text x="739" y="200" text-anchor="middle" font-size="9" fill="#4a5a70">Ev-ag teyidi ekstra</text>
+
+  <!-- Satir 3: Hava arayu sifreleme -->
+  <rect x="20" y="210" width="220" height="44" rx="0" fill="#f8fafc" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="30" y="226" font-size="10" font-weight="bold" fill="#1a2b40">Hava Arayu. Sifreleme</text>
+  <text x="30" y="240" font-size="9" fill="#6b7a90">Radyo baglantisi sifreleme</text>
+  <text x="30" y="252" font-size="9" fill="#6b7a90">(kullanici ve sinyalesme)</text>
+
+  <rect x="242" y="210" width="130" height="44" rx="0" fill="#ff8f00" fill-opacity="0.22" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="307" y="229" text-anchor="middle" font-size="11" fill="#ff8f00">Var (A5/1,2,3)</text>
+  <text x="307" y="244" text-anchor="middle" font-size="9" fill="#c0392b">A5/1 kirıldı!</text>
+  <text x="307" y="256" text-anchor="middle" font-size="9" fill="#ff8f00">Null siph. olabilir</text>
+
+  <rect x="374" y="210" width="130" height="44" rx="0" fill="#1a8a3a" fill-opacity="0.18" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="439" y="229" text-anchor="middle" font-size="11" fill="#1a8a3a">Var (KASUMI)</text>
+  <text x="439" y="244" text-anchor="middle" font-size="9" fill="#4a5a70">f8 sifreleme</text>
+
+  <rect x="506" y="210" width="130" height="44" rx="0" fill="#1565c0" fill-opacity="0.22" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="571" y="229" text-anchor="middle" font-size="11" fill="#1565c0">Var (EEA)</text>
+  <text x="571" y="244" text-anchor="middle" font-size="9" fill="#4a5a70">AES/SNOW/ZUC</text>
+
+  <rect x="638" y="210" width="202" height="44" rx="0" fill="#1565c0" fill-opacity="0.32" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="739" y="229" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">Zorunlu (NEA)</text>
+  <text x="739" y="244" text-anchor="middle" font-size="9" fill="#4a5a70">256-bit hazir; ceviklik</text>
+
+  <!-- Satir 4: Kullanici duzlemi butunlugu -->
+  <rect x="20" y="256" width="220" height="44" rx="0" fill="#f0f4ff" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="30" y="272" font-size="10" font-weight="bold" fill="#1a2b40">Kullanici Duzlemi Butunlugu</text>
+  <text x="30" y="286" font-size="9" fill="#6b7a90">Veri manipulasyon onleme</text>
+  <text x="30" y="298" font-size="9" fill="#6b7a90">aLTEr tipi saldiri</text>
+
+  <rect x="242" y="256" width="130" height="44" rx="0" fill="#c0392b" fill-opacity="0.18" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="307" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">YOK</text>
+
+  <rect x="374" y="256" width="130" height="44" rx="0" fill="#ff8f00" fill-opacity="0.22" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="439" y="272" text-anchor="middle" font-size="11" fill="#ff8f00">Sinyal. var</text>
+  <text x="439" y="286" text-anchor="middle" font-size="9" fill="#4a5a70">Kullanici duzlemi</text>
+  <text x="439" y="298" text-anchor="middle" font-size="9" fill="#4a5a70">zorunlu degil</text>
+
+  <rect x="506" y="256" width="130" height="44" rx="0" fill="#c0392b" fill-opacity="0.18" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="571" y="272" text-anchor="middle" font-size="11" fill="#c0392b">Zorunlu degil</text>
+  <text x="571" y="286" text-anchor="middle" font-size="9" fill="#c0392b">Sadece sifreleme</text>
+  <text x="571" y="298" text-anchor="middle" font-size="9" fill="#c0392b">(aLTEr zafiyeti)</text>
+
+  <rect x="638" y="256" width="202" height="44" rx="0" fill="#1a8a3a" fill-opacity="0.22" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="739" y="272" text-anchor="middle" font-size="11" fill="#1a8a3a">Desteklenir (UP-int.)</text>
+  <text x="739" y="286" text-anchor="middle" font-size="9" fill="#4a5a70">Etkin. politikaya</text>
+  <text x="739" y="298" text-anchor="middle" font-size="9" fill="#4a5a70">bagli (yapiland.)</text>
+
+  <!-- Satir 5: Kalici kimlik gizliligi -->
+  <rect x="20" y="302" width="220" height="44" rx="0" fill="#f8fafc" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="30" y="318" font-size="10" font-weight="bold" fill="#1a2b40">Kalici Kimlik Gizliligi</text>
+  <text x="30" y="332" font-size="9" fill="#6b7a90">IMSI/SUPI havada sifreleme</text>
+  <text x="30" y="344" font-size="9" fill="#6b7a90">IMSI-catcher onleme</text>
+
+  <rect x="242" y="302" width="130" height="44" rx="0" fill="#c0392b" fill-opacity="0.22" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="307" y="321" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">IMSI ACIK</text>
+  <text x="307" y="337" text-anchor="middle" font-size="9" fill="#c0392b">Yakalanabilir</text>
+
+  <rect x="374" y="302" width="130" height="44" rx="0" fill="#c0392b" fill-opacity="0.18" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="439" y="321" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">IMSI ACIK</text>
+  <text x="439" y="337" text-anchor="middle" font-size="9" fill="#c0392b">Gecici TMSI var</text>
+  <text x="439" y="349" text-anchor="middle" font-size="9" fill="#c0392b">ama ilk ek acik</text>
+
+  <rect x="506" y="302" width="130" height="44" rx="0" fill="#c0392b" fill-opacity="0.18" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="571" y="321" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">IMSI ACIK</text>
+  <text x="571" y="337" text-anchor="middle" font-size="9" fill="#c0392b">ilk Attach'ta</text>
+  <text x="571" y="349" text-anchor="middle" font-size="9" fill="#c0392b">gidebilir</text>
+
+  <rect x="638" y="302" width="202" height="44" rx="0" fill="#1565c0" fill-opacity="0.32" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="739" y="321" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">SUCI: SIFRELI</text>
+  <text x="739" y="337" text-anchor="middle" font-size="9" fill="#1565c0">Sahte hucre SUCI</text>
+  <text x="739" y="349" text-anchor="middle" font-size="9" fill="#1565c0">acamaz (SA)</text>
+
+  <!-- Satir 6: cekirdek sinyalesme -->
+  <rect x="20" y="348" width="220" height="44" rx="0" fill="#f0f4ff" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="30" y="364" font-size="10" font-weight="bold" fill="#1a2b40">Cekirdek Sinyalesme Guvenligi</text>
+  <text x="30" y="378" font-size="9" fill="#6b7a90">Operatorler arasi guvence</text>
+  <text x="30" y="390" font-size="9" fill="#6b7a90">Roaming / SS7/Diam.</text>
+
+  <rect x="242" y="348" width="130" height="44" rx="0" fill="#c0392b" fill-opacity="0.22" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="307" y="367" text-anchor="middle" font-size="11" fill="#c0392b">SS7</text>
+  <text x="307" y="381" text-anchor="middle" font-size="9" fill="#c0392b">Guvenilen ag</text>
+  <text x="307" y="393" text-anchor="middle" font-size="9" fill="#c0392b">varsayimi</text>
+
+  <rect x="374" y="348" width="130" height="44" rx="0" fill="#c0392b" fill-opacity="0.18" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="439" y="367" text-anchor="middle" font-size="11" fill="#c0392b">SS7/MAP</text>
+  <text x="439" y="381" text-anchor="middle" font-size="9" fill="#c0392b">Benzer zafiyet</text>
+
+  <rect x="506" y="348" width="130" height="44" rx="0" fill="#ff8f00" fill-opacity="0.22" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="571" y="367" text-anchor="middle" font-size="11" fill="#ff8f00">Diameter</text>
+  <text x="571" y="381" text-anchor="middle" font-size="9" fill="#4a5a70">TLS/IPsec</text>
+  <text x="571" y="393" text-anchor="middle" font-size="9" fill="#4a5a70">mumkun</text>
+
+  <rect x="638" y="348" width="202" height="44" rx="0" fill="#1565c0" fill-opacity="0.28" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="739" y="367" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">SBA + TLS + SEPP</text>
+  <text x="739" y="381" text-anchor="middle" font-size="9" fill="#4a5a70">HTTP/2, sifir-guven</text>
+  <text x="739" y="393" text-anchor="middle" font-size="9" fill="#4a5a70">yonlunde</text>
+
+  <!-- Alt ozet: kritik ders -->
+  <rect x="20" y="402" width="820" height="46" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="430" y="420" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2b40">Kritik Sezgi: En Onemli Iki Satir — Karsilikli Dogrulama + Kalici Kimlik Gizliligi</text>
+  <text x="430" y="436" text-anchor="middle" font-size="9" fill="#4a5a70">2G ikisinede sahip degil → sahte BTS + IMSI yakalama. 3G karsilikliyi kapatti. 5G SUCI ile kimligi kapatti. LTE ikisi arasinda.</text>
+  <text x="430" y="450" text-anchor="middle" font-size="9" fill="#c0392b">Sistem, destekledigi en zayif moda kadar guvenlidir — 2G'yi kapatmak bireysel en guclu savunma hamlesidir.</text>
+</svg>

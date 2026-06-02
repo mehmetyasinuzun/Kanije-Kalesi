@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="440" fill="#f4f7fb"/>
+  <text x="380" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Ceyrek Dalga Anten Boyu — Frekans (Log Eksen)</text>
+
+  <defs>
+    <marker id="ax" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#7a8aa0"/>
+    </marker>
+  </defs>
+
+  <!-- Panel -->
+  <rect x="70" y="45" width="660" height="350" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Eksen etiketleri -->
+  <text x="400" y="420" text-anchor="middle" font-size="12" fill="#4a5a70">Frekans (MHz) — logaritmik eksen</text>
+  <!-- Dikey eksen etiketi -->
+  <text x="18" y="225" text-anchor="middle" font-size="12" fill="#4a5a70" transform="rotate(-90,18,225)">Ceyrek dalga boyu (cm)</text>
+
+  <!-- X ekseni (log: 10 MHz = sol, 3000 MHz = sag) -->
+  <!-- log10(10)=1, log10(3000)=3.477; toplam aralik=2.477; grafik x=80..720, genislik=640 -->
+  <!-- x(f) = 80 + (log10(f)-1) * 640/2.477 -->
+  <!-- Y ekseni: boy 0..300 cm, grafik y=380..55, yukseklik=325 -->
+  <!-- y(boy_cm) = 380 - boy_cm * 325/300 -->
+
+  <!-- Y ekseni izgara ve etiketler -->
+  <g stroke="#e8eef5" stroke-width="0.8">
+    <line x1="80" y1="55" x2="720" y2="55"/>
+    <line x1="80" y1="163" x2="720" y2="163"/>
+    <line x1="80" y1="272" x2="720" y2="272"/>
+    <line x1="80" y1="380" x2="720" y2="380"/>
+  </g>
+  <g font-size="11" fill="#6b7a90" text-anchor="end">
+    <text x="72" y="384">0</text>
+    <text x="72" y="276">100</text>
+    <text x="72" y="167">200</text>
+    <text x="72" y="59">300</text>
+  </g>
+  <text x="730" y="167" font-size="10" fill="#6b7a90">cm</text>
+
+  <!-- X ekseni log gridler ve etiketler -->
+  <!-- 10,20,30,50,100,200,300,500,1000,2000,3000 MHz -->
+  <!-- f=10: x=80; f=30: x=80+log10(3)/2.477*640=80+117=197; f=100:x=80+1/2.477*640=80+258=338; f=300:x=80+1.477/2.477*640=80+382=462; f=1000:x=80+2/2.477*640=80+517=597; f=3000:x=80+2.477/2.477*640=720 -->
+  <g stroke="#e8eef5" stroke-width="0.8">
+    <line x1="197" y1="55" x2="197" y2="380"/>
+    <line x1="338" y1="55" x2="338" y2="380"/>
+    <line x1="462" y1="55" x2="462" y2="380"/>
+    <line x1="597" y1="55" x2="597" y2="380"/>
+    <line x1="720" y1="55" x2="720" y2="380"/>
+  </g>
+  <g font-size="11" fill="#6b7a90" text-anchor="middle">
+    <text x="80" y="397">10</text>
+    <text x="197" y="397">30</text>
+    <text x="338" y="397">100</text>
+    <text x="462" y="397">300</text>
+    <text x="597" y="397">1000</text>
+    <text x="720" y="397">3000</text>
+  </g>
+
+  <!-- Eksenler -->
+  <line x1="80" y1="380" x2="720" y2="380" stroke="#7a8aa0" stroke-width="1.5" marker-end="url(#ax)"/>
+  <line x1="80" y1="380" x2="80" y2="52" stroke="#7a8aa0" stroke-width="1.5" marker-end="url(#ax)"/>
+
+  <!-- Egri: y = 71.5/f * 100 cm, f MHz cinsinden -->
+  <!-- Nokta hesaplari (log x donusumu):
+       x(f) = 80 + (log10(f)-1)*258.4   [640/2.477=258.4]
+       y(boy) = 380 - (71.5/f)*100 * (325/300) = 380 - (71.5/f)*108.3
+       f=10: boy=715cm (>300 cm, cizilmez / ekran disi)
+       f=15: boy=476cm (ekran disi)
+       f=20: x=80+0.301*258.4=157.8, boy=357.5cm (biraz disi, y<0 olur; kesiyoruz y=55)
+       f=25: x=80+0.398*258.4=182.8, boy=286cm -> y=380-286*1.083=380-309.8=70.2
+       f=27: x=80+0.431*258.4=191.4, boy=264.8 -> y=380-286.8=93.2
+       f=50: x=80+0.699*258.4=260.6, boy=143 -> y=380-154.9=225.1
+       f=137: x=80+1.137*258.4=373.8, boy=52.2 -> y=380-56.6=323.4
+       f=144.8: x=80+1.161*258.4=379.9, boy=49.4 -> y=380-53.5=326.5
+       f=162: x=80+1.210*258.4=392.6, boy=44.1 -> y=380-47.8=332.2
+       f=433: x=80+1.636*258.4=502.7, boy=16.5 -> y=380-17.9=362.1
+       f=868: x=80+1.938*258.4=580.8, boy=8.2 -> y=380-8.9=371.1
+       f=1090: x=80+2.037*258.4=606.4, boy=6.56 -> y=380-7.1=372.9
+       f=1575: x=80+2.197*258.4=647.8, boy=4.54 -> y=380-4.9=375.1
+       f=2400: x=80+2.380*258.4=695.1, boy=2.98 -> y=380-3.2=376.8
+  -->
+
+  <!-- Egri: mavi cizgi -->
+  <polyline points="
+    182,70
+    191,93
+    260,225
+    374,323
+    380,327
+    393,332
+    503,362
+    581,371
+    606,373
+    648,375
+    695,377
+  " fill="none" stroke="#1565c0" stroke-width="2.2"/>
+
+  <!-- Band noktalari: renkli daireler + etiketler -->
+  <!-- 27 MHz: x=191, y=93 -->
+  <circle cx="191" cy="93" r="6" fill="#c0392b"/>
+  <text x="196" y="83" font-size="10.5" font-weight="bold" fill="#c0392b">27 MHz</text>
+  <text x="196" y="97" font-size="10" fill="#c0392b">~2.65 m</text>
+
+  <!-- 137 MHz: x=374, y=323 -->
+  <circle cx="374" cy="323" r="6" fill="#ff8f00"/>
+  <line x1="374" y1="323" x2="374" y2="295" stroke="#ff8f00" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="308" y="290" font-size="10.5" font-weight="bold" fill="#ff8f00">137 MHz (NOAA)</text>
+  <text x="308" y="302" font-size="10" fill="#ff8f00">~52 cm</text>
+
+  <!-- 144.8 MHz (APRS): x=380, y=327 -->
+  <circle cx="380" cy="338" r="5" fill="#6b7a90"/>
+  <text x="385" y="354" font-size="10" fill="#6b7a90">144.8 MHz (APRS)</text>
+
+  <!-- 433 MHz: x=503, y=362 -->
+  <circle cx="503" cy="362" r="6" fill="#1a8a3a"/>
+  <line x1="503" y1="362" x2="503" y2="332" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="463" y="328" font-size="10.5" font-weight="bold" fill="#1a8a3a">433 MHz (ISM)</text>
+  <text x="463" y="340" font-size="10" fill="#1a8a3a">~16.5 cm</text>
+
+  <!-- 1090 MHz: x=606, y=373 -->
+  <circle cx="606" cy="373" r="6" fill="#1565c0"/>
+  <line x1="606" y1="373" x2="606" y2="340" stroke="#1565c0" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="558" y="337" font-size="10.5" font-weight="bold" fill="#1565c0">1090 MHz (ADS-B)</text>
+  <text x="558" y="349" font-size="10" fill="#1565c0">~6.5 cm</text>
+
+  <!-- 2400 MHz: x=695, y=377 -->
+  <circle cx="695" cy="377" r="6" fill="#6b7a90"/>
+  <text x="650" y="368" font-size="10" fill="#6b7a90">2400 MHz</text>
+  <text x="650" y="380" font-size="10" fill="#6b7a90">~3 cm</text>
+
+  <!-- Formul etiketi -->
+  <text x="250" y="175" font-size="11.5" fill="#1565c0" font-weight="bold">L(cm) = 71.5 / f(MHz) × 100</text>
+  <text x="250" y="190" font-size="10.5" fill="#4a5a70">(ceyrek dalga monopol)</text>
+</svg>

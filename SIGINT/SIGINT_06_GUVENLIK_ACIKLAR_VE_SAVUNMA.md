@@ -133,6 +133,8 @@ GPS sivil sinyali imzasızdır → sahte sinyal üretmek (prensip olarak) mümk�
 <a id="4"></a>
 ## 4.  SALDIRI SINIFLARI — Prensip + Savunma (Reçete Değil)
 
+![Saldiri Sinif Matrisi — Pasif/Aktif x Icerik/Erisim kavramsal 2x2](img/b06_saldiri_sinif_matrisi.svg)
+
 Aşağıda her saldırı sınıfı **kavramsal** olarak anlatılır: *nasıl çalışır (prensip), neden işe yarar (zafiyet), nasıl tespit/savunulur.* **Adım-adım uygulama yoktur** — bilinçli olarak. Çünkü çoğu suçtur; amacımız onları **tanımak ve durdurmaktır.**
 
 ### 4.1 Replay (Tekrar Oynatma)
@@ -205,6 +207,8 @@ GSM'in ses şifrelemesi **A5/1** (ve daha da zayıf, ihracat sürümü **A5/2**)
 
 ### 5.2  IMSI Catcher / Stingray (Sahte Baz İstasyonu)
 
+![IMSI Catcher Mimarisi — Telefon/Sahte BTS/Gercek Ag + 5G SUCI savunmasi](img/b06_imsi_catcher_mimari.svg)
+
 > "Stingray" bir ticari ürün markasıdır; jenerik adı **IMSI catcher** veya **sahte baz istasyonu**dur.
 
 **Prensip (kavram):** Telefon, **en güçlü sinyalli** hücreye bağlanma eğilimindedir ve 2G'de ağ aboneyi doğrular ama **abone ağı doğrulamaz** (tek-yönlü kimlik doğrulama). Sahte bir baz istasyonu, çevredeki telefonları kendine çekip:
@@ -259,6 +263,8 @@ Kullanıcının özel olarak istediği konu. **Dikkat:** Aşağıdaki tamamen **
 
 <a id="6"></a>
 ## 6.  Downgrade Saldırıları — Zincirin En Zayıf Halkasına İtme
+
+![Downgrade Zinciri — 5G/4G/3G/2G nesil merdiveni ve savunma onlemleri](img/b06_downgrade_zinciri.svg)
 
 **Prensip:** Modern güvenlik (5G/4G) güçlüdür; ama cihaz **geriye dönük uyumluluk** için eski/zayıf nesilleri (2G) hâlâ destekler. Bir saldırgan, cihazı **daha zayıf nesle "düşürmeye"** zorlayabilirse, o neslin tüm açıkları geri gelir. Klasik örnek: **4G/5G → 2G zorlama** (örn. 2G'yi taklit eden güçlü sahte hücre + üst nesli "kullanılamaz" gösterme) → zayıf A5/1 + tek-yönlü kimlik doğrulama + IMSI açık.
 

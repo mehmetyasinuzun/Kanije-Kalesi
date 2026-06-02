@@ -174,6 +174,8 @@ Bir kafesi yaptıktan/aldıktan sonra ne kadar izole ettiğini **ölçmeden** on
      korunan frekanslardan uzak dur (Kısım 15), kısa süre çalıştır.
 ```
 
+![Referans sinyal disarida, RTL-SDR Faraday icinde; kapak acik ve kapali konumlarinda sinyal seviyesi GQRX'te karsilastirilir; ornek sonuc: 40 dB izolasyon](img/b28_faraday_kacak_olcum.svg)
+
 > Doğru zihniyet: Faraday kutusu "ya izole eder ya etmez" değil, "şu frekansta şu kadar dB zayıflatır" diye düşünülür. 100 MHz'te harika olan ev-yapımı bir kutu, 2.4 GHz'te zayıf olabilir (delik/conta dalga boyuna göre büyür). Bu yüzden hangi senaryo için kullanacaksan, o senaryonun frekansında ölçersin. Ölçülmemiş bir kafese "izole" demek, kilitlenmemiş bir kapıya "güvenli" demek gibidir.
 
 ### Faraday'ın sınırı ve dürüst uyarı
@@ -237,6 +239,8 @@ Dummy load, bir antenin yerine geçen, vericinin gücünü havaya yaymak yerine 
    - Konnektör/kablo uyumu (SMA vs N, 50 Ω) doğru olmalı; uyumsuzluk
      yansıma ve seviye hatası üretir.
 ```
+
+![TX cihazindan dummy load (havaya cikis yok) ve TX-ATT1(30dB)-ATT2(20dB)-RX kablolu zinciri; guc butcesi hesabi ile RX guvenligi dogrulanir](img/b28_kablolu_attenuator.svg)
 
 > Neden bu yöntem bu kadar değerli: Bir saldırı/savunma deneyini (örn kendi sub-GHz kumandanın sinyalini kendi alıcına göndermek, Senaryo 3) attenuator'lü kabloyla yaparsan, sinyalin havaya çıkmadığını *fizik garanti eder* — kaçak ölçmene bile gerek kalmaz. Bu, Faraday'a kıyasla hem daha güvenli hem daha kesindir. Bu bölümün altın kuralı: **TX gerektiren bir deneyi mümkün olduğunca kabloyla yap; antene/havaya yalnızca gerçekten gerektiğinde geç.**
 
@@ -380,6 +384,8 @@ Aşağıdaki envanter, Kısım B'deki altı senaryonun tamamını kendi izole or
    Raspberry Pi      3/4/5 (opsiyonel düğüm)          Kalıcı/ayrı düğüm (Bölüm 26)
    Ayrı ağ donanımı  İzole switch/AP                  Test ağı segmentasyonu
 ```
+
+![6 PoC senaryo (WiFi/BLE/Sub-GHz/RFID/GNSS/Hucresel) icin TX zorunlulugu, izolasyon sart ve onerilen yontem (dummy-load/kablolu/Faraday) renkli matris](img/b28_senaryo_izolasyon_matrisi.svg)
 
 > Maliyet notu: Bu envanterin tamamı ciddi bir yatırımdır; ama çoğu senaryoya RTL-SDR + tek bir TX-SDR (HackRF) + dummy load + attenuator seti + kendi mevcut cihazların (eski telefon, kendi kumandan, kendi kart) ile başlayabilirsin. NanoVNA ve Faraday çadırı kaçak/anten ölçümü içindir; kablolu+attenuator çalışırsan ikisi de "sonra" alınabilir. Donanım seçim derinliği Bölüm 2'de (SDR'lar), Bölüm 3'te (anten/yük/filtre/NanoVNA), araç kurulumu Bölüm 4 ve 12'dedir.
 

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="520" fill="#f4f7fb"/>
+  <text x="380" y="28" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b40">Bir Frekansin Sahibini Belirleme Metodolojisi</text>
+
+  <defs>
+    <marker id="fax" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1565c0"/>
+    </marker>
+    <marker id="faxG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1a8a3a"/>
+    </marker>
+    <marker id="faxR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c0392b"/>
+    </marker>
+    <marker id="faxO" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#ff8f00"/>
+    </marker>
+  </defs>
+
+  <!-- Ana akis kutu genisligi 340, merkez x=380 -->
+
+  <!-- ADIM 0: Giris -->
+  <rect x="240" y="45" width="280" height="52" fill="#1565c0" stroke="#1565c0" stroke-width="1.5" rx="6"/>
+  <text x="380" y="67" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Bilinmeyen Sinyal Algilandi</text>
+  <text x="380" y="86" text-anchor="middle" font-size="10" fill="#d0e4ff">Frekans, Modulasyon veya waterfall gozlemlendi</text>
+
+  <!-- ok 0→1 -->
+  <line x1="380" y1="97" x2="380" y2="118" stroke="#1565c0" stroke-width="2" marker-end="url(#fax)"/>
+
+  <!-- ADIM 1: Bant Dilimi -->
+  <rect x="220" y="120" width="320" height="58" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5" rx="6"/>
+  <text x="380" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">Adim 1 — Bant Dilimine Yerlestir</text>
+  <text x="380" y="157" text-anchor="middle" font-size="10" fill="#4a5a70">VLF / LF / MF / HF / VHF / UHF / SHF / EHF?</text>
+  <text x="380" y="171" text-anchor="middle" font-size="9" fill="#6b7a90">Frekans → yayilim → kullanici grubu daralmasi</text>
+
+  <!-- Karar dugumu 1a -->
+  <!-- Evet -> devam -->
+  <line x1="380" y1="178" x2="380" y2="198" stroke="#1565c0" stroke-width="2" marker-end="url(#fax)"/>
+  <text x="392" y="191" font-size="9" fill="#1565c0">Evet</text>
+
+  <!-- ADIM 2: Tahsis Tablosu -->
+  <rect x="220" y="200" width="320" height="68" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5" rx="6"/>
+  <text x="380" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">Adim 2 — Tahsis Tablosuyla Dogrula</text>
+  <text x="380" y="238" text-anchor="middle" font-size="10" fill="#4a5a70">ITU Tahsis Tablosu / BTK Milli Frekans Plani</text>
+  <text x="380" y="253" text-anchor="middle" font-size="9" fill="#6b7a90">Birincil mi, ikincil mi? Hangi hizmetler tahsisli?</text>
+  <text x="380" y="265" text-anchor="middle" font-size="9" fill="#6b7a90">Kullanici adayi listesi daraliyor...</text>
+
+  <!-- Karar dugumu 2: Eslesme var mi? -->
+  <line x1="380" y1="268" x2="380" y2="292" stroke="#1565c0" stroke-width="2" marker-end="url(#fax)"/>
+
+  <!-- Eşleme yok yan dali -->
+  <rect x="570" y="220" width="170" height="50" fill="#fce8e8" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="655" y="241" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Esleme Yok?</text>
+  <text x="655" y="256" text-anchor="middle" font-size="9" fill="#4a5a70">Lisanssiz / kac. cihaz</text>
+  <text x="655" y="268" text-anchor="middle" font-size="9" fill="#4a5a70">veya ölçüm hatasi</text>
+  <line x1="540" y1="234" x2="568" y2="234" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#faxR)"/>
+  <text x="554" y="228" text-anchor="middle" font-size="8" fill="#c0392b">Hayir</text>
+
+  <!-- ADIM 3: Kanal / Baglam -->
+  <rect x="220" y="294" width="320" height="68" fill="#e8f4e8" stroke="#1a8a3a" stroke-width="1.5" rx="6"/>
+  <text x="380" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a8a3a">Adim 3 — Kanal Plani + Yerel Baglam</text>
+  <text x="380" y="331" text-anchor="middle" font-size="10" fill="#4a5a70">Kanal araligini teyit et (8.33 kHz / 25 kHz / vb.)</text>
+  <text x="380" y="347" text-anchor="middle" font-size="9" fill="#6b7a90">Yerel bilgi: yakin havaalanı? Liman? ISM cihazi?</text>
+  <text x="380" y="360" text-anchor="middle" font-size="9" fill="#6b7a90">Alt hizmet / alt-bant darlamasi</text>
+
+  <line x1="380" y1="362" x2="380" y2="382" stroke="#1a8a3a" stroke-width="2" marker-end="url(#faxG)"/>
+
+  <!-- ADIM 4: Modulasyon Teyit -->
+  <rect x="220" y="384" width="320" height="68" fill="#fffbe6" stroke="#ff8f00" stroke-width="1.5" rx="6"/>
+  <text x="380" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">Adim 4 — Modulasyonu Teyit Et</text>
+  <text x="380" y="421" text-anchor="middle" font-size="10" fill="#4a5a70">AM (havacilik) / FM (deniz, amator)</text>
+  <text x="380" y="437" text-anchor="middle" font-size="9" fill="#6b7a90">SSB (HF haberlesme) / Sayisal (TETRA/LTE...)</text>
+  <text x="380" y="450" text-anchor="middle" font-size="9" fill="#6b7a90">Modulasyon → kullanici grubu son dogrulama</text>
+
+  <line x1="380" y1="452" x2="380" y2="472" stroke="#ff8f00" stroke-width="2" marker-end="url(#faxO)"/>
+
+  <!-- SONUC -->
+  <rect x="240" y="474" width="280" height="36" fill="#1a8a3a" stroke="#1a8a3a" stroke-width="1.5" rx="6"/>
+  <text x="380" y="487" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Kimlik Belirlendi</text>
+  <text x="380" y="502" text-anchor="middle" font-size="10" fill="#c8ffd0">(sistem + hizmet + kullanici grubu)</text>
+
+  <!-- Geri donus dongusu etiketi -->
+  <text x="20" y="390" font-size="9" fill="#7a8aa0" font-style="italic">Yeni bilgiyle</text>
+  <text x="20" y="403" font-size="9" fill="#7a8aa0" font-style="italic">geri don →</text>
+  <path d="M 65 380 Q 140 310 220 310" fill="none" stroke="#d3dde8" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Yan ornekler kutu -->
+  <rect x="20" y="45" width="195" height="300" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="117" y="64" text-anchor="middle" font-size="11" font-weight="bold" fill="#36506e">Ornek Daralmalar</text>
+  <line x1="25" y1="70" x2="210" y2="70" stroke="#d3dde8" stroke-width="0.8"/>
+
+  <text x="30" y="88"  font-size="9" font-weight="bold" fill="#1565c0">118–137 MHz + AM</text>
+  <text x="30" y="100" font-size="9" fill="#4a5a70">→ Havacilik ATC</text>
+
+  <text x="30" y="118" font-size="9" font-weight="bold" fill="#c0392b">156.8 MHz + FM</text>
+  <text x="30" y="130" font-size="9" fill="#4a5a70">→ Deniz VHF Kanal 16</text>
+
+  <text x="30" y="148" font-size="9" font-weight="bold" fill="#ff8f00">433 MHz kisa burst</text>
+  <text x="30" y="160" font-size="9" fill="#4a5a70">→ ISM SRD cihazi</text>
+
+  <text x="30" y="178" font-size="9" font-weight="bold" fill="#1a8a3a">1090 MHz kisa darbe</text>
+  <text x="30" y="190" font-size="9" fill="#4a5a70">→ ADS-B transponder</text>
+
+  <text x="30" y="208" font-size="9" font-weight="bold" fill="#1565c0">380–400 MHz sayisal</text>
+  <text x="30" y="220" font-size="9" fill="#4a5a70">→ TETRA kamu</text>
+
+  <text x="30" y="238" font-size="9" font-weight="bold" fill="#c0392b">1575.42 MHz cok zayif</text>
+  <text x="30" y="250" font-size="9" fill="#4a5a70">→ GPS L1 sinyali</text>
+
+  <text x="30" y="268" font-size="9" font-weight="bold" fill="#ff8f00">145.500 MHz FM</text>
+  <text x="30" y="280" font-size="9" fill="#4a5a70">→ 2m Amator FM</text>
+
+  <text x="30" y="298" font-size="9" font-weight="bold" fill="#1a8a3a">518 kHz FSK metin</text>
+  <text x="30" y="310" font-size="9" fill="#4a5a70">→ NAVTEX deniz</text>
+  <text x="30" y="323" font-size="9" fill="#4a5a70">  guvenlik yayin</text>
+
+  <!-- Alt bilgi -->
+  <line x1="20" y1="515" x2="740" y2="515" stroke="#d3dde8" stroke-width="1"/>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 400" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="780" height="400" fill="#f4f7fb"/>
+  <text x="390" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Radyo Yayilim Mekanizmalari — Uc Ana Mod</text>
+
+  <!-- Zemin yuzey egrisi -->
+  <path d="M0 280 Q390 250 780 280" fill="#c8dbb0" stroke="#7a9a5a" stroke-width="1.5"/>
+  <rect x="0" y="280" width="780" height="120" fill="#c8dbb0"/>
+  <text x="10" y="340" font-size="11" fill="#4a5a70">Yer Yuzeyi</text>
+
+  <!-- Iyonosfer katmani -->
+  <path d="M0 80 Q390 55 780 80" fill="none" stroke="#ff8f00" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="610" y="68" font-size="11" fill="#ff8f00" font-weight="bold">Iyonosfer (~60-400 km)</text>
+
+  <!-- === MOD 1: YER DALGASI (VLF-MF) === -->
+  <!-- Verici sol -->
+  <rect x="28" y="248" width="16" height="30" fill="#1565c0"/>
+  <line x1="36" y1="248" x2="36" y2="230" stroke="#1565c0" stroke-width="2"/>
+  <polygon points="36,226 31,236 41,236" fill="#1565c0"/>
+  <text x="36" y="222" text-anchor="middle" font-size="10" fill="#1565c0" font-weight="bold">VLF/MF</text>
+  <!-- Yer dalgasi yay yolu -->
+  <path d="M44 260 Q120 240 200 255 Q280 268 360 258" fill="none" stroke="#1565c0" stroke-width="2"/>
+  <polygon points="360,258 349,254 351,264" fill="#1565c0"/>
+  <!-- Alici -->
+  <rect x="360" y="248" width="14" height="26" fill="#1565c0" opacity="0.6"/>
+  <text x="373" y="260" font-size="10" fill="#1565c0">[alici]</text>
+  <!-- Etiket -->
+  <rect x="40" y="285" width="210" height="30" fill="#e8f0fa" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="145" y="299" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">1) Yer Dalgasi</text>
+  <text x="145" y="311" text-anchor="middle" font-size="10" fill="#36506e">VLF/MF · yuzey boyunca · denizalti · AM</text>
+
+  <!-- === MOD 2: IYONOSFER SEKMESI (HF) === -->
+  <!-- Verici orta-sol -->
+  <rect x="278" y="248" width="16" height="30" fill="#c0392b"/>
+  <line x1="286" y1="248" x2="286" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="286,226 281,236 291,236" fill="#c0392b"/>
+  <text x="286" y="222" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="bold">HF</text>
+  <!-- Giden dalga iyonosfere -->
+  <path d="M294 245 Q340 130 420 88" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <!-- Iyonosferden sekmis gelen -->
+  <path d="M420 88 Q510 130 590 248" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="590,248 581,240 585,250" fill="#c0392b"/>
+  <!-- Yansima noktasi -->
+  <circle cx="420" cy="88" r="5" fill="#ff8f00" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Alici -->
+  <rect x="590" y="248" width="14" height="26" fill="#c0392b" opacity="0.6"/>
+  <text x="607" y="260" font-size="10" fill="#c0392b">[alici]</text>
+  <!-- Mesafe ok -->
+  <line x1="286" y1="272" x2="590" y2="272" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="438" y="283" text-anchor="middle" font-size="10" fill="#c0392b">binlerce km</text>
+  <!-- Etiket -->
+  <rect x="320" y="320" width="210" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="425" y="335" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">2) Iyonosfer Sekmesi</text>
+  <text x="425" y="347" text-anchor="middle" font-size="10" fill="#36506e">HF (3-30 MHz) · gece/gunduz degisir</text>
+  <text x="425" y="357" text-anchor="middle" font-size="10" fill="#36506e">Dunya olcegi iletisim</text>
+
+  <!-- === MOD 3: GORUS HATTI (VHF+) === -->
+  <!-- Verici sag -->
+  <rect x="662" y="210" width="16" height="68" fill="#1a8a3a"/>
+  <line x1="670" y1="210" x2="670" y2="190" stroke="#1a8a3a" stroke-width="2"/>
+  <polygon points="670,186 665,196 675,196" fill="#1a8a3a"/>
+  <text x="670" y="182" text-anchor="middle" font-size="10" fill="#1a8a3a" font-weight="bold">VHF/UHF</text>
+  <!-- Gorus hatti duz cizgi -->
+  <line x1="670" y1="210" x2="755" y2="252" stroke="#1a8a3a" stroke-width="2"/>
+  <polygon points="755,252 744,249 748,258" fill="#1a8a3a"/>
+  <!-- Ufok kavimleri -->
+  <path d="M670 278 Q710 268 755 275" fill="none" stroke="#9fb3c8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- LOS etiket -->
+  <rect x="680" y="315" width="90" height="42" fill="#e8f5ed" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="725" y="330" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">3) LOS</text>
+  <text x="725" y="342" text-anchor="middle" font-size="10" fill="#36506e">VHF/UHF/SHF</text>
+  <text x="725" y="353" text-anchor="middle" font-size="10" fill="#36506e">Gorus hatti</text>
+
+  <!-- Uzaklik formul notu -->
+  <rect x="480" y="355" width="240" height="28" fill="#ffffff" stroke="#d3dde8" stroke-width="1" rx="3"/>
+  <text x="600" y="367" text-anchor="middle" font-size="10" fill="#4a5a70">LOS mesafe ≈ 4.12 × (√h_tx + √h_rx) km</text>
+  <text x="600" y="378" text-anchor="middle" font-size="10" fill="#6b7a90">h = anten yuksekligi (metre)</text>
+
+  <!-- Frekans bant referansi -->
+  <rect x="10" y="354" width="270" height="38" fill="#ffffff" stroke="#d3dde8" stroke-width="1" rx="3"/>
+  <text x="145" y="367" text-anchor="middle" font-size="10" fill="#4a5a70" font-weight="bold">VLF/LF/MF: Yer dalgasi</text>
+  <text x="145" y="379" text-anchor="middle" font-size="10" fill="#4a5a70">HF: Iyonosfer  |  VHF+: Gorus Hatti</text>
+</svg>

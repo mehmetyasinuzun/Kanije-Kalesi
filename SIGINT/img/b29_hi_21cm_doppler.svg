@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="500" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">HI 21 cm Hatti — Doppler Kaymasindan Radyal Hiz</text>
+
+  <!-- Sol panel: Samanyolu kus-bakisi -->
+  <rect x="15" y="42" width="400" height="430" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="215" y="64" text-anchor="middle" font-size="12" font-weight="bold" fill="#36506e">Samanyolu Kus-Bakisi ve Gorus Hatti</text>
+
+  <!-- Galaksi elips merkezi: 215, 270 -->
+  <!-- Galaksi ana gövdesi -->
+  <ellipse cx="215" cy="265" rx="155" ry="90" fill="#1a2b40" fill-opacity="0.05" stroke="#6b7a90" stroke-width="1.5"/>
+
+  <!-- Sarmal kollar (stilize) -->
+  <!-- Kol 1: saat yonu ilk kol -->
+  <path d="M215,265 Q280,230 310,200 Q330,180 320,160" fill="none" stroke="#1565c0" stroke-width="2" opacity="0.6"/>
+  <path d="M215,265 Q260,250 295,255 Q330,260 340,275" fill="none" stroke="#1565c0" stroke-width="2" opacity="0.6"/>
+  <!-- Kol 2 -->
+  <path d="M215,265 Q150,300 120,330 Q100,350 110,370" fill="none" stroke="#1a8a3a" stroke-width="2" opacity="0.6"/>
+  <path d="M215,265 Q170,280 140,275 Q100,270 90,255" fill="none" stroke="#1a8a3a" stroke-width="2" opacity="0.6"/>
+
+  <!-- Galaksi merkezi parlak nokta -->
+  <circle cx="215" cy="265" r="10" fill="#ff8f00" fill-opacity="0.5"/>
+  <circle cx="215" cy="265" r="4" fill="#ff8f00"/>
+  <text x="215" y="282" text-anchor="middle" font-size="9" fill="#ff8f00">GC</text>
+
+  <!-- Gunes sistemi konumu -->
+  <circle cx="255" cy="255" r="6" fill="#c0392b"/>
+  <text x="268" y="253" font-size="10" fill="#c0392b" font-weight="bold">Güneş</text>
+  <text x="268" y="265" font-size="9" fill="#c0392b">sistemi</text>
+
+  <!-- Gorus hatti (gozlemci bakis yonu) -->
+  <!-- Yön: Galaktik merkeze dogru, sonra onun ötesine -->
+  <line x1="255" y1="255" x2="130" y2="220" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <!-- Gorus hatti uzerindeki HI bulutlari -->
+
+  <!-- Bulut A: yakin, bize dogru geliyor (v_r < 0, mavi kayma) -->
+  <circle cx="200" cy="240" r="14" fill="#1565c0" fill-opacity="0.25" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="200" y="238" text-anchor="middle" font-size="9" fill="#1565c0">A</text>
+  <text x="200" y="248" text-anchor="middle" font-size="8" fill="#1565c0">-50km/s</text>
+
+  <!-- Bulut B: orta mesafe, sabit -->
+  <circle cx="168" cy="228" r="12" fill="#1a8a3a" fill-opacity="0.25" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="168" y="226" text-anchor="middle" font-size="9" fill="#1a8a3a">B</text>
+  <text x="168" y="236" text-anchor="middle" font-size="8" fill="#1a8a3a">+20km/s</text>
+
+  <!-- Bulut C: uzak, uzaklasan (v_r > 0, kizil kayma) -->
+  <circle cx="140" cy="220" r="10" fill="#c0392b" fill-opacity="0.25" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="140" y="218" text-anchor="middle" font-size="9" fill="#c0392b">C</text>
+  <text x="140" y="228" text-anchor="middle" font-size="8" fill="#c0392b">+80km/s</text>
+
+  <!-- Hiz oklarla -->
+  <!-- Bulut A -> gözlemci yönü: sola/bize dogru ok -->
+  <line x1="200" y1="254" x2="230" y2="260" stroke="#1565c0" stroke-width="1.5" marker-end="url(#ab_hi)"/>
+  <!-- Bulut C -> uzaklasan -->
+  <line x1="140" y1="220" x2="115" y2="212" stroke="#c0392b" stroke-width="1.5" marker-end="url(#ar_hi)"/>
+
+  <defs>
+    <marker id="ab_hi" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#1565c0"/>
+    </marker>
+    <marker id="ar_hi" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#c0392b"/>
+    </marker>
+    <marker id="ag_hi" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#1a8a3a"/>
+    </marker>
+  </defs>
+
+  <!-- Aciklama -->
+  <rect x="22" y="355" width="388" height="106" rx="4" fill="#e8f0fb" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="216" y="372" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Doppler Bagnintisi (radyo, dusuk hiz limiti):</text>
+  <text x="216" y="387" text-anchor="middle" font-size="10" fill="#36506e">Δf / f₀ = −v_r / c</text>
+  <text x="216" y="401" text-anchor="middle" font-size="10" fill="#36506e">v_r = −c · (f_goz − f₀) / f₀</text>
+  <text x="216" y="415" text-anchor="middle" font-size="10" fill="#36506e">f₀ = 1420.405751 MHz  |  c = 299792.458 km/s</text>
+  <text x="216" y="430" text-anchor="middle" font-size="9" fill="#6b7a90">Negatif v_r: bulut bize yaklasıyor (mavi kayma)</text>
+  <text x="216" y="443" text-anchor="middle" font-size="9" fill="#6b7a90">Pozitif v_r: bulut uzaklasıyor (kizil kayma)</text>
+  <text x="216" y="455" text-anchor="middle" font-size="9" fill="#1a8a3a">±100 km/s ≈ ±473 kHz kayma 1420 MHz'de</text>
+
+  <!-- Sag panel: HI spektrum gostergesi -->
+  <rect x="430" y="42" width="415" height="430" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="637" y="64" text-anchor="middle" font-size="12" font-weight="bold" fill="#36506e">Gorus Hatti Boyunca HI Spektrumu</text>
+
+  <!-- Eksen -->
+  <line x1="460" y1="380" x2="830" y2="380" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="460" y1="100" x2="460" y2="380" stroke="#6b7a90" stroke-width="1.5"/>
+
+  <!-- Eksen etiketleri -->
+  <text x="830" y="394" text-anchor="end" font-size="10" fill="#6b7a90">Frekans / Hiz</text>
+  <text x="458" y="96" text-anchor="end" font-size="10" fill="#6b7a90">Guc</text>
+
+  <!-- Frekans eksen isaretleri -->
+  <!-- f0 = 637 (merkez), her 70px = 100 kHz / ~21 km/s -->
+  <line x1="637" y1="375" x2="637" y2="385" stroke="#6b7a90" stroke-width="1"/>
+  <text x="637" y="394" text-anchor="middle" font-size="9" fill="#6b7a90">f₀</text>
+  <text x="637" y="404" text-anchor="middle" font-size="9" fill="#6b7a90">0 km/s</text>
+
+  <!-- -50 km/s -->
+  <line x1="590" y1="375" x2="590" y2="385" stroke="#6b7a90" stroke-width="1"/>
+  <text x="590" y="394" text-anchor="middle" font-size="9" fill="#1565c0">-50</text>
+  <text x="590" y="404" text-anchor="middle" font-size="9" fill="#1565c0">km/s</text>
+
+  <!-- +20 km/s -->
+  <line x1="656" y1="375" x2="656" y2="385" stroke="#6b7a90" stroke-width="1"/>
+  <text x="656" y="394" text-anchor="middle" font-size="9" fill="#1a8a3a">+20</text>
+  <text x="656" y="404" text-anchor="middle" font-size="9" fill="#1a8a3a">km/s</text>
+
+  <!-- +80 km/s -->
+  <line x1="712" y1="375" x2="712" y2="385" stroke="#6b7a90" stroke-width="1"/>
+  <text x="712" y="394" text-anchor="middle" font-size="9" fill="#c0392b">+80</text>
+  <text x="712" y="404" text-anchor="middle" font-size="9" fill="#c0392b">km/s</text>
+
+  <!-- Gurultu tabani -->
+  <line x1="460" y1="355" x2="830" y2="355" stroke="#9fb3c8" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <text x="458" y="358" text-anchor="end" font-size="9" fill="#9fb3c8">gurultu</text>
+
+  <!-- Tepe A: -50 km/s, guclu (x=590) -->
+  <path d="M460,355 L560,355 L572,352 L580,340 L585,318 L588,298 L590,272 L592,298 L595,318 L600,340 L608,352 L620,355"
+    fill="#1565c0" fill-opacity="0.15" stroke="#1565c0" stroke-width="2"/>
+  <!-- Tepe A etiketi -->
+  <line x1="590" y1="272" x2="540" y2="170" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="470" y="145" width="115" height="40" rx="3" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="527" y="161" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Bulut A</text>
+  <text x="527" y="175" text-anchor="middle" font-size="9" fill="#1565c0">v_r = -50 km/s</text>
+  <text x="527" y="185" text-anchor="middle" font-size="8" fill="#6b7a90">bize yaklasıyor</text>
+
+  <!-- Tepe B: +20 km/s (x=656) -->
+  <path d="M625,355 L638,352 L645,340 L650,316 L653,298 L656,280 L659,298 L662,316 L667,340 L674,352 L680,355"
+    fill="#1a8a3a" fill-opacity="0.15" stroke="#1a8a3a" stroke-width="2"/>
+  <!-- Tepe B etiketi -->
+  <line x1="656" y1="280" x2="700" y2="170" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="660" y="145" width="115" height="40" rx="3" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="717" y="161" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Bulut B</text>
+  <text x="717" y="175" text-anchor="middle" font-size="9" fill="#1a8a3a">v_r = +20 km/s</text>
+  <text x="717" y="185" text-anchor="middle" font-size="8" fill="#6b7a90">biraz uzaklasiyor</text>
+
+  <!-- Tepe C: +80 km/s (x=712), daha zayif -->
+  <path d="M690,355 L703,353 L707,347 L710,333 L712,316 L714,333 L717,347 L721,353 L730,355"
+    fill="#c0392b" fill-opacity="0.15" stroke="#c0392b" stroke-width="2"/>
+  <!-- Tepe C etiketi -->
+  <line x1="712" y1="316" x2="760" y2="240" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="720" y="215" width="115" height="40" rx="3" fill="#fdf0f0" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="777" y="231" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Bulut C</text>
+  <text x="777" y="245" text-anchor="middle" font-size="9" fill="#c0392b">v_r = +80 km/s</text>
+  <text x="777" y="255" text-anchor="middle" font-size="8" fill="#6b7a90">uzaklasiyor</text>
+
+  <!-- Galaktik donus egrisi notu -->
+  <rect x="438" y="415" width="400" height="50" rx="4" fill="#fff8e1" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="638" y="432" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">Galaktik Donus Egrisi (HI ile olculur):</text>
+  <text x="638" y="447" text-anchor="middle" font-size="10" fill="#36506e">Farkli yonlerde HI Doppler haritasi → galaksi donus egrisini verir</text>
+  <text x="638" y="460" text-anchor="middle" font-size="10" fill="#36506e">Duz egri → karanlık madde kaniti (Bölüm 9)</text>
+
+</svg>

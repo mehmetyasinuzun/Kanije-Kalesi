@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="500" fill="#f4f7fb"/>
+  <text x="430" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Elektronik Harp Doktrini: EA / EP / ES Taksonomisi</text>
+
+  <!-- Kok dugum: EW -->
+  <rect x="355" y="52" width="150" height="44" rx="8" fill="#1565c0" stroke="#0d47a1" stroke-width="1.5"/>
+  <text x="430" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">EW</text>
+  <text x="430" y="87" text-anchor="middle" font-size="11" fill="#cfe2ff">Elektronik Harp</text>
+
+  <!-- Dal cizgileri -->
+  <line x1="430" y1="96" x2="430" y2="120" stroke="#9fb3c8" stroke-width="1.5"/>
+  <line x1="430" y1="120" x2="140" y2="120" stroke="#9fb3c8" stroke-width="1.5"/>
+  <line x1="430" y1="120" x2="430" y2="120" stroke="#9fb3c8" stroke-width="1.5"/>
+  <line x1="430" y1="120" x2="720" y2="120" stroke="#9fb3c8" stroke-width="1.5"/>
+  <line x1="140" y1="120" x2="140" y2="148" stroke="#9fb3c8" stroke-width="1.5"/>
+  <line x1="430" y1="120" x2="430" y2="148" stroke="#9fb3c8" stroke-width="1.5"/>
+  <line x1="720" y1="120" x2="720" y2="148" stroke="#9fb3c8" stroke-width="1.5"/>
+
+  <!-- ES kutusu -->
+  <rect x="55" y="148" width="170" height="48" rx="7" fill="#1a8a3a" stroke="#145e27" stroke-width="1.5"/>
+  <text x="140" y="167" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">ES</text>
+  <text x="140" y="183" text-anchor="middle" font-size="10" fill="#d4f5de">Electronic Support</text>
+
+  <!-- EP kutusu -->
+  <rect x="345" y="148" width="170" height="48" rx="7" fill="#ff8f00" stroke="#b36200" stroke-width="1.5"/>
+  <text x="430" y="167" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">EP</text>
+  <text x="430" y="183" text-anchor="middle" font-size="10" fill="#fff3cd">Electronic Protection</text>
+
+  <!-- EA kutusu -->
+  <rect x="635" y="148" width="170" height="48" rx="7" fill="#c0392b" stroke="#922b21" stroke-width="1.5"/>
+  <text x="720" y="167" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">EA</text>
+  <text x="720" y="183" text-anchor="middle" font-size="10" fill="#fde8e5">Electronic Attack</text>
+
+  <!-- Alt baslik: ES alt dugumler -->
+  <text x="140" y="220" text-anchor="middle" font-size="10" fill="#4a5a70">Spektrumu izle, tehdidi tanı, yer tespit et</text>
+  <line x1="140" y1="196" x2="140" y2="234" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="140" y1="234" x2="55" y2="234" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="140" y1="234" x2="225" y2="234" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="55" y1="234" x2="55" y2="250" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="225" y1="234" x2="225" y2="250" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- ES yaprak 1: RWR -->
+  <rect x="10" y="250" width="90" height="70" rx="6" fill="#ffffff" stroke="#1a8a3a" stroke-width="1.2"/>
+  <text x="55" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">RWR</text>
+  <text x="55" y="283" text-anchor="middle" font-size="9" fill="#4a5a70">Radar Uyari</text>
+  <text x="55" y="295" text-anchor="middle" font-size="9" fill="#4a5a70">Alicisi</text>
+  <text x="55" y="308" text-anchor="middle" font-size="9" fill="#6b7a90">Kütüphane</text>
+  <text x="55" y="320" text-anchor="middle" font-size="9" fill="#6b7a90">eslestirme</text>
+
+  <!-- ES yaprak 2: ELINT Kutuphane -->
+  <rect x="180" y="250" width="90" height="70" rx="6" fill="#ffffff" stroke="#1a8a3a" stroke-width="1.2"/>
+  <text x="225" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">ELINT</text>
+  <text x="225" y="283" text-anchor="middle" font-size="9" fill="#4a5a70">Parametre</text>
+  <text x="225" y="295" text-anchor="middle" font-size="9" fill="#4a5a70">kütüphanesi</text>
+  <text x="225" y="308" text-anchor="middle" font-size="9" fill="#6b7a90">PRI/PW/RF</text>
+  <text x="225" y="320" text-anchor="middle" font-size="9" fill="#6b7a90">ölçümü</text>
+
+  <!-- Alt baslik: EP alt dugumler -->
+  <text x="430" y="220" text-anchor="middle" font-size="10" fill="#4a5a70">Kendi sistemini koru, girişime diren</text>
+  <line x1="430" y1="196" x2="430" y2="234" stroke="#ff8f00" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="430" y1="234" x2="345" y2="234" stroke="#ff8f00" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="430" y1="234" x2="515" y2="234" stroke="#ff8f00" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="345" y1="234" x2="345" y2="250" stroke="#ff8f00" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="515" y1="234" x2="515" y2="250" stroke="#ff8f00" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- EP yaprak 1: ECCM -->
+  <rect x="300" y="250" width="90" height="70" rx="6" fill="#ffffff" stroke="#ff8f00" stroke-width="1.2"/>
+  <text x="345" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">ECCM</text>
+  <text x="345" y="283" text-anchor="middle" font-size="9" fill="#4a5a70">Frek. atlama</text>
+  <text x="345" y="295" text-anchor="middle" font-size="9" fill="#4a5a70">Yayli spektrum</text>
+  <text x="345" y="308" text-anchor="middle" font-size="9" fill="#6b7a90">Karıstirma</text>
+  <text x="345" y="320" text-anchor="middle" font-size="9" fill="#6b7a90">direnci</text>
+
+  <!-- EP yaprak 2: Emission Control -->
+  <rect x="470" y="250" width="90" height="70" rx="6" fill="#ffffff" stroke="#ff8f00" stroke-width="1.2"/>
+  <text x="515" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">EMCON</text>
+  <text x="515" y="283" text-anchor="middle" font-size="9" fill="#4a5a70">Emisyon</text>
+  <text x="515" y="295" text-anchor="middle" font-size="9" fill="#4a5a70">kontrolü</text>
+  <text x="515" y="308" text-anchor="middle" font-size="9" fill="#6b7a90">Yayını en aza</text>
+  <text x="515" y="320" text-anchor="middle" font-size="9" fill="#6b7a90">indir (OPSEC)</text>
+
+  <!-- Alt baslik: EA alt dugumler -->
+  <text x="720" y="220" text-anchor="middle" font-size="10" fill="#4a5a70">Spektrumu rakip aleyhine kullan</text>
+  <line x1="720" y1="196" x2="720" y2="234" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="720" y1="234" x2="635" y2="234" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="720" y1="234" x2="805" y2="234" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="635" y1="234" x2="635" y2="250" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="805" y1="234" x2="805" y2="250" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- EA yaprak 1: Chaff/Flare -->
+  <rect x="590" y="250" width="90" height="70" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="635" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Chaff/Flare</text>
+  <text x="635" y="283" text-anchor="middle" font-size="9" fill="#4a5a70">Pasif EA</text>
+  <text x="635" y="295" text-anchor="middle" font-size="9" fill="#4a5a70">Metalik serit</text>
+  <text x="635" y="308" text-anchor="middle" font-size="9" fill="#6b7a90">WWII kaynak:</text>
+  <text x="635" y="320" text-anchor="middle" font-size="9" fill="#6b7a90">"Window" 1943</text>
+
+  <!-- EA yaprak 2: Jammer -->
+  <rect x="760" y="250" width="90" height="70" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="805" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Jamming</text>
+  <text x="805" y="283" text-anchor="middle" font-size="9" fill="#4a5a70">Aktif EA</text>
+  <text x="805" y="295" text-anchor="middle" font-size="9" fill="#4a5a70">Gurultu/yem</text>
+  <text x="805" y="308" text-anchor="middle" font-size="9" fill="#6b7a90">Kendini koruma</text>
+  <text x="805" y="320" text-anchor="middle" font-size="9" fill="#6b7a90">jammer'i (SPJ)</text>
+
+  <!-- Alt seviye: Tarihsel baglamlar -->
+  <!-- ES -> RWR -> Kütüphane eslestirme dongusu -->
+  <rect x="10" y="348" width="260" height="60" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="140" y="366" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">RWR Kütüphane Eslestirme Döngüsü</text>
+  <text x="140" y="381" text-anchor="middle" font-size="9" fill="#4a5a70">Radar darbe → PDW üretimi → ELINT kütüphanesi</text>
+  <text x="140" y="395" text-anchor="middle" font-size="9" fill="#4a5a70">eslestirme → tehdit sinifi → pilot uyarisi</text>
+
+  <!-- EP tarihsel: ECCM gelisimi -->
+  <rect x="300" y="348" width="260" height="60" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="430" y="366" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">Tarihin ECCM Dersi</text>
+  <text x="430" y="381" text-anchor="middle" font-size="9" fill="#4a5a70">Radar → Kariştirma → ECCM → Yeni kariştirma</text>
+  <text x="430" y="395" text-anchor="middle" font-size="9" fill="#4a5a70">süregelen hamle/karsi-hamle dinamigi</text>
+
+  <!-- EA tarihsel: ARM/SEAD -->
+  <rect x="590" y="348" width="260" height="60" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="720" y="366" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">SEAD / ARM Döngüsü</text>
+  <text x="720" y="381" text-anchor="middle" font-size="9" fill="#4a5a70">Radar yayar → ELINT/RWR tespit → ARM</text>
+  <text x="720" y="395" text-anchor="middle" font-size="9" fill="#4a5a70">yayina yönelir → EMCON baskisi olusur</text>
+
+  <!-- Baglanti oklarinin dikey cizgileri (kisaca) -->
+  <line x1="140" y1="320" x2="140" y2="348" stroke="#9fb3c8" stroke-width="1"/>
+  <line x1="430" y1="320" x2="430" y2="348" stroke="#9fb3c8" stroke-width="1"/>
+  <line x1="720" y1="320" x2="720" y2="348" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Alt not satiri -->
+  <rect x="10" y="432" width="840" height="52" rx="5" fill="#ffffff" stroke="#d3dde8" stroke-width="1"/>
+  <text x="430" y="451" text-anchor="middle" font-size="10" fill="#6b7a90">Bilissel EW (Cognitive EW): Sabit kütüphane eslestirmesinden gercek-zamanli ögrenmeye geçis — ES/EP/EA üclüsü yapay zeka ile birlesince</text>
+  <text x="430" y="467" text-anchor="middle" font-size="10" fill="#6b7a90">kütüphanede olmayan yeni tehditlere de uyum saglayabilir. SIGINT ile EW ortak fizigi paylaşir; ES ikisinin köprüsüdür.</text>
+
+  <!-- Alt çizgi -->
+  <line x1="10" y1="492" x2="850" y2="492" stroke="#d3dde8" stroke-width="1"/>
+  <text x="430" y="490" text-anchor="middle" font-size="9" fill="#7a8aa0">SIGINT El Kitabı — Bölüm 21: Tarih, Aktörler ve Elektronik Harp</text>
+</svg>

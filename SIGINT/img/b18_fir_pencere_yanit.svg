@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 460" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="780" height="460" fill="#f4f7fb"/>
+  <text x="390" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">FIR Filtre Pencere Frekans Yaniti</text>
+  <text x="390" y="46" text-anchor="middle" font-size="11" fill="#6b7a90">Ana-lob genisligi vs yan-lob bastirma odunlesimi — 4 pencere ust uste</text>
+
+  <!-- Sol panel: Pencere animasyon ozeti tablosu -->
+  <rect x="20" y="60" width="220" height="370" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="130" y="80" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">Pencere Ozellikleri</text>
+  <line x1="30" y1="86" x2="230" y2="86" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- Tablo basliklarI -->
+  <text x="35" y="102" font-size="9" font-weight="bold" fill="#6b7a90">Pencere</text>
+  <text x="120" y="102" font-size="9" font-weight="bold" fill="#6b7a90">Yan-lob</text>
+  <text x="175" y="102" font-size="9" font-weight="bold" fill="#6b7a90">Ana-lob</text>
+  <line x1="30" y1="106" x2="230" y2="106" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- Dikdortgen -->
+  <rect x="28" y="110" width="6" height="10" fill="#c0392b"/>
+  <text x="40" y="120" font-size="10" fill="#c0392b">Dikdortgen</text>
+  <text x="120" y="120" font-size="10" fill="#4a5a70">~13 dB</text>
+  <text x="175" y="120" font-size="10" fill="#4a5a70">En dar</text>
+
+  <!-- Hanning -->
+  <line x1="28" y1="140" x2="34" y2="140" stroke="#1565c0" stroke-width="2.5"/>
+  <text x="40" y="144" font-size="10" fill="#1565c0">Hanning</text>
+  <text x="120" y="144" font-size="10" fill="#4a5a70">~31 dB</text>
+  <text x="175" y="144" font-size="10" fill="#4a5a70">~2×</text>
+
+  <!-- Blackman -->
+  <line x1="28" y1="164" x2="34" y2="164" stroke="#1a8a3a" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <text x="40" y="168" font-size="10" fill="#1a8a3a">Blackman</text>
+  <text x="120" y="168" font-size="10" fill="#4a5a70">~58 dB</text>
+  <text x="175" y="168" font-size="10" fill="#4a5a70">~3×</text>
+
+  <!-- Kaiser -->
+  <line x1="28" y1="188" x2="34" y2="188" stroke="#ff8f00" stroke-width="2" stroke-dasharray="2,2"/>
+  <text x="40" y="192" font-size="10" fill="#ff8f00">Kaiser β=8</text>
+  <text x="120" y="192" font-size="10" fill="#4a5a70">~80 dB</text>
+  <text x="175" y="192" font-size="10" fill="#4a5a70">~4×</text>
+
+  <line x1="30" y1="202" x2="230" y2="202" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- Aciklama kutusu -->
+  <text x="35" y="222" font-size="10" font-weight="bold" fill="#1a2b40">Kullanim Rehberi</text>
+  <text x="35" y="238" font-size="9" fill="#4a5a70">Dikdortgen: 2 sinyal ayirma</text>
+  <text x="35" y="252" font-size="9" fill="#4a5a70">(en ince frekans ayirim)</text>
+  <text x="35" y="270" font-size="9" fill="#4a5a70">Hanning/Hamming: genel</text>
+  <text x="35" y="284" font-size="9" fill="#4a5a70">amacli spectral analiz</text>
+  <text x="35" y="302" font-size="9" fill="#4a5a70">Blackman: guclu sinyal</text>
+  <text x="35" y="316" font-size="9" fill="#4a5a70">yaninda zayif sinyali bul</text>
+  <text x="35" y="334" font-size="9" fill="#4a5a70">Kaiser β: tek parametre</text>
+  <text x="35" y="348" font-size="9" fill="#4a5a70">ile odunlesim ayarla</text>
+  <line x1="30" y1="360" x2="230" y2="360" stroke="#d3dde8" stroke-width="1"/>
+  <text x="35" y="376" font-size="9" fill="#6b7a90">FIR: h[n] = h_ideal[n]·w[n]</text>
+  <text x="35" y="390" font-size="9" fill="#6b7a90">w[n] = Σ a_k cos(2πkn/N)</text>
+  <text x="35" y="406" font-size="9" fill="#6b7a90">ENBW: gurultu bw duzeltme</text>
+  <text x="35" y="420" font-size="9" fill="#6b7a90">CG: ton genlik duzeltme</text>
+
+  <!-- Sag panel: Frekans yaniti grafigi -->
+  <rect x="255" y="60" width="510" height="370" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Grafik eksenleri -->
+  <!-- Y ekseni -->
+  <line x1="320" y1="80" x2="320" y2="380" stroke="#4a5a70" stroke-width="1.5"/>
+  <!-- X ekseni -->
+  <line x1="320" y1="380" x2="750" y2="380" stroke="#4a5a70" stroke-width="1.5"/>
+
+  <!-- Y eksen etiketleri (dB) -->
+  <text x="315" y="84" text-anchor="end" font-size="9" fill="#6b7a90">0 dB</text>
+  <text x="315" y="134" text-anchor="end" font-size="9" fill="#6b7a90">−13</text>
+  <text x="315" y="184" text-anchor="end" font-size="9" fill="#6b7a90">−31</text>
+  <text x="315" y="234" text-anchor="end" font-size="9" fill="#6b7a90">−58</text>
+  <text x="315" y="284" text-anchor="end" font-size="9" fill="#6b7a90">−80</text>
+  <text x="315" y="380" text-anchor="end" font-size="9" fill="#6b7a90">−∞</text>
+
+  <!-- Yatay kilavuz cizgiler -->
+  <line x1="320" y1="134" x2="750" y2="134" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <line x1="320" y1="184" x2="750" y2="184" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <line x1="320" y1="234" x2="750" y2="234" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <line x1="320" y1="284" x2="750" y2="284" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="3,3"/>
+
+  <!-- X eksen: frekans (normalize) -->
+  <text x="320" y="396" text-anchor="middle" font-size="9" fill="#6b7a90">0</text>
+  <text x="400" y="396" text-anchor="middle" font-size="9" fill="#6b7a90">f_s/N</text>
+  <text x="480" y="396" text-anchor="middle" font-size="9" fill="#6b7a90">2·f_s/N</text>
+  <text x="560" y="396" text-anchor="middle" font-size="9" fill="#6b7a90">3·f_s/N</text>
+  <text x="640" y="396" text-anchor="middle" font-size="9" fill="#6b7a90">4·f_s/N</text>
+  <text x="720" y="396" text-anchor="middle" font-size="9" fill="#6b7a90">5·f_s/N</text>
+  <text x="535" y="414" text-anchor="middle" font-size="10" fill="#6b7a90">Normalize frekans (frekans ekseni)</text>
+
+  <!-- DIKDORTGEN pencere yaniti: sinc gibi, yuksek yan loblar -->
+  <!-- Ana lob: x=320 dc, tepe 0dB=y=84 -->
+  <polyline points="320,84 340,84 350,134 360,157 380,175 400,134 415,157 430,134 445,157 460,134 475,157 490,134 505,157 520,134 535,157 550,134 565,157 580,134 595,157 610,134 625,157 640,134 655,157 670,134 685,157 700,134 715,157 730,134 745,157 750,134" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <!-- Ana lob daha gercekci -->
+  <polyline points="320,84 325,84 332,87 340,100 348,120 355,134 362,148 370,160 380,175 395,190 410,160 420,134 430,155 440,134 450,155 460,134" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- HANNING: daha genis ana lob, dusuk yan loblar -->
+  <polyline points="320,84 330,84 340,88 350,97 360,110 370,130 380,150 390,165 400,175 420,165 435,184 445,184 455,175 465,184 475,175 485,184 495,175 505,184 515,175 525,184 535,175 545,184 560,175 575,184 590,175 605,184 620,175 635,184 650,175 665,184 680,175 695,184 710,175 725,184 740,175 750,184" fill="none" stroke="#1565c0" stroke-width="2.5"/>
+
+  <!-- BLACKMAN: genis ana lob, cok dusuk yan loblar -->
+  <polyline points="320,84 332,84 344,90 358,104 372,124 384,148 394,175 406,195 418,214 430,234 445,252 460,265 480,234 500,265 520,234 540,265 560,234 580,265 600,234 620,265 640,234 660,265 680,234 700,265 720,234 740,265 750,234" fill="none" stroke="#1a8a3a" stroke-width="2.5" stroke-dasharray="6,2"/>
+
+  <!-- KAISER β=8: genis lob, ~80dB yan lob -->
+  <polyline points="320,84 336,84 352,92 368,110 382,135 394,162 404,188 415,214 428,244 442,270 460,292 490,284 520,292 550,284 580,292 610,284 640,292 670,284 700,292 730,284 750,292" fill="none" stroke="#ff8f00" stroke-width="2" stroke-dasharray="3,2"/>
+
+  <!-- Yan lob bastirma ok ve etiket: dikdortgen -->
+  <line x1="355" y1="134" x2="355" y2="84" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="358" y="112" font-size="9" fill="#c0392b">13 dB</text>
+
+  <!-- Hanning yan lob -->
+  <line x1="420" y1="184" x2="420" y2="84" stroke="#1565c0" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="423" y="140" font-size="9" fill="#1565c0">31 dB</text>
+
+  <!-- Grafik baslik -->
+  <text x="535" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Genlik (dB)</text>
+  <text x="370" y="100" font-size="9" fill="#6b7a90">↑ Ana lob</text>
+
+  <!-- Tepe isareti -->
+  <circle cx="320" cy="84" r="4" fill="#1a2b40"/>
+  <text x="325" y="82" font-size="9" fill="#1a2b40">0 dB tepe (tum pencereler)</text>
+
+  <!-- Aciklama altta -->
+  <text x="270" y="440" font-size="9" fill="#6b7a90">NOT: Grafik sematik/gosterimsel niteliktedir; gercek frekans yaniti pencere uzunluguna (tap sayisi) ve tasarim yontemine gore degisir.</text>
+  <text x="270" y="452" font-size="9" fill="#6b7a90">Odunlesim: dar ana lob (iyi f. ayirim) ↔ yuksek yan loblar (zayif dinamik aralik). Kaiser β = tek parametre ile surekliyapay.</text>
+</svg>

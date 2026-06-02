@@ -132,6 +132,8 @@ Not: CIA üçlüsü bir başlangıç çerçevesidir, evrensel doktrin değil. Ba
 | **Erişilebilirlik** | Kota/bulut tüketme | Botnet/proxy ile veri kotası/hizmet kaynağı yakma | Trafik/maliyet ani artışı, coğrafi anomali | Oran sınırlama, anomali tespiti, kota uyarısı |
 | **Kimlik** | MAC/SSID spoofing | Başka cihaz/ağ kimliğine bürünme | Aynı MAC iki yerde, OUI tutarsızlığı | Karşılıklı kimlik doğrulama, sertifika, izleme |
 
+![Saldiri Vektörü Taksonomisi: Bes Ana Kol ve Birincil Savunma Kontrolleri](img/b23_saldiri_taksonomisi.svg)
+
 Bu tablonun her satırı bir sınıf, her sütun bir savunma boyutudur. Pratikte savunmacı önce hangi sütunun zayıf olduğunu sorar (tespitim var mı? savunmam var mı?), sonra o sütunu güçlendirir. Sıradaki başlık, satırların kullanıcının asıl sorusuna (erişilebilirlik/erişim) düşen kısmını derinleştirir.
 
 ---
@@ -188,6 +190,8 @@ Kaynak tüketme saldırılarının ortak mantığı tek cümleyle özetlenir: **
 | Ağ | Adres havuzu, durum tablosu | DHCP tükenmesi, bağlantı tablosu doldurma | Yeni istemci adres/oturum alamaz |
 | Uygulama / Bulut | Veri kotası, işlem bütçesi | Yetkisiz erişimle kota yakma, proxy kötüye kullanımı | Fatura artışı, kota dolması, IP itibar kaybı |
 | Cihaz | Enerji (pil) | Uyku yoksunluğu (sleep deprivation) | Pil hızla biter, cihaz devre dışı kalır |
+
+![Kaynak Tüketme Katmanlari: RF/Spektrum'dan Bulut'a Asimetrik Savunma](img/b23_kaynak_tuketme_katmanlari.svg)
 
 Not: Bu saldırıların çoğu "asimetriktir" — saldırganın harcadığı kaynak (birkaç paket), savunmacıya yıkılan zarardan (saatlerce kesinti, dolu havuz, biten pil) çok daha küçüktür. Asimetri, bu sınıfı cazip ve tehlikeli kılan şeydir; savunma da bu asimetriyi tersine çevirmeyi (saldırının maliyetini artırma, etkisini sınırlama) hedefler.
 
@@ -590,6 +594,8 @@ Tek tek vektörlerin savunmasını ilgili başlıklarda verdik. Şimdi bunları 
    └────────────────────────────────────────────────────────────┘
         her katman bir öncekinin boşluğunu kapatır
 ```
+
+![Kablosuz Savunma Mimarisi: WIDS, PMF, WPA3, Sifir-Güven Katman Örtüsmesi](img/b23_savunma_mimarisi.svg)
 
 ### WIDS ve WIPS arasındaki fark
 

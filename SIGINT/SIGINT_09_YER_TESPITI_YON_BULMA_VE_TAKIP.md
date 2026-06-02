@@ -278,6 +278,8 @@ Pratik çözüm GPS-disiplinli osilatör (GPSDO) kullanmaktır: her alıcı, GPS
 
 > Uyarı: TDOA'nın doğruluğu sinyalin bant genişliğiyle de yakından ilişkilidir; geniş bantlı (keskin korelasyon tepesi veren) sinyaller zaman farkını dar bantlılardan çok daha hassas verir. Dar bantlı sürekli bir taşıyıcının korelasyon tepesi geniş ve belirsizdir. Bu yüzden TDOA, darbeli ya da geniş bantlı sinyallerde parlar; saf bir CW taşıyıcıda zorlanır. Kesin doğruluk bütçesi banda, SNR'a ve geometriye bağlıdır ve uygulamaya göre teyit edilmelidir.
 
+![TDOA hiperbolik konumlandirma: 3 alici (A,B,C), iki TDOA hiperbolu kesisir, kaynak kesisim noktasinda; hata elipsi ve senkronizasyon esigi](img/b09_tdoa_hiperbol.svg)
+
 ---
 
 <a id="5"></a>
@@ -574,6 +576,8 @@ Not: Hareket doğrusal değilse (manevra yapan hedef, açı ölçümünün konum
 
 > Mühendislik sezgisi: Tek bir geolocation çözümü "hedef şu an muhtemelen burada" der; Kalman filtresi bunu "hedef nereden geldi, şimdi nerede, birazdan nerede olacak" hikâyesine dönüştürür. Geolocation noktayı, takip ise noktanın zaman içindeki yörüngesini ve onun belirsizliğini verir. İyi takip, gürültülü tekil ölçümleri, fizik (hareket modeli) süzgecinden geçirip tutarlı bir ize dönüştürmektir.
 
+![Kalman iz sürme: gurultulu ham olcum noktalari, Kalman puruzlu izi (mavi), zamanla buyuyup olcumle kuculen belirsizlik elipsleri, ongor-duzelt ok dongusu](img/b09_kalman_iz_surme.svg)
+
 ---
 
 <a id="11"></a>
@@ -692,6 +696,8 @@ AOA/DF için ele alındı (Bölüm 8): çok-kanallı alıcıda kanallar arası b
 | SNR / bant genişliği | TDOA (korelasyon keskinliği), hepsi | İntegrasyon süresi, anten kazancı, LNA (Bölüm 3) |
 
 > Mühendislik sezgisi: Geolocation hata bütçesinde matematik genelde en kolay kısımdır; gerçek hatayı çok-yol ve geometri belirler. "Çözümüm neden kötü?" sorusunun cevabı çoğu zaman algoritmada değil, ya yansımalarda ya da alıcıların kötü (hizalı) yerleşimindedir. Önce geometriyi düzelt (GDOP), sonra senkronizasyon/kalibrasyonu sıkılaştır, sonra algoritmayı zenginleştir.
+
+![GDOP karsilastirmasi: sol panel iyi geometri (alicilar hedefi sarar, dik kesisim, kucuk dairesel hata elipsi), sag panel kotu geometri (es-dogrusal alicilar, sig kesisim, uzun ince elips)](img/b09_gdop_iyi_kotu.svg)
 
 ---
 

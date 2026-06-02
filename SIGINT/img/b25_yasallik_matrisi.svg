@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 460" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="820" height="460" fill="#f4f7fb"/>
+  <text x="410" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Arac Kullanimi Yasallik Matrisi</text>
+  <text x="410" y="46" text-anchor="middle" font-size="11" fill="#6b7a90">X: Arac turu | Y: Kullanim baglami | Mesru / Yasal Risk / Suc</text>
+
+  <!-- Y ekseni: Kullanim baglami etiketleri -->
+  <rect x="10" y="60" width="130" height="380" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="75" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">KULLANIM</text>
+  <text x="75" y="93" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">BAGLAMI</text>
+  <!-- Her satir merkezi -->
+  <text x="75" y="178" text-anchor="middle" font-size="10" fill="#1a8a3a">Kendi Cihazi /</text>
+  <text x="75" y="190" text-anchor="middle" font-size="10" fill="#1a8a3a">Kendi Agi</text>
+  <text x="75" y="272" text-anchor="middle" font-size="10" fill="#1565c0">Izole Lab /</text>
+  <text x="75" y="284" text-anchor="middle" font-size="10" fill="#1565c0">Faraday</text>
+  <text x="75" y="368" text-anchor="middle" font-size="10" fill="#ff8f00">Yetkili</text>
+  <text x="75" y="380" text-anchor="middle" font-size="10" fill="#ff8f00">Pentest</text>
+  <text x="75" y="418" text-anchor="middle" font-size="10" fill="#c0392b">Yetkisiz /</text>
+  <text x="75" y="430" text-anchor="middle" font-size="10" fill="#c0392b">3. Sahis</text>
+
+  <!-- X ekseni: Arac turu basliklari -->
+  <!-- 4 sutun, x baslangic 146, genislik 160, arasi 10 -->
+  <rect x="146" y="60" width="660" height="380" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Sutun basliklari -->
+  <rect x="146" y="60" width="160" height="50" fill="#f4f7fb" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="226" y="82" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Pasif RX</text>
+  <text x="226" y="97" text-anchor="middle" font-size="9" fill="#6b7a90">(SDR alici, sniff)</text>
+
+  <rect x="311" y="60" width="160" height="50" fill="#f4f7fb" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="391" y="82" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Aktif TX</text>
+  <text x="391" y="97" text-anchor="middle" font-size="9" fill="#6b7a90">(HackRF, sinyal uret.)</text>
+
+  <rect x="476" y="60" width="160" height="50" fill="#f4f7fb" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="556" y="82" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Pentest Araci</text>
+  <text x="556" y="97" text-anchor="middle" font-size="9" fill="#6b7a90">(aircrack, Proxmark)</text>
+
+  <rect x="641" y="60" width="165" height="50" fill="#f4f7fb" stroke="#d3dde8" stroke-width="0.5"/>
+  <text x="723" y="82" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Simulasyon</text>
+  <text x="723" y="97" text-anchor="middle" font-size="9" fill="#6b7a90">(srsRAN, GNSS-SDR)</text>
+
+  <!-- Yatay cetvel ayirac -->
+  <line x1="146" y1="110" x2="806" y2="110" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="146" y1="206" x2="806" y2="206" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="146" y1="302" x2="806" y2="302" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="146" y1="398" x2="806" y2="398" stroke="#d3dde8" stroke-width="1"/>
+  <!-- Dikey ayirac -->
+  <line x1="311" y1="110" x2="311" y2="440" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="476" y1="110" x2="476" y2="440" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="641" y1="110" x2="641" y2="440" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- SATIR 1: Kendi cihaz (y=110..206) -->
+  <!-- Pasif RX + Kendi: MESRU -->
+  <rect x="147" y="111" width="163" height="94" rx="0" fill="#1a8a3a" opacity="0.18"/>
+  <text x="228" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">MESRU</text>
+  <text x="228" y="170" text-anchor="middle" font-size="9" fill="#4a5a70">Genis, her zaman</text>
+  <text x="228" y="184" text-anchor="middle" font-size="9" fill="#4a5a70">desteklenir</text>
+  <!-- Aktif TX + Kendi: MESRU (lisans siniri) -->
+  <rect x="312" y="111" width="163" height="94" rx="0" fill="#1a8a3a" opacity="0.12"/>
+  <text x="393" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">MESRU*</text>
+  <text x="393" y="166" text-anchor="middle" font-size="9" fill="#4a5a70">*Lisans/bant kurallarini</text>
+  <text x="393" y="180" text-anchor="middle" font-size="9" fill="#4a5a70">kendi cihaz = ozel alan</text>
+  <text x="393" y="194" text-anchor="middle" font-size="9" fill="#4a5a70">ISM: serbet; lisanslı: izin</text>
+  <!-- Pentest + Kendi: MESRU -->
+  <rect x="477" y="111" width="163" height="94" rx="0" fill="#1a8a3a" opacity="0.18"/>
+  <text x="558" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">MESRU</text>
+  <text x="558" y="170" text-anchor="middle" font-size="9" fill="#4a5a70">Kendi cihaz/ag</text>
+  <text x="558" y="184" text-anchor="middle" font-size="9" fill="#4a5a70">savunma dogrulama</text>
+  <!-- Sim + Kendi: MESRU -->
+  <rect x="642" y="111" width="163" height="94" rx="0" fill="#1a8a3a" opacity="0.18"/>
+  <text x="723" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">MESRU</text>
+  <text x="723" y="170" text-anchor="middle" font-size="9" fill="#4a5a70">Izole ortam</text>
+  <text x="723" y="184" text-anchor="middle" font-size="9" fill="#4a5a70">sartıyla</text>
+
+  <!-- SATIR 2: Izole lab (y=206..302) -->
+  <!-- Pasif RX + Lab: MESRU -->
+  <rect x="147" y="207" width="163" height="94" rx="0" fill="#1a8a3a" opacity="0.18"/>
+  <text x="228" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">MESRU</text>
+  <text x="228" y="266" text-anchor="middle" font-size="9" fill="#4a5a70">Egitim / arastirma</text>
+  <!-- Aktif TX + Lab: MESRU izole -->
+  <rect x="312" y="207" width="163" height="94" rx="0" fill="#1a8a3a" opacity="0.15"/>
+  <text x="393" y="244" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">MESRU*</text>
+  <text x="393" y="260" text-anchor="middle" font-size="9" fill="#4a5a70">*Faraday / izole</text>
+  <text x="393" y="274" text-anchor="middle" font-size="9" fill="#4a5a70">sart; sızıntı riski</text>
+  <!-- Pentest + Lab: MESRU -->
+  <rect x="477" y="207" width="163" height="94" rx="0" fill="#1a8a3a" opacity="0.15"/>
+  <text x="558" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">MESRU</text>
+  <text x="558" y="264" text-anchor="middle" font-size="9" fill="#4a5a70">Test ortaminda</text>
+  <!-- Sim + Lab: MESRU -->
+  <rect x="642" y="207" width="163" height="94" rx="0" fill="#1a8a3a" opacity="0.18"/>
+  <text x="723" y="248" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">MESRU</text>
+  <text x="723" y="264" text-anchor="middle" font-size="9" fill="#4a5a70">Lab standart</text>
+
+  <!-- SATIR 3: Yetkili pentest (y=302..398) -->
+  <!-- Pasif RX + Yetkili: MESRU -->
+  <rect x="147" y="303" width="163" height="94" rx="0" fill="#ff8f00" opacity="0.12"/>
+  <text x="228" y="344" text-anchor="middle" font-size="13" font-weight="bold" fill="#ff8f00">MESRU</text>
+  <text x="228" y="362" text-anchor="middle" font-size="9" fill="#4a5a70">Kapsam + izin</text>
+  <!-- Aktif TX + Yetkili: DIKKAT -->
+  <rect x="312" y="303" width="163" height="94" rx="0" fill="#ff8f00" opacity="0.20"/>
+  <text x="393" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">DIKKAT</text>
+  <text x="393" y="356" text-anchor="middle" font-size="9" fill="#4a5a70">Yazili izin + net kapsam</text>
+  <text x="393" y="370" text-anchor="middle" font-size="9" fill="#4a5a70">sart; yan etki riski</text>
+  <text x="393" y="384" text-anchor="middle" font-size="9" fill="#4a5a70">RF ihlaline dikkat</text>
+  <!-- Pentest + Yetkili: MESRU -->
+  <rect x="477" y="303" width="163" height="94" rx="0" fill="#ff8f00" opacity="0.12"/>
+  <text x="558" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">MESRU</text>
+  <text x="558" y="362" text-anchor="middle" font-size="9" fill="#4a5a70">Kapsami asma</text>
+  <!-- Sim + Yetkili: MESRU -->
+  <rect x="642" y="303" width="163" height="94" rx="0" fill="#ff8f00" opacity="0.12"/>
+  <text x="723" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">MESRU</text>
+  <text x="723" y="362" text-anchor="middle" font-size="9" fill="#4a5a70">Kapsam icinde</text>
+
+  <!-- SATIR 4: Yetkisiz (y=398..440) -->
+  <!-- Pasif RX + Yetkisiz: RİSK -->
+  <rect x="147" y="399" width="163" height="40" rx="0" fill="#c0392b" opacity="0.18"/>
+  <text x="228" y="423" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">YASAL RİSK</text>
+  <!-- Aktif TX + Yetkisiz: SUC -->
+  <rect x="312" y="399" width="163" height="40" rx="0" fill="#c0392b" opacity="0.45"/>
+  <text x="393" y="415" text-anchor="middle" font-size="12" font-weight="bold" fill="white">SUC</text>
+  <text x="393" y="432" text-anchor="middle" font-size="9" fill="white">RF parazit / ihlal</text>
+  <!-- Pentest + Yetkisiz: SUC -->
+  <rect x="477" y="399" width="163" height="40" rx="0" fill="#c0392b" opacity="0.45"/>
+  <text x="558" y="415" text-anchor="middle" font-size="12" font-weight="bold" fill="white">SUC</text>
+  <text x="558" y="432" text-anchor="middle" font-size="9" fill="white">Yetkisiz erisim</text>
+  <!-- Sim + Yetkisiz: SUC -->
+  <rect x="642" y="399" width="163" height="40" rx="0" fill="#c0392b" opacity="0.45"/>
+  <text x="723" y="415" text-anchor="middle" font-size="12" font-weight="bold" fill="white">SUC</text>
+  <text x="723" y="432" text-anchor="middle" font-size="9" fill="white">Sahte hucre/GPS</text>
+
+  <!-- Alt not -->
+  <rect x="10" y="443" width="800" height="14" rx="2" fill="#f4f7fb"/>
+  <text x="410" y="453" text-anchor="middle" font-size="9" fill="#6b7a90">Not: Bu matris yonlendirici cercevedir. Kesin yasallik icin kendi ulkeni/munzuatını teyit et. "Mesru" = teknik olarak izin verilir; suc listesi ulkeye gore farkli agirlikta uygulanir.</text>
+</svg>

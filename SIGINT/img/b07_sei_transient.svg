@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="440" fill="#f4f7fb"/>
+  <text x="380" y="28" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b40">Spesifik Yayici Tanima (SEI) — Turn-on Transient + Kararsiz Durum</text>
+
+  <defs>
+    <marker id="sax" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <polygon points="0 0,7 3,0 6" fill="#6b7a90"/>
+    </marker>
+  </defs>
+
+  <!-- Ana panel -->
+  <rect x="20" y="42" width="720" height="275" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="380" y="62" text-anchor="middle" font-size="12" font-weight="bold" fill="#36506e">Verici Acilis Ani → Kararli Durum — Imza Bolgeleri</text>
+
+  <!-- Eksenler -->
+  <line x1="60" y1="270" x2="720" y2="270" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#sax)"/>
+  <line x1="60" y1="85"  x2="60"  y2="275" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#sax)"/>
+  <text x="728" y="274" font-size="10" fill="#6b7a90">t (zaman)</text>
+  <text x="35"  y="82"  font-size="10" fill="#6b7a90">guc</text>
+
+  <!-- Yatay referans cizgisi (kararli durum seviyesi) -->
+  <line x1="60" y1="130" x2="720" y2="130" stroke="#d3dde8" stroke-width="1" stroke-dasharray="6,3"/>
+  <text x="68" y="125" font-size="9" fill="#7a8aa0">nominal guc seviyesi</text>
+
+  <!-- Gecis eğrisi: kapalı → ani yükseliş → hafif asimi → oturma -->
+  <!-- Path: kapalı 0 guc, sonra ani yükseliş, küçük overshooot, oturma -->
+  <path d="M60,270 L130,270
+           Q145,268 155,200
+           Q165,140 185,120
+           Q200,108 220,113
+           Q240,118 260,128
+           Q285,133 310,130
+           L720,130"
+        fill="none" stroke="#1565c0" stroke-width="2.5"/>
+
+  <!-- Faz gurultusu kucuk dalgalanmalar (kararli durum) -->
+  <path d="M310,130
+           Q325,127 340,131 Q355,133 370,129 Q385,126 400,131
+           Q415,134 430,128 Q445,125 460,132 Q475,135 490,129
+           Q505,126 520,131 Q535,134 550,128 Q565,125 580,132
+           Q595,135 610,128 Q625,125 640,132 Q655,135 670,129
+           Q685,126 700,131 Q715,134 720,130"
+        fill="none" stroke="#1565c0" stroke-width="1.5"/>
+
+  <!-- BOLGE 1: Turn-on Transient -->
+  <rect x="130" y="88" width="175" height="188" fill="#fce8e8" fill-opacity="0.35" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="217" y="108" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Turn-on Transient</text>
+  <text x="217" y="122" text-anchor="middle" font-size="9" fill="#4a5a70">Acilis ani — verici guce</text>
+  <text x="217" y="135" text-anchor="middle" font-size="9" fill="#4a5a70">ve kararli frekansta oturur</text>
+  <!-- Zaman etiketi -->
+  <line x1="130" y1="260" x2="305" y2="260" stroke="#c0392b" stroke-width="1"/>
+  <line x1="130" y1="255" x2="130" y2="265" stroke="#c0392b" stroke-width="1"/>
+  <line x1="305" y1="255" x2="305" y2="265" stroke="#c0392b" stroke-width="1"/>
+  <text x="217" y="253" text-anchor="middle" font-size="9" fill="#c0392b">µs mertebesinde</text>
+
+  <!-- BOLGE 2: Kararli durum -->
+  <rect x="305" y="88" width="415" height="188" fill="#e8f0fb" fill-opacity="0.25" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="512" y="108" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">Kararli Durum (Steady-State)</text>
+  <!-- Alt imzalar -->
+  <text x="512" y="124" text-anchor="middle" font-size="9" fill="#4a5a70">Ince kusurlar surekli mevcut:</text>
+
+  <!-- Faz gurultus bilgisi -->
+  <rect x="315" y="132" width="185" height="60" fill="#e8f0fb" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="407" y="149" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Faz Gurultusu</text>
+  <text x="407" y="164" text-anchor="middle" font-size="9" fill="#4a5a70">Osilatör toleransi</text>
+  <text x="407" y="178" text-anchor="middle" font-size="9" fill="#4a5a70">Her cihazda farkli profil</text>
+
+  <!-- UMOP bilgisi -->
+  <rect x="515" y="132" width="195" height="60" fill="#fffbe6" stroke="#ff8f00" stroke-width="1" rx="3"/>
+  <text x="612" y="149" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">UMOP</text>
+  <text x="612" y="164" text-anchor="middle" font-size="9" fill="#4a5a70">Darbe uzerindeki istemi disı</text>
+  <text x="612" y="178" text-anchor="middle" font-size="9" fill="#4a5a70">modulasyon — PA dogrusal degil</text>
+
+  <!-- Harmonik bilgisi -->
+  <rect x="315" y="205" width="185" height="55" fill="#e8f4e8" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="407" y="222" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Harmonikler</text>
+  <text x="407" y="237" text-anchor="middle" font-size="9" fill="#4a5a70">Guc amplifikator kusuru</text>
+  <text x="407" y="250" text-anchor="middle" font-size="9" fill="#4a5a70">Uretimden uretime farkli</text>
+
+  <!-- Tasiyici kayma -->
+  <rect x="515" y="205" width="195" height="55" fill="#f0e8f8" stroke="#7a4a90" stroke-width="1" rx="3"/>
+  <text x="612" y="222" text-anchor="middle" font-size="10" font-weight="bold" fill="#7a4a90">Tasiyici Kaymasi</text>
+  <text x="612" y="237" text-anchor="middle" font-size="9" fill="#4a5a70">Kristal/PLL toleransı</text>
+  <text x="612" y="250" text-anchor="middle" font-size="9" fill="#4a5a70">Her cihazda farkli sabit kayma</text>
+
+  <!-- Alt bilgi paneli -->
+  <rect x="20" y="328" width="720" height="90" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="380" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#36506e">SEI Deger Ozeti</text>
+
+  <rect x="35" y="358" width="220" height="50" fill="#fce8e8" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="145" y="374" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Transient Imzasi</text>
+  <text x="145" y="390" text-anchor="middle" font-size="9" fill="#4a5a70">Cok ayirt edici, cok kisa</text>
+  <text x="145" y="403" text-anchor="middle" font-size="9" fill="#4a5a70">Hizli ornekleme gerektirir</text>
+
+  <rect x="270" y="358" width="220" height="50" fill="#e8f0fb" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="380" y="374" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Kararli-Durum Imzasi</text>
+  <text x="380" y="390" text-anchor="middle" font-size="9" fill="#4a5a70">Her zaman mevcut, anlik bekleme yok</text>
+  <text x="380" y="403" text-anchor="middle" font-size="9" fill="#4a5a70">Kanal etkisine daha acik</text>
+
+  <rect x="505" y="358" width="220" height="50" fill="#e8f4e8" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="615" y="374" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">SEI Kullanim Alanlari</text>
+  <text x="615" y="390" text-anchor="middle" font-size="9" fill="#4a5a70">Sahte/klon cihaz tespiti</text>
+  <text x="615" y="403" text-anchor="middle" font-size="9" fill="#4a5a70">Fiziksel-katman kimlik dogrulama</text>
+
+  <!-- Alt bilgi -->
+  <line x1="20" y1="424" x2="740" y2="424" stroke="#d3dde8" stroke-width="1"/>
+  <text x="380" y="436" text-anchor="middle" font-size="10" fill="#6b7a90">SEI = "ne soyluyor" degil "kim soyluyor" — cihazin istemeden biraktigi fiziksel kusurdan</text>
+</svg>

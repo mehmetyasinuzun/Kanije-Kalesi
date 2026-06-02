@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="760" height="340" fill="#f4f7fb"/>
+  <text x="380" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">FM Alici Akisinda Ornek Hizi Zincirleme Dususu</text>
+
+  <defs>
+    <marker id="arrowRate" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#1565c0"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#7a8aa0"/>
+    </marker>
+  </defs>
+
+  <!-- Blok 1: SoapySDR Source -->
+  <rect x="30" y="110" width="130" height="90" rx="6" fill="#ffffff" stroke="#1565c0" stroke-width="2"/>
+  <rect x="30" y="110" width="130" height="28" rx="6" fill="#1565c0"/>
+  <rect x="30" y="130" width="130" height="8" fill="#1565c0"/>
+  <text x="95" y="129" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">SoapySDR Source</text>
+  <text x="95" y="157" text-anchor="middle" font-size="11" fill="#4a5a70">100.5 MHz</text>
+  <text x="95" y="173" text-anchor="middle" font-size="11" fill="#4a5a70">driver=rtlsdr</text>
+  <text x="95" y="189" text-anchor="middle" font-size="11" fill="#6b7a90">IQ ornekleri</text>
+  <!-- Hiz etiketi ust -->
+  <rect x="42" y="82" width="106" height="22" rx="4" fill="#e3f0fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="95" y="97" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">2.4 MS/s</text>
+
+  <!-- Ok 1 -->
+  <line x1="160" y1="155" x2="205" y2="155" stroke="#1565c0" stroke-width="2" marker-end="url(#arrowRate)"/>
+  <text x="182" y="148" text-anchor="middle" font-size="10" fill="#6b7a90">decim 10</text>
+
+  <!-- Blok 2: Low Pass Filter -->
+  <rect x="205" y="110" width="130" height="90" rx="6" fill="#ffffff" stroke="#1a8a3a" stroke-width="2"/>
+  <rect x="205" y="110" width="130" height="28" rx="6" fill="#1a8a3a"/>
+  <rect x="205" y="130" width="130" height="8" fill="#1a8a3a"/>
+  <text x="270" y="129" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Low Pass Filter</text>
+  <text x="270" y="157" text-anchor="middle" font-size="11" fill="#4a5a70">Decimation: 10</text>
+  <text x="270" y="173" text-anchor="middle" font-size="11" fill="#4a5a70">Cutoff: 100 kHz</text>
+  <text x="270" y="189" text-anchor="middle" font-size="11" fill="#6b7a90">Transition: 50 kHz</text>
+  <!-- Hiz etiketi ust -->
+  <rect x="217" y="82" width="106" height="22" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="270" y="97" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a8a3a">240 kS/s</text>
+
+  <!-- Ok 2 -->
+  <line x1="335" y1="155" x2="380" y2="155" stroke="#1a8a3a" stroke-width="2" marker-end="url(#arrowRate)"/>
+  <text x="357" y="148" text-anchor="middle" font-size="10" fill="#6b7a90">quad rate</text>
+
+  <!-- Blok 3: WBFM Receive -->
+  <rect x="380" y="110" width="130" height="90" rx="6" fill="#ffffff" stroke="#ff8f00" stroke-width="2"/>
+  <rect x="380" y="110" width="130" height="28" rx="6" fill="#ff8f00"/>
+  <rect x="380" y="130" width="130" height="8" fill="#ff8f00"/>
+  <text x="445" y="129" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">WBFM Receive</text>
+  <text x="445" y="157" text-anchor="middle" font-size="11" fill="#4a5a70">Quadrature Rate:</text>
+  <text x="445" y="172" text-anchor="middle" font-size="11" fill="#4a5a70">240000</text>
+  <text x="445" y="189" text-anchor="middle" font-size="11" fill="#6b7a90">Audio Decimation: 5</text>
+  <!-- Hiz etiketi ust -->
+  <rect x="392" y="82" width="106" height="22" rx="4" fill="#fff3e0" stroke="#ff8f00" stroke-width="1"/>
+  <text x="445" y="97" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">240 kS/s giren</text>
+
+  <!-- Ok 3 -->
+  <line x1="510" y1="155" x2="555" y2="155" stroke="#ff8f00" stroke-width="2" marker-end="url(#arrowRate)"/>
+  <text x="532" y="148" text-anchor="middle" font-size="10" fill="#6b7a90">decim 5</text>
+
+  <!-- Blok 4: Rational Resampler / Audio Sink -->
+  <rect x="555" y="110" width="175" height="90" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="555" y="110" width="175" height="28" rx="6" fill="#c0392b"/>
+  <rect x="555" y="130" width="175" height="8" fill="#c0392b"/>
+  <text x="643" y="129" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Rational Resampler + Audio Sink</text>
+  <text x="643" y="157" text-anchor="middle" font-size="11" fill="#4a5a70">Interpol / Decim → 48000</text>
+  <text x="643" y="173" text-anchor="middle" font-size="11" fill="#4a5a70">Audio Sink: 48 kHz</text>
+  <text x="643" y="189" text-anchor="middle" font-size="11" fill="#6b7a90">Ses karti cikaramasi</text>
+  <!-- Hiz etiketi ust -->
+  <rect x="567" y="82" width="152" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="643" y="97" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">48 kS/s (ses)</text>
+
+  <!-- Alt: Hiz dusus zinciri gorsel -->
+  <rect x="30" y="245" width="700" height="46" rx="6" fill="#ffffff" stroke="#d3dde8" stroke-width="1"/>
+  <!-- Genislik bantlari -->
+  <rect x="38" y="253" width="168" height="30" rx="3" fill="#e3f0fd"/>
+  <text x="122" y="264" text-anchor="middle" font-size="10" fill="#1565c0" font-weight="bold">2.4 MS/s</text>
+  <text x="122" y="277" text-anchor="middle" font-size="9" fill="#36506e">SDR cikis (ham IQ)</text>
+
+  <text x="216" y="270" text-anchor="middle" font-size="14" fill="#7a8aa0">▶</text>
+
+  <rect x="233" y="253" width="130" height="30" rx="3" fill="#e8f5e9"/>
+  <text x="298" y="264" text-anchor="middle" font-size="10" fill="#1a8a3a" font-weight="bold">240 kS/s</text>
+  <text x="298" y="277" text-anchor="middle" font-size="9" fill="#36506e">LPF sonrasi</text>
+
+  <text x="375" y="270" text-anchor="middle" font-size="14" fill="#7a8aa0">▶</text>
+
+  <rect x="390" y="253" width="130" height="30" rx="3" fill="#fff3e0"/>
+  <text x="455" y="264" text-anchor="middle" font-size="10" fill="#ff8f00" font-weight="bold">240 kS/s → 48 kS/s</text>
+  <text x="455" y="277" text-anchor="middle" font-size="9" fill="#36506e">WBFM demod</text>
+
+  <text x="533" y="270" text-anchor="middle" font-size="14" fill="#7a8aa0">▶</text>
+
+  <rect x="548" y="253" width="174" height="30" rx="3" fill="#fdecea"/>
+  <text x="635" y="264" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="bold">48 kS/s</text>
+  <text x="635" y="277" text-anchor="middle" font-size="9" fill="#36506e">Ses karti (kulaga)</text>
+
+  <!-- Uyari notu -->
+  <rect x="30" y="305" width="700" height="22" rx="4" fill="#fff8e1" stroke="#ff8f00" stroke-width="1"/>
+  <text x="380" y="320" text-anchor="middle" font-size="10" fill="#36506e">Kritik: WBFM Quadrature Rate = LPF cikis hizi (240k) olmalidir — uyumsuzluk = ses yok veya bozuk.</text>
+
+  <!-- Alt ayrac -->
+  <line x1="30" y1="338" x2="730" y2="338" stroke="#d3dde8" stroke-width="1"/>
+</svg>

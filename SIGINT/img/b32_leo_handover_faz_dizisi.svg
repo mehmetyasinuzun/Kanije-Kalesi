@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="haB" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1565c0"/>
+    </marker>
+    <marker id="haR" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#c0392b"/>
+    </marker>
+    <marker id="haG" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1a8a3a"/>
+    </marker>
+    <marker id="haO" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#ff8f00"/>
+    </marker>
+  </defs>
+
+  <rect width="860" height="500" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">LEO Handover: Faz-Dizili Terminal Make-Before-Break Gecis</text>
+
+  <!-- SOL PANEL: Faz-dizisi fizigi -->
+  <rect x="20" y="44" width="300" height="240" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="170" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">Faz-Dizili Panel Fizigi</text>
+  <text x="170" y="80" text-anchor="middle" font-size="9" fill="#6b7a90">(Bölüm 27 beamforming baglantisi)</text>
+
+  <!-- Panel -->
+  <rect x="50" y="230" width="240" height="22" rx="2" fill="#36506e" stroke="#1a2b40" stroke-width="1"/>
+  <text x="170" y="245" text-anchor="middle" font-size="9" fill="#ffffff">E1   E2   E3   E4   E5   E6   E7   E8</text>
+
+  <!-- Anten elemanlari uzerine faz gecikme gostergesi -->
+  <text x="170" y="268" text-anchor="middle" font-size="8" fill="#4a5a70">Δφ=0  Δφ  2Δφ  3Δφ  4Δφ  5Δφ  6Δφ  7Δφ</text>
+  <text x="170" y="280" text-anchor="middle" font-size="8" fill="#6b7a90">(elektronik faz kaydirici, her elemana)</text>
+
+  <!-- Huzme A: eski uydu (batan) -->
+  <line x1="170" y1="230" x2="80" y2="105" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,3" marker-end="url(#haR)"/>
+  <text x="100" y="150" font-size="10" fill="#c0392b" font-weight="bold">Huzme A</text>
+  <text x="95" y="163" font-size="9" fill="#c0392b">(batan uydu)</text>
+  <text x="90" y="176" font-size="8" fill="#6b7a90">Δφ_A ayarli</text>
+
+  <!-- Huzme B: yeni uydu (dogan) -->
+  <line x1="170" y1="230" x2="265" y2="95" stroke="#1a8a3a" stroke-width="2.5" marker-end="url(#haG)"/>
+  <text x="248" y="130" font-size="10" fill="#1a8a3a" font-weight="bold">Huzme B</text>
+  <text x="240" y="143" font-size="9" fill="#1a8a3a">(dogan uydu)</text>
+  <text x="240" y="156" font-size="8" fill="#6b7a90">Δφ_B ayarli</text>
+
+  <!-- Uydu A batan -->
+  <circle cx="80" cy="92" r="10" fill="#c0392b" fill-opacity="0.8" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="80" y="80" text-anchor="middle" font-size="9" fill="#c0392b">A (batiyor)</text>
+
+  <!-- Uydu B dogan -->
+  <circle cx="265" cy="82" r="10" fill="#1a8a3a" fill-opacity="0.9" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="265" y="70" text-anchor="middle" font-size="9" fill="#1a8a3a">B (doguyor)</text>
+
+  <!-- Panel aciklamalari -->
+  <text x="170" y="294" text-anchor="middle" font-size="9" fill="#36506e" font-weight="bold">Hareketli parca YOK</text>
+  <text x="170" y="308" text-anchor="middle" font-size="8" fill="#4a5a70">Panel sabit durur, huzme elektronik kayar</text>
+  <text x="170" y="322" text-anchor="middle" font-size="8" fill="#4a5a70">Iki huzme esani = make-before-break</text>
+
+  <!-- SAG PANEL: Handover zaman cizelgesi -->
+  <rect x="340" y="44" width="500" height="240" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="590" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">Handover Aci/Zaman Ekseni (Sabit Terminal)</text>
+
+  <!-- Zaman ekseni -->
+  <line x1="370" y1="220" x2="820" y2="220" stroke="#1a2b40" stroke-width="1.5"/>
+  <text x="826" y="224" font-size="10" fill="#4a5a70">t</text>
+  <!-- Aci ekseni -->
+  <line x1="370" y1="220" x2="370" y2="80" stroke="#1a2b40" stroke-width="1.5"/>
+  <text x="366" y="75" text-anchor="end" font-size="10" fill="#4a5a70">aci</text>
+
+  <!-- Zaman isaretleri -->
+  <text x="400" y="234" text-anchor="middle" font-size="9" fill="#6b7a90">t0</text>
+  <text x="490" y="234" text-anchor="middle" font-size="9" fill="#6b7a90">t1</text>
+  <text x="580" y="234" text-anchor="middle" font-size="9" fill="#c0392b" font-weight="bold">HO</text>
+  <text x="580" y="246" text-anchor="middle" font-size="8" fill="#c0392b">handover</text>
+  <text x="670" y="234" text-anchor="middle" font-size="9" fill="#6b7a90">t3</text>
+  <text x="760" y="234" text-anchor="middle" font-size="9" fill="#6b7a90">t4</text>
+
+  <!-- Uydu A aci egrisi (yukselis-zirve-dusus) -->
+  <polyline points="400,215 430,195 460,170 490,130 530,100 560,115 580,130" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- Uydu A sona erer, cizgi kesilir -->
+  <polyline points="580,130 610,160 640,200 660,215" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="430" y="175" font-size="10" fill="#c0392b" font-weight="bold">Uydu A</text>
+  <text x="430" y="186" font-size="8" fill="#c0392b">(batan)</text>
+
+  <!-- Uydu B aci egrisi (baslangic-yukselis devam) -->
+  <polyline points="520,215 545,200 565,185 585,155 610,130 640,105 670,95 700,108 730,130 760,165 800,200" fill="none" stroke="#1a8a3a" stroke-width="2.5"/>
+  <text x="680" y="100" font-size="10" fill="#1a8a3a" font-weight="bold">Uydu B</text>
+  <text x="680" y="111" font-size="8" fill="#1a8a3a">(dogan)</text>
+
+  <!-- Handover ani dikey cizgi -->
+  <line x1="578" y1="80" x2="578" y2="220" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <!-- Her iki huzme birlesen yer -->
+  <rect x="540" y="115" width="90" height="30" rx="3" fill="#e8fde8" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="585" y="132" text-anchor="middle" font-size="8" fill="#1a8a3a" font-weight="bold">Make-Before-Break</text>
+  <text x="585" y="144" text-anchor="middle" font-size="7" fill="#4a5a70">her ikisi aktif</text>
+
+  <!-- Scan loss aci notu -->
+  <rect x="760" y="160" width="72" height="44" rx="3" fill="#fff8e1" stroke="#ff8f00" stroke-width="0.5"/>
+  <text x="796" y="175" text-anchor="middle" font-size="8" fill="#ff8f00">Scan Loss</text>
+  <text x="796" y="188" text-anchor="middle" font-size="7" fill="#4a5a70">~cos θ</text>
+  <text x="796" y="201" text-anchor="middle" font-size="7" fill="#4a5a70">ufukta zayif</text>
+
+  <!-- Gecis Suresi & Doppler tablosu -->
+  <rect x="20" y="300" width="820" height="152" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="430" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">Kabuk Yüksekligi vs Gecis Suresi / Doppler / Handover Sikli</text>
+
+  <!-- Tablo baslik -->
+  <rect x="30" y="332" width="800" height="24" rx="2" fill="#1a2b40"/>
+  <text x="150" y="349" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">Kabuk</text>
+  <text x="310" y="349" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">Yükseklik</text>
+  <text x="450" y="349" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">Tepe Gecis Suresi</text>
+  <text x="600" y="349" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">Ku Doppler (max)</text>
+  <text x="756" y="349" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">Handover Sikli</text>
+
+  <!-- Satirlar -->
+  <rect x="30" y="356" width="800" height="28" fill="#e8f4fd"/>
+  <text x="150" y="373" text-anchor="middle" font-size="10" fill="#1565c0" font-weight="bold">Starlink (ana)</text>
+  <text x="310" y="373" text-anchor="middle" font-size="10" fill="#36506e">~550 km</text>
+  <text x="450" y="373" text-anchor="middle" font-size="10" fill="#36506e">~4–6 dakika</text>
+  <text x="600" y="373" text-anchor="middle" font-size="10" fill="#c0392b">~±250 kHz</text>
+  <text x="756" y="373" text-anchor="middle" font-size="10" fill="#c0392b">~her birkaç dak.</text>
+
+  <rect x="30" y="384" width="800" height="28" fill="#fff8e1"/>
+  <text x="150" y="401" text-anchor="middle" font-size="10" fill="#ff8f00" font-weight="bold">Iridium NEXT</text>
+  <text x="310" y="401" text-anchor="middle" font-size="10" fill="#36506e">~781 km</text>
+  <text x="450" y="401" text-anchor="middle" font-size="10" fill="#36506e">~7–10 dakika</text>
+  <text x="600" y="401" text-anchor="middle" font-size="10" fill="#ff8f00">~±37 kHz (L-bant)</text>
+  <text x="756" y="401" text-anchor="middle" font-size="10" fill="#ff8f00">~her 7–10 dak.</text>
+
+  <rect x="30" y="412" width="800" height="28" fill="#e8fde8"/>
+  <text x="150" y="429" text-anchor="middle" font-size="10" fill="#1a8a3a" font-weight="bold">OneWeb</text>
+  <text x="310" y="429" text-anchor="middle" font-size="10" fill="#36506e">~1200 km</text>
+  <text x="450" y="429" text-anchor="middle" font-size="10" fill="#36506e">~10–14 dakika</text>
+  <text x="600" y="429" text-anchor="middle" font-size="10" fill="#1a8a3a">~±330 kHz (Ku)</text>
+  <text x="756" y="429" text-anchor="middle" font-size="10" fill="#1a8a3a">daha seyrek HO</text>
+
+  <text x="430" y="462" text-anchor="middle" font-size="9" fill="#36506e">Alçak kabuk = dusuk gecikme + cok sık handover | Yuksek kabuk = uzun gecis + daha az HO | Doppler ~ f₀ ile olcekle</text>
+  <text x="430" y="478" text-anchor="middle" font-size="9" fill="#6b7a90">Make-before-break: yeni uydu baglantisi kurulur, eski kesilir → sifir/minimal kesinti | Scan loss: ufukta ~cos θ kazanc dususu</text>
+</svg>

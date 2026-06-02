@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="aB2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1565c0"/>
+    </marker>
+    <marker id="aR2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#c0392b"/>
+    </marker>
+    <marker id="aG2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1a8a3a"/>
+    </marker>
+    <marker id="aO2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#ff8f00"/>
+    </marker>
+  </defs>
+
+  <rect width="860" height="520" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Purdue Modeli - ICS/SCADA Savunma Mimarisi ve RF Telemetri Konumu</text>
+
+  <!-- Seviye 4/5: IT kurumsal -->
+  <rect x="20" y="44" width="700" height="60" rx="5" fill="#e8f4fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="30" y="66" font-size="11" font-weight="bold" fill="#1565c0">Seviye 4/5 — KURUMSAL / BIS AGI (IT)</text>
+  <text x="30" y="82" font-size="10" fill="#4a5a70">ERP, e-posta, ofis ag, internet → klasik IT guvenligi (firewall, EDR, yama)</text>
+  <text x="30" y="96" font-size="9" fill="#6b7a90">Cihaz omrü: 3-5 yıl | Öncelik: Gizlilik > Butunlük > Erisebilirlik (CIA)</text>
+
+  <!-- DMZ bandi -->
+  <rect x="20" y="116" width="700" height="48" rx="0" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <text x="30" y="135" font-size="11" font-weight="bold" fill="#ff8f00">Endustriyel DMZ (IT/OT Arasi Tampon)</text>
+  <text x="30" y="151" font-size="9" fill="#5a6b80">Tek-yönlü / sikı filtreli gecis | Historian replika | Jump host (MFA) | IT ↔ OT ASLA dogrudan konusmaz</text>
+
+  <!-- Seviye 3: Saha yonetimi -->
+  <rect x="20" y="176" width="700" height="68" rx="5" fill="#e8fde8" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="30" y="198" font-size="11" font-weight="bold" fill="#1a8a3a">Seviye 3 — SAHA / OPERASYON YONETIMI (Site Operations)</text>
+  <text x="30" y="214" font-size="10" fill="#4a5a70">SCADA sunucusu (master) | Historian | Uretim yonetimi — OT cekirdeği</text>
+  <text x="30" y="230" font-size="9" fill="#6b7a90">Yoklama (poll) merkezi: RTU'lara periyodik soru yollar | Veri toplanır → karar → komut</text>
+  <text x="30" y="245" font-size="8" fill="#1a8a3a">OT Oncelik: Erisebilirlik+Safety > Butunlük > Gizlilik (AIC ters donme)</text>
+
+  <!-- Seviye 2: Supervisory -->
+  <rect x="20" y="256" width="700" height="60" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.5"/>
+  <text x="30" y="278" font-size="11" font-weight="bold" fill="#36506e">Seviye 2 — DENETIM / SUPERVIZOR (Supervisory)</text>
+  <text x="30" y="294" font-size="10" fill="#4a5a70">HMI (Human-Machine Interface) | SCADA istemcisi | Muhendislik istasyonu</text>
+  <text x="30" y="310" font-size="9" fill="#6b7a90">Operatör grafik arayüzü | Komut girisi | Alarm yonetimi</text>
+
+  <!-- RF TELEMETRI - SAG PANEL vurgu -->
+  <rect x="730" y="256" width="110" height="188" rx="5" fill="#fce8e8" stroke="#c0392b" stroke-width="2"/>
+  <text x="785" y="278" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">RF</text>
+  <text x="785" y="294" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">TELEMETRI</text>
+  <text x="785" y="312" text-anchor="middle" font-size="9" fill="#5a6b80">Sev 1→2</text>
+  <text x="785" y="326" text-anchor="middle" font-size="9" fill="#5a6b80">RTU↔SCADA</text>
+  <text x="785" y="346" text-anchor="middle" font-size="9" fill="#c0392b">Acik metin</text>
+  <text x="785" y="360" text-anchor="middle" font-size="9" fill="#c0392b">riski</text>
+  <text x="785" y="378" text-anchor="middle" font-size="9" fill="#5a6b80">UHF/VHF</text>
+  <text x="785" y="392" text-anchor="middle" font-size="9" fill="#5a6b80">FHSS/huc.</text>
+  <text x="785" y="408" text-anchor="middle" font-size="9" fill="#5a6b80">/uydu</text>
+  <text x="785" y="428" text-anchor="middle" font-size="8" fill="#1565c0">Savunma:</text>
+  <text x="785" y="442" text-anchor="middle" font-size="8" fill="#1565c0">sifreleme</text>
+  <text x="785" y="456" text-anchor="middle" font-size="8" fill="#1565c0">+auth</text>
+
+  <!-- RF ok: seviye 1-2 arasi -->
+  <line x1="720" y1="316" x2="730" y2="316" stroke="#c0392b" stroke-width="2" marker-end="url(#aR2)"/>
+  <line x1="720" y1="380" x2="730" y2="380" stroke="#c0392b" stroke-width="2" marker-end="url(#aR2)"/>
+
+  <!-- Seviye 1: PLC/RTU -->
+  <rect x="20" y="328" width="700" height="68" rx="5" fill="#fff8e1" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="30" y="350" font-size="11" font-weight="bold" fill="#ff8f00">Seviye 1 — KONTROL (Basic Control)</text>
+  <text x="30" y="366" font-size="10" fill="#4a5a70">PLC (Programmable Logic Controller) | RTU (Remote Terminal Unit) | DCS kontrolcü</text>
+  <text x="30" y="382" font-size="9" fill="#6b7a90">Mantik dongusu (ladder/FBD) | Saha cihazlarini gercek zamanli denetler</text>
+  <text x="30" y="398" font-size="8" fill="#c0392b">RTU burada: uzak sahadan RF ile Sev3 SCADA sunucusuna bagli</text>
+
+  <!-- Seviye 0: Saha -->
+  <rect x="20" y="408" width="700" height="56" rx="5" fill="#f4f7fb" stroke="#9fb3c8" stroke-width="1.5"/>
+  <text x="30" y="430" font-size="11" font-weight="bold" fill="#4a5a70">Seviye 0 — SAHA (Process / Field Devices)</text>
+  <text x="30" y="446" font-size="10" fill="#4a5a70">Sensör | Aktüatör | Vana | Motor | Pompa — fiziksel surecin kendisi</text>
+  <text x="30" y="461" font-size="9" fill="#6b7a90">Olcum ve kontrol: basınc/akıs/sicaklık/seviye → PLC/RTU yukarı raporlar</text>
+
+  <!-- SIS banner -->
+  <rect x="20" y="474" width="700" height="30" rx="3" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="7,3"/>
+  <text x="360" y="494" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">GUVENLIK SISTEMI (SIS / ESD) — Acil Kapatma: Kontrol Agindan BAGIMSIZ, Fail-Safe</text>
+
+  <!-- Oklar: katmanlar arasi -->
+  <line x1="362" y1="104" x2="362" y2="116" stroke="#ff8f00" stroke-width="2" marker-end="url(#aO2)"/>
+  <line x1="362" y1="164" x2="362" y2="176" stroke="#1a8a3a" stroke-width="2" marker-end="url(#aG2)"/>
+  <line x1="362" y1="244" x2="362" y2="256" stroke="#36506e" stroke-width="2" marker-end="url(#aB2)"/>
+  <line x1="362" y1="316" x2="362" y2="328" stroke="#ff8f00" stroke-width="2" marker-end="url(#aO2)"/>
+  <line x1="362" y1="396" x2="362" y2="408" stroke="#6b7a90" stroke-width="2" marker-end="url(#aB2)"/>
+
+  <!-- Savunma notlari sag -->
+  <rect x="740" y="44" width="100" height="200" rx="4" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1"/>
+  <text x="790" y="63" text-anchor="middle" font-size="9" font-weight="bold" fill="#36506e">Savunma</text>
+  <text x="790" y="78" text-anchor="middle" font-size="8" fill="#1565c0">Segmentasyon</text>
+  <text x="790" y="92" text-anchor="middle" font-size="8" fill="#4a5a70">Purdue katmanlari</text>
+  <text x="790" y="110" text-anchor="middle" font-size="8" fill="#1a8a3a">DMZ</text>
+  <text x="790" y="124" text-anchor="middle" font-size="8" fill="#4a5a70">IT/OT kopru</text>
+  <text x="790" y="142" text-anchor="middle" font-size="8" fill="#ff8f00">Izleme</text>
+  <text x="790" y="156" text-anchor="middle" font-size="8" fill="#4a5a70">RF spektrum</text>
+  <text x="790" y="168" text-anchor="middle" font-size="8" fill="#4a5a70">+ag anomali</text>
+  <text x="790" y="186" text-anchor="middle" font-size="8" fill="#c0392b">Auth+Kripto</text>
+  <text x="790" y="200" text-anchor="middle" font-size="8" fill="#4a5a70">DNP3 SAv5</text>
+  <text x="790" y="212" text-anchor="middle" font-size="8" fill="#4a5a70">IEC 62351</text>
+  <text x="790" y="228" text-anchor="middle" font-size="8" fill="#6b7a90">Fail-Safe</text>
+  <text x="790" y="242" text-anchor="middle" font-size="8" fill="#4a5a70">baglantısız</text>
+</svg>

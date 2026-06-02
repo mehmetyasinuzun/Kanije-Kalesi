@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="32" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">WPA2-PSK vs WPA3-SAE Saldiri Yuzeyi Karsilastirmasi</text>
+
+  <!-- Sol panel: WPA2 -->
+  <rect x="30" y="50" width="380" height="400" fill="#fff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="220" y="76" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">WPA2-PSK (4-Way Handshake)</text>
+
+  <!-- Her ozellik: baslik + bar -->
+  <!-- 1: Handshake yakalanabilirlik -->
+  <rect x="50" y="90" width="340" height="40" fill="#fff3f3" rx="3"/>
+  <text x="60" y="106" font-size="11" fill="#36506e">Handshake Yakalanabilirligi</text>
+  <rect x="60" y="110" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="60" y="110" width="248" height="10" rx="4" fill="#c0392b"/>
+  <text x="348" y="119" text-anchor="end" font-size="9.5" fill="#c0392b" font-weight="bold">YUKSEK</text>
+
+  <!-- 2: Cevrimdisi tahmin -->
+  <rect x="50" y="134" width="340" height="40" fill="#fff3f3" rx="3"/>
+  <text x="60" y="150" font-size="11" fill="#36506e">Cevrimdisi Parola Tahmini (Hashcat GPU)</text>
+  <rect x="60" y="154" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="60" y="154" width="248" height="10" rx="4" fill="#c0392b"/>
+  <text x="348" y="163" text-anchor="end" font-size="9.5" fill="#c0392b" font-weight="bold">ACIK</text>
+
+  <!-- 3: Forward secrecy -->
+  <rect x="50" y="178" width="340" height="40" fill="#fff3f3" rx="3"/>
+  <text x="60" y="194" font-size="11" fill="#36506e">Forward Secrecy (Ileri Gizlilik)</text>
+  <rect x="60" y="198" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="60" y="198" width="22" height="10" rx="4" fill="#c0392b"/>
+  <text x="348" y="207" text-anchor="end" font-size="9.5" fill="#c0392b" font-weight="bold">YOK</text>
+
+  <!-- 4: Deauth direnci -->
+  <rect x="50" y="222" width="340" height="40" fill="#fff3f3" rx="3"/>
+  <text x="60" y="238" font-size="11" fill="#36506e">Deauth / DoS Direnci</text>
+  <rect x="60" y="242" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="60" y="242" width="55" height="10" rx="4" fill="#ff8f00"/>
+  <text x="348" y="251" text-anchor="end" font-size="9.5" fill="#ff8f00" font-weight="bold">ZAYIF (PMF gerekir)</text>
+
+  <!-- 5: PMF durumu -->
+  <rect x="50" y="266" width="340" height="40" fill="#fff3f3" rx="3"/>
+  <text x="60" y="282" font-size="11" fill="#36506e">PMF / 802.11w Durumu</text>
+  <rect x="60" y="286" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="60" y="286" width="110" height="10" rx="4" fill="#ff8f00"/>
+  <text x="348" y="295" text-anchor="end" font-size="9.5" fill="#ff8f00" font-weight="bold">ISTEGE BAGLI</text>
+
+  <!-- 6: PMKID -->
+  <rect x="50" y="310" width="340" height="40" fill="#fff3f3" rx="3"/>
+  <text x="60" y="326" font-size="11" fill="#36506e">PMKID Saldirisi (Istemcisiz)</text>
+  <rect x="60" y="330" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="60" y="330" width="192" height="10" rx="4" fill="#c0392b"/>
+  <text x="348" y="339" text-anchor="end" font-size="9.5" fill="#c0392b" font-weight="bold">ACIK</text>
+
+  <!-- Ozet WPA2 -->
+  <rect x="50" y="360" width="340" height="74" fill="none" stroke="#c0392b" stroke-width="1.2" rx="4"/>
+  <rect x="50" y="360" width="340" height="74" fill="#c0392b" rx="4" opacity="0.07"/>
+  <text x="220" y="380" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#c0392b">TEMEL ZAFIYET</text>
+  <text x="220" y="396" text-anchor="middle" font-size="10" fill="#4a5a70">Handshake/PMKID havada yakalanir;</text>
+  <text x="220" y="410" text-anchor="middle" font-size="10" fill="#4a5a70">cevrimdisi milyonlarca tahmin/saniye.</text>
+  <text x="220" y="424" text-anchor="middle" font-size="10" fill="#4a5a70">Savunma: guclu parola + PMF + WPA3.</text>
+
+  <!-- Orta ayirac / ok -->
+  <line x1="420" y1="55" x2="420" y2="445" stroke="#d3dde8" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="430" y="258" text-anchor="middle" font-size="20" fill="#6b7a90">&#x27A1;</text>
+  <text x="430" y="270" text-anchor="middle" font-size="9" fill="#6b7a90">gec</text>
+
+  <!-- Sag panel: WPA3 -->
+  <rect x="450" y="50" width="380" height="400" fill="#fff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="640" y="76" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a8a3a">WPA3-SAE (Dragonfly / PAKE)</text>
+
+  <!-- 1 -->
+  <rect x="470" y="90" width="340" height="40" fill="#f0fff4" rx="3"/>
+  <text x="480" y="106" font-size="11" fill="#36506e">SAE Degisimi Yakalanabilirligi</text>
+  <rect x="480" y="110" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="480" y="110" width="66" height="10" rx="4" fill="#ff8f00"/>
+  <text x="768" y="119" text-anchor="end" font-size="9.5" fill="#ff8f00" font-weight="bold">YAKALANIR / ISLEVSIZ</text>
+
+  <!-- 2 -->
+  <rect x="470" y="134" width="340" height="40" fill="#f0fff4" rx="3"/>
+  <text x="480" y="150" font-size="11" fill="#36506e">Cevrimdisi Parola Tahmini</text>
+  <rect x="480" y="154" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="480" y="154" width="11" height="10" rx="4" fill="#1a8a3a"/>
+  <text x="768" y="163" text-anchor="end" font-size="9.5" fill="#1a8a3a" font-weight="bold">ENGELLENDI (canli tur)</text>
+
+  <!-- 3 -->
+  <rect x="470" y="178" width="340" height="40" fill="#f0fff4" rx="3"/>
+  <text x="480" y="194" font-size="11" fill="#36506e">Forward Secrecy (Her Oturum)</text>
+  <rect x="480" y="198" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="480" y="198" width="275" height="10" rx="4" fill="#1a8a3a"/>
+  <text x="768" y="207" text-anchor="end" font-size="9.5" fill="#1a8a3a" font-weight="bold">VAR</text>
+
+  <!-- 4 -->
+  <rect x="470" y="222" width="340" height="40" fill="#f0fff4" rx="3"/>
+  <text x="480" y="238" font-size="11" fill="#36506e">Deauth / DoS Direnci</text>
+  <rect x="480" y="242" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="480" y="242" width="220" height="10" rx="4" fill="#1a8a3a"/>
+  <text x="768" y="251" text-anchor="end" font-size="9.5" fill="#1a8a3a" font-weight="bold">YUKSEK</text>
+
+  <!-- 5 -->
+  <rect x="470" y="266" width="340" height="40" fill="#f0fff4" rx="3"/>
+  <text x="480" y="282" font-size="11" fill="#36506e">PMF / 802.11w Durumu</text>
+  <rect x="480" y="286" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="480" y="286" width="275" height="10" rx="4" fill="#1a8a3a"/>
+  <text x="768" y="295" text-anchor="end" font-size="9.5" fill="#1a8a3a" font-weight="bold">ZORUNLU</text>
+
+  <!-- 6 -->
+  <rect x="470" y="310" width="340" height="40" fill="#f0fff4" rx="3"/>
+  <text x="480" y="326" font-size="11" fill="#36506e">PMKID / Istemcisiz Saldiri</text>
+  <rect x="480" y="330" width="275" height="10" rx="4" fill="#e8edf4"/>
+  <rect x="480" y="330" width="22" height="10" rx="4" fill="#1a8a3a"/>
+  <text x="768" y="339" text-anchor="end" font-size="9.5" fill="#1a8a3a" font-weight="bold">UYGULANMAZ</text>
+
+  <!-- Ozet WPA3 -->
+  <rect x="470" y="360" width="340" height="74" fill="none" stroke="#1a8a3a" stroke-width="1.2" rx="4"/>
+  <rect x="470" y="360" width="340" height="74" fill="#1a8a3a" rx="4" opacity="0.07"/>
+  <text x="640" y="380" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1a8a3a">TEMEL KAZANIM</text>
+  <text x="640" y="396" text-anchor="middle" font-size="10" fill="#4a5a70">SAE ile cevrimdisi tahmin matematiksel</text>
+  <text x="640" y="410" text-anchor="middle" font-size="10" fill="#4a5a70">imkansiz; her tahmin AP ile canli tur ister.</text>
+  <text x="640" y="424" text-anchor="middle" font-size="10" fill="#4a5a70">Gecis modunda WPA2 yuzey miras alinir.</text>
+</svg>

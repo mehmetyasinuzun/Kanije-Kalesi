@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 460" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="820" height="460" fill="#f4f7fb"/>
+  <text x="410" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">ELINT Akisi: TechELINT → Parametre Kütüphanesi → EOB</text>
+
+  <!-- Sol blok: Radar yayici -->
+  <rect x="15" y="55" width="130" height="80" rx="7" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="80" y="78" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">Radar Yayici</text>
+  <text x="80" y="95" text-anchor="middle" font-size="10" fill="#4a5a70">RF / PRI / PW</text>
+  <text x="80" y="110" text-anchor="middle" font-size="10" fill="#4a5a70">Tarama tipi</text>
+  <text x="80" y="125" text-anchor="middle" font-size="10" fill="#6b7a90">Parmak izi</text>
+
+  <!-- Ok: Radar → TechELINT toplama -->
+  <line x1="145" y1="95" x2="195" y2="95" stroke="#1565c0" stroke-width="1.8"/>
+  <polygon points="195,95 185,90 185,100" fill="#1565c0"/>
+
+  <!-- TechELINT kutusu -->
+  <rect x="195" y="55" width="145" height="80" rx="7" fill="#1565c0" stroke="#0d47a1" stroke-width="1.5"/>
+  <text x="268" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">TechELINT</text>
+  <text x="268" y="95" text-anchor="middle" font-size="10" fill="#cfe2ff">Parametre ölçümü</text>
+  <text x="268" y="110" text-anchor="middle" font-size="10" fill="#cfe2ff">RF · PRI · PW</text>
+  <text x="268" y="125" text-anchor="middle" font-size="10" fill="#cfe2ff">Tarama · Polarizasyon</text>
+
+  <!-- Ok: TechELINT → Kütüphane -->
+  <line x1="340" y1="95" x2="390" y2="95" stroke="#1565c0" stroke-width="1.8"/>
+  <polygon points="390,95 380,90 380,100" fill="#1565c0"/>
+
+  <!-- Parametre kütüphanesi kutusu -->
+  <rect x="390" y="40" width="155" height="110" rx="7" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="468" y="63" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">Parametre Kütüphanesi</text>
+  <line x1="400" y1="70" x2="535" y2="70" stroke="#d3dde8" stroke-width="1"/>
+  <text x="468" y="84" text-anchor="middle" font-size="10" fill="#4a5a70">Model A: RF=X, PRI=Y, PW=Z</text>
+  <text x="468" y="98" text-anchor="middle" font-size="10" fill="#4a5a70">Model B: RF=X', PRI=Y', PW=Z'</text>
+  <text x="468" y="112" text-anchor="middle" font-size="10" fill="#4a5a70">Model C: ...</text>
+  <text x="468" y="128" text-anchor="middle" font-size="9" fill="#6b7a90">(SEI: tek cihaz parmak izi)</text>
+  <text x="468" y="142" text-anchor="middle" font-size="9" fill="#6b7a90">Bilinen her yayici tipi</text>
+
+  <!-- Ok: Kütüphane → OpELINT -->
+  <line x1="545" y1="95" x2="595" y2="95" stroke="#ff8f00" stroke-width="1.8"/>
+  <polygon points="595,95 585,90 585,100" fill="#ff8f00"/>
+
+  <!-- OpELINT kutusu -->
+  <rect x="595" y="55" width="145" height="80" rx="7" fill="#ff8f00" stroke="#b36200" stroke-width="1.5"/>
+  <text x="668" y="78" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">OpELINT</text>
+  <text x="668" y="95" text-anchor="middle" font-size="10" fill="#fff3cd">Konum takibi</text>
+  <text x="668" y="110" text-anchor="middle" font-size="10" fill="#fff3cd">Aktivite izleme</text>
+  <text x="668" y="125" text-anchor="middle" font-size="10" fill="#fff3cd">"Nerede + ne zaman"</text>
+
+  <!-- Ok: OpELINT → EOB -->
+  <line x1="668" y1="135" x2="668" y2="185" stroke="#ff8f00" stroke-width="1.8"/>
+  <polygon points="668,185 663,175 673,175" fill="#ff8f00"/>
+
+  <!-- EOB kutusu (genis, altta) -->
+  <rect x="390" y="185" width="370" height="90" rx="7" fill="#1a2b40" stroke="#0d1f33" stroke-width="1.5"/>
+  <text x="575" y="210" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Elektronik Savas Düzeni (EOB)</text>
+  <text x="575" y="228" text-anchor="middle" font-size="10" fill="#9fb3c8">Tip + Konum + Faaliyet durumu haritasi</text>
+  <text x="575" y="245" text-anchor="middle" font-size="10" fill="#9fb3c8">Hangi sistemler var · Neredeler · Hangisi aktif · Neyi koruyor</text>
+  <text x="575" y="262" text-anchor="middle" font-size="9" fill="#6b7a90">→ Tehdit resmi · Kaçinma plani · Durumsal farkindalik</text>
+
+  <!-- RWR kütüphane eslestirme dongusu (sag kol) -->
+  <rect x="595" y="300" width="210" height="120" rx="7" fill="#ffffff" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="700" y="320" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">RWR Kütüphane Eslestirme</text>
+  <text x="700" y="336" text-anchor="middle" font-size="10" fill="#4a5a70">Gelen darbe → PDW üretimi</text>
+  <text x="700" y="351" text-anchor="middle" font-size="10" fill="#4a5a70">↓ deinterleaving</text>
+  <text x="700" y="366" text-anchor="middle" font-size="10" fill="#4a5a70">Kütüphane eslestirmesi</text>
+  <text x="700" y="381" text-anchor="middle" font-size="10" fill="#4a5a70">↓ tehdit sinifi → uyari</text>
+  <text x="700" y="398" text-anchor="middle" font-size="9" fill="#1a8a3a">Gercek-zamanli ES sensörü</text>
+  <!-- RWR dongu ok: geri kutüphaneye -->
+  <path d="M 595 350 Q 560 280 545 200" stroke="#1a8a3a" stroke-width="1.5" fill="none" stroke-dasharray="5,3"/>
+  <polygon points="545,200 540,210 550,210" fill="#1a8a3a"/>
+
+  <!-- Sol alt: Tarihsel ders -->
+  <rect x="15" y="185" width="355" height="235" rx="7" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="193" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">Tarihsel Ders: "Yayan Tanınır"</text>
+  <line x1="25" y1="218" x2="360" y2="218" stroke="#d3dde8" stroke-width="1"/>
+
+  <text x="193" y="238" text-anchor="middle" font-size="10" fill="#4a5a70">II. DS radarın savaşa girisiyle</text>
+  <text x="193" y="253" text-anchor="middle" font-size="10" fill="#4a5a70">EW dogudu. Radar görmek için</text>
+  <text x="193" y="268" text-anchor="middle" font-size="10" fill="#4a5a70">yayın yapmak zorunda → bu yayın</text>
+  <text x="193" y="283" text-anchor="middle" font-size="10" fill="#4a5a70">onu tespit + konum + hedef yapti.</text>
+
+  <text x="193" y="308" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">ELINT → RWR Kütüphane Dongusu</text>
+  <text x="193" y="323" text-anchor="middle" font-size="10" fill="#4a5a70">1. TechELINT: Parametre ölç, kütüphane</text>
+  <text x="193" y="338" text-anchor="middle" font-size="10" fill="#4a5a70">2. Sahadaki RWR: kütüphaneyle esles</text>
+  <text x="193" y="353" text-anchor="middle" font-size="10" fill="#4a5a70">3. Pilot/operatör aninda tehdit bilgisi</text>
+  <text x="193" y="368" text-anchor="middle" font-size="10" fill="#4a5a70">4. OpELINT: Kim nerede, ne zaman aktif</text>
+
+  <text x="193" y="393" text-anchor="middle" font-size="9" fill="#6b7a90">Modern savunma karşiligi: çevredeki RF emitörleri</text>
+  <text x="193" y="407" text-anchor="middle" font-size="9" fill="#6b7a90">baseline → anomali tespiti (Bölüm 13)</text>
+
+  <!-- Alt çizgi -->
+  <line x1="10" y1="452" x2="810" y2="452" stroke="#d3dde8" stroke-width="1"/>
+  <text x="410" y="450" text-anchor="middle" font-size="9" fill="#7a8aa0">SIGINT El Kitabı — Bölüm 21: ELINT ve Radar İstihbaratı Tarihçesi</text>
+</svg>

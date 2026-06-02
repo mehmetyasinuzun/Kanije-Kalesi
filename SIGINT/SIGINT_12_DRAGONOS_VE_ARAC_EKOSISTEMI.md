@@ -32,6 +32,8 @@
 <a id="1"></a>
 ## 1. DragonOS Nedir: Felsefe, Sürümler, Kurulum, Ne Hazır Gelir
 
+![DragonOS araclari gorev kategorisine gore gruplu blok harita — Genel Alim, Cozuculer, Uydu, Tersine Muhendislik, Tarama-DF, Altyapi; aralarinda veri akisi oklari](img/b12_arac_ekosistemi.svg)
+
 Bölüm 4'te DragonOS'u "her şey kurulu gelen SDR dağıtımı" olarak kısaca tanıttık. Burada onu bir araç olarak ele alıyoruz: ne için var, hangi sorunu çözüyor, nasıl kurulur ve sınırları nelerdir.
 
 ### Felsefe: bağımlılık cehennemini hediye paketi yapmak
@@ -290,6 +292,8 @@ Hepsi DragonOS'ta kuruludur; ilk gün dördünü de aç ve arayüzlerine bak —
 <a id="4"></a>
 ## 4. GNU Radio Companion: Blok-Akış Paradigması ve Gerçek Bir FM Akışı
 
+![FM alici akisinda ornek hizi dususu: 2.4 MS/s → decimasyon → 240 kS/s → WBFM → 48 kS/s; her blok ustunde hiz etiketi](img/b12_ornek_hizi_zinciri.svg)
+
 Genel alıcılar hazır radyolardır; GNU Radio ise radyo *yapma dili*dir. Bölüm 4'te "RF'in programlama dili" olarak tanıtıldı. Burada paradigmasını ve fiilen bir akış kurmayı adım adım işliyoruz, çünkü bir kez kendi FM alıcını bloklardan kurduğunda tüm SDR araçlarının altında ne döndüğünü anlarsın.
 
 ### Paradigma: akış grafiği (flowgraph)
@@ -392,6 +396,8 @@ Yani GRC bir prototipleme aracıdır: grafik olarak tasarlar, Python olarak üre
 Genel alıcılar sinyali *dinletir*; çözücüler sinyali *anlamlı veriye* çevirir. Bu araçlar belirli protokolleri tanır ve ham RF'ten yapısal çıktı (JSON, uçak listesi, mesaj metni) üretir. Hepsi DragonOS'ta kuruludur ve büyük kısmı komut satırından doğrudan çalışır.
 
 ### rtl_433 — ISM bandı IoT/sensör çözücüsü
+
+![rtl_433 boru hatti: SDR → rtl_433 → JSON cikti → jq/MQTT/veritabani; her asama giris/cikis formati](img/b12_rtl433_boru_hatti.svg)
 
 rtl_433, 433/868/915 MHz ISM bantlarındaki yüzlerce cihaz protokolünü (kablosuz hava istasyonu, sıcaklık/nem sensörü, lastik basınç sensörü TPMS, kapı zili, bazı uzaktan kumandalar) tanıyan bir çözücüdür. Adı 433 MHz'den gelir ama başka bantları da destekler. Yasal kullanım: kendi sensörlerini okumak.
 

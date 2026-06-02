@@ -46,6 +46,8 @@ Dördüncüsü, kültür. Sinyal dünyasının en canlı, en açık ve en öğre
 
 > Mühendislik ve insan: Bir analiz ekranındaki küme, soyut bir renk değildir; arkasında Room 40'ta el yazısıyla telgraf çözen bir dilbilimci, Bletchley'de bombe çeviren bir matematikçi, soğuk bir gecede HF'de sayı sayan bir istasyon ve bir kurtarma operasyonunda morse ile hayat kurtaran bir radyo amatörü vardır. Tekniği bu insanlık tarihiyle birlikte taşımak, onu hem daha derin hem daha sorumlu kılar.
 
+![SIGINT Tarihi Yatay Zaman Seridi](img/b21_tarih_zaman_cizelgesi.svg)
+
 ---
 
 <a id="2"></a>
@@ -380,6 +382,8 @@ EW'nin üç ana fonksiyonu (modern terimlerle) şöyledir; ayrıntılı işleni�
 | EA | Electronic Attack | Spektrumu rakip aleyhine kullanmak: karıştırma, aldatma, sahteleme | ECM (Electronic Countermeasures) |
 | EP | Electronic Protection | Kendi sistemini EA ve parazitten korumak | ECCM (Electronic Counter-Countermeasures) |
 
+![Elektronik Harp Doktrini: EA/EP/ES Taksonomi Agaci](img/b21_ew_taksonomi.svg)
+
 Tarihsel olarak bu üçlü, II. Dünya Savaşı'nda radar etrafında doğdu. Radar bir "elektronik göz" olarak savaşa girince (Bölüm 10), neredeyse hemen onu kör etme (karıştırma, EA), karıştırmaya direnme (EP) ve düşman radarını dinleyip tanıma (ES) ihtiyaçları doğdu. SIGINT'in ES ile ilişkisi yakındır: ES, bir EW kavramı olarak, SIGINT'in (özellikle ELINT'in) savaş alanı gerçek-zamanlı kardeşidir. Bir RWR (aşağıda) aslında küçük, gerçek-zamanlı bir ELINT alıcısıdır.
 
 ### Chaff ve flare: en eski karşı önlemler
@@ -451,6 +455,8 @@ Bilişsel EW, bu meydan okumaya makine öğrenmesi ve uyarlanabilirlikle yanıt 
 ## 10. ELINT ve Radar İstihbaratı Tarihçesi: Radar Parmak İzi ve Savaş Düzeni
 
 ELINT (Electronic Intelligence, Bölüm 7), haberleşme olmayan elektronik yayınların — başta radar — istihbaratıdır. Tarihsel kökü, radarın savaşa girişiyle eşzamanlıdır ve bugünkü tehdit kütüphanelerinin, RWR'lerin ve elektronik savaş düzeninin temelini atan bir öyküdür.
+
+![ELINT Akisi: TechELINT, Parametre Kütüphanesi, EOB ve RWR Dongusu](img/b21_elint_eob.svg)
 
 ### Radarın doğuşu ve "radar savaşı"
 

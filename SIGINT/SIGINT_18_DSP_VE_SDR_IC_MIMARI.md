@@ -238,6 +238,8 @@ Bölüm 1, Kısım 14 Nyquist teoremini tanıttı. Burada onu karmaşık örnekl
 
 ### Nyquist'in iki yüzü: gerçek ve karmaşık
 
+![Nyquist karsilastirma: gercek orneklemede f_s/2 bant vs karmasik IQ orneklemede tam f_s bant; iki spektrum yan yana](img/b18_nyquist_gercek_karmasik.svg)
+
 Gerçek (reel) örneklemede teorem klasiktir: en yüksek frekansı `B` olan bir gerçek sinyali kayıpsız temsil için örnekleme hızı `f_s > 2B` olmalıdır. Spektrum `±B` arasında yaşadığından (gerçek sinyal simetrik), toplam genişlik `2B`'dir ve `f_s` bunu kaplamalıdır.
 
 Karmaşık (I/Q) örneklemede oyun değişir. Karmaşık örnek başına iki gerçek sayı (I ve Q) taşıdığımız için, aynı `f_s` ile iki kat bant temsil ederiz. Karmaşık taban-bant sinyali `−f_s/2` ile `+f_s/2` arasını, yani `f_s` genişliğinde bir bandı, kayıpsız temsil eder.
@@ -680,6 +682,8 @@ Pencere seçimi, geçiş bandı genişliği ile durdurma bandı bastırması ara
 | Hamming | ~41 dB | Orta |
 | Blackman | ~58 dB | Geniş |
 | Kaiser (β ayarlı) | Ayarlanabilir | Ayarlanabilir |
+
+![FIR filtre pencere frekans yaniti: dikdortgen/Hanning/Blackman/Kaiser ust uste, ana-lob genisligi vs yan-lob bastirma odunlesimi](img/b18_fir_pencere_yanit.svg)
 
 Kaiser penceresi özellikle güçlüdür: tek bir `β` parametresiyle bastırma/genişlik ödünleşimini sürekli ayarlar; verilen durdurma-bandı bastırması ve geçiş genişliği için gereken `β` ve tap sayısı kapalı formüllerle hesaplanır.
 
@@ -1261,6 +1265,8 @@ Sezgi: bir sinyali demodüle edip "bit elde ettim ama hepsi hatalı/çöp" diyor
 ## 20. Mimari: RF→ADC→DDC→DSP ve Gerçek-Zaman Akış İşleme
 
 Şimdi tüm parçaları tek bir zincirde birleştirelim. Bir SDR alıcısının baştan sona veri yolu:
+
+![RF-ADC-DDC-DSP isleme zinciri: Anten→LNA→ADC→DDC(NCO+CIC+HB+FIR)→Demod→Senkron→FEC blok diyagrami](img/b18_dsp_isleme_zinciri.svg)
 
 ```
  ANTEN   RF ÖN-UÇ        ADC          DDC (genelde FPGA)        ANA İŞLEME (CPU/GPU)

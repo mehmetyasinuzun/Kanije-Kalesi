@@ -81,6 +81,8 @@ Projelerin büyük kısmı tek bir minimal çekirdek üzerine kurulur. Bunu bir 
    - DF: KrakenSDR (5 kanal) VEYA 2× senkron RTL + faz ref.          [Proje 8]
 ```
 
+![Proje Donanım Bağlantısı ve Anten Eklemeleri — RTL-SDR dongle → USB → Raspberry Pi → Ethernet → yönlendirici; anten tipleri ve LNA/filtre ekleme noktaları](img/b26_proje_donanim_baglanti.svg)
+
 > Donanım seçim derinliği Bölüm 2'dedir (RTL-SDR V3 vs V4, TCXO neden önemli, HackRF/Airspy/KrakenSDR farkları). Anten seçimi, empedans, LNA, filtre Bölüm 3'tedir. Yazılım/OS/sürücü kurulumu (DragonOS, Zadig, blacklist, udev) Bölüm 4'tedir. Bu bölüm o üç katmanın "kurulu ve çalışır" olduğunu varsayar; takılırsan ilgili bölüme dön.
 
 ### Komut blokları hakkında bir uyarı
@@ -1166,6 +1168,8 @@ Dağıtık/kalabalık-kaynak (crowdsourced) algılama: tek bir sensörün ufku s
 <a id="13"></a>
 ## 13. Kalıcı İstasyon Kurulumu: Raspberry Pi, Anten, Güç, RFI
 
+![Kalıcı SDR İstasyon Mimarisi — Çatı anteni, LNA (anten dibi), kaliteli koaks, bias-tee, Pi + RTL-SDR, Ethernet, SSH uzak yönetim; ferrit boncuk ve RFI kaçınma noktaları](img/b26_kalici_istasyon_mimarisi.svg)
+
 Yukarıdaki projelerin çoğu dizüstünde "açtım-denedim-kapattım" şeklinde yapılabilir. Ama gerçek değer, bir istasyonu *kalıcı* hale getirip onu unutmakta yatar: ADS-B 7/24 besler, survey her gece çalışır, uydu geçişlerini sen uyurken kaydeder. Bu bölüm, bir hobiden bir istasyona geçişin altyapı katmanıdır.
 
 ### Topoloji: kalıcı bir istasyon neye benzer
@@ -1269,6 +1273,8 @@ Bu katman, "açıp denedim" ile "ay boyunca veri toplayan istasyonum var" arası
 
 <a id="14"></a>
 ## 14. Öğrenme Progresyonu: Hangi Proje Hangi Sırayla
+
+![Öğrenme İlerlemesi — 11 proje merdiveni, her basamağın kazandırdığı beceri, zorluk ve yasal çizgi](img/b26_ogrenme_ilerlemesi.svg)
 
 Projeleri rastgele yapmak işe yarar ama *sıralı* yapmak her projeyi bir öncekinin üstüne koyar. Aşağıdaki progresyon, her adımın bir öncekinin kazandırdığı beceriyi pekiştirip yenisini eklediği bir yoldur.
 

@@ -50,6 +50,8 @@ Aşağıdaki tablo, bu bölümde ele alınan teknolojileri tek bakışta konumla
 | Keyless (RKE/PKES) | ~315/433/868 MHz (+UWB/LF) | ~1–100 m | Araç giriş/çalıştırma | Rolling-code; relay'e açık |
 | Kablosuz klavye/fare | 2,4 GHz (özel) | ~10 m | Giriş cihazları | Çoğu zaman zayıf/yok |
 
+![Kisa menzilli IoT frekans haritasi: 125 kHz RFID'den 2,4 GHz BLE/Zigbee/WiFi'ye — renk kodlu bant, menzil, sifreleme durumu](img/b16_iot_frekans_haritasi.svg)
+
 > Mühendislik sezgisi: Kısa menzilli güvenlik üç soruya indirgenir. **Şifreli mi?** (içeriği gizlemek) — bir saldırgan trafiği okuyabiliyor mu? **Kimlik doğrulanıyor mu?** (sahteciliği önlemek) — saldırgan meşru cihaz gibi davranabilir mi? **Tazelik/mesafe doğrulanıyor mu?** (tekrar ve relay'i önlemek) — eski bir mesaj yeniden oynatılabilir, ya da uzaktaki bir cihaz "yakın" gibi gösterilebilir mi? Bu üç soru, Bölüm 6 ve 13'teki "auth + nonce + mesafe" denetiminin kısa-menzil karşılığıdır ve bu bölümün her başlığında karşımıza çıkar.
 
 ---
@@ -102,6 +104,8 @@ BLE yazılım yığınının iki temel katmanını bilmek, hem geliştirme hem g
 Güvenlik refleksi şudur: yazılabilir bir komut karakteristiği (örneğin "kilit komutu") **kimlik doğrulama gerektirmiyorsa**, bağlanabilen herkes onu tetikleyebilir. Pek çok ucuz IoT cihazının zafiyeti tam buradadır — şifrelemeyi protokol seviyesinde değil, "uygulama bunu kimse fark etmez sanır" varsayımıyla atlamış olmalarıdır.
 
 ### Eşleşme (pairing) ve bağlanma (bonding)
+
+![BLE esleme modlari matrisi: Just Works/Passkey/Numeric/OOB vs pasif sniff + MITM direnci — Just Works = MITM'e acik](img/b16_ble_esleme.svg)
 
 Eşleşme, iki cihazın güvenli iletişim için anahtar üzerinde anlaşma sürecidir. BLE'nin tarihsel olarak en zayıf noktası buydu. **Legacy pairing** (4.0/4.1), anahtar değişimini zayıf bir yöntemle yapardı ve pasif bir dinleyici eşleşmeyi yakalarsa oturum anahtarını türetebilirdi. **LE Secure Connections** (4.2 ile gelen), eşleşmeyi **eliptik eğri Diffie-Hellman (ECDH)** üzerine kurar; pasif dinleyici artık anahtarı türetemez. Bu, BLE güvenliğindeki en önemli kırılma noktasıdır: bir cihazın LE Secure Connections kullanıp kullanmadığı, pasif sniffing'e karşı dayanıklılığını büyük ölçüde belirler.
 
@@ -286,6 +290,8 @@ Klonlamanın prensibi basittir: kartın okunabilen tüm bilgisini (UID — bazı
 
 ### Savunma: güçlü karta geçmek
 
+![RFID guvenlik spektrumu: LF EM4100 (sifreleme yok) → HF MIFARE Classic (Crypto-1 zayif) → DESFire EV3 (AES guclu)](img/b16_rfid_guvenlik_spektrumu.svg)
+
 | Önlem | Ne sağlar | Not |
 |---|---|---|
 | MIFARE DESFire EV2/EV3'e geçiş | AES tabanlı, gerçek karşılıklı kimlik doğrulama | Modern erişimin temeli; Crypto-1 sorununu kökten çözer |
@@ -419,6 +425,8 @@ LoRaWAN dört temel bileşenden oluşur: **uç cihaz** (sensör) → **gateway**
 | C | Sürekli alım (gönderim hariç hep dinler) | En düşük gecikme, en yüksek güç |
 
 ### Güvenlik: iki anahtar, iki katman
+
+![LoRaWAN aktivasyon karsilastirmasi: OTAA dinamik oturum anahtar turetme akisi vs ABP statik gomulu anahtar + sayac sifirlama riski](img/b16_lorawan_otaa_abp.svg)
 
 LoRaWAN güvenliği AES-128 üzerine kuruludur ve (1.0.x'te) iki anahtar etrafında döner: **NwkSKey** (ağ oturum anahtarı — bütünlük/MIC, ağ katmanı) ve **AppSKey** (uygulama oturum anahtarı — yük şifreleme, uçtan uca). Bu oturum anahtarları iki yöntemle elde edilir:
 

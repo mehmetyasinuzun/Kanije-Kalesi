@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="800" height="480" fill="#f4f7fb"/>
+  <text x="400" y="26" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Modulasyon Tipleri — Tasiyici + Bilgi = Sonuc</text>
+
+  <!-- ======= AM SATIRI ======= -->
+  <text x="10" y="58" font-size="13" font-weight="bold" fill="#1565c0">AM</text>
+  <!-- Bilgi -->
+  <text x="55" y="52" font-size="10" fill="#6b7a90">Bilgi (ses)</text>
+  <path d="M50 72 Q90 48 130 72 Q170 96 210 72" fill="none" stroke="#ff8f00" stroke-width="1.8"/>
+  <!-- artı işareti -->
+  <text x="218" y="74" font-size="14" fill="#6b7a90" font-weight="bold">+</text>
+  <!-- Tasiyici -->
+  <text x="235" y="52" font-size="10" fill="#6b7a90">Tasiyici</text>
+  <path d="M230 72 Q237 58 244 72 Q251 86 258 72 Q265 58 272 72 Q279 86 286 72 Q293 58 300 72 Q307 86 314 72 Q321 58 328 72 Q335 86 342 72 Q349 58 356 72 Q363 86 370 72" fill="none" stroke="#7a8aa0" stroke-width="1.5"/>
+  <!-- = isareti -->
+  <text x="378" y="74" font-size="14" fill="#6b7a90" font-weight="bold">=</text>
+  <!-- AM cikis: genlik zarfi sese gore -->
+  <text x="400" y="52" font-size="10" fill="#1565c0">AM Sinyal</text>
+  <path d="M395 72 Q407 50 419 72 Q431 94 443 72 Q455 50 467 72 Q479 62 491 72 Q503 82 515 72 Q527 62 539 72 Q551 82 563 72 Q575 62 587 72 Q599 52 611 72 Q623 92 635 72 Q647 52 659 72 Q671 92 683 72 Q695 52 707 72 Q719 92 731 72" fill="none" stroke="#1565c0" stroke-width="2"/>
+  <!-- zarfin ust -->
+  <path d="M395 72 Q420 48 455 72 Q480 94 515 72 Q540 50 575 72 Q600 94 635 72 Q660 48 700 72 Q720 88 731 72" fill="none" stroke="#1565c0" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
+  <text x="400" y="102" font-size="10" fill="#5a6b80">Genlik degisir, frekans sabit</text>
+
+  <!-- ======= FM SATIRI ======= -->
+  <line x1="0" y1="118" x2="800" y2="118" stroke="#d3dde8" stroke-width="1"/>
+  <text x="10" y="148" font-size="13" font-weight="bold" fill="#c0392b">FM</text>
+  <!-- Bilgi -->
+  <text x="55" y="132" font-size="10" fill="#6b7a90">Bilgi (ses)</text>
+  <path d="M50 152 Q90 130 130 152 Q170 174 210 152" fill="none" stroke="#ff8f00" stroke-width="1.8"/>
+  <text x="218" y="154" font-size="14" fill="#6b7a90" font-weight="bold">+</text>
+  <!-- Tasiyici -->
+  <text x="235" y="132" font-size="10" fill="#6b7a90">Tasiyici</text>
+  <path d="M230 152 Q237 138 244 152 Q251 166 258 152 Q265 138 272 152 Q279 166 286 152 Q293 138 300 152 Q307 166 314 152 Q321 138 328 152 Q335 166 342 152 Q349 138 356 152 Q363 166 370 152" fill="none" stroke="#7a8aa0" stroke-width="1.5"/>
+  <text x="378" y="154" font-size="14" fill="#6b7a90" font-weight="bold">=</text>
+  <!-- FM cikis: frekans degisiyor, ilk yarim sikisik, ikinci yarim seyrek -->
+  <text x="400" y="132" font-size="10" fill="#c0392b">FM Sinyal</text>
+  <path d="M395 152 Q399 142 403 152 Q407 162 411 152 Q415 142 419 152 Q423 162 427 152 Q431 142 435 152 Q439 162 443 152 Q447 142 451 152 Q455 162 459 152 Q465 148 471 152 Q477 156 483 152 Q489 148 495 152 Q501 156 507 152 Q513 148 519 152 Q525 156 531 152 Q537 148 543 152 Q549 156 555 152 Q566 144 577 152 Q588 160 599 152 Q610 144 621 152 Q632 160 643 152 Q654 144 665 152 Q676 160 687 152 Q698 144 709 152 Q720 160 731 152" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="400" y="182" font-size="10" fill="#5a6b80">Frekans degisir, genlik sabit  |  sikisik=yuksek ses, seyrek=alcak ses</text>
+
+  <!-- ======= OOK/BPSK SATIRI ======= -->
+  <line x1="0" y1="198" x2="800" y2="198" stroke="#d3dde8" stroke-width="1"/>
+  <text x="10" y="228" font-size="13" font-weight="bold" fill="#1a8a3a">OOK</text>
+  <!-- Bilgi bitler -->
+  <text x="55" y="212" font-size="10" fill="#6b7a90">Bilgi (bit)</text>
+  <rect x="50" y="218" width="28" height="16" fill="#ff8f00" rx="1"/>
+  <text x="64" y="229" text-anchor="middle" font-size="9" fill="#fff">1</text>
+  <rect x="80" y="226" width="28" height="8" fill="#6b7a90" rx="1" opacity="0.4"/>
+  <text x="94" y="234" text-anchor="middle" font-size="9" fill="#fff">0</text>
+  <rect x="110" y="218" width="28" height="16" fill="#ff8f00" rx="1"/>
+  <text x="124" y="229" text-anchor="middle" font-size="9" fill="#fff">1</text>
+  <rect x="140" y="218" width="28" height="16" fill="#ff8f00" rx="1"/>
+  <text x="154" y="229" text-anchor="middle" font-size="9" fill="#fff">1</text>
+  <rect x="170" y="226" width="28" height="8" fill="#6b7a90" rx="1" opacity="0.4"/>
+  <text x="184" y="234" text-anchor="middle" font-size="9" fill="#fff">0</text>
+  <text x="212" y="228" font-size="14" fill="#6b7a90" font-weight="bold">+</text>
+  <text x="228" y="212" font-size="10" fill="#6b7a90">Tasiyici</text>
+  <path d="M224 228 Q231 214 238 228 Q245 242 252 228 Q259 214 266 228 Q273 242 280 228 Q287 214 294 228 Q301 242 308 228 Q315 214 322 228 Q329 242 336 228 Q343 214 350 228 Q357 242 364 228 Q371 214 378 228" fill="none" stroke="#7a8aa0" stroke-width="1.5"/>
+  <text x="386" y="228" font-size="14" fill="#6b7a90" font-weight="bold">=</text>
+  <!-- OOK cikis -->
+  <text x="400" y="212" font-size="10" fill="#1a8a3a">OOK Sinyal (1=var, 0=yok)</text>
+  <path d="M395 228 Q402 214 409 228 Q416 242 423 228 Q430 214 437 228 Q444 242 451 228 Q458 214 465 228 Q472 242 479 228" fill="none" stroke="#1a8a3a" stroke-width="2"/>
+  <!-- 0 bit: bosluk -->
+  <line x1="479" y1="228" x2="521" y2="228" stroke="#1a8a3a" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.3"/>
+  <!-- sonraki 1 bit -->
+  <path d="M521 228 Q528 214 535 228 Q542 242 549 228 Q556 214 563 228 Q570 242 577 228 Q584 214 591 228 Q598 242 605 228 Q612 214 619 228 Q626 242 633 228" fill="none" stroke="#1a8a3a" stroke-width="2"/>
+  <!-- sonraki 0 bit -->
+  <line x1="633" y1="228" x2="675" y2="228" stroke="#1a8a3a" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.3"/>
+  <text x="400" y="258" font-size="10" fill="#5a6b80">Bit 1: tasiyici ACIK  |  Bit 0: tasiyici KAPALI (ISM kumandalar, garaj)</text>
+
+  <!-- ======= BPSK SATIRI ======= -->
+  <line x1="0" y1="275" x2="800" y2="275" stroke="#d3dde8" stroke-width="1"/>
+  <text x="10" y="308" font-size="13" font-weight="bold" fill="#5a189a">BPSK</text>
+  <text x="55" y="292" font-size="10" fill="#6b7a90">Bilgi (bit)</text>
+  <rect x="50" y="295" width="28" height="16" fill="#ff8f00" rx="1"/>
+  <text x="64" y="306" text-anchor="middle" font-size="9" fill="#fff">1</text>
+  <rect x="80" y="299" width="28" height="12" fill="#6b7a90" rx="1" opacity="0.5"/>
+  <text x="94" y="308" text-anchor="middle" font-size="9" fill="#fff">0</text>
+  <rect x="110" y="295" width="28" height="16" fill="#ff8f00" rx="1"/>
+  <text x="124" y="306" text-anchor="middle" font-size="9" fill="#fff">1</text>
+  <rect x="140" y="295" width="28" height="16" fill="#ff8f00" rx="1"/>
+  <text x="154" y="306" text-anchor="middle" font-size="9" fill="#fff">1</text>
+  <rect x="170" y="299" width="28" height="12" fill="#6b7a90" rx="1" opacity="0.5"/>
+  <text x="184" y="308" text-anchor="middle" font-size="9" fill="#fff">0</text>
+  <text x="212" y="308" font-size="14" fill="#6b7a90" font-weight="bold">+</text>
+  <text x="228" y="292" font-size="10" fill="#6b7a90">Tasiyici</text>
+  <path d="M224 308 Q231 294 238 308 Q245 322 252 308 Q259 294 266 308 Q273 322 280 308 Q287 294 294 308 Q301 322 308 308 Q315 294 322 308 Q329 322 336 308 Q343 294 350 308 Q357 322 364 308 Q371 294 378 308" fill="none" stroke="#7a8aa0" stroke-width="1.5"/>
+  <text x="386" y="308" font-size="14" fill="#6b7a90" font-weight="bold">=</text>
+  <!-- BPSK cikis: faz 0/180 derece -->
+  <text x="400" y="292" font-size="10" fill="#5a189a">BPSK (faz 0° / 180°)</text>
+  <!-- bit 1: 0 derece faz -->
+  <path d="M395 308 Q402 294 409 308 Q416 322 423 308 Q430 294 437 308 Q444 322 451 308 Q458 294 465 308 Q472 322 479 308" fill="none" stroke="#5a189a" stroke-width="2"/>
+  <!-- bit 0: 180 derece faz (ters) -->
+  <path d="M479 308 Q486 322 493 308 Q500 294 507 308 Q514 322 521 308" fill="none" stroke="#5a189a" stroke-width="2"/>
+  <!-- bit 1 tekrar -->
+  <path d="M521 308 Q528 294 535 308 Q542 322 549 308 Q556 294 563 308 Q570 322 577 308 Q584 294 591 308 Q598 322 605 308 Q612 294 619 308 Q626 322 633 308" fill="none" stroke="#5a189a" stroke-width="2"/>
+  <!-- faz gecis noktalari -->
+  <circle cx="479" cy="308" r="4" fill="#ff8f00"/>
+  <circle cx="521" cy="308" r="4" fill="#ff8f00"/>
+  <!-- faz oklar -->
+  <text x="479" y="343" text-anchor="middle" font-size="9" fill="#ff8f00">faz 180°</text>
+  <text x="400" y="360" font-size="10" fill="#5a6b80">Faz gecisi=bit degisimi  |  0°=1, 180°=0  |  Uydu, WiFi, RFID</text>
+
+  <!-- Alt ozet tablо -->
+  <rect x="20" y="378" width="760" height="90" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="2"/>
+  <text x="400" y="395" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">Modulasyon Haritasi</text>
+  <line x1="20" y1="400" x2="780" y2="400" stroke="#d3dde8" stroke-width="1"/>
+  <text x="100" y="416" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">AM / ASK</text>
+  <text x="100" y="430" text-anchor="middle" font-size="10" fill="#4a5a70">Genlik degisir</text>
+  <text x="100" y="443" text-anchor="middle" font-size="10" fill="#5a6b80">Kumandalar, havacilık</text>
+  <line x1="205" y1="402" x2="205" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <text x="310" y="416" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">FM / FSK</text>
+  <text x="310" y="430" text-anchor="middle" font-size="10" fill="#4a5a70">Frekans degisir</text>
+  <text x="310" y="443" text-anchor="middle" font-size="10" fill="#5a6b80">FM radyo, BT, GSM</text>
+  <line x1="425" y1="402" x2="425" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <text x="535" y="416" text-anchor="middle" font-size="11" font-weight="bold" fill="#5a189a">PSK / BPSK / QPSK</text>
+  <text x="535" y="430" text-anchor="middle" font-size="10" fill="#4a5a70">Faz degisir</text>
+  <text x="535" y="443" text-anchor="middle" font-size="10" fill="#5a6b80">Uydu, RFID, WiFi</text>
+  <line x1="650" y1="402" x2="650" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <text x="715" y="416" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">QAM / OFDM</text>
+  <text x="715" y="430" text-anchor="middle" font-size="10" fill="#4a5a70">Genlik + Faz</text>
+  <text x="715" y="443" text-anchor="middle" font-size="10" fill="#5a6b80">WiFi 5/6, 4G/5G</text>
+</svg>

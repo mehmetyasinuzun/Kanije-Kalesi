@@ -63,6 +63,8 @@ Erişim yönteminin sezgisi şudur:
 
 Not: Frekans ve sinyal adlandırmaları (özellikle BeiDou B1I/B1C ve GLONASS CDMA geçişi) sürümle değişir; üretim/tasarım kararı için resmî arayüz kontrol dokümanından (ICD) teyit edilmeli.
 
+![GNSS ailesi frekans bantlari: GPS L1/L2/L5, Galileo E1/E5a/E5b/E6, GLONASS L1/L2 (FDMA), BeiDou B1I/B1C/B2a/B3; 1100-1650 MHz ekseninde; 1575.42 ve 1176.45 MHz ortak frekanslar vurgulu](img/b10_gnss_sinyal_spektrum.svg)
+
 ---
 
 <a id="2"></a>
@@ -252,6 +254,8 @@ Korelasyonun yaptığı, Bölüm 5'teki yayılım kazancını uygulamaktır. Al�
 Alıcı baştan ne sinyalin kod fazını (uydu ne kadar uzakta) ne de tam frekansını (uydu Dünya'ya göre hareket ettiğinden Doppler kayması var) bilir. Bu yüzden "elde alma" (acquisition) aşaması iki boyutlu bir aramadır: olası kod kaymaları × olası Doppler frekansları ızgarasında tepe aranır. Tepe bulunduğunda iki bilgi birden gelir: tepenin kod-kayması ekseni mesafeyi (pseudorange), Doppler ekseni bağıl hızı verir. Tepe yakalandıktan sonra alıcı onu "izleme" (tracking) döngüleriyle (kod için DLL, taşıyıcı için PLL/FLL) sürekli kilitli tutar.
 
 Bu mekanizma, hem GNSS'in gücünü hem de zaafını aynı anda gösterir. Gücü: olağanüstü zayıf bir sinyal, bilinen kod sayesinde güvenle çözülür. Zaafı: alıcı, korelasyon tepesini nereden alırsa oradan alır — tepe gerçek uydudan da gelebilir, aynı kodu üreten başka bir kaynaktan da. Eğer sahte bir kaynak, doğru kodu doğru civarda ama biraz daha güçlü üretirse, alıcının izleme döngüsü doğal olarak daha güçlü ve tutarlı tepeyi tercih etmeye meyleder. Bu, Bölüm 11'deki pull-off kavramının fiziksel çekirdeğidir — ama oraya geçmeden önce sinyalin taşıdığı veriyi tamamlayalım.
+
+![Korelasyon: sol panel ham spektrum (sinyal gurultu tabaninin altinda, gorulmez), sag panel kod korelasyonu ciktisi (keskin tepe belirir; ~43 dB yayilim kazanci)](img/b10_gnss_korelasyon.svg)
 
 ---
 
@@ -449,6 +453,8 @@ En sağlam mimari, GNSS'i tek doğruluk kaynağı yapmamaktır. Atalet seyrüsef
 | INS / bağımsız yedek | "GNSS tek doğruluk kaynağıdır" | Havacılık, denizcilik, otonom |
 
 Kapanış sezgisi: spoofing tek bir varsayıma (kimlik doğrulamasız, en güçlü tutarlı tepe = gerçek) dayanır; savunma bu varsayımı yedi farklı açıdan kuşatır. Hiçbiri tek başına kusursuz değildir, ama birlikte, sahte bir sinyal kümesinin **aynı anda** RAIM'den, konstelasyon çaprazından, geliş açısından, güç profilinden, zaman tutarlılığından, kriptografik imzadan ve bağımsız yedekten geçmesini pratikte imkânsızlaştırırlar.
+
+![Anti-spoofing savunma mimarisi: 7 ic ice katman (RAIM/FDE → coklu-konstelasyon → anten dizisi → AGC izleme → zaman tutarliligi → OSNMA → INS yedek); her katman hangi varsayimi kirar etiketi ile](img/b10_gnss_savunma_katmanlari.svg)
 
 ---
 

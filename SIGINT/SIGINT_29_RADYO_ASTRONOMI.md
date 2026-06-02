@@ -248,6 +248,8 @@ Dispersiyon ve dedispersiyon: Bir pulsar darbesi, Dünya'ya ulaşırken yıldız
  darbe tekrar keskinleşir (DM bilinirse).
 ```
 
+![Tek pulsar darbesi: ham veride yuksek frekans once-dusuk frekans gec gelir (dispersiyon egimi); dedispersiyon ile kanallar hizalanir ve darbe keskinlesir; periyot P gosterimi](img/b29_pulsar_dispersiyon.svg)
+
 > Mühendislik sezgisi: Dedispersiyon, bilinen bir kanal bozulmasını (frekansa bağlı gecikme) tersine çevirme işlemidir — özünde Bölüm 18'deki kanal eşitleme (equalization) ve grup gecikmesi düzeltmesinin bir akrabasıdır. Eğer DM biliniyorsa, geniş bantlı sinyali frekans kanallarına ayırıp her kanalı doğru gecikmeyle hizalar ve darbeyi yeniden keskinleştirirsiniz. DM bilinmiyorsa, bir dizi DM denenir ve darbeyi en keskin hale getiren değer aranır — bu, gerçek bir arama/optimizasyon problemidir.
 
 Pulsar gözlemi, amatör erişimi açısından bu bölümün en zorlu hedefidir: darbeler son derece zayıftır, geniş bant ve büyük açıklık (büyük çanak ya da dizi), hassas zamanlama (GPS-disiplinli saat — Bölüm 10) ve ciddi DSP arkası (dedispersiyon, katlama/folding) ister. Yine de, en parlak birkaç pulsar (örneğin Yengeç pulsarı, Vela), büyük amatör çanaklar ve gelişmiş yazılım dedispersiyonuyla bazı ileri amatörler tarafından tespit edilmiştir; bu, "mümkün ama ciddi" kategorisindedir.
@@ -309,6 +311,8 @@ Eğer bir hidrojen bulutu bize göre hareket ediyorsa, gözlenen 21 cm frekansı
 
    Birden çok tepe: görüş hattındaki farklı bulutların farklı radyal hızları.
 ```
+
+![Samanyolu kus-bakisi gorunumu: farkli radyal hizda HI bulutlari (A=-50km/s, B=+20km/s, C=+80km/s) gorus hatti boyunca Doppler kaymasinda ayri spektral tepeler olusturur](img/b29_hi_21cm_doppler.svg)
 
 ### Galaktik dönüş eğrisi ve karanlık madde
 
@@ -406,6 +410,8 @@ Astronomide ölçtüğünüz şey güçtür ve bunu anlamlı bir fiziksel niceli
 ### Soğutma kavramı
 
 Sistem sıcaklığını düşürmenin en güçlü yolu, alıcının fiziksel sıcaklığını düşürmektir: termal gürültü sıcaklıkla orantılıdır (Bölüm 1, kT). Kurumsal radyo teleskopları, LNA'larını kriyojenik sıcaklıklara (örneğin sıvı helyum/azot bölgesi, tipik olarak 15-80 K mertebesi) soğutarak alıcı gürültüsünü dramatik biçimde azaltır. Bu, su mazeri (22 GHz) gibi yüksek frekanslı, zayıf hatlar için neredeyse zorunludur.
+
+![Parabolik canak geometrisi (f/D orani, odak noktasi, besleme horn, HPBW formulu) ve tam astronomi alici zinciri (Canak/Horn -> LNA -> Bant Filtresi -> SDR -> Kalibrasyon -> FFT)](img/b29_radyo_teleskop_horn.svg)
 
 > Not: Soğutma, kurumsal/profesyonel alanın işidir; amatör kurulumlar normalde soğutmasızdır ve bunu uzun integrasyonla (radyometre denklemi) telafi eder. Tipik kriyojenik sıcaklık değerleri donanıma göre değişir ve kaynaktan teyit edilmeli. Kavramsal ders: sistem sıcaklığını düşürmenin iki yolu vardır — daha iyi LNA (düşük NF) ya da fiziksel soğutma; ikisi de aynı amaca, T_sys'i küçültmeye hizmet eder.
 

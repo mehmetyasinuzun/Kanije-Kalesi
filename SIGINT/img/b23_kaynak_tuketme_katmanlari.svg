@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="820" height="480" fill="#f4f7fb"/>
+  <text x="410" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Kaynak Tüketme Katmanlari: RF'ten Bulut'a Asimetrik Saldiri</text>
+
+  <!-- 5 yatay bant (alttaktan üsttekine) -->
+
+  <!-- Katman 1: RF/Fiziksel (en altta) -->
+  <rect x="20" y="380" width="780" height="68" rx="6" fill="#c0392b" fill-opacity="0.12" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Baslik -->
+  <rect x="20" y="380" width="200" height="68" rx="6" fill="#c0392b" fill-opacity="0.22"/>
+  <text x="120" y="407" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">RF / Spektrum</text>
+  <text x="120" y="422" text-anchor="middle" font-size="10" fill="#c0392b">Fiziksel Katman</text>
+  <!-- Tuketilen kaynak -->
+  <text x="340" y="404" text-anchor="middle" font-size="10" fill="#4a5a70">Tüketilen: Spektrum + Zaman + SNR</text>
+  <text x="340" y="419" text-anchor="middle" font-size="10" fill="#4a5a70">Saldiri: Kariştirma (gürültü + bant doldurma)</text>
+  <text x="340" y="434" text-anchor="middle" font-size="9" fill="#6b7a90">Sahibine: Hizmet tamamen durur; kimse iletisemez</text>
+  <!-- Savunma -->
+  <text x="650" y="404" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Savunma:</text>
+  <text x="650" y="419" text-anchor="middle" font-size="10" fill="#1a8a3a">Spektrum izleme + yön bulma</text>
+  <text x="650" y="434" text-anchor="middle" font-size="9" fill="#1a8a3a">+ yetkili otoriteye bildir</text>
+
+  <!-- Katman 2: Baglantı/MAC -->
+  <rect x="20" y="304" width="780" height="70" rx="6" fill="#1565c0" fill-opacity="0.12" stroke="#1565c0" stroke-width="1.5"/>
+  <rect x="20" y="304" width="200" height="70" rx="6" fill="#1565c0" fill-opacity="0.22"/>
+  <text x="120" y="330" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">Baglantı / MAC</text>
+  <text x="120" y="346" text-anchor="middle" font-size="10" fill="#1565c0">802.11 Katmanı</text>
+  <text x="340" y="328" text-anchor="middle" font-size="10" fill="#4a5a70">Tüketilen: Baglantı sürekliligi</text>
+  <text x="340" y="343" text-anchor="middle" font-size="10" fill="#4a5a70">Saldiri: Deauth/disassoc seli (yönetim çerçevesi)</text>
+  <text x="340" y="358" text-anchor="middle" font-size="9" fill="#6b7a90">Sahibine: İstemciler sürekli düser; internet kullanılamaz</text>
+  <text x="650" y="328" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Savunma:</text>
+  <text x="650" y="343" text-anchor="middle" font-size="10" fill="#1a8a3a">802.11w / PMF (zorunlu kıl)</text>
+  <text x="650" y="358" text-anchor="middle" font-size="9" fill="#1a8a3a">WPA3 (PMF varsayılan)</text>
+
+  <!-- Katman 3: Ag -->
+  <rect x="20" y="222" width="780" height="76" rx="6" fill="#ff8f00" fill-opacity="0.12" stroke="#ff8f00" stroke-width="1.5"/>
+  <rect x="20" y="222" width="200" height="76" rx="6" fill="#ff8f00" fill-opacity="0.22"/>
+  <text x="120" y="249" text-anchor="middle" font-size="11" font-weight="bold" fill="#b36200">Ag Katmanı</text>
+  <text x="120" y="265" text-anchor="middle" font-size="10" fill="#b36200">IP / DHCP / ARP</text>
+  <text x="340" y="245" text-anchor="middle" font-size="10" fill="#4a5a70">Tüketilen: IP adres havuzu · ARP tablosu · Oturum tablosu</text>
+  <text x="340" y="260" text-anchor="middle" font-size="10" fill="#4a5a70">Saldiri: DHCP starvation · ARP sel · Baglantı tablosu doldurma</text>
+  <text x="340" y="275" text-anchor="middle" font-size="9" fill="#6b7a90">Sahibine: Yeni istemci adres alamaz; meşru baglantılar kurulamaz</text>
+  <text x="340" y="289" text-anchor="middle" font-size="9" fill="#6b7a90">Ekstra: Rogue DHCP ile MitM'e dönüsebilir</text>
+  <text x="650" y="249" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Savunma:</text>
+  <text x="650" y="264" text-anchor="middle" font-size="10" fill="#1a8a3a">DHCP snooping + DAI</text>
+  <text x="650" y="279" text-anchor="middle" font-size="10" fill="#1a8a3a">+ port güvenligi</text>
+  <text x="650" y="294" text-anchor="middle" font-size="9" fill="#1a8a3a">+ oran sınırlama</text>
+
+  <!-- Katman 4: Uygulama/Bulut -->
+  <rect x="20" y="128" width="780" height="88" rx="6" fill="#6b7a90" fill-opacity="0.12" stroke="#6b7a90" stroke-width="1.5"/>
+  <rect x="20" y="128" width="200" height="88" rx="6" fill="#6b7a90" fill-opacity="0.22"/>
+  <text x="120" y="155" text-anchor="middle" font-size="11" font-weight="bold" fill="#5a6b80">Uygulama /</text>
+  <text x="120" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#5a6b80">Bulut Katmanı</text>
+  <text x="340" y="150" text-anchor="middle" font-size="10" fill="#4a5a70">Tüketilen: Veri kotası · Bulut islem bütçesi · IP itibarı</text>
+  <text x="340" y="165" text-anchor="middle" font-size="10" fill="#4a5a70">Saldiri: Botnet DDoS · Proxy kötüye kullanımı · Kota yakma</text>
+  <text x="340" y="180" text-anchor="middle" font-size="9" fill="#6b7a90">Sahibine: Fatura patlak · Kota doldu · IP kara listeye düstü</text>
+  <text x="340" y="195" text-anchor="middle" font-size="9" fill="#6b7a90">Anahtar: Botnet yakıtı = zayıf/varsayılan kimlikli IoT cihazlardır</text>
+  <text x="650" y="155" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Savunma:</text>
+  <text x="650" y="170" text-anchor="middle" font-size="10" fill="#1a8a3a">Cihaz sertlestirme</text>
+  <text x="650" y="185" text-anchor="middle" font-size="10" fill="#1a8a3a">+ giden oran sınırı</text>
+  <text x="650" y="200" text-anchor="middle" font-size="9" fill="#1a8a3a">+ segmentasyon + kota uyarısı</text>
+
+  <!-- Katman 5: Cihaz/Enerji -->
+  <rect x="20" y="48" width="780" height="74" rx="6" fill="#1a8a3a" fill-opacity="0.12" stroke="#1a8a3a" stroke-width="1.5"/>
+  <rect x="20" y="48" width="200" height="74" rx="6" fill="#1a8a3a" fill-opacity="0.22"/>
+  <text x="120" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">Cihaz / Enerji</text>
+  <text x="120" y="88" text-anchor="middle" font-size="10" fill="#1a8a3a">IoT / BLE / LPWAN</text>
+  <text x="340" y="68" text-anchor="middle" font-size="10" fill="#4a5a70">Tüketilen: Pil enerjisi (sonlu)</text>
+  <text x="340" y="83" text-anchor="middle" font-size="10" fill="#4a5a70">Saldiri: Uyku yoksunlugu — sürekli uyandırma saldırısı</text>
+  <text x="340" y="98" text-anchor="middle" font-size="9" fill="#6b7a90">Sahibine: Pil saatler içinde biter; cihaz fiziksel müdahalesiz ölü</text>
+  <text x="340" y="112" text-anchor="middle" font-size="9" fill="#6b7a90">En asimetrik saldırı: birkaç paket → sahalardaki sensör susar</text>
+  <text x="650" y="72" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Savunma:</text>
+  <text x="650" y="87" text-anchor="middle" font-size="10" fill="#1a8a3a">Kimlik dogrulamalı uyanma</text>
+  <text x="650" y="102" text-anchor="middle" font-size="10" fill="#1a8a3a">+ oran sınırı + hızlı red yolu</text>
+  <text x="650" y="114" text-anchor="middle" font-size="9" fill="#1a8a3a">"Pahalı isleme öncesi ucuz dogrulama"</text>
+
+  <!-- Sol taraf: Katman numaralari ve yükselen ok -->
+  <!-- Bunu sagda zaten label var, sol kenar bos -->
+
+  <!-- Asimetri notu (alt) -->
+  <rect x="20" y="457" width="780" height="18" rx="4" fill="#ffffff" stroke="#d3dde8" stroke-width="1"/>
+  <text x="410" y="469" text-anchor="middle" font-size="9" fill="#c0392b">Asimetri ilkesi: Saldırganın küçük maliyeti → Savunmacıya büyük zarar. Savunma bu asimetriyi tersine çevirir: maliyet artır, etki sınırla.</text>
+
+  <line x1="10" y1="479" x2="810" y2="479" stroke="#d3dde8" stroke-width="1"/>
+  <text x="410" y="477" text-anchor="middle" font-size="9" fill="#7a8aa0">SIGINT El Kitabı — Bölüm 23: Kaynak ve Paket Tüketme Saldırıları</text>
+</svg>

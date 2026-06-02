@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="440" fill="#f4f7fb"/>
+  <text x="380" y="28" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b40">ISM / SRD Bolge Farki — Region 1 vs Region 2</text>
+
+  <!-- Sol Panel: Region 1 (Avrupa/Türkiye) -->
+  <rect x="20" y="45" width="340" height="355" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="190" y="66" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">Region 1</text>
+  <text x="190" y="82" text-anchor="middle" font-size="11" fill="#4a5a70">Avrupa, Afrika, Orta Dogu</text>
+  <text x="190" y="97" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Turkiye bu bolgededir</text>
+
+  <!-- 400-1000 MHz serit, Region 1 -->
+  <!-- Serit zemini -->
+  <rect x="40" y="115" width="300" height="180" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1" rx="3"/>
+  <text x="190" y="131" text-anchor="middle" font-size="10" fill="#6b7a90">400 MHz                              1000 MHz</text>
+  <text x="40"  y="131" font-size="8" fill="#7a8aa0">|</text>
+  <text x="340" y="131" font-size="8" fill="#7a8aa0">|</text>
+
+  <!-- Ölcek: 40-340px = 400-1000 MHz = 600 MHz = 300px => 1px/2MHz -->
+  <!-- 433 blogu: 433.05-434.79 MHz → x=40+(33.05/2)=40+16.5=56.5, genislik=(1.74/2)=0.87 ~min 25 goster -->
+  <rect x="55"  y="140" width="40" height="50" fill="#1565c0" fill-opacity="0.7" rx="2"/>
+  <text x="75" y="157" text-anchor="middle" font-size="9" font-weight="bold" fill="#ffffff">433</text>
+  <text x="75" y="170" text-anchor="middle" font-size="8" fill="#ffffff">MHz</text>
+  <text x="75" y="201" text-anchor="middle" font-size="8" fill="#1565c0">433.05-434.79</text>
+
+  <!-- 868 blogu: 863-870 MHz → x=40+(463/2)=271.5, genislik=(7/2)=3.5 ~min 35 goster -->
+  <rect x="260" y="140" width="45" height="50" fill="#1a8a3a" fill-opacity="0.8" rx="2"/>
+  <text x="282" y="157" text-anchor="middle" font-size="9" font-weight="bold" fill="#ffffff">868</text>
+  <text x="282" y="170" text-anchor="middle" font-size="8" fill="#ffffff">MHz</text>
+  <text x="282" y="201" text-anchor="middle" font-size="8" fill="#1a8a3a">863–870 MHz</text>
+
+  <!-- Region 1 kullanim -->
+  <rect x="40" y="210" width="300" height="55" fill="#e8f0fb" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="190" y="228" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Region 1 ISM / SRD Kullanimi</text>
+  <text x="55"  y="244" font-size="10" fill="#4a5a70">433 MHz — kumanda, TPMS, garaj, sensör, LoRa</text>
+  <text x="55"  y="257" font-size="10" fill="#4a5a70">868 MHz — IoT (LoRaWAN), akilli sayac, alarm</text>
+
+  <!-- Turkiye notu -->
+  <rect x="40" y="275" width="300" height="60" fill="#e8f4e8" stroke="#1a8a3a" stroke-width="1.5" rx="3"/>
+  <text x="190" y="293" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Turkiye (Region 1) Notu</text>
+  <text x="55" y="310" font-size="10" fill="#4a5a70">IoT/LoRa cihazlar icin 868 MHz blogu gecerlidir.</text>
+  <text x="55" y="323" font-size="10" fill="#4a5a70">915 MHz Amerika'ya ozgu → Turkiye'de yasal degil.</text>
+
+  <rect x="40" y="345" width="300" height="40" fill="#f4f7fb" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+  <text x="55" y="362" font-size="9" fill="#4a5a70">Denetleyici: BTK (Bilgi Teknolojileri ve</text>
+  <text x="55" y="375" font-size="9" fill="#4a5a70">Iletisim Kurumu) — SRD tebliği</text>
+
+  <!-- Sag Panel: Region 2 (Amerika) -->
+  <rect x="400" y="45" width="340" height="355" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="570" y="66" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Region 2</text>
+  <text x="570" y="82" text-anchor="middle" font-size="11" fill="#4a5a70">K./G. Amerika, Grönland</text>
+  <text x="570" y="97" text-anchor="middle" font-size="10" fill="#c0392b">ABD / FCC denetimi</text>
+
+  <!-- 400-1000 MHz serit, Region 2 -->
+  <rect x="420" y="115" width="300" height="180" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1" rx="3"/>
+  <text x="570" y="131" text-anchor="middle" font-size="10" fill="#6b7a90">400 MHz                              1000 MHz</text>
+
+  <!-- 915 blogu: 902-928 MHz → x=420+(502/2)=671, genislik=(26/2)=13 ~min 40 goster -->
+  <rect x="650" y="140" width="48" height="50" fill="#c0392b" fill-opacity="0.7" rx="2"/>
+  <text x="674" y="157" text-anchor="middle" font-size="9" font-weight="bold" fill="#ffffff">915</text>
+  <text x="674" y="170" text-anchor="middle" font-size="8" fill="#ffffff">MHz</text>
+  <text x="674" y="201" text-anchor="middle" font-size="8" fill="#c0392b">902–928 MHz</text>
+
+  <!-- 433 Region 2'de DAR veya yok -->
+  <rect x="435" y="160" width="25" height="30" fill="#9fb3c8" fill-opacity="0.5" rx="2"/>
+  <text x="447" y="179" text-anchor="middle" font-size="7" fill="#6b7a90">433*</text>
+  <text x="447" y="203" text-anchor="middle" font-size="7" fill="#6b7a90">*sınırlı/dar</text>
+
+  <!-- Region 2 kullanim -->
+  <rect x="420" y="210" width="300" height="55" fill="#fce8e8" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="570" y="228" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Region 2 ISM / SRD Kullanimi</text>
+  <text x="435" y="244" font-size="10" fill="#4a5a70">915 MHz — IoT (LoRa/LoRaWAN), kumanda</text>
+  <text x="435" y="257" font-size="10" fill="#4a5a70">433 MHz — Region 2'de cok daha sinirli kullanim</text>
+
+  <!-- Region 2 notu -->
+  <rect x="420" y="275" width="300" height="60" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="570" y="293" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Region 2 Fark Notu</text>
+  <text x="435" y="310" font-size="10" fill="#4a5a70">868 MHz araligi Avrupa'ya ozgudur —</text>
+  <text x="435" y="323" font-size="10" fill="#4a5a70">Amerika'da bu blok farkli tahsisli olabilir.</text>
+
+  <rect x="420" y="345" width="300" height="40" fill="#f4f7fb" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+  <text x="435" y="362" font-size="9" fill="#4a5a70">Denetleyici: FCC (sivil) + NTIA (federal)</text>
+  <text x="435" y="375" font-size="9" fill="#4a5a70">CFR Title 47 Part 15 lisanssiz cihazlar</text>
+
+  <!-- Orta ayirac -->
+  <line x1="380" y1="45" x2="380" y2="400" stroke="#d3dde8" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="380" y="415" text-anchor="middle" font-size="10" fill="#6b7a90" font-weight="bold">vs</text>
+
+  <!-- Alt karsilastirma barı -->
+  <rect x="20" y="410" width="720" height="18" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="190" y="423" text-anchor="middle" font-size="10" fill="#1565c0" font-weight="bold">Region 1: 433 MHz + 868 MHz (Avrupa/Turkiye)</text>
+  <text x="570" y="423" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="bold">Region 2: 433 MHz sinirli + 915 MHz (ABD)</text>
+
+  <!-- Alt bilgi -->
+  <line x1="20" y1="432" x2="740" y2="432" stroke="#d3dde8" stroke-width="1"/>
+  <text x="380" y="432" text-anchor="middle" font-size="9" fill="#6b7a90">915 MHz'lik cihaz Turkiye'de gorulmesi = yanlis bolge urunune isaret eder — BTK onaylı cihaz listesinden teyit et</text>
+</svg>

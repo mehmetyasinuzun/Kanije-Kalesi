@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Kod Korelasyonu — −130 dBm Sinyali Gurultuden Cekmek</text>
+  <line x1="20" y1="38" x2="840" y2="38" stroke="#9fb3c8" stroke-width="0.8"/>
+
+  <!-- Sol panel: HAM IQ / SPEKTRUM -->
+  <rect x="20" y="44" width="390" height="400" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+  <text x="215" y="68" text-anchor="middle" font-size="13" font-weight="bold" fill="#4a5a70">Korelasyon Oncesi</text>
+  <text x="215" y="84" text-anchor="middle" font-size="10" fill="#4a5a70">Ham spektrum: sinyal gurultu tabaninin altinda</text>
+
+  <!-- Sag panel: KORELASYON CIKTI -->
+  <rect x="450" y="44" width="390" height="400" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+  <text x="645" y="68" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">Korelasyon Ciktisi</text>
+  <text x="645" y="84" text-anchor="middle" font-size="10" fill="#1565c0">Dogru C/A kodu ile: keskin tepe gorunur</text>
+
+  <!-- Orta oku -->
+  <rect x="408" y="190" width="36" height="50" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1" rx="3"/>
+  <text x="426" y="209" text-anchor="middle" font-size="9" fill="#36506e">kod</text>
+  <text x="426" y="222" text-anchor="middle" font-size="9" fill="#36506e">koral.</text>
+  <polygon points="410,228 444,215 410,203" fill="#1565c0" opacity="0.6"/>
+
+  <!-- ===== SOL PANEL: Spektrum ===== -->
+  <!-- Eksen -->
+  <line x1="45" y1="340" x2="395" y2="340" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="45" y1="340" x2="45" y2="100" stroke="#6b7a90" stroke-width="1.5"/>
+  <polygon points="393,336 400,340 393,344" fill="#6b7a90"/>
+  <polygon points="41,102 45,95 49,102" fill="#6b7a90"/>
+  <text x="402" y="344" font-size="10" fill="#4a5a70">f</text>
+  <text x="28" y="98" font-size="10" fill="#4a5a70">dBm</text>
+
+  <!-- dBm isaretleri -->
+  <line x1="43" y1="310" x2="47" y2="310" stroke="#6b7a90" stroke-width="1"/>
+  <text x="22" y="314" font-size="8" fill="#4a5a70">−120</text>
+  <line x1="43" y1="270" x2="47" y2="270" stroke="#6b7a90" stroke-width="1"/>
+  <text x="22" y="274" font-size="8" fill="#4a5a70">−130</text>
+  <line x1="43" y1="230" x2="47" y2="230" stroke="#6b7a90" stroke-width="1"/>
+  <text x="22" y="234" font-size="8" fill="#4a5a70">−140</text>
+  <line x1="43" y1="190" x2="47" y2="190" stroke="#6b7a90" stroke-width="1"/>
+  <text x="22" y="194" font-size="8" fill="#4a5a70">−150</text>
+
+  <!-- Gurultu tabani yatay noktalı cizgi -->
+  <line x1="45" y1="270" x2="395" y2="270" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+  <text x="350" y="263" font-size="9" fill="#c0392b">gurultu tabani</text>
+  <text x="350" y="275" font-size="8" fill="#c0392b">≈ −130 dBm</text>
+
+  <!-- Gurultulu spektrum (duz, kararli) -->
+  <!-- Rastgele gurultu cizgisi -->
+  <polyline fill="none" stroke="#7a8aa0" stroke-width="1.2"
+    points="50,262 58,268 66,261 74,265 82,258 90,271 98,263 106,268 114,260 122,265 130,270 138,263 146,258 154,269 162,264 170,261 178,267 186,263 194,260 202,265 210,269 218,262 226,267 234,259 242,264 250,260 258,267 266,263 274,269 282,265 290,261 298,265 306,260 314,264 322,269 330,262 338,267 346,264 354,260 362,265 370,269 378,263 386,267"/>
+
+  <!-- GPS sinyal seviyesi cizgisi (gizli, gurultu altında) -->
+  <!-- Sinyal yoktur, sadece gurultu var -->
+
+  <!-- Sembol: GPS sinyali gurultu altinda, gorunmez -->
+  <ellipse cx="220" cy="270" rx="30" ry="20" fill="none" stroke="#1565c0" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <text x="220" y="302" text-anchor="middle" font-size="9" fill="#1565c0">GPS sinyali</text>
+  <text x="220" y="315" text-anchor="middle" font-size="9" fill="#1565c0">burada gizli</text>
+  <text x="220" y="328" text-anchor="middle" font-size="9" fill="#1565c0">(gorulmez)</text>
+
+  <!-- Aciklama kutu sol -->
+  <rect x="52" y="105" width="280" height="80" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1" rx="2"/>
+  <text x="62" y="122" font-size="10" font-weight="bold" fill="#c0392b">GPS L1 ≈ −130 dBm</text>
+  <text x="62" y="137" font-size="10" fill="#36506e">Termal gurultu tabani ile ayni seviyede</text>
+  <text x="62" y="152" font-size="10" fill="#36506e">SDR waterfall'da dogrudan GOZLEMLENEMEZ</text>
+  <text x="62" y="167" font-size="10" fill="#36506e">Spektrum analizi: sadece duz gurultu gorunur</text>
+
+  <!-- ===== SAG PANEL: Korelasyon ===== -->
+  <!-- Eksenler -->
+  <line x1="475" y1="340" x2="825" y2="340" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="475" y1="340" x2="475" y2="100" stroke="#6b7a90" stroke-width="1.5"/>
+  <polygon points="823,336 830,340 823,344" fill="#6b7a90"/>
+  <polygon points="471,102 475,95 479,102" fill="#6b7a90"/>
+  <text x="832" y="344" font-size="10" fill="#4a5a70">&#x3C4;</text>
+  <text x="456" y="98" font-size="10" fill="#4a5a70">guc</text>
+
+  <!-- Eksen etiketleri -->
+  <text x="652" y="358" text-anchor="middle" font-size="9" fill="#4a5a70">kod kaymasi (&#x3C4;)</text>
+
+  <!-- Gurultu zemin (dusuk) -->
+  <polyline fill="none" stroke="#d3dde8" stroke-width="1"
+    points="480,328 510,325 540,330 570,324 600,328 620,326"/>
+
+  <!-- Keskin tepe -->
+  <!-- Tepe merkezi: tau=0, x=652 -->
+  <polygon points="652,115 648,310 656,310" fill="#1565c0" fill-opacity="0.15"/>
+  <line x1="652" y1="310" x2="652" y2="118" stroke="#1565c0" stroke-width="3.5"/>
+
+  <!-- Tepe yanlari (yan loblar cok kucuk) -->
+  <polyline fill="none" stroke="#1565c0" stroke-width="1.5"
+    points="480,328 510,326 540,326 580,325 620,322 632,320 640,316 644,308 648,270 650,200 652,118 654,200 656,270 660,308 664,316 672,320 700,322 740,325 780,326 820,326"/>
+
+  <!-- Gurultu cizgisi sag -->
+  <polyline fill="none" stroke="#7a8aa0" stroke-width="1" opacity="0.5"
+    points="480,330 500,328 520,331 540,329 560,327 580,330 600,328 620,331 640,325 680,330 700,328 720,331 740,329 760,327 780,330 800,328 820,327"/>
+
+  <!-- Dashed cizgiler: tau=0 -->
+  <line x1="652" y1="310" x2="652" y2="340" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="644" y="358" font-size="9" fill="#1565c0">&#x3C4;=0</text>
+  <text x="620" y="374" font-size="9" fill="#1565c0">(dogru kod kaymasi)</text>
+
+  <!-- Tepe oklayi -->
+  <polygon points="648,112 652,102 656,112" fill="#ff8f00"/>
+  <text x="665" y="115" font-size="10" font-weight="bold" fill="#1565c0">TEPE</text>
+  <text x="665" y="128" font-size="9" fill="#1565c0">kod fazi = mesafe</text>
+  <text x="665" y="141" font-size="9" fill="#1565c0">~43 dB yayilim kazanci</text>
+
+  <!-- Genis band etiketi -->
+  <line x1="560" y1="160" x2="650" y2="118" stroke="#ff8f00" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="480" y="150" width="165" height="55" fill="#fff8e6" stroke="#ff8f00" stroke-width="1" rx="2"/>
+  <text x="490" y="166" font-size="9" font-weight="bold" fill="#ff8f00">Yayilim kazanci ~43 dB</text>
+  <text x="490" y="180" font-size="9" fill="#36506e">1023 chip / 50 bps = ~20400x</text>
+  <text x="490" y="194" font-size="9" fill="#36506e">Genis bant → keskin tepe → iyi &#x394;t</text>
+
+  <!-- Aciklama kutu sag -->
+  <rect x="480" y="100" width="162" height="40" fill="#f0f8ff" stroke="#1565c0" stroke-width="0.8" rx="2" opacity="0"/>
+
+  <!-- Alt aciklama paneli -->
+  <rect x="20" y="448" width="820" height="30" fill="#f4f7fb"/>
+  <line x1="20" y1="448" x2="840" y2="448" stroke="#d3dde8" stroke-width="0.8"/>
+  <text x="430" y="463" text-anchor="middle" font-size="10" fill="#1a2b40">
+    <tspan font-weight="bold">Korelasyon sezgisi:</tspan> Doğru C/A kodu doğru hizada → ~43 dB yayilim kazanci → tepe gurultuden cikar. Yanlis kod = gurultu gibi duz. Bu guc hem gizlemenin hem zayifligin kaynagi.
+  </text>
+</svg>

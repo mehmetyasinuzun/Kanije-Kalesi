@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="500" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Izgara Lobu ve Neden d ≤ λ/2</text>
+
+  <!-- Sol panel: d = lambda/2 -->
+  <rect x="20" y="45" width="400" height="440" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="220" y="68" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">d = λ/2  →  Izgara Lobu Yok</text>
+
+  <!-- PSI ekseni sol panel -->
+  <!-- Merkez: psi=0 at x=220, range [-pi, +pi] maps to [60, 380] -->
+  <!-- y ekseni: AF deger -->
+  <!-- Eksen -->
+  <line x1="60" y1="380" x2="380" y2="380" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="60" y1="100" x2="60" y2="380" stroke="#6b7a90" stroke-width="1.5"/>
+
+  <!-- Eksen etiketleri -->
+  <text x="380" y="395" text-anchor="middle" font-size="11" fill="#6b7a90">ψ</text>
+  <text x="45" y="105" text-anchor="end" font-size="10" fill="#6b7a90">|AF|</text>
+  <text x="55" y="115" text-anchor="end" font-size="10" fill="#6b7a90">1.0</text>
+  <line x1="57" y1="115" x2="380" y2="115" stroke="#d3dde8" stroke-width="0.8" stroke-dasharray="4,3"/>
+
+  <!-- Psi isaretleri: -2pi, -pi, 0, +pi, +2pi -->
+  <!-- d=lambda/2: gorunur bolge = [-pi, +pi] -->
+  <text x="60" y="395" text-anchor="middle" font-size="10" fill="#6b7a90">-π</text>
+  <text x="220" y="395" text-anchor="middle" font-size="10" fill="#6b7a90">0</text>
+  <text x="380" y="395" text-anchor="middle" font-size="10" fill="#6b7a90">+π</text>
+  <!-- Gorunur bolge siniri isaretleri -->
+  <line x1="60" y1="375" x2="60" y2="385" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="220" y1="375" x2="220" y2="385" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="380" y1="375" x2="380" y2="385" stroke="#6b7a90" stroke-width="1.5"/>
+
+  <!-- Gorunur bolge renklendirme: [-pi, +pi] = [60, 380] -->
+  <rect x="60" y="100" width="320" height="280" fill="#1a8a3a" fill-opacity="0.07"/>
+
+  <!-- AF deseni (N=6, esit agirlik): sin(N*psi/2) / (N*sin(psi/2))
+       Ana lob: psi=0, yan loblar at psi=+-2pi/6 approx, null at +-2pi/6 -->
+  <!-- Veri noktaları hesaplanmış (dikkatli approximasyon) -->
+  <!-- psi range -pi to +pi, x range 60-380 (320px), center 220 -->
+  <!-- AF: psi=0 -> 1.0 (y=115), psi=+-pi/6(~0.524) -> 0 (y=380 = null) -->
+  <!-- psi=+-pi/3 -> ~0.217/0.866*1... hesapla: sin(6*pi/6)/6*sin(pi/6) = sin(pi)/(6*0.5) -->
+  <!-- Daha basit: ilk null psi=2pi/N=2pi/6=pi/3 -->
+  <!-- ilk yan lob tepesi psi ~ pi/2 yakin, |AF| ~ 0.217 -->
+
+  <!-- AF egri - polyline ile -->
+  <!-- psi: -pi to pi, 50 nokta, N=6 -->
+  <!-- Hesaplanmis y degerleri (AF*265+115) -->
+  <!-- psi=-pi: AF=1/6 * |sin(3pi)/sin(-pi/2)| = 0/... = sin(3pi)=0 fakat limit=1/6 -->
+  <!-- Gercek degerler approximate path -->
+  <path d="M60,373 L72,365 L84,348 L96,325 L108,299 L120,275 L132,256 L144,242 L150,237 L156,234 L162,233 L168,234 L174,238 L180,247 L186,261 L192,281 L198,304 L204,328 L210,349 L216,364 L220,115 L224,364 L228,349 L234,328 L240,304 L246,281 L252,261 L258,247 L264,238 L270,234 L276,233 L282,234 L288,237 L294,242 L300,256 L310,275 L320,299 L332,325 L344,348 L356,365 L368,373 L380,373"
+    fill="none" stroke="#1a8a3a" stroke-width="2.5"/>
+
+  <!-- Ana lob vurgusu -->
+  <circle cx="220" cy="115" r="5" fill="#1a8a3a"/>
+  <text x="220" y="107" text-anchor="middle" font-size="10" fill="#1a8a3a" font-weight="bold">Ana lob (psi=0)</text>
+
+  <!-- Izgara lobu bilgisi: yok -->
+  <rect x="68" y="130" width="200" height="50" rx="4" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="168" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">Gorunur bolge: [-π, +π]</text>
+  <text x="168" y="163" text-anchor="middle" font-size="10" fill="#1a8a3a">2πd/λ = π &lt; 2π</text>
+  <text x="168" y="176" text-anchor="middle" font-size="10" fill="#1a8a3a">→ Izgara lobu iceri GIRMEZ</text>
+
+  <!-- Yan lob seviye -->
+  <line x1="60" y1="233" x2="380" y2="233" stroke="#9fb3c8" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <text x="55" y="237" text-anchor="end" font-size="9" fill="#6b7a90">-13 dB</text>
+
+  <!-- Altta formul -->
+  <rect x="35" y="415" width="370" height="55" rx="4" fill="#e8f0fb" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="220" y="431" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">d ≤ λ/2 kosulu:</text>
+  <text x="220" y="445" text-anchor="middle" font-size="10" fill="#36506e">gorunur bolge = 4πd/λ ≤ 2π</text>
+  <text x="220" y="459" text-anchor="middle" font-size="10" fill="#36506e">Izgara lobu (psi=±2π) gorunur bolge disinda kalir</text>
+
+  <!-- Sag panel: d = lambda -->
+  <rect x="440" y="45" width="400" height="440" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="640" y="68" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">d = λ  →  Izgara Lobu Gorunur Bolgede!</text>
+
+  <!-- PSI ekseni sag panel -->
+  <!-- Merkez: psi=0 at x=640, range [-2pi, +2pi] maps to [460, 820] -->
+  <line x1="460" y1="380" x2="820" y2="380" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="460" y1="100" x2="460" y2="380" stroke="#6b7a90" stroke-width="1.5"/>
+
+  <text x="820" y="395" text-anchor="middle" font-size="11" fill="#6b7a90">ψ</text>
+  <text x="455" y="105" text-anchor="end" font-size="10" fill="#6b7a90">|AF|</text>
+  <text x="455" y="115" text-anchor="end" font-size="10" fill="#6b7a90">1.0</text>
+  <line x1="457" y1="115" x2="820" y2="115" stroke="#d3dde8" stroke-width="0.8" stroke-dasharray="4,3"/>
+
+  <!-- Psi isaretleri: -2pi, -pi, 0, +pi, +2pi -->
+  <!-- d=lambda: gorunur bolge = [-2pi, +2pi] = full range -->
+  <text x="460" y="395" text-anchor="middle" font-size="10" fill="#6b7a90">-2π</text>
+  <text x="550" y="395" text-anchor="middle" font-size="10" fill="#6b7a90">-π</text>
+  <text x="640" y="395" text-anchor="middle" font-size="10" fill="#6b7a90">0</text>
+  <text x="730" y="395" text-anchor="middle" font-size="10" fill="#6b7a90">+π</text>
+  <text x="820" y="395" text-anchor="middle" font-size="10" fill="#6b7a90">+2π</text>
+
+  <!-- Isaretler -->
+  <line x1="460" y1="375" x2="460" y2="385" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="550" y1="375" x2="550" y2="385" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="640" y1="375" x2="640" y2="385" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="730" y1="375" x2="730" y2="385" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="820" y1="375" x2="820" y2="385" stroke="#6b7a90" stroke-width="1.5"/>
+
+  <!-- Gorunur bolge: d=lambda ise [-2pi, +2pi] tam range -->
+  <rect x="460" y="100" width="360" height="280" fill="#c0392b" fill-opacity="0.05"/>
+
+  <!-- AF egri d=lambda: psi range -2pi to +2pi, 90 nokta -->
+  <!-- Aynı N=6 AF ama simdi iki tane ana lob gorunuyor: psi=0 ve psi=+-2pi -->
+  <!-- Izgara lobu tam kenarda (psi=+-2pi) -->
+  <!-- Ana lob psi=0 (x=640), Izgara lobu sol psi=-2pi (x=460), sag psi=+2pi (x=820) -->
+  <!-- Her 90px = pi, 180px = 2pi -->
+
+  <!-- Sol izgara lobu [x=460, y=115] -->
+  <!-- AF egri (sol yarim): psi=-2pi to 0 -->
+  <path d="M460,115 L465,120 L470,135 L476,163 L482,200 L488,237 L494,265 L500,280 L506,283 L512,280 L518,270 L524,257 L530,243 L536,232 L542,227 L548,230 L554,243 L560,262 L566,284 L572,306 L578,325 L584,340 L590,350 L596,356 L602,358 L608,357 L614,353 L620,348 L626,342 L632,337 L638,334 L640,115"
+    fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- Sag yarim: psi=0 to +2pi -->
+  <path d="M640,115 L642,334 L646,337 L652,342 L658,348 L664,353 L670,357 L676,358 L682,356 L688,350 L694,340 L700,325 L706,306 L712,284 L718,262 L724,243 L730,230 L736,227 L742,232 L748,243 L754,257 L760,270 L766,280 L772,283 L778,280 L784,265 L790,237 L796,200 L802,163 L808,135 L814,120 L820,115"
+    fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Ana lob -->
+  <circle cx="640" cy="115" r="5" fill="#c0392b"/>
+  <text x="640" y="107" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="bold">Ana lob</text>
+
+  <!-- Izgara lobu - sol -->
+  <circle cx="460" cy="115" r="5" fill="#c0392b"/>
+  <rect x="447" y="90" width="85" height="28" rx="3" fill="#fdf0f0" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="103" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">IZGARA LOBU</text>
+  <text x="490" y="113" text-anchor="middle" font-size="9" fill="#c0392b">(psi=-2π)</text>
+
+  <!-- Izgara lobu - sag -->
+  <circle cx="820" cy="115" r="5" fill="#c0392b"/>
+  <rect x="728" y="90" width="85" height="28" rx="3" fill="#fdf0f0" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="775" y="103" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">IZGARA LOBU</text>
+  <text x="775" y="113" text-anchor="middle" font-size="9" fill="#c0392b">(psi=+2π)</text>
+
+  <!-- Aci belirsizligi aciklamasi -->
+  <rect x="468" y="310" width="344" height="65" rx="4" fill="#fdf0f0" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="640" y="328" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Aci Belirsizligi (Uzamsal Aliasing):</text>
+  <text x="640" y="343" text-anchor="middle" font-size="10" fill="#4a5a70">d=λ → gorunur bolge [-2π, +2π] genisler</text>
+  <text x="640" y="357" text-anchor="middle" font-size="10" fill="#4a5a70">psi=±2π fiziksel acilara karsılık gelir → belirsizlik</text>
+  <text x="640" y="371" text-anchor="middle" font-size="10" fill="#c0392b">RX: θ=0° mı yoksa θ=90° mi? Ayırt edilemez!</text>
+
+  <!-- Altta formul -->
+  <rect x="455" y="415" width="370" height="55" rx="4" fill="#fdf0f0" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="640" y="431" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">d = λ durumu:</text>
+  <text x="640" y="445" text-anchor="middle" font-size="10" fill="#36506e">gorunur bolge = 4πd/λ = 4π → psi=±2π kenara girer</text>
+  <text x="640" y="459" text-anchor="middle" font-size="10" fill="#36506e">→ Uzamsal Nyquist ihlali: d > λ/2 = alt-ornekleme</text>
+
+</svg>

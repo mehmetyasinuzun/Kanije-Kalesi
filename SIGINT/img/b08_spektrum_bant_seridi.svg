@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="420" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b40">Spektrum Bant Seridi — VLF'den EHF'ye (3 kHz – 300 GHz)</text>
+
+  <!-- Log frekans ekseni zemin -->
+  <rect x="20" y="45" width="820" height="340" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Serit renkleri ve genislikler (log olcek, 8 dilim esit genislikte) -->
+  <!-- Her dilim 100px genisliginde, baslangic x=30 -->
+
+  <!-- VLF: 3-30 kHz -->
+  <rect x="30"  y="58" width="99" height="55" fill="#e8f0fb" stroke="#9fb3c8" stroke-width="0.5"/>
+  <text x="79"  y="79"  text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">VLF</text>
+  <text x="79"  y="94"  text-anchor="middle" font-size="10" fill="#4a5a70">3–30 kHz</text>
+  <text x="79"  y="107" text-anchor="middle" font-size="9" fill="#6b7a90">100–10 km</text>
+
+  <!-- LF: 30-300 kHz -->
+  <rect x="129" y="58" width="99" height="55" fill="#e8f4e8" stroke="#9fb3c8" stroke-width="0.5"/>
+  <text x="178" y="79"  text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">LF</text>
+  <text x="178" y="94"  text-anchor="middle" font-size="10" fill="#4a5a70">30–300 kHz</text>
+  <text x="178" y="107" text-anchor="middle" font-size="9" fill="#6b7a90">10–1 km</text>
+
+  <!-- MF: 0.3-3 MHz -->
+  <rect x="228" y="58" width="99" height="55" fill="#fffbe6" stroke="#9fb3c8" stroke-width="0.5"/>
+  <text x="277" y="79"  text-anchor="middle" font-size="13" font-weight="bold" fill="#ff8f00">MF</text>
+  <text x="277" y="94"  text-anchor="middle" font-size="10" fill="#4a5a70">0.3–3 MHz</text>
+  <text x="277" y="107" text-anchor="middle" font-size="9" fill="#6b7a90">1000–100 m</text>
+
+  <!-- HF: 3-30 MHz -->
+  <rect x="327" y="58" width="99" height="55" fill="#fce8e8" stroke="#9fb3c8" stroke-width="0.5"/>
+  <text x="376" y="79"  text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">HF</text>
+  <text x="376" y="94"  text-anchor="middle" font-size="10" fill="#4a5a70">3–30 MHz</text>
+  <text x="376" y="107" text-anchor="middle" font-size="9" fill="#6b7a90">100–10 m</text>
+
+  <!-- VHF: 30-300 MHz -->
+  <rect x="426" y="58" width="99" height="55" fill="#e8f0fb" stroke="#9fb3c8" stroke-width="0.5"/>
+  <text x="475" y="79"  text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">VHF</text>
+  <text x="475" y="94"  text-anchor="middle" font-size="10" fill="#4a5a70">30–300 MHz</text>
+  <text x="475" y="107" text-anchor="middle" font-size="9" fill="#6b7a90">10–1 m</text>
+
+  <!-- UHF: 300M-3G -->
+  <rect x="525" y="58" width="99" height="55" fill="#e8f4e8" stroke="#9fb3c8" stroke-width="0.5"/>
+  <text x="574" y="79"  text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">UHF</text>
+  <text x="574" y="94"  text-anchor="middle" font-size="10" fill="#4a5a70">0.3–3 GHz</text>
+  <text x="574" y="107" text-anchor="middle" font-size="9" fill="#6b7a90">1 m–10 cm</text>
+
+  <!-- SHF: 3-30 GHz -->
+  <rect x="624" y="58" width="99" height="55" fill="#fffbe6" stroke="#9fb3c8" stroke-width="0.5"/>
+  <text x="673" y="79"  text-anchor="middle" font-size="13" font-weight="bold" fill="#ff8f00">SHF</text>
+  <text x="673" y="94"  text-anchor="middle" font-size="10" fill="#4a5a70">3–30 GHz</text>
+  <text x="673" y="107" text-anchor="middle" font-size="9" fill="#6b7a90">10–1 cm</text>
+
+  <!-- EHF: 30-300 GHz -->
+  <rect x="723" y="58" width="117" height="55" fill="#fce8e8" stroke="#9fb3c8" stroke-width="0.5"/>
+  <text x="781" y="79"  text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">EHF</text>
+  <text x="781" y="94"  text-anchor="middle" font-size="10" fill="#4a5a70">30–300 GHz</text>
+  <text x="781" y="107" text-anchor="middle" font-size="9" fill="#6b7a90">10–1 mm</text>
+
+  <!-- Log eksen etiketi -->
+  <text x="430" y="127" text-anchor="middle" font-size="9" fill="#7a8aa0">← logaritmik frekans ekseni →</text>
+
+  <!-- === Kullanici gruplari seridi === -->
+  <!-- Renk kodlu kullanici gruplari bantlara yerlestirilmis, y=145'ten baslayarak -->
+
+  <!-- VLF: Denizalti, zaman -->
+  <rect x="30" y="140" width="99" height="40" fill="#1565c0" fill-opacity="0.15" stroke="#1565c0" stroke-width="0.8" rx="2"/>
+  <text x="79" y="156" text-anchor="middle" font-size="9" fill="#1565c0">Denizalti</text>
+  <text x="79" y="169" text-anchor="middle" font-size="9" fill="#1565c0">Haberlesme</text>
+
+  <rect x="30" y="185" width="99" height="30" fill="#1a8a3a" fill-opacity="0.15" stroke="#1a8a3a" stroke-width="0.8" rx="2"/>
+  <text x="79" y="204" text-anchor="middle" font-size="9" fill="#1a8a3a">Zaman/Frekans</text>
+
+  <!-- LF: LW Yayin, Seyrüsefer -->
+  <rect x="129" y="140" width="99" height="40" fill="#ff8f00" fill-opacity="0.18" stroke="#ff8f00" stroke-width="0.8" rx="2"/>
+  <text x="178" y="156" text-anchor="middle" font-size="9" fill="#ff8f00">LW Yayin</text>
+  <text x="178" y="169" text-anchor="middle" font-size="9" fill="#ff8f00">(AM uzun dalga)</text>
+
+  <rect x="129" y="185" width="99" height="30" fill="#1a8a3a" fill-opacity="0.15" stroke="#1a8a3a" stroke-width="0.8" rx="2"/>
+  <text x="178" y="204" text-anchor="middle" font-size="9" fill="#1a8a3a">Seyrüsefer (eski)</text>
+
+  <!-- MF: AM Yayin, Denizcilik -->
+  <rect x="228" y="140" width="99" height="40" fill="#ff8f00" fill-opacity="0.18" stroke="#ff8f00" stroke-width="0.8" rx="2"/>
+  <text x="277" y="156" text-anchor="middle" font-size="9" fill="#ff8f00">MW AM Yayin</text>
+  <text x="277" y="169" text-anchor="middle" font-size="9" fill="#ff8f00">(orta dalga)</text>
+
+  <rect x="228" y="185" width="99" height="30" fill="#1565c0" fill-opacity="0.15" stroke="#1565c0" stroke-width="0.8" rx="2"/>
+  <text x="277" y="204" text-anchor="middle" font-size="9" fill="#1565c0">Denizcilik MF</text>
+
+  <!-- HF: Kisa dalga, amator, havacilik HF, taktik -->
+  <rect x="327" y="140" width="99" height="25" fill="#ff8f00" fill-opacity="0.18" stroke="#ff8f00" stroke-width="0.8" rx="2"/>
+  <text x="376" y="157" text-anchor="middle" font-size="9" fill="#ff8f00">SW Yayin</text>
+
+  <rect x="327" y="168" width="99" height="22" fill="#1a8a3a" fill-opacity="0.18" stroke="#1a8a3a" stroke-width="0.8" rx="2"/>
+  <text x="376" y="183" text-anchor="middle" font-size="9" fill="#1a8a3a">Amator HF</text>
+
+  <rect x="327" y="193" width="99" height="22" fill="#1565c0" fill-opacity="0.15" stroke="#1565c0" stroke-width="0.8" rx="2"/>
+  <text x="376" y="208" text-anchor="middle" font-size="9" fill="#1565c0">Havacilik/Deniz HF</text>
+
+  <!-- VHF: FM yayin, havacilik ATC, deniz VHF, amator 2m -->
+  <rect x="426" y="140" width="99" height="22" fill="#ff8f00" fill-opacity="0.18" stroke="#ff8f00" stroke-width="0.8" rx="2"/>
+  <text x="475" y="155" text-anchor="middle" font-size="9" fill="#ff8f00">FM Yayin</text>
+
+  <rect x="426" y="165" width="99" height="22" fill="#1565c0" fill-opacity="0.18" stroke="#1565c0" stroke-width="0.8" rx="2"/>
+  <text x="475" y="180" text-anchor="middle" font-size="9" fill="#1565c0">Havacilik ATC</text>
+
+  <rect x="426" y="190" width="99" height="22" fill="#c0392b" fill-opacity="0.13" stroke="#c0392b" stroke-width="0.8" rx="2"/>
+  <text x="475" y="205" text-anchor="middle" font-size="9" fill="#c0392b">Deniz VHF</text>
+
+  <!-- UHF: Hücresel, GPS, ISM 433/868, WiFi 2.4G -->
+  <rect x="525" y="140" width="99" height="22" fill="#1a8a3a" fill-opacity="0.18" stroke="#1a8a3a" stroke-width="0.8" rx="2"/>
+  <text x="574" y="155" text-anchor="middle" font-size="9" fill="#1a8a3a">Hücresel GSM/LTE/5G</text>
+
+  <rect x="525" y="165" width="99" height="22" fill="#c0392b" fill-opacity="0.13" stroke="#c0392b" stroke-width="0.8" rx="2"/>
+  <text x="574" y="180" text-anchor="middle" font-size="9" fill="#c0392b">GNSS (GPS 1575)</text>
+
+  <rect x="525" y="190" width="99" height="22" fill="#ff8f00" fill-opacity="0.18" stroke="#ff8f00" stroke-width="0.8" rx="2"/>
+  <text x="574" y="205" text-anchor="middle" font-size="7.5" fill="#ff8f00">ISM 433/868 + WiFi 2.4G</text>
+
+  <!-- SHF: Uydu, radar, WiFi 5G -->
+  <rect x="624" y="140" width="99" height="22" fill="#1565c0" fill-opacity="0.15" stroke="#1565c0" stroke-width="0.8" rx="2"/>
+  <text x="673" y="155" text-anchor="middle" font-size="9" fill="#1565c0">Uydu Haberlesmesi</text>
+
+  <rect x="624" y="165" width="99" height="22" fill="#c0392b" fill-opacity="0.13" stroke="#c0392b" stroke-width="0.8" rx="2"/>
+  <text x="673" y="180" text-anchor="middle" font-size="9" fill="#c0392b">Radar (çeşitli)</text>
+
+  <rect x="624" y="190" width="99" height="22" fill="#ff8f00" fill-opacity="0.18" stroke="#ff8f00" stroke-width="0.8" rx="2"/>
+  <text x="673" y="205" text-anchor="middle" font-size="9" fill="#ff8f00">WiFi 5 GHz</text>
+
+  <!-- EHF: 5G mmWave, gelismis radar -->
+  <rect x="723" y="140" width="117" height="22" fill="#1a8a3a" fill-opacity="0.18" stroke="#1a8a3a" stroke-width="0.8" rx="2"/>
+  <text x="781" y="155" text-anchor="middle" font-size="9" fill="#1a8a3a">5G mmWave</text>
+
+  <rect x="723" y="165" width="117" height="22" fill="#c0392b" fill-opacity="0.13" stroke="#c0392b" stroke-width="0.8" rx="2"/>
+  <text x="781" y="180" text-anchor="middle" font-size="9" fill="#c0392b">İleri Radar + Uydu üst</text>
+
+  <!-- Yayilim blogu: yer dalgasi / iyonosfer / gorus hatti -->
+  <rect x="30"  y="228" width="297" height="24" fill="#1565c0" fill-opacity="0.08" stroke="#1565c0" stroke-width="0.6" rx="2"/>
+  <text x="178" y="243" text-anchor="middle" font-size="9" fill="#1565c0">Yer dalgasi + İyonosfer (ufuk otesi)</text>
+
+  <rect x="327" y="228" width="198" height="24" fill="#1565c0" fill-opacity="0.08" stroke="#c0392b" stroke-width="0.6" rx="2"/>
+  <text x="426" y="243" text-anchor="middle" font-size="9" fill="#c0392b">Her ikisi (HF hem yer hem iyonosfer)</text>
+
+  <rect x="525" y="228" width="315" height="24" fill="#ff8f00" fill-opacity="0.08" stroke="#ff8f00" stroke-width="0.6" rx="2"/>
+  <text x="682" y="243" text-anchor="middle" font-size="9" fill="#ff8f00">Esas gorus hatti (LOS) — görsel menzil</text>
+
+  <!-- Frekans degerleri -->
+  <text x="30"  y="268" font-size="9" fill="#7a8aa0">3 kHz</text>
+  <text x="127" y="268" font-size="9" fill="#7a8aa0">30 kHz</text>
+  <text x="224" y="268" font-size="9" fill="#7a8aa0">300 kHz</text>
+  <text x="322" y="268" font-size="9" fill="#7a8aa0">3 MHz</text>
+  <text x="420" y="268" font-size="9" fill="#7a8aa0">30 MHz</text>
+  <text x="519" y="268" font-size="9" fill="#7a8aa0">300 MHz</text>
+  <text x="616" y="268" font-size="9" fill="#7a8aa0">3 GHz</text>
+  <text x="716" y="268" font-size="9" fill="#7a8aa0">30 GHz</text>
+  <text x="800" y="268" font-size="9" fill="#7a8aa0">300 GHz</text>
+
+  <!-- Bölge çizgileri -->
+  <line x1="129" y1="58" x2="129" y2="270" stroke="#d3dde8" stroke-width="0.8"/>
+  <line x1="228" y1="58" x2="228" y2="270" stroke="#d3dde8" stroke-width="0.8"/>
+  <line x1="327" y1="58" x2="327" y2="270" stroke="#d3dde8" stroke-width="0.8"/>
+  <line x1="426" y1="58" x2="426" y2="270" stroke="#d3dde8" stroke-width="0.8"/>
+  <line x1="525" y1="58" x2="525" y2="270" stroke="#d3dde8" stroke-width="0.8"/>
+  <line x1="624" y1="58" x2="624" y2="270" stroke="#d3dde8" stroke-width="0.8"/>
+  <line x1="723" y1="58" x2="723" y2="270" stroke="#d3dde8" stroke-width="0.8"/>
+
+  <!-- Renk acıklaması -->
+  <rect x="20" y="285" width="820" height="100" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="430" y="303" text-anchor="middle" font-size="11" font-weight="bold" fill="#36506e">Renk Acıklamasi (Kullanici Grubu)</text>
+
+  <rect x="35"  y="314" width="12" height="12" fill="#ff8f00" fill-opacity="0.5"/>
+  <text x="52"  y="325" font-size="10" fill="#4a5a70">Yayin (AM/FM/SW)</text>
+
+  <rect x="185" y="314" width="12" height="12" fill="#1565c0" fill-opacity="0.5"/>
+  <text x="202" y="325" font-size="10" fill="#4a5a70">Havacilik + Denizcilik</text>
+
+  <rect x="365" y="314" width="12" height="12" fill="#1a8a3a" fill-opacity="0.5"/>
+  <text x="382" y="325" font-size="10" fill="#4a5a70">Amator + Hücresel</text>
+
+  <rect x="525" y="314" width="12" height="12" fill="#c0392b" fill-opacity="0.4"/>
+  <text x="542" y="325" font-size="10" fill="#4a5a70">GNSS + Radar</text>
+
+  <rect x="650" y="314" width="12" height="12" fill="#7a4a90" fill-opacity="0.4"/>
+  <text x="667" y="325" font-size="10" fill="#4a5a70">Uydu haberlesmesi</text>
+
+  <text x="430" y="358" text-anchor="middle" font-size="10" fill="#6b7a90">Kaynak: ITU Radio Regulations (Region 1 tabanli) — kesin sinirlar ulusal tahsis tablosundan teyit edilmeli</text>
+  <text x="430" y="372" text-anchor="middle" font-size="10" fill="#6b7a90">HF ve altı iyonosfer/yer dalgasiyla ufuk ötesi; VHF ve üstü esasen görüs hattiyla sinirli</text>
+
+  <!-- Alt bilgi -->
+  <line x1="20" y1="395" x2="840" y2="395" stroke="#d3dde8" stroke-width="1"/>
+  <text x="430" y="410" text-anchor="middle" font-size="10" fill="#6b7a90">Bant adı → frekans araligi → yayilim → kullanici grubu — bu dört bilgi frekans tanimlama zincirinin ilk adımidir</text>
+</svg>

@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="520" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Sahte-BTS Tespiti — Kavramsal Karar Agaci</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#6b7a90">Pasif gozlem + acik yayın bilgisi tutarsizlik analizi — IMSI catcher tespit akisi (savunma perspektifi)</text>
+
+  <defs>
+    <marker id="arro2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#4a5a70"/>
+    </marker>
+    <marker id="arrYes" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#1a8a3a"/>
+    </marker>
+    <marker id="arrNo" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Baslangic kutusu -->
+  <rect x="330" y="60" width="200" height="48" rx="6" fill="#1a2b40" stroke="#1a2b40"/>
+  <text x="430" y="82" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Yeni Hucre Algilandi</text>
+  <text x="430" y="98" text-anchor="middle" font-size="10" fill="#d3dde8">PSS/SSS taramasi → yeni PCI bulundu</text>
+
+  <!-- Ok asagi -->
+  <line x1="430" y1="108" x2="430" y2="132" stroke="#4a5a70" stroke-width="1.5" marker-end="url(#arro2)"/>
+
+  <!-- Adim 1: PSS/SSS normal mi? -->
+  <rect x="260" y="134" width="340" height="52" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="430" y="154" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">1. PSS/SSS Normal mi?</text>
+  <text x="430" y="169" text-anchor="middle" font-size="9" fill="#4a5a70">Senkronizasyon sinyali zamanlamasi ve gucu beklenenle tutarli mi?</text>
+  <text x="430" y="181" text-anchor="middle" font-size="9" fill="#4a5a70">Beklenmedik frekans/bant/guc profili? Ani cikis var mi?</text>
+
+  <!-- PSS/SSS okları -->
+  <!-- Evet: sol -->
+  <line x1="260" y1="160" x2="220" y2="160" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#arrYes)"/>
+  <line x1="220" y1="160" x2="220" y2="230" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="238" y="175" font-size="9" fill="#1a8a3a">Evet ↓</text>
+
+  <!-- Hayir: sag -->
+  <line x1="600" y1="160" x2="680" y2="160" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrNo)"/>
+  <text x="612" y="154" font-size="9" fill="#c0392b">Hayir →</text>
+
+  <!-- HAYIR: Uyari 1 -->
+  <rect x="682" y="134" width="160" height="52" rx="4" fill="#fce4e4" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="762" y="155" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">ALARM: Anormal Sinyal</text>
+  <text x="762" y="169" text-anchor="middle" font-size="9" fill="#c0392b">Guc/zamanlama beklenen</text>
+  <text x="762" y="181" text-anchor="middle" font-size="9" fill="#c0392b">operatorden sapti</text>
+
+  <!-- Ok: adim 2 -->
+  <line x1="220" y1="230" x2="260" y2="230" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#arrYes)"/>
+
+  <!-- Adim 2: MIB/SIB operatorle tutarli mi? -->
+  <rect x="260" y="212" width="340" height="62" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="430" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">2. MIB/SIB Operatorle Tutarli mi?</text>
+  <text x="430" y="247" text-anchor="middle" font-size="9" fill="#4a5a70">Hucre kimliği (PCI, MCC/MNC, TAC) bilinen operatora esit mi?</text>
+  <text x="430" y="260" text-anchor="middle" font-size="9" fill="#4a5a70">Bant, EARFCN, komsu liste beklenenle uyumlu mu?</text>
+  <text x="430" y="272" text-anchor="middle" font-size="9" fill="#6b7a90">Not: MIB/SIB acik yayindir; pasif okuma izin gerektirir.</text>
+
+  <!-- MIB/SIB okları -->
+  <line x1="260" y1="243" x2="220" y2="243" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#arrYes)"/>
+  <line x1="220" y1="243" x2="220" y2="312" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="238" y="260" font-size="9" fill="#1a8a3a">Evet ↓</text>
+
+  <line x1="600" y1="243" x2="680" y2="243" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrNo)"/>
+  <text x="612" y="237" font-size="9" fill="#c0392b">Hayir →</text>
+
+  <!-- HAYIR: Uyari 2 -->
+  <rect x="682" y="217" width="160" height="58" rx="4" fill="#fce4e4" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="762" y="237" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">ALARM: Kimlik Uyusmazligi</text>
+  <text x="762" y="251" text-anchor="middle" font-size="9" fill="#c0392b">MCC/MNC/PCI bilinen</text>
+  <text x="762" y="263" text-anchor="middle" font-size="9" fill="#c0392b">operatorle eslesmiyor</text>
+  <text x="762" y="275" text-anchor="middle" font-size="9" fill="#c0392b">Sahte hücre adayi!</text>
+
+  <!-- Ok: adim 3 -->
+  <line x1="220" y1="312" x2="260" y2="312" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#arrYes)"/>
+
+  <!-- Adim 3: Beklenmedik hucre? -->
+  <rect x="260" y="294" width="340" height="58" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="430" y="314" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">3. Beklenmedik/Yeni Hucre?</text>
+  <text x="430" y="329" text-anchor="middle" font-size="9" fill="#4a5a70">Daha once bu konumda bu PCI/guc görülmedi mi?</text>
+  <text x="430" y="343" text-anchor="middle" font-size="9" fill="#4a5a70">Ani bitis, ani guclenme veya ogleden sonra belirmesi gibi?</text>
+
+  <line x1="260" y1="323" x2="220" y2="323" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#arrYes)"/>
+  <line x1="220" y1="323" x2="220" y2="392" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="238" y="340" font-size="9" fill="#1a8a3a">Evet ↓</text>
+
+  <line x1="600" y1="323" x2="680" y2="323" stroke="#ff8f00" stroke-width="1.5" marker-end="url(#arrNo)"/>
+  <text x="606" y="316" font-size="9" fill="#ff8f00">Hayir →</text>
+
+  <!-- HAYIR: Sarı uyarı -->
+  <rect x="682" y="297" width="160" height="54" rx="4" fill="#fff3e0" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="762" y="316" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">DIKKAT: Yeni Hucre</text>
+  <text x="762" y="330" text-anchor="middle" font-size="9" fill="#ff8f00">Bilinen ama once</text>
+  <text x="762" y="343" text-anchor="middle" font-size="9" fill="#ff8f00">gorulmemis hucre</text>
+  <text x="762" y="356" text-anchor="middle" font-size="9" fill="#ff8f00">izle, kaydet</text>
+
+  <!-- Ok: adim 4 -->
+  <line x1="220" y1="392" x2="260" y2="392" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#arrYes)"/>
+
+  <!-- Adim 4: 2G'ye dusme uyarisi -->
+  <rect x="260" y="374" width="340" height="58" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="430" y="394" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">4. 2G/3G'ye Geri Dusme?</text>
+  <text x="430" y="410" text-anchor="middle" font-size="9" fill="#4a5a70">Cihaz beklenmedik bicimde daha zayif nesle geriledi mi?</text>
+  <text x="430" y="423" text-anchor="middle" font-size="9" fill="#4a5a70">Sifreleme kapandı/zayıfladi mi? (null cipher)</text>
+
+  <line x1="600" y1="403" x2="680" y2="403" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrNo)"/>
+  <text x="606" y="396" font-size="9" fill="#c0392b">Evet →</text>
+
+  <!-- Evet: Uyarı 4 -->
+  <rect x="682" y="378" width="160" height="54" rx="4" fill="#c0392b" fill-opacity="0.12" stroke="#c0392b" stroke-width="2"/>
+  <text x="762" y="397" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">YUKSEK RISK UYARISI</text>
+  <text x="762" y="411" text-anchor="middle" font-size="9" fill="#c0392b">Downgrade + sahte</text>
+  <text x="762" y="424" text-anchor="middle" font-size="9" fill="#c0392b">hücre kombinasyonu!</text>
+  <text x="762" y="437" text-anchor="middle" font-size="9" fill="#c0392b">ALARM tetikle</text>
+
+  <!-- Sol asagi: Normal -->
+  <line x1="220" y1="432" x2="220" y2="462" stroke="#1a8a3a" stroke-width="1.5"/>
+  <line x1="220" y1="462" x2="284" y2="462" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#arrYes)"/>
+
+  <!-- Normal sonuc -->
+  <rect x="285" y="444" width="280" height="40" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="425" y="460" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">Normal Hucre — Devam</text>
+  <text x="425" y="475" text-anchor="middle" font-size="9" fill="#4a5a70">Tum kriterler gecti; baglanti supheli degil</text>
+
+  <!-- Alarm birlesim noktasi sag alta -->
+  <rect x="682" y="450" width="162" height="54" rx="5" fill="#c0392b"/>
+  <text x="763" y="470" text-anchor="middle" font-size="11" font-weight="bold" fill="white">ALARM</text>
+  <text x="763" y="485" text-anchor="middle" font-size="10" fill="white">Kullaniciya bildir</text>
+  <text x="763" y="498" text-anchor="middle" font-size="10" fill="white">Kayt et, 2G kapat</text>
+
+  <!-- Alarm okları (üst 3 uyarıdan) -->
+  <line x1="762" y1="186" x2="762" y2="217" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="762" y1="275" x2="762" y2="297" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="762" y1="432" x2="762" y2="450" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrNo)"/>
+
+  <!-- Alt: Yasal Not -->
+  <rect x="20" y="492" width="650" height="22" rx="3" fill="#f0f4ff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="345" y="507" text-anchor="middle" font-size="9" fill="#4a5a70">Bu akis tamamen pasif gozlem + acik yayin bilgisi analizidir. Hicbir yayın yapmaz, hicbir ag baglantisi kurmaz. Tüm gozlem MIB/SIB okuma duzeyindedir (tasarimi geregi acik veri). Savunma amaclidir.</text>
+</svg>

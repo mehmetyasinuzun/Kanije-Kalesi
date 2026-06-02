@@ -97,6 +97,8 @@ Not: Birincil/ikincil ayrımı, "bir frekansta beklenmedik bir sinyal neden var?
 <a id="1-5"></a>
 ### 1.5 Bant Adlandırma (VLF–EHF) ve Yayılım Hatırlatması
 
+![Spektrum Bant Seridi — VLF-EHF log frekans seridi, renk kodlu kullanici gruplari](img/b08_spektrum_bant_seridi.svg)
+
 Frekans aralıkları, on katlı dilimler halinde standart adlarla anılır. Bir frekansın hangi dilimde olduğu, onun **nasıl yayıldığını** (dolayısıyla kim tarafından, hangi menzil için kullanıldığını) büyük ölçüde belirler.
 
 | Kısaltma | Açılım | Frekans | Dalga boyu | Tipik yayılım ve kullanım |
@@ -350,6 +352,8 @@ Pratikte: Amatör bantlar, dinleme yasası açısından en serbest, içerik aç�
 <a id="8"></a>
 ## 8. ISM / SRD — Lisanssız Kısa Menzil
 
+![ISM Bolge Farki — Region 1 (433+868 MHz) vs Region 2 (915 MHz), Turkiye Region 1](img/b08_ism_bolge_fark.svg)
+
 ISM (Industrial, Scientific and Medical) ve SRD (Short Range Devices) bantları, lisans gerektirmeden, düşük güçle, herkesin belirli kurallar dahilinde kullanabildiği bantlardır. Günlük hayattaki kablosuz cihazların (uzaktan kumanda, IoT sensör, WiFi, Bluetooth, kablosuz kulaklık) büyük kısmı buradadır. Dinlemesi serbesttir; bu bantlar `rtl_433` gibi araçlarla en çok deney yapılan alanlardandır.
 
 Not: ISM bantları lisanssız ve "paylaşımlı" olduğu için, aynı bantta çok sayıda farklı cihaz bir arada bulunur. Bir frekansın "kime ait" olduğu burada tek bir cihaza değil, bir cihaz **sınıfına** karşılık gelir. Ülkeye göre tam sınırlar ve izinli güç değişir; kesin değer için ulusal SRD düzenlemesi (Türkiye'de BTK kısa mesafe cihaz tebliği) teyit edilmelidir.
@@ -461,6 +465,8 @@ Uyarı: Hücresel trafik şifrelidir. Bir spektrum analizöründe bu bloklarda y
 
 <a id="11"></a>
 ## 11. Bir Frekansın Sahibini Belirleme Metodolojisi
+
+![Frekans Kimlik Akisi — Bilinmeyenden Kimliğe karar dugumlu dort adimli metodoloji](img/b08_frekans_kimlik_akis.svg)
 
 Bir tarayıcıda ya da şelale (waterfall) görünümünde bilinmeyen bir sinyal yakaladığında, "bu kime ait, ne işe yarar" sorusunu tahmine değil, sistematik bir akıl yürütmeye dayandırabilirsin. Aşağıdaki adımlar, bilinmeyenden kimliğe giden bir daraltma sürecidir.
 

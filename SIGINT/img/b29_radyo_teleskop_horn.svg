@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="500" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Radyo Teleskop Zinciri: Horn/Canak, LNA, Filtre, Kalibrasyon</text>
+
+  <defs>
+    <marker id="ab" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1565c0"/>
+    </marker>
+    <marker id="ag2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1a8a3a"/>
+    </marker>
+  </defs>
+
+  <!-- === Sol: Parabolik canak geometri kesite === -->
+  <rect x="15" y="42" width="380" height="430" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="205" y="64" text-anchor="middle" font-size="12" font-weight="bold" fill="#36506e">Parabolik Canak: Kesit Geometrisi</text>
+
+  <!-- Canak parabola (kesit): merkez x=205, odak y=200, dibi y=320 -->
+  <!-- Parabola: x = 205, y_tepe = 320, y_odak = 190 -->
+  <!-- Parabola egri: x^2 / (4p) = y - y_tepe, p=odak mesafesi = 65 -->
+  <!-- Geometri: f/D orani gostergesi -->
+  <!-- Parabola kollar: symmetrik -->
+  <!-- Sol kol: x=65-205, parabola -->
+  <!-- x_rel: -140 to 0 -> y: 320 - x_rel^2/(4*65) = 320 - x_rel^2/260 -->
+  <!-- x=-140: y=320-19600/260=320-75.4=244.6 -->
+  <!-- x=-100: y=320-10000/260=320-38.5=281.5 -->
+  <!-- x=-60: y=320-3600/260=320-13.8=306.2 -->
+  <!-- x=-20: y=320-400/260=320-1.5=318.5 -->
+  <!-- x=0: y=320 -->
+  <!-- Simetrik sag kol -->
+
+  <path d="M65,245 Q95,278 145,305 Q175,316 205,320 Q235,316 265,305 Q315,278 345,245"
+    fill="none" stroke="#1565c0" stroke-width="2.5"/>
+
+  <!-- Canak kenar cizgileri -->
+  <line x1="65" y1="245" x2="65" y2="220" stroke="#1565c0" stroke-width="2"/>
+  <line x1="345" y1="245" x2="345" y2="220" stroke="#1565c0" stroke-width="2"/>
+
+  <!-- Canak cap D -->
+  <line x1="65" y1="215" x2="345" y2="215" stroke="#6b7a90" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="65" y1="211" x2="65" y2="219" stroke="#6b7a90" stroke-width="1"/>
+  <line x1="345" y1="211" x2="345" y2="219" stroke="#6b7a90" stroke-width="1"/>
+  <text x="205" y="208" text-anchor="middle" font-size="11" fill="#6b7a90">D (canak capi)</text>
+
+  <!-- Odak noktasi -->
+  <!-- Odak y = 320 - 65 = 255 (parabola odagi y_tepe - p) -->
+  <circle cx="205" cy="255" r="6" fill="#c0392b"/>
+  <text x="215" y="253" font-size="10" fill="#c0392b" font-weight="bold">Odak</text>
+
+  <!-- Besleyici (feed horn) odakta -->
+  <rect x="188" y="265" width="34" height="20" rx="3" fill="#fff8e1" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="205" y="279" text-anchor="middle" font-size="9" fill="#ff8f00">Feed</text>
+
+  <!-- Odak mesafesi f -->
+  <line x1="205" y1="320" x2="205" y2="257" stroke="#1a8a3a" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="201" y1="320" x2="209" y2="320" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="215" y="295" font-size="11" fill="#1a8a3a" font-weight="bold">f</text>
+
+  <!-- f/D etiketi -->
+  <rect x="55" y="330" width="140" height="40" rx="3" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="125" y="348" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">f/D oran (focal ratio)</text>
+  <text x="125" y="362" text-anchor="middle" font-size="10" fill="#36506e">Tipik amatör: 0.3 - 0.5</text>
+
+  <!-- HPBW formulu -->
+  <rect x="205" y="330" width="160" height="40" rx="3" fill="#e8f0fb" stroke="#1565c0" stroke-width="1"/>
+  <text x="285" y="348" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Yarim-guc huzme acisi:</text>
+  <text x="285" y="362" text-anchor="middle" font-size="10" fill="#36506e">HPBW ≈ 1.02 λ/D (rad)</text>
+
+  <!-- HI 21cm dalga boyu iliskisi -->
+  <rect x="25" y="380" width="355" height="50" rx="3" fill="#fff8e1" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="202" y="398" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">21 cm Hatti icin Ornek:</text>
+  <text x="202" y="412" text-anchor="middle" font-size="10" fill="#36506e">λ = 21.1 cm, D = 1 m</text>
+  <text x="202" y="426" text-anchor="middle" font-size="10" fill="#36506e">HPBW ≈ 1.02 × 0.211/1 ≈ 12.2° ≈ yeterli galaktik goz.</text>
+
+  <!-- Horn anten ek gosterim -->
+  <!-- Horn: sol alt kose -->
+  <text x="205" y="462" text-anchor="middle" font-size="10" fill="#6b7a90" font-style="italic">Horn: amatörler için kolay yapılabilir alternatif</text>
+  <!-- Horn sekli (yon) -->
+  <polygon points="55,445 95,435 95,455" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <line x1="55" y1="445" x2="30" y2="445" stroke="#1565c0" stroke-width="2"/>
+  <polygon points="55,445 20,430 20,460 55,445" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="50" y="472" text-anchor="middle" font-size="9" fill="#6b7a90">Horn anten</text>
+  <text x="50" y="483" text-anchor="middle" font-size="9" fill="#6b7a90">(boru+agiz)</text>
+
+  <!-- LNA anten dibinde -->
+  <rect x="100" y="437" width="55" height="22" rx="3" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="127" y="452" text-anchor="middle" font-size="10" fill="#1a8a3a">LNA</text>
+  <line x1="95" y1="445" x2="100" y2="445" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="127" y="470" text-anchor="middle" font-size="9" fill="#1a8a3a">NF ~ 0.5 dB</text>
+  <text x="127" y="481" text-anchor="middle" font-size="9" fill="#1a8a3a">antene bitisik!</text>
+
+  <!-- === Sag: Tam Alici Zinciri blok diyagram === -->
+  <rect x="410" y="42" width="430" height="430" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="625" y="64" text-anchor="middle" font-size="12" font-weight="bold" fill="#36506e">Astronomi Alici Zinciri (1420 MHz HI)</text>
+
+  <!-- Bloklar dikey zincir -->
+  <!-- y: 90, 155, 225, 295, 360, 420 -->
+
+  <!-- 1. Canak/Horn -->
+  <rect x="510" y="80" width="230" height="48" rx="5" fill="#e8f0fb" stroke="#1565c0" stroke-width="2"/>
+  <text x="625" y="101" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">Canak / Horn Anten</text>
+  <text x="625" y="116" text-anchor="middle" font-size="10" fill="#4a5a70">λ ~ 21 cm  |  D ~ 1-2 m  |  HPBW ~ 6-12°</text>
+  <!-- Anten ikonu sag -->
+  <polygon points="755,84 775,94 775,114 755,124" fill="#e8f0fb" stroke="#1565c0" stroke-width="1"/>
+
+  <!-- Ok 1->2 -->
+  <line x1="625" y1="128" x2="625" y2="152" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#ab)"/>
+  <text x="640" y="143" font-size="9" fill="#6b7a90">RF guc</text>
+
+  <!-- 2. LNA (anten dibinde) -->
+  <rect x="510" y="152" width="230" height="48" rx="5" fill="#f0fff4" stroke="#1a8a3a" stroke-width="2.5"/>
+  <text x="625" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a8a3a">LNA (Antene Bitisik)</text>
+  <text x="625" y="186" text-anchor="middle" font-size="10" fill="#4a5a70">NF ~ 0.3-0.7 dB  |  Kazanc ~ 20-30 dB</text>
+  <!-- KRITIK etiketi -->
+  <text x="490" y="178" text-anchor="end" font-size="10" fill="#c0392b" font-weight="bold">KRITIK</text>
+  <text x="490" y="190" text-anchor="end" font-size="9" fill="#c0392b">Friis: ilk</text>
+  <text x="490" y="202" text-anchor="end" font-size="9" fill="#c0392b">asamanin</text>
+  <text x="490" y="214" text-anchor="end" font-size="9" fill="#c0392b">NF belirler</text>
+
+  <!-- Ok 2->3 -->
+  <line x1="625" y1="200" x2="625" y2="222" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <!-- 3. Bant filtresi -->
+  <rect x="510" y="222" width="230" height="48" rx="5" fill="#fdf0f0" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="625" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Bant Filtresi</text>
+  <text x="625" y="257" text-anchor="middle" font-size="10" fill="#4a5a70">~1420 MHz merkezli  |  RFI (GSM) keser</text>
+  <!-- RFI önleme notu -->
+  <text x="755" y="240" font-size="9" fill="#c0392b">RFI</text>
+  <text x="755" y="252" font-size="9" fill="#c0392b">engeli</text>
+  <line x1="748" y1="246" x2="740" y2="246" stroke="#c0392b" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <!-- Ok 3->4 -->
+  <line x1="625" y1="270" x2="625" y2="292" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <!-- 4. SDR / Alici -->
+  <rect x="510" y="292" width="230" height="48" rx="5" fill="#e8f0fb" stroke="#1565c0" stroke-width="2"/>
+  <text x="625" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">SDR Alici</text>
+  <text x="625" y="327" text-anchor="middle" font-size="10" fill="#4a5a70">Airspy Mini / RTL-SDR  |  IQ ornekler</text>
+
+  <!-- Ok 4->5 (kalibrasyon girisi) -->
+  <line x1="625" y1="340" x2="625" y2="362" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <!-- 5. Kalibrasyon / Y-faktor -->
+  <rect x="510" y="362" width="230" height="48" rx="5" fill="#fff8e1" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="625" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">Kalibrasyon</text>
+  <text x="625" y="397" text-anchor="middle" font-size="10" fill="#4a5a70">Sicak/soguk yuk  |  Y-faktor  |  T_sys</text>
+  <!-- Kalibrasyon kaynak -->
+  <rect x="420" y="368" width="80" height="36" rx="3" fill="#fff8e1" stroke="#ff8f00" stroke-width="1"/>
+  <text x="460" y="383" text-anchor="middle" font-size="9" fill="#ff8f00">Sicak yuk</text>
+  <text x="460" y="395" text-anchor="middle" font-size="9" fill="#ff8f00">(T_hot)</text>
+  <line x1="500" y1="386" x2="510" y2="386" stroke="#ff8f00" stroke-width="1.5" marker-end="url(#ag2)"/>
+
+  <!-- Ok 5->6 -->
+  <line x1="625" y1="410" x2="625" y2="432" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <!-- 6. DSP / FFT spektroskopi -->
+  <rect x="510" y="432" width="230" height="32" rx="5" fill="#1a2b40" fill-opacity="0.08" stroke="#1a2b40" stroke-width="1.5"/>
+  <text x="625" y="452" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">FFT Spektroskopi + Integrasyon</text>
+
+  <!-- Sistem sicakligi formul -->
+  <rect x="418" y="290" width="85" height="50" rx="3" fill="#e8f0fb" stroke="#1565c0" stroke-width="1"/>
+  <text x="460" y="307" text-anchor="middle" font-size="9" font-weight="bold" fill="#1565c0">T_sys =</text>
+  <text x="460" y="320" text-anchor="middle" font-size="9" fill="#1565c0">T_ant + T_rec</text>
+  <text x="460" y="333" text-anchor="middle" font-size="9" fill="#1565c0">T_rec ≈ T_LNA</text>
+
+</svg>

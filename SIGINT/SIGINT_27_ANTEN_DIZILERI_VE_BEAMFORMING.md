@@ -198,10 +198,14 @@ Bu, Bölüm 18'deki Nyquist örneklemenin uzamsal kardeşidir. Eleman aralığı
 
 Pratik sonuç: SIGINT ve yön bulma dizilerinde eleman aralığı neredeyse her zaman `λ/2` (ya da altında) seçilir. İlgilenilen bant geniş ise (örn. KrakenSDR ile geniş HF/VHF taraması), `λ` frekansla değişir; `d` sabit olduğundan dizi yalnızca belli bir frekans aralığında `d ≤ λ/2` koşulunu sağlar. Bu yüzden çok-bant DF sistemleri ya birden çok aralıklı eleman setine ya da frekansa göre eleman seçimine başvurur.
 
+![Psi ekseninde gorunur bolge karsilastirmasi: d=lambda/2'de izgara lobu sinirda iceri girmez; d=lambda'da psi=+-2pi'deki kopya gorunur bolgede aci belirsizligi yaratir](img/b27_grating_lobe.svg)
+
 ---
 
 <a id="4"></a>
 ## 4. Dizi Geometrileri: ULA, UCA, Düzlemsel, Seyrek Diziler
+
+![ULA (tek hat, on-arka belirsizligi), UCA (360 derece azimut, KrakenSDR), URA (4x4 = 16 eleman, 2B kapsama), seyrek ve es-asal dizi geometrileri 4 panel karsilastirma](img/b27_dizi_geometrileri.svg)
 
 Eleman yerleşimi, dizinin hangi açıları nasıl ayırabileceğini doğrudan belirler. Dört temel geometri.
 
@@ -325,6 +329,8 @@ Hüzme şekillendirme (beamforming), dizi çıkışını tek bir skalere indirge
 
 ### Gecikme-topla / faz-kaydır-topla (delay-and-sum / conventional beamformer)
 
+![N=6 elemanli ULA'da her elemana faz gecikmesi atanarak huzme theta0=30 yonune yonlendirilir; dalga cepheleri + yapici girisim yonu geometrik olarak gosterilir](img/b27_phased_array_huzme.svg)
+
 En basit ve en sağlam beamformer, hüzmeyi istenen `θ_0` yönüne kilitleyen ağırlığı seçer: her elemanın o yöndeki fazını tam tersiyle düzelt, böylece `θ_0`'dan gelen dalga tüm elemanlarda eşfazlı toplanır.
 
 ```
@@ -389,6 +395,8 @@ Ağırlıkları nerede uyguladığın bir mimari karardır ve maliyet/esneklik d
 | Hibrit | K (1 < K ≪ N) | Sınırlı çok-hüzme | Orta | 5G Massive MIMO, mmWave |
 
 SIGINT ve yön bulma sayısal beamforming ister, çünkü MVDR/MUSIC gibi adaptif algoritmalar her elemanın ayrı karmaşık örneğine ihtiyaç duyar — bir analog dizide bu örnekler RF'te toplanıp kaybolmuştur. KrakenSDR'ın beş ayrı RTL-SDR kanalı tam da bunun içindir: tam sayısal, faz-tutarlı bir dizi (Kısım 12).
+
+![Analog BF (RF fazlayici + tek ADC), Sayisal BF (her elemana RF zinciri + ADC) ve Hibrit BF (alt-dizi basina analog faz + az ADC) mimarilerinin blok karsilastirmasi](img/b27_analog_sayisal_hibrit_bf.svg)
 
 > Mühendislik sezgisi: Sayısal beamforming'in büyüsü, aynı `x(t)` veri setinden sonsuz sayıda farklı `w` ile sonsuz farklı hüzme oluşturabilmendir — kayıt yapıldıktan sonra bile. Diziye baktığın "yönü", veriyi topladıktan sonra yazılımda seçersin. Bir KrakenSDR kaydında her yöne ayrı ayrı "bakıp" hangi yönde sinyal olduğunu sonradan tarayabilirsin; analog dizide bu imkânsızdır çünkü yön donanımda dondurulmuştur.
 

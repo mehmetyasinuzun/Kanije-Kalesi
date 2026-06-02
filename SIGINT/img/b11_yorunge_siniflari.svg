@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Yorunge Siniflari: LEO / MEO / GEO / HEO</text>
+  <line x1="20" y1="38" x2="840" y2="38" stroke="#9fb3c8" stroke-width="0.8"/>
+
+  <!-- Sol panel: Dunya ve yörüngeler (diyagram) -->
+  <rect x="20" y="44" width="440" height="430" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+
+  <!-- Dunya -->
+  <circle cx="240" cy="260" r="48" fill="#1565c0" fill-opacity="0.18" stroke="#1565c0" stroke-width="2"/>
+  <text x="240" y="256" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">DUNYA</text>
+  <text x="240" y="270" text-anchor="middle" font-size="9" fill="#1565c0">R ≈ 6371 km</text>
+
+  <!-- LEO yorungesi -->
+  <circle cx="240" cy="260" r="72" fill="none" stroke="#1a8a3a" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="320" y="205" font-size="10" font-weight="bold" fill="#1a8a3a">LEO</text>
+  <text x="318" y="217" font-size="9" fill="#1a8a3a">~700 km</text>
+  <!-- LEO uydu sembol -->
+  <polygon points="315,192 320,182 325,192 322,186 318,186" fill="#1a8a3a"/>
+
+  <!-- MEO yorungesi -->
+  <circle cx="240" cy="260" r="148" fill="none" stroke="#ff8f00" stroke-width="2" stroke-dasharray="8,5"/>
+  <text x="396" y="135" font-size="10" font-weight="bold" fill="#ff8f00">MEO</text>
+  <text x="394" y="147" font-size="9" fill="#ff8f00">~20 000 km</text>
+  <!-- MEO uydu sembol -->
+  <polygon points="391,122 396,112 401,122 398,116 394,116" fill="#ff8f00"/>
+
+  <!-- GEO yorungesi -->
+  <circle cx="240" cy="260" r="218" fill="none" stroke="#1565c0" stroke-width="2.5"/>
+  <text x="60" y="70" font-size="10" font-weight="bold" fill="#1565c0">GEO</text>
+  <text x="56" y="82" font-size="9" fill="#1565c0">35 786 km</text>
+  <!-- GEO uydu sembol -->
+  <polygon points="56,58 61,48 66,58 63,52 59,52" fill="#1565c0"/>
+  <!-- GEO sabit isareti -->
+  <line x1="240" y1="42" x2="240" y2="260" stroke="#1565c0" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.5"/>
+  <text x="248" y="56" font-size="8" fill="#1565c0">sabit (senkron)</text>
+
+  <!-- HEO: eliptik -->
+  <ellipse cx="240" cy="260" rx="195" ry="105" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4" transform="rotate(-35,240,260)"/>
+  <text x="395" y="365" font-size="10" font-weight="bold" fill="#c0392b">HEO</text>
+  <text x="394" y="377" font-size="9" fill="#c0392b">Molniya tipi</text>
+  <!-- HEO apoje uydu -->
+  <polygon points="78,102 82,92 87,102 84,96 81,96" fill="#c0392b"/>
+  <text x="40" y="92" font-size="9" fill="#c0392b">apoje</text>
+  <text x="37" y="104" font-size="9" fill="#c0392b">~40000 km</text>
+
+  <!-- Isik hizi gecikme oku -->
+  <line x1="240" y1="308" x2="240" y2="474" stroke="#6b7a90" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.4"/>
+
+  <!-- Tablo / Bilgi kutusu -->
+  <rect x="28" y="420" width="424" height="48" fill="#f4f7fb" rx="2"/>
+  <text x="240" y="437" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2b40">Tek-Yol Gecikme Sezgisi</text>
+  <text x="36" y="452" font-size="9" fill="#36506e">LEO ~700km: 2,3 ms  |  MEO ~20000km: ~67 ms  |  GEO ~36000km: ~120 ms</text>
+  <text x="36" y="464" font-size="9" fill="#36506e">GEO cift atlama: ~480-600 ms (gidiş-donus sesli gorusmede "bosluk" duyulur)</text>
+
+  <!-- ===== SAG PANEL: Ozellikler tablosu ===== -->
+  <rect x="470" y="44" width="370" height="430" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+  <text x="655" y="66" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">Yorunge Karsilastirmasi</text>
+
+  <!-- Tablo baslik -->
+  <rect x="480" y="74" width="350" height="22" fill="#f4f7fb" stroke="#d3dde8" stroke-width="0.8"/>
+  <text x="490" y="89" font-size="9" font-weight="bold" fill="#1a2b40">Sinif</text>
+  <text x="535" y="89" font-size="9" font-weight="bold" fill="#1a2b40">Yukseklik</text>
+  <text x="600" y="89" font-size="9" font-weight="bold" fill="#1a2b40">Periyot</text>
+  <text x="650" y="89" font-size="9" font-weight="bold" fill="#1a2b40">Kapsama</text>
+  <text x="735" y="89" font-size="9" font-weight="bold" fill="#1a2b40">Gecikme</text>
+
+  <!-- LEO satir -->
+  <rect x="480" y="96" width="350" height="52" fill="#1a8a3a" fill-opacity="0.07" stroke="#d3dde8" stroke-width="0.8"/>
+  <text x="490" y="110" font-size="10" font-weight="bold" fill="#1a8a3a">LEO</text>
+  <text x="490" y="124" font-size="8" fill="#36506e">Low Earth</text>
+  <text x="535" y="110" font-size="9" fill="#36506e">300–2000 km</text>
+  <text x="535" y="124" font-size="8" fill="#36506e">ISS ~400 km</text>
+  <text x="600" y="110" font-size="9" fill="#36506e">~90–120 dk</text>
+  <text x="600" y="124" font-size="8" fill="#36506e">~15 dk gorunur</text>
+  <text x="650" y="110" font-size="9" fill="#36506e">yerel/dar</text>
+  <text x="650" y="124" font-size="8" fill="#36506e">takım gerekir</text>
+  <text x="735" y="110" font-size="9" fill="#1a8a3a">~2-5 ms</text>
+  <text x="735" y="124" font-size="8" fill="#1a8a3a">en kisa</text>
+  <!-- Anten tipi -->
+  <text x="490" y="138" font-size="8" fill="#36506e">Anten: genis aci / takipli Yagi</text>
+  <text x="650" y="138" font-size="8" fill="#36506e">LEO: QFH/turnike</text>
+
+  <!-- MEO satir -->
+  <rect x="480" y="148" width="350" height="52" fill="#ff8f00" fill-opacity="0.07" stroke="#d3dde8" stroke-width="0.8"/>
+  <text x="490" y="163" font-size="10" font-weight="bold" fill="#ff8f00">MEO</text>
+  <text x="490" y="177" font-size="8" fill="#36506e">Medium Earth</text>
+  <text x="535" y="163" font-size="9" fill="#36506e">2000–35786 km</text>
+  <text x="535" y="177" font-size="8" fill="#36506e">GNSS ~20200 km</text>
+  <text x="600" y="163" font-size="9" fill="#36506e">~2–12 saat</text>
+  <text x="600" y="177" font-size="8" fill="#36506e">saatler gorunur</text>
+  <text x="650" y="163" font-size="9" fill="#36506e">bölgesel-genis</text>
+  <text x="650" y="177" font-size="8" fill="#36506e">GPS orneği</text>
+  <text x="735" y="163" font-size="9" fill="#ff8f00">~67 ms</text>
+  <text x="490" y="191" font-size="8" fill="#36506e">Anten: yama/heliks (GNSS)</text>
+  <text x="650" y="191" font-size="8" fill="#36506e">küçük yönlü</text>
+
+  <!-- GEO satir -->
+  <rect x="480" y="200" width="350" height="52" fill="#1565c0" fill-opacity="0.07" stroke="#d3dde8" stroke-width="0.8"/>
+  <text x="490" y="215" font-size="10" font-weight="bold" fill="#1565c0">GEO</text>
+  <text x="490" y="229" font-size="8" fill="#36506e">Geostationary</text>
+  <text x="535" y="215" font-size="9" fill="#36506e">35 786 km</text>
+  <text x="535" y="229" font-size="8" fill="#36506e">ekvator + daire</text>
+  <text x="600" y="215" font-size="9" fill="#36506e">~23h 56m</text>
+  <text x="600" y="229" font-size="8" fill="#36506e">DAİMA gorunur</text>
+  <text x="650" y="215" font-size="9" fill="#36506e">kitasal (~1/3)</text>
+  <text x="650" y="229" font-size="8" fill="#36506e">3 uydu = kure</text>
+  <text x="735" y="215" font-size="9" fill="#1565c0">~120 ms</text>
+  <text x="735" y="229" font-size="8" fill="#1565c0">tek-yön</text>
+  <text x="490" y="243" font-size="8" fill="#36506e">Anten: parabolik canak (sabit kilit)</text>
+
+  <!-- HEO satir -->
+  <rect x="480" y="252" width="350" height="52" fill="#c0392b" fill-opacity="0.07" stroke="#d3dde8" stroke-width="0.8"/>
+  <text x="490" y="267" font-size="10" font-weight="bold" fill="#c0392b">HEO</text>
+  <text x="490" y="281" font-size="8" fill="#36506e">Highly Elliptic</text>
+  <text x="535" y="267" font-size="9" fill="#36506e">apoje &gt;40000 km</text>
+  <text x="535" y="281" font-size="8" fill="#36506e">perije ~500 km</text>
+  <text x="600" y="267" font-size="9" fill="#36506e">~12 saat</text>
+  <text x="600" y="281" font-size="8" fill="#36506e">apojede yavası</text>
+  <text x="650" y="267" font-size="9" fill="#36506e">yüksek enlem</text>
+  <text x="650" y="281" font-size="8" fill="#36506e">Arktik/GEO ko</text>
+  <text x="735" y="267" font-size="9" fill="#c0392b">degisken</text>
+  <text x="490" y="295" font-size="8" fill="#36506e">Molniya: kutup bölge kapsamasi, GEO'nun goremedigı yerler</text>
+
+  <!-- Denge tablosu -->
+  <rect x="480" y="315" width="350" height="120" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1" rx="2"/>
+  <text x="655" y="332" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Mühendislik Dengesi</text>
+  <text x="490" y="350" font-size="10" fill="#1a8a3a">LEO: ✓ dusuk gecikme, buyuk kapasite</text>
+  <text x="490" y="364" font-size="10" fill="#c0392b">       ✗ cok uydu gerekir, izleyen anten</text>
+  <text x="490" y="382" font-size="10" fill="#1565c0">GEO: ✓ az uydu, sabit anten, kıtasal kapsama</text>
+  <text x="490" y="396" font-size="10" fill="#c0392b">      ✗ 120 ms gecikme, yuksek yol kaybi</text>
+  <text x="490" y="414" font-size="10" fill="#ff8f00">MEO: ✓ orta gecikme (GNSS ideal konum)</text>
+  <text x="490" y="428" font-size="10" fill="#c0392b">      ✗ orta kompromis, uydu sayısı</text>
+</svg>

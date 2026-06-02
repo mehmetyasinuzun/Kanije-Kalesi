@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="800" height="460" fill="#f4f7fb"/>
+  <text x="400" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Kitabin Yapisi — 32 Bolum, 4 Katman</text>
+
+  <!-- KATMAN 1: Temel -->
+  <rect x="20" y="44" width="370" height="174" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="20" y="44" width="370" height="28" fill="#1565c0"/>
+  <text x="205" y="62" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">TEMEL KATMAN  (Bolum 00-06)</text>
+  <!-- Kutucuklar -->
+  <rect x="30" y="79" width="100" height="36" fill="#e8f0fa" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="80" y="93" text-anchor="middle" font-size="10.5" fill="#1565c0" font-weight="bold">00</text>
+  <text x="80" y="107" text-anchor="middle" font-size="10" fill="#36506e">Yasal Cerceve</text>
+  <rect x="140" y="79" width="100" height="36" fill="#e8f0fa" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="190" y="93" text-anchor="middle" font-size="10.5" fill="#1565c0" font-weight="bold">01</text>
+  <text x="190" y="107" text-anchor="middle" font-size="10" fill="#36506e">RF Fizigi</text>
+  <rect x="250" y="79" width="100" height="36" fill="#e8f0fa" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="300" y="93" text-anchor="middle" font-size="10.5" fill="#1565c0" font-weight="bold">02</text>
+  <text x="300" y="107" text-anchor="middle" font-size="10" fill="#36506e">SDR Cihazlari</text>
+  <rect x="30" y="124" width="100" height="36" fill="#e8f0fa" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="80" y="138" text-anchor="middle" font-size="10.5" fill="#1565c0" font-weight="bold">03</text>
+  <text x="80" y="152" text-anchor="middle" font-size="10" fill="#36506e">Anten / Devre</text>
+  <rect x="140" y="124" width="100" height="36" fill="#e8f0fa" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="190" y="138" text-anchor="middle" font-size="10.5" fill="#1565c0" font-weight="bold">04</text>
+  <text x="190" y="152" text-anchor="middle" font-size="10" fill="#36506e">Yazilim / Kurulum</text>
+  <rect x="250" y="124" width="100" height="36" fill="#e8f0fa" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="300" y="138" text-anchor="middle" font-size="10.5" fill="#1565c0" font-weight="bold">05-06</text>
+  <text x="300" y="152" text-anchor="middle" font-size="10" fill="#36506e">Protokol / Guvenlik</text>
+  <text x="205" y="203" text-anchor="middle" font-size="10.5" fill="#1565c0">RF fizigi · dB · link budget · SDR · anten · kurulum</text>
+
+  <!-- KATMAN 2: Istihbarat -->
+  <rect x="410" y="44" width="370" height="174" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="410" y="44" width="370" height="28" fill="#ff8f00"/>
+  <text x="595" y="62" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">ISTIHBARAT VE KONUM  (Bolum 07-14)</text>
+  <rect x="420" y="79" width="100" height="36" fill="#fff8e8" stroke="#ff8f00" stroke-width="1" rx="3"/>
+  <text x="470" y="93" text-anchor="middle" font-size="10.5" fill="#ff8f00" font-weight="bold">07</text>
+  <text x="470" y="107" text-anchor="middle" font-size="10" fill="#36506e">Disiplinler</text>
+  <rect x="530" y="79" width="100" height="36" fill="#fff8e8" stroke="#ff8f00" stroke-width="1" rx="3"/>
+  <text x="580" y="93" text-anchor="middle" font-size="10.5" fill="#ff8f00" font-weight="bold">08</text>
+  <text x="580" y="107" text-anchor="middle" font-size="10" fill="#36506e">Frekans Plani</text>
+  <rect x="640" y="79" width="100" height="36" fill="#fff8e8" stroke="#ff8f00" stroke-width="1" rx="3"/>
+  <text x="690" y="93" text-anchor="middle" font-size="10.5" fill="#ff8f00" font-weight="bold">09</text>
+  <text x="690" y="107" text-anchor="middle" font-size="10" fill="#36506e">Yer Tespiti / DF</text>
+  <rect x="420" y="124" width="100" height="36" fill="#fff8e8" stroke="#ff8f00" stroke-width="1" rx="3"/>
+  <text x="470" y="138" text-anchor="middle" font-size="10.5" fill="#ff8f00" font-weight="bold">10</text>
+  <text x="470" y="152" text-anchor="middle" font-size="10" fill="#36506e">GNSS / GPS</text>
+  <rect x="530" y="124" width="100" height="36" fill="#fff8e8" stroke="#ff8f00" stroke-width="1" rx="3"/>
+  <text x="580" y="138" text-anchor="middle" font-size="10.5" fill="#ff8f00" font-weight="bold">11-12</text>
+  <text x="580" y="152" text-anchor="middle" font-size="10" fill="#36506e">Uydu / DragonOS</text>
+  <rect x="640" y="124" width="100" height="36" fill="#fff8e8" stroke="#ff8f00" stroke-width="1" rx="3"/>
+  <text x="690" y="138" text-anchor="middle" font-size="10.5" fill="#ff8f00" font-weight="bold">13-14</text>
+  <text x="690" y="152" text-anchor="middle" font-size="10" fill="#36506e">Tehdit / Kaynaklar</text>
+  <text x="595" y="203" text-anchor="middle" font-size="10.5" fill="#ff8f00">COMINT · ELINT · DF · GNSS · uydu · savunma</text>
+
+  <!-- KATMAN 3: Ileri -->
+  <rect x="20" y="232" width="370" height="174" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="20" y="232" width="370" height="28" fill="#5a189a" rx="0"/>
+  <text x="205" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">ILERI VE GUNCEL  (Bolum 15-22)</text>
+  <rect x="30" y="267" width="100" height="36" fill="#f3e8ff" stroke="#7b2d8b" stroke-width="1" rx="3"/>
+  <text x="80" y="281" text-anchor="middle" font-size="10.5" fill="#7b2d8b" font-weight="bold">15-16</text>
+  <text x="80" y="295" text-anchor="middle" font-size="10" fill="#36506e">WiFi · IoT</text>
+  <rect x="140" y="267" width="100" height="36" fill="#f3e8ff" stroke="#7b2d8b" stroke-width="1" rx="3"/>
+  <text x="190" y="281" text-anchor="middle" font-size="10.5" fill="#7b2d8b" font-weight="bold">17-18</text>
+  <text x="190" y="295" text-anchor="middle" font-size="10" fill="#36506e">TEMPEST · DSP</text>
+  <rect x="250" y="267" width="100" height="36" fill="#f3e8ff" stroke="#7b2d8b" stroke-width="1" rx="3"/>
+  <text x="300" y="281" text-anchor="middle" font-size="10.5" fill="#7b2d8b" font-weight="bold">19-20</text>
+  <text x="300" y="295" text-anchor="middle" font-size="10" fill="#36506e">AI-ML · 4G/5G</text>
+  <rect x="30" y="312" width="100" height="36" fill="#f3e8ff" stroke="#7b2d8b" stroke-width="1" rx="3"/>
+  <text x="80" y="326" text-anchor="middle" font-size="10.5" fill="#7b2d8b" font-weight="bold">21</text>
+  <text x="80" y="340" text-anchor="middle" font-size="10" fill="#36506e">Tarih / E-Harp</text>
+  <rect x="140" y="312" width="100" height="36" fill="#f3e8ff" stroke="#7b2d8b" stroke-width="1" rx="3"/>
+  <text x="190" y="326" text-anchor="middle" font-size="10.5" fill="#7b2d8b" font-weight="bold">22</text>
+  <text x="190" y="340" text-anchor="middle" font-size="10" fill="#36506e">Egzotik / Gelecek</text>
+  <rect x="250" y="312" width="100" height="36" fill="#f3e8ff" stroke="#7b2d8b" stroke-width="1" rx="3"/>
+  <text x="300" y="326" text-anchor="middle" font-size="10.5" fill="#7b2d8b" font-weight="bold">23-28</text>
+  <text x="300" y="340" text-anchor="middle" font-size="10" fill="#36506e">Saldiri / Lab</text>
+  <text x="205" y="391" text-anchor="middle" font-size="10.5" fill="#7b2d8b">BLE · Zigbee · LoRa · TEMPEST · DSP · AI · 5G · CVE</text>
+
+  <!-- KATMAN 4: Sektörel -->
+  <rect x="410" y="232" width="370" height="174" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="410" y="232" width="370" height="28" fill="#1a8a3a" rx="0"/>
+  <text x="595" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">SEKTOREL DERINLIK  (Bolum 29-32)</text>
+  <rect x="420" y="267" width="160" height="36" fill="#e8f5ed" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="500" y="281" text-anchor="middle" font-size="10.5" fill="#1a8a3a" font-weight="bold">29</text>
+  <text x="500" y="295" text-anchor="middle" font-size="10" fill="#36506e">Radyo Astronomi</text>
+  <rect x="590" y="267" width="160" height="36" fill="#e8f5ed" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="670" y="281" text-anchor="middle" font-size="10.5" fill="#1a8a3a" font-weight="bold">30</text>
+  <text x="670" y="295" text-anchor="middle" font-size="10" fill="#36506e">Otomotiv / Keyless</text>
+  <rect x="420" y="312" width="160" height="36" fill="#e8f5ed" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="500" y="326" text-anchor="middle" font-size="10.5" fill="#1a8a3a" font-weight="bold">31</text>
+  <text x="500" y="340" text-anchor="middle" font-size="10" fill="#36506e">SCADA / Endustriyel</text>
+  <rect x="590" y="312" width="160" height="36" fill="#e8f5ed" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="670" y="326" text-anchor="middle" font-size="10.5" fill="#1a8a3a" font-weight="bold">32</text>
+  <text x="670" y="340" text-anchor="middle" font-size="10" fill="#36506e">Uydu-IoT / Starlink</text>
+  <text x="595" y="391" text-anchor="middle" font-size="10.5" fill="#1a8a3a">CAN-bus · keyless-entry · ICS/SCADA · mega-konstelasyon</text>
+
+  <!-- Oklar arasi katman -->
+  <line x1="390" y1="131" x2="410" y2="131" stroke="#9fb3c8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="205" y1="218" x2="205" y2="232" stroke="#9fb3c8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="595" y1="218" x2="595" y2="232" stroke="#9fb3c8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="390" y1="319" x2="410" y2="319" stroke="#9fb3c8" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Alt bilgi -->
+  <text x="400" y="422" text-anchor="middle" font-size="10" fill="#6b7a90">32 bolum · RF fiziginden AI-SIGINT'e · radyo astronomiden mega-konstelasyonlara</text>
+  <text x="400" y="438" text-anchor="middle" font-size="10" fill="#6b7a90">Her bolumdeki alistirmalar kendi cihazin ve acik yayinlarla yapilanir</text>
+</svg>

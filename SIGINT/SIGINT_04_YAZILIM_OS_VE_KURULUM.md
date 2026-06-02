@@ -156,6 +156,8 @@ Burası, "donanım tanınmıyor" sorunlarının **kaynak kodudur.** Katmanları 
    ÇEKİRDEK / İŞLETİM SİSTEMİ → SDR donanımı
 ```
 
+![SDR surucu katman mimarisi: uygulama, SoapySDR, cihaz kutuphaneleri, libusb/WinUSB, donanim; Linux ve Windows kolonu farki](img/b04_surucu_katman.svg)
+
 ### 5.1 RTL-SDR & librtlsdr
 RTL-SDR, aslında **ucuz bir DVB-T (dijital TV) USB alıcısının** "kötüye kullanımıdır": Realtek RTL2832U çipi, ham IQ örneklerini USB'den verebildiği keşfedilince genel-amaçlı SDR'a dönüştü. Yazılım katmanı **`librtlsdr`** (Osmocom projesi) kütüphanesidir; `rtl_test`, `rtl_sdr`, `rtl_fm`, `rtl_power` bu kütüphanenin komut satırı araçlarıdır.
 
@@ -297,6 +299,8 @@ GUI alıcılar "hazır mutfak"sa, **GNU Radio** "kendi yemeğini pişirdiğin la
                                                                        └──────────┘
 ```
 **Mantık:** Source 2.4 MS/s ham IQ verir → `Frequency Xlating FIR` ilgilendiğin FM istasyonunu merkeze kaydırıp gereksiz bandı süzer → `WBFM Receive` FM'i sese çözer → `Rational Resampler` ses kartının istediği 48 kHz'e indirir → `Audio Sink` hoparlöre basar. **GUI alıcının içinde olan bu zinciri, GNU Radio'da sen kurmuş olursun** — ve istediğin yere müdahale edebilirsin (kendi filtren, kendi çözücün, kaydın).
+
+![GNU Radio FM alici flowgraph: RTL-SDR Source, Freq Xlating FIR, WBFM Receive, Rational Resampler, Audio Sink bloklari ve IQ akis oklari](img/b04_gnuradio_flowgraph.svg)
 
 ### Kime uygun / ne zaman
 - **GUI'de olmayan bir şeyi çözmek** istediğinde (özel/bilinmeyen modülasyon, özel bir cihazın protokolü).
@@ -523,6 +527,8 @@ Donanımı eline aldın. Sıfırdan ilk sinyale giden **doğru sıra** budur —
 │     • IQ kaydet → Inspectrum/URH ile analiz                         │
 └─────────────────────────────────────────────────────────────────────┘
 ```
+
+![SDR istasyonu kurulum akis diyagrami: Donanim Bagla, Surucu, rtl_test (EVET/HAYIR dali), Yazilim, Ilk Sinyal, Genislet; numarali adimlar](img/b04_kurulum_akis.svg)
 
 > **Altın kural — "önce FM":** İlk testte **mutlaka yerel, güçlü, bilinen bir FM istasyonuna** git. FM her şehirde güçlüdür, WFM demodülasyonu basittir, ses gelir-gelmez **tüm zincirin (anten→donanım→sürücü→yazılım) çalıştığını** kanıtlamış olursun. Egzotik/zayıf bir frekansla başlarsan, "duymuyorum"un sebebi donanım mı yoksa "orada zaten sinyal yok mu" ayırt edemezsin. **Bilinen-iyi referansla doğrula, sonra keşfet.**
 

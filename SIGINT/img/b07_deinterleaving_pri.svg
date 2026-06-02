@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b40">Deinterleaving — Ic Ice Darbe Trenlerini Ayirma</text>
+
+  <!-- === UST PANEL: Zaman cizgisi === -->
+  <rect x="20" y="40" width="820" height="200" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="430" y="60" text-anchor="middle" font-size="12" font-weight="bold" fill="#36506e">Ust Panel — Uc Radar Darbesi Zaman Ekseninde Ic Ice</text>
+
+  <!-- Zaman ekseni -->
+  <line x1="50" y1="210" x2="830" y2="210" stroke="#6b7a90" stroke-width="1.5"/>
+  <text x="840" y="214" font-size="11" fill="#6b7a90">t</text>
+
+  <!-- Radar A: PRI~140px, mavi -->
+  <text x="50" y="80" font-size="11" font-weight="bold" fill="#1565c0">Radar A  (PRI ≈ 1000 µs)</text>
+  <!-- darbeler: x=80,220,360,500,640,780 -->
+  <rect x="80" y="85" width="14" height="40" fill="#1565c0"/>
+  <rect x="220" y="85" width="14" height="40" fill="#1565c0"/>
+  <rect x="360" y="85" width="14" height="40" fill="#1565c0"/>
+  <rect x="500" y="85" width="14" height="40" fill="#1565c0"/>
+  <rect x="640" y="85" width="14" height="40" fill="#1565c0"/>
+  <rect x="780" y="85" width="14" height="40" fill="#1565c0"/>
+  <!-- PRI ok -->
+  <line x1="87" y1="133" x2="227" y2="133" stroke="#1565c0" stroke-width="1"/>
+  <line x1="87" y1="128" x2="87" y2="138" stroke="#1565c0" stroke-width="1"/>
+  <line x1="227" y1="128" x2="227" y2="138" stroke="#1565c0" stroke-width="1"/>
+  <text x="157" y="146" text-anchor="middle" font-size="9" fill="#1565c0">PRI_A</text>
+
+  <!-- Radar B: PRI~100px, yesil -->
+  <text x="50" y="165" font-size="11" font-weight="bold" fill="#1a8a3a">Radar B  (PRI ≈ 700 µs)</text>
+  <!-- darbeler: x=100,200,300,400,500,600,700,800 -->
+  <rect x="100" y="150" width="10" height="30" fill="#1a8a3a"/>
+  <rect x="200" y="150" width="10" height="30" fill="#1a8a3a"/>
+  <rect x="300" y="150" width="10" height="30" fill="#1a8a3a"/>
+  <rect x="400" y="150" width="10" height="30" fill="#1a8a3a"/>
+  <rect x="500" y="150" width="10" height="30" fill="#1a8a3a"/>
+  <rect x="600" y="150" width="10" height="30" fill="#1a8a3a"/>
+  <rect x="700" y="150" width="10" height="30" fill="#1a8a3a"/>
+  <rect x="800" y="150" width="10" height="30" fill="#1a8a3a"/>
+
+  <!-- Radar C: PRI~40px, turuncu -->
+  <text x="50" y="103" font-size="9" font-weight="bold" fill="#ff8f00">Radar C  (PRI ≈ 300 µs)</text>
+  <!-- darbeler: x=68..788 adim 40 -->
+  <rect x="68"  y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="108" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="148" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="188" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="228" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="268" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="308" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="348" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="388" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="428" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="468" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="508" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="548" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="588" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="628" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="668" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="708" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="748" y="104" width="7" height="22" fill="#ff8f00"/>
+  <rect x="788" y="104" width="7" height="22" fill="#ff8f00"/>
+
+  <!-- Alici goruntusunu gosteren ic ice seq -->
+  <text x="430" y="198" text-anchor="middle" font-size="10" fill="#6b7a90">Alicinin gördügü: C C A B C C C A C B C C A C...</text>
+
+  <!-- Legend -->
+  <rect x="680" y="55" width="12" height="10" fill="#1565c0"/>
+  <text x="696" y="64" font-size="9" fill="#1565c0">Radar A</text>
+  <rect x="680" y="70" width="12" height="10" fill="#1a8a3a"/>
+  <text x="696" y="79" font-size="9" fill="#1a8a3a">Radar B</text>
+  <rect x="680" y="85" width="12" height="10" fill="#ff8f00"/>
+  <text x="696" y="94" font-size="9" fill="#ff8f00">Radar C</text>
+
+  <!-- === ALT PANEL: TOA fark histogrami === -->
+  <rect x="20" y="252" width="820" height="210" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="430" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#36506e">Alt Panel — TOA Farki Histogrami (CDIF Mantigi — PRI Tespiti)</text>
+
+  <!-- Histogram ekseni -->
+  <line x1="60" y1="435" x2="820" y2="435" stroke="#6b7a90" stroke-width="1.5"/>
+  <line x1="60" y1="280" x2="60"  y2="435" stroke="#6b7a90" stroke-width="1.5"/>
+  <text x="830" y="438" font-size="10" fill="#6b7a90">TOA farki (µs)</text>
+  <text x="40" y="285" font-size="10" fill="#6b7a90">sayi</text>
+
+  <!-- Gürültu tabani (gri küçük barlar) -->
+  <rect x="75"  y="415" width="10" height="20" fill="#d3dde8"/>
+  <rect x="110" y="412" width="10" height="23" fill="#d3dde8"/>
+  <rect x="145" y="418" width="10" height="17" fill="#d3dde8"/>
+  <rect x="185" y="414" width="10" height="21" fill="#d3dde8"/>
+  <rect x="225" y="416" width="10" height="19" fill="#d3dde8"/>
+  <rect x="265" y="417" width="10" height="18" fill="#d3dde8"/>
+  <rect x="310" y="413" width="10" height="22" fill="#d3dde8"/>
+  <rect x="455" y="415" width="10" height="20" fill="#d3dde8"/>
+  <rect x="530" y="414" width="10" height="21" fill="#d3dde8"/>
+  <rect x="570" y="415" width="10" height="20" fill="#d3dde8"/>
+  <rect x="680" y="415" width="10" height="20" fill="#d3dde8"/>
+  <rect x="730" y="413" width="10" height="22" fill="#d3dde8"/>
+  <rect x="775" y="416" width="10" height="19" fill="#d3dde8"/>
+
+  <!-- PRI_C tepe: ~300µs -> x=160 -->
+  <rect x="155" y="300" width="18" height="135" fill="#ff8f00" fill-opacity="0.8"/>
+  <text x="164" y="296" text-anchor="middle" font-size="9" fill="#ff8f00" font-weight="bold">PRI_C</text>
+  <text x="164" y="443" text-anchor="middle" font-size="9" fill="#ff8f00">~300</text>
+
+  <!-- PRI_B tepe: ~700µs -> x=380 -->
+  <rect x="375" y="308" width="18" height="127" fill="#1a8a3a" fill-opacity="0.8"/>
+  <text x="384" y="304" text-anchor="middle" font-size="9" fill="#1a8a3a" font-weight="bold">PRI_B</text>
+  <text x="384" y="443" text-anchor="middle" font-size="9" fill="#1a8a3a">~700</text>
+
+  <!-- PRI_A tepe: ~1000µs -> x=600 -->
+  <rect x="595" y="295" width="18" height="140" fill="#1565c0" fill-opacity="0.8"/>
+  <text x="604" y="291" text-anchor="middle" font-size="9" fill="#1565c0" font-weight="bold">PRI_A</text>
+  <text x="604" y="443" text-anchor="middle" font-size="9" fill="#1565c0">~1000</text>
+
+  <!-- Aciklama -->
+  <rect x="620" y="280" width="210" height="70" fill="#f4f7fb" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+  <text x="725" y="298" text-anchor="middle" font-size="10" font-weight="bold" fill="#36506e">CDIF Mantigi</text>
+  <text x="630" y="314" font-size="9" fill="#4a5a70">Tum darbe cifti farklari biriktirilir.</text>
+  <text x="630" y="328" font-size="9" fill="#4a5a70">Gercek PRI'de keskin tepe olusur.</text>
+  <text x="630" y="342" font-size="9" fill="#4a5a70">Esik asildikca treni soy, tekrarla.</text>
+
+  <!-- Alt bilgi -->
+  <line x1="20" y1="464" x2="840" y2="464" stroke="#d3dde8" stroke-width="1"/>
+  <text x="430" y="476" text-anchor="middle" font-size="10" fill="#6b7a90">Deinterleaving ozü: TOA farki histogramindan tekrar eden aralik bul → treni soy → kal ana akis uzerinde tekrar et</text>
+</svg>

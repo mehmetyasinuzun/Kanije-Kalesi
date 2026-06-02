@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="820" height="440" fill="#f4f7fb"/>
+  <text x="410" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Acigin Yasam Dongusu: Kesiften KEV'e</text>
+
+  <defs>
+    <marker id="arrf" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1565c0"/>
+    </marker>
+    <marker id="arrg" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a8a3a"/>
+    </marker>
+    <marker id="arror" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff8f00"/>
+    </marker>
+    <marker id="arrr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Ana akis kutuları (tek satır, ustlerde) -->
+  <!-- y=70-130 -->
+
+  <!-- 1. Kesif -->
+  <rect x="20" y="70" width="110" height="70" rx="6" fill="#ffffff" stroke="#1565c0" stroke-width="2"/>
+  <text x="75" y="95" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">KESIF</text>
+  <text x="75" y="110" text-anchor="middle" font-size="9" fill="#4a5a70">Arastirmaci</text>
+  <text x="75" y="123" text-anchor="middle" font-size="9" fill="#4a5a70">acigi bulur</text>
+
+  <!-- ok -->
+  <line x1="130" y1="105" x2="158" y2="105" stroke="#1565c0" stroke-width="1.8" marker-end="url(#arrf)"/>
+  <text x="144" y="100" text-anchor="middle" font-size="9" fill="#1565c0">bildirim</text>
+
+  <!-- 2. CVD -->
+  <rect x="160" y="70" width="130" height="70" rx="6" fill="#ffffff" stroke="#1565c0" stroke-width="2"/>
+  <text x="225" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">CVD / EMBARGO</text>
+  <text x="225" y="105" text-anchor="middle" font-size="9" fill="#4a5a70">Uretici bilgilenir</text>
+  <text x="225" y="119" text-anchor="middle" font-size="9" fill="#4a5a70">Embargo suresi</text>
+  <text x="225" y="133" text-anchor="middle" font-size="9" fill="#4a5a70">Yama gelistirilir</text>
+
+  <!-- ok -->
+  <line x1="290" y1="105" x2="318" y2="105" stroke="#1565c0" stroke-width="1.8" marker-end="url(#arrf)"/>
+
+  <!-- 3. CVE atanmasi -->
+  <rect x="320" y="70" width="120" height="70" rx="6" fill="#ffffff" stroke="#1565c0" stroke-width="2"/>
+  <text x="380" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">CVE ATANMASI</text>
+  <text x="380" y="105" text-anchor="middle" font-size="9" fill="#4a5a70">MITRE / CNA</text>
+  <text x="380" y="119" text-anchor="middle" font-size="9" fill="#4a5a70">NVD'ye islenir</text>
+  <text x="380" y="133" text-anchor="middle" font-size="9" fill="#4a5a70">CVE-YYYY-NNNN</text>
+
+  <!-- ok -->
+  <line x1="440" y1="105" x2="468" y2="105" stroke="#1a8a3a" stroke-width="1.8" marker-end="url(#arrg)"/>
+
+  <!-- 4. Yama yayimi -->
+  <rect x="470" y="70" width="120" height="70" rx="6" fill="#ffffff" stroke="#1a8a3a" stroke-width="2"/>
+  <text x="530" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">YAMA YAYIMI</text>
+  <text x="530" y="105" text-anchor="middle" font-size="9" fill="#4a5a70">Advisory yayinlanir</text>
+  <text x="530" y="119" text-anchor="middle" font-size="9" fill="#4a5a70">Teknik kapanir</text>
+  <text x="530" y="133" text-anchor="middle" font-size="9" fill="#4a5a70">(uretici tarafinda)</text>
+
+  <!-- ok -->
+  <line x1="590" y1="105" x2="618" y2="105" stroke="#1a8a3a" stroke-width="1.8" marker-end="url(#arrg)"/>
+
+  <!-- 5. Saha dagitimi -->
+  <rect x="620" y="70" width="120" height="70" rx="6" fill="#ffffff" stroke="#ff8f00" stroke-width="2"/>
+  <text x="680" y="90" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">SAHA DAGITIMI</text>
+  <text x="680" y="105" text-anchor="middle" font-size="9" fill="#4a5a70">Cihazlar guncellenir</text>
+  <text x="680" y="119" text-anchor="middle" font-size="9" fill="#4a5a70">Asil darboğaz</text>
+  <text x="680" y="133" text-anchor="middle" font-size="9" fill="#4a5a70">EOL cihazlar acik!</text>
+
+  <!-- ok -->
+  <line x1="740" y1="105" x2="768" y2="105" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arrr)"/>
+
+  <!-- 6. KEV -->
+  <rect x="770" y="70" width="36" height="70" rx="6" fill="#c0392b"/>
+  <text x="788" y="93" text-anchor="middle" font-size="10" font-weight="bold" fill="white">K</text>
+  <text x="788" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="white">E</text>
+  <text x="788" y="121" text-anchor="middle" font-size="10" font-weight="bold" fill="white">V</text>
+
+  <!-- KEV aciklama -->
+  <text x="788" y="152" text-anchor="middle" font-size="9" fill="#c0392b" font-weight="bold">Aktif</text>
+  <text x="788" y="164" text-anchor="middle" font-size="9" fill="#c0392b">Somuru</text>
+
+  <!-- Sifir-gun penceresi (asagida, Kesif->Yama arasi buyuk turuncu bar) -->
+  <rect x="20" y="165" width="450" height="32" rx="4" fill="#c0392b" opacity="0.15" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="245" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">SIFIR-GUN PENCERESi — Yama yok, gizli risk</text>
+
+  <!-- n-gun penceresi (Yama->Saha gecikme) -->
+  <rect x="470" y="165" width="336" height="32" rx="4" fill="#ff8f00" opacity="0.18" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="638" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">n-GUN PENCERESi — Yama var, saha guncellenmedi</text>
+
+  <!-- Asagi akis: dagitim gecikme detaylari -->
+  <!-- Yan etki oklar: Sifir-gun paralel riski: Kesif -> Zarari Kullanim -->
+  <line x1="75" y1="140" x2="75" y2="210" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrr)"/>
+  <rect x="20" y="210" width="110" height="50" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="75" y="230" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Sifir-Gun</text>
+  <text x="75" y="244" text-anchor="middle" font-size="9" fill="#4a5a70">Yama yokken</text>
+  <text x="75" y="256" text-anchor="middle" font-size="9" fill="#4a5a70">somuru riski</text>
+
+  <!-- n-gun: Saha -> n-gun somuru -->
+  <line x1="680" y1="140" x2="680" y2="210" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arror)"/>
+  <rect x="625" y="210" width="110" height="50" rx="5" fill="#ffffff" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="680" y="230" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">n-Gun Somuru</text>
+  <text x="680" y="244" text-anchor="middle" font-size="9" fill="#4a5a70">Yama var ama</text>
+  <text x="680" y="256" text-anchor="middle" font-size="9" fill="#4a5a70">uygulannmadi</text>
+
+  <!-- Asagi: Neden somuru surer tablosu -->
+  <rect x="20" y="288" width="780" height="130" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="30" y="306" font-size="11" font-weight="bold" fill="#1a2b40">Asamalar ve Savunma Anlami</text>
+
+  <!-- 6 sütun -->
+  <text x="50" y="325" font-size="10" fill="#1565c0" font-weight="bold">Kesif</text>
+  <text x="50" y="338" font-size="9" fill="#4a5a70">Sifir-gun dogabilir</text>
+  <text x="50" y="350" font-size="9" fill="#4a5a70">Katlı savunma</text>
+
+  <text x="180" y="325" font-size="10" fill="#1565c0" font-weight="bold">CVD Embargo</text>
+  <text x="180" y="338" font-size="9" fill="#4a5a70">Etik norm</text>
+  <text x="180" y="350" font-size="9" fill="#4a5a70">Advisory cikacak</text>
+
+  <text x="310" y="325" font-size="10" fill="#1565c0" font-weight="bold">CVE Atanmasi</text>
+  <text x="310" y="338" font-size="9" fill="#4a5a70">Takip numarasi</text>
+  <text x="310" y="350" font-size="9" fill="#4a5a70">NVD'den teyit et</text>
+
+  <text x="435" y="325" font-size="10" fill="#1a8a3a" font-weight="bold">Yama Yayimi</text>
+  <text x="435" y="338" font-size="9" fill="#4a5a70">Teknik kapanir</text>
+  <text x="435" y="350" font-size="9" fill="#4a5a70">(uretici)</text>
+
+  <text x="555" y="325" font-size="10" fill="#ff8f00" font-weight="bold">Saha Dagitimi</text>
+  <text x="555" y="338" font-size="9" fill="#4a5a70">Asıl darboğaz</text>
+  <text x="555" y="350" font-size="9" fill="#4a5a70">Gecikme = risk</text>
+
+  <text x="680" y="325" font-size="10" fill="#c0392b" font-weight="bold">KEV Listesi</text>
+  <text x="680" y="338" font-size="9" fill="#4a5a70">Aktif somuru</text>
+  <text x="680" y="350" font-size="9" fill="#c0392b">En yuksek oncelik</text>
+
+  <!-- Gecikme nedenleri -->
+  <line x1="20" y1="365" x2="800" y2="365" stroke="#d3dde8" stroke-width="1"/>
+  <text x="30" y="381" font-size="10" font-weight="bold" fill="#4a5a70">Neden eski aciklar hala somurulur: </text>
+  <text x="264" y="381" font-size="10" fill="#6b7a90">  Yama gecikmesi   |   EOL cihaz   |   2G/WPS geriye uyumluluk   |   "Calısıyorsa dokunma" kulturu</text>
+  <text x="30" y="397" font-size="10" fill="#1565c0">CISA KEV = "Yamasi var, somurulu, HEMEN yama" en pragmatik once listesi</text>
+</svg>

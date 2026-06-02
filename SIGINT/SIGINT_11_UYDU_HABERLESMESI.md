@@ -64,6 +64,8 @@ HEO, bu dengeyi özel bir coğrafya için kırar. Yüksek enlemler (kutba yakın
 
 Not: GEO terimi sıkça GSO (geosenkron) ile karıştırılır. Geosenkron, periyodu bir sidereal güne eşit her yörüngedir; geostationary ise bunun özel hali olup ekvatorda, dairesel ve eğimsiz (inclination ≈ 0) olandır ve gökyüzünde gerçekten sabit görünür. Eğimli bir geosenkron uydu, gökyüzünde gün boyunca bir "8" (analemma) çizer; tam sabit durmaz. Bu ayrım, çanak hizalamada önemlidir.
 
+![Yorunge siniflari: sol panel Dunya merkezi + LEO/MEO/GEO/HEO halkalari; sag panel yükseklik, periyot, kapsama, gecikme, anten tipi karsilastirma tablosu](img/b11_yorunge_siniflari.svg)
+
 ---
 
 <a id="2"></a>
@@ -388,6 +390,8 @@ Uplink bütçesi de simetrik biçimde hesaplanır ama orada işaretler tersine d
 
 Not: Link bütçesi terimleri (özellikle margin, implementation loss, pointing loss) sistemden sisteme farklı ele alınır; yukarıdaki çatı doğru ama proje düzeyinde tam değerler operatör spesifikasyonundan teyit edilmeli.
 
+![Uydu link butcesi zinciri: EIRP → FSPL (~205 dB) → diger kayiplar → G/T → C/N0; her terim kutu ve ok ile gosterilir, bar grafik ile dB katkilari](img/b11_uydu_link_butcesi.svg)
+
 ---
 
 <a id="9"></a>
@@ -425,6 +429,8 @@ DVB ailesinin gelişimi, bu iki kolun (modülasyon + FEC) sürekli iyileştirilm
 DVB-S2'nin getirdiği iki kavram pratikte çok önemlidir. **MODCOD**, modülasyon ve FEC oranının birleşik bir "vites" seçimidir (örn. "8PSK 3/4" bir MODCOD'dur). **ACM (Adaptive Coding and Modulation)**, her alıcı için anlık link kalitesine göre en uygun MODCOD'u seçer: açık havada yüksek verimli vites (32APSK 9/10), yağmurda dayanıklı vitese düşüş (QPSK 1/2). Böylece sistem, en kötü alıcıya göre sabitlenmek yerine, koşullara uyum sağlar. Bu, modern Ku/Ka VSAT'ın yağmurla başa çıkma yönteminin kalbidir (Bölüm 7 ile bağlantılı).
 
 **Sembol hızı (symbol rate):** Taşıyıcının saniyede kaç sembol gönderdiğidir ve taşıyıcının bant genişliğini doğrudan belirler (kabaca bant ≈ sembol hızı × (1 + roll-off)). Bir transponder içinde tek bir geniş taşıyıcı (yüksek sembol hızı, örn. 27,5 Msym/s) ya da çok sayıda dar taşıyıcı (her biri düşük sembol hızı) bulunabilir. Spektrumda taşıyıcının genişliği, doğrudan sembol hızını ele verir — bu, taşıyıcı tanımanın temel ipucudur (Bölüm 10).
+
+![DVB modulasyon konstelasyonlari: QPSK/8PSK/16APSK/32APSK nokta diyagramlari; sag panel spektral verim (bit/Hz) vs SNR gereksinimi dengesi; DVB-S2 ACM otomatik vites secimi](img/b11_dvb_modulasyon.svg)
 
 ---
 
@@ -699,6 +705,8 @@ Mühendislik sezgisi: **Uydu sinyalinin geniş alana yayılması bir "özellik" 
 ```
 
 Not: "Eski sistemler zayıf" genellemesi modern sistemleri kapsamaz; günümüz operatörleri downlink ve TT&C şifrelemesini ciddiye alır. Buradaki amaç, **neden** bir sistemin zayıf olabileceğinin mekanizmasını göstermek ve modern savunmanın bu mekanizmaları nasıl kapattığını anlamaktır.
+
+![SATCOM guvenlik mimarisi: payload/bent-pipe/TT&C uc katmani; her katman zafiyet nedeni ve karsi savunma ic ice kutu; temel guvenlik ilkesi — fiziksel mesafe gizlilik saglamaz, sifreleme gereklidir](img/b11_satcom_guvenlik.svg)
 
 ---
 

@@ -189,6 +189,8 @@ En yaygın güçlü tasarımlardan biri CNN+RNN hibritidir (bazı çalışmalard
 | CNN+RNN hibrit (CLDNN) | Yerel + zamansal birlikte | Güçlü genel performans | Karmaşık, ayarı zor |
 | Transformer | Uzak ilişkiler, ölçeklenir | Büyük veri/model rejiminde güçlü | Veri/hesap açlığı, RF'te genç |
 
+![AMC 1B-CNN pipeline: ham IQ girdi, Conv1D bloklari, kuresel havuzlama, tam-bagli, softmax sinif olasiliklarI — ogrenilen oznitelik hiyerarsisi](img/b19_amc_ml_pipeline.svg)
+
 > Mühendislik sezgisi: Mimariyi sinyalin yapısına eşle. Modülasyon ayrımı çoğunlukla yerel istatistikte (takımyıldız geometrisi) saklıysa CNN yeter; ayrım uzun menzilli zamansal/çerçeveleme yapısındaysa RNN veya transformer katkısı belirginleşir. "Daha büyük ağ daima daha iyi" bir yanılgıdır; doğru ağ, aradığın ayrımın saklı olduğu ölçeğe uyan ağdır. Yanlış ölçekteki dev bir ağ, hem aşırı uydurur hem uçta sığmaz (Bölüm 12).
 
 ---
@@ -214,6 +216,8 @@ Tipik bir AMC doğruluk-SNR eğrisi karakteristik bir S şekli (sigmoid benzeri)
    └──┴────────┴──────────┴──────────► SNR (dB)
     -20      -10         0        +10
 ```
+
+![AMC dogruluk-SNR S-egrisi: uc bolge (dusuk-SNR tabani, gecis/en kirilgan, yuksek-SNR tavani) ve karisiklik matrisi sablonu](img/b19_snr_dogruluk_egri.svg)
 
 Bu eğriden çıkarılacak mühendislik dersleri:
 
@@ -581,6 +585,8 @@ RF-ML'in en yaygın ve en sinsi başarısızlığı budur. Model, eğitim verisi
  tek SDR/                 çok SDR/        sessizce yanılır
  tek gün                  her koşul
 ```
+
+![Dagitim kaymasi: egitim dagitimi (dar/sentetik/tek-SDR) vs gercek saha dagitimi (genis/cok-SDR/cok-gun) Gauss egrileri — ortusmeyen bolge modelin sessizce yanildigi alan](img/b19_dagitim_kaymasi.svg)
 
 ### Aşırı uydurma (overfitting) ve sahte ilişki (spurious correlation)
 

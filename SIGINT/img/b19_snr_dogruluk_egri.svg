@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="460" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">SNR'a Karsi AMC Dogrulugu — S-Egri Anatomisi</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#6b7a90">Uc bolge: dusuk-SNR tabani / gecis (en kirilgan) / yuksek-SNR tavani — ve karisiklik matrisi sablonu</text>
+
+  <!-- Sol: SNR-dogruluk S-egrisi grafiği -->
+  <rect x="20" y="60" width="440" height="360" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Y ekseni -->
+  <line x1="80" y1="80" x2="80" y2="375" stroke="#4a5a70" stroke-width="1.5"/>
+  <!-- X ekseni -->
+  <line x1="80" y1="375" x2="445" y2="375" stroke="#4a5a70" stroke-width="1.5"/>
+
+  <!-- Y aks -->
+  <text x="75" y="84" text-anchor="end" font-size="9" fill="#6b7a90">1.0</text>
+  <text x="75" y="167" text-anchor="end" font-size="9" fill="#6b7a90">0.8</text>
+  <text x="75" y="230" text-anchor="end" font-size="9" fill="#6b7a90">0.5</text>
+  <text x="75" y="293" text-anchor="end" font-size="9" fill="#6b7a90">0.3</text>
+  <text x="75" y="340" text-anchor="end" font-size="9" fill="#6b7a90">1/M</text>
+  <text x="75" y="378" text-anchor="end" font-size="9" fill="#6b7a90">0</text>
+
+  <!-- X aks SNR deger -->
+  <text x="80" y="392" text-anchor="middle" font-size="9" fill="#6b7a90">−20</text>
+  <text x="155" y="392" text-anchor="middle" font-size="9" fill="#6b7a90">−10</text>
+  <text x="230" y="392" text-anchor="middle" font-size="9" fill="#6b7a90">0</text>
+  <text x="305" y="392" text-anchor="middle" font-size="9" fill="#6b7a90">+10</text>
+  <text x="380" y="392" text-anchor="middle" font-size="9" fill="#6b7a90">+20</text>
+  <text x="440" y="392" text-anchor="middle" font-size="9" fill="#6b7a90">+30</text>
+  <text x="250" y="410" text-anchor="middle" font-size="10" fill="#6b7a90">SNR (dB)</text>
+  <text x="50" y="228" font-size="10" fill="#6b7a90" transform="rotate(-90,50,228)">Dogruluk</text>
+
+  <!-- Kilavuz cizgiler -->
+  <line x1="80" y1="167" x2="445" y2="167" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <line x1="80" y1="230" x2="445" y2="230" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <line x1="80" y1="340" x2="445" y2="340" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <line x1="155" y1="80" x2="155" y2="375" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <line x1="230" y1="80" x2="230" y2="375" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <line x1="305" y1="80" x2="305" y2="375" stroke="#d3dde8" stroke-width="0.5" stroke-dasharray="3,3"/>
+
+  <!-- S egrisi (AMC genel) — mavi -->
+  <path d="M 80,340 L 100,340 L 115,338 L 130,335 L 145,330 L 155,325 L 168,315 L 180,295 L 195,270 L 210,240 L 220,210 L 230,180 L 245,155 L 260,135 L 275,118 L 292,105 L 310,96 L 330,90 L 355,87 L 380,85 L 410,84 L 445,84" fill="none" stroke="#1565c0" stroke-width="3"/>
+
+  <!-- Uc bolge renkli alan -->
+  <!-- 1) Dusuk SNR tabani: −20 ~ −10 -->
+  <rect x="80" y="320" width="75" height="55" rx="0" fill="#fce4e4" fill-opacity="0.5"/>
+  <text x="117" y="308" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">1. Tabani</text>
+  <text x="117" y="319" text-anchor="middle" font-size="8" fill="#c0392b">(rastgele ~1/M)</text>
+
+  <!-- 2) Gecis bolgesi: −10 ~ +10 -->
+  <rect x="155" y="100" width="150" height="240" rx="0" fill="#fff9c4" fill-opacity="0.5"/>
+  <text x="230" y="95" text-anchor="middle" font-size="9" font-weight="bold" fill="#ff8f00">2. Gecis — En Kirilgan</text>
+  <text x="230" y="107" text-anchor="middle" font-size="8" fill="#ff8f00">(kucuk SNR farki = buyuk dogruluk farki)</text>
+
+  <!-- 3) Tavan: +10 ~ +30 -->
+  <rect x="305" y="80" width="140" height="70" rx="0" fill="#e8f5e9" fill-opacity="0.5"/>
+  <text x="375" y="76" text-anchor="middle" font-size="9" font-weight="bold" fill="#1a8a3a">3. Yuksek-SNR Tavan</text>
+  <text x="375" y="160" text-anchor="middle" font-size="8" fill="#1a8a3a">Tavan &lt; %100 olabilir</text>
+  <text x="375" y="172" text-anchor="middle" font-size="8" fill="#1a8a3a">(bazi ciftler ozunde</text>
+  <text x="375" y="184" text-anchor="middle" font-size="8" fill="#1a8a3a">karisir: QAM aileleri)</text>
+
+  <!-- S egrisi yeniden on plana -->
+  <path d="M 80,340 L 100,340 L 115,338 L 130,335 L 145,330 L 155,325 L 168,315 L 180,295 L 195,270 L 210,240 L 220,210 L 230,180 L 245,155 L 260,135 L 275,118 L 292,105 L 310,96 L 330,90 L 355,87 L 380,85 L 410,84 L 445,84" fill="none" stroke="#1565c0" stroke-width="3"/>
+
+  <!-- Gecis eglecisi ok -->
+  <line x1="230" y1="200" x2="195" y2="248" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <circle cx="203" cy="260" r="4" fill="#ff8f00" fill-opacity="0.7"/>
+
+  <!-- Grafik basligi -->
+  <text x="260" y="90" font-size="9" fill="#1565c0">AMC Dogruluk-SNR Egrisi</text>
+
+  <!-- Sag: Karisiklik matrisi sablonu -->
+  <rect x="480" y="60" width="360" height="360" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="660" y="82" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">Karisiklik Matrisi Sablonu</text>
+  <text x="660" y="96" text-anchor="middle" font-size="10" fill="#6b7a90">"Hangi modulasyon ciftleri karisir?" — AMC teşhisi</text>
+
+  <!-- Matris satir/sutun basliklarI -->
+  <text x="530" y="118" text-anchor="middle" font-size="8" font-weight="bold" fill="#6b7a90">Tahmin →</text>
+
+  <!-- Sutun basliklarI (tahmin) -->
+  <text x="568" y="132" text-anchor="middle" font-size="8" fill="#4a5a70">BPSK</text>
+  <text x="608" y="132" text-anchor="middle" font-size="8" fill="#4a5a70">QPSK</text>
+  <text x="648" y="132" text-anchor="middle" font-size="8" fill="#4a5a70">8PSK</text>
+  <text x="688" y="132" text-anchor="middle" font-size="8" fill="#4a5a70">16Q</text>
+  <text x="728" y="132" text-anchor="middle" font-size="8" fill="#4a5a70">64Q</text>
+  <text x="768" y="132" text-anchor="middle" font-size="8" fill="#4a5a70">AM</text>
+
+  <!-- Satir basliklarI (gercek) -->
+  <text x="502" y="158" font-size="8" fill="#4a5a70">BPSK</text>
+  <text x="502" y="198" font-size="8" fill="#4a5a70">QPSK</text>
+  <text x="502" y="238" font-size="8" fill="#4a5a70">8PSK</text>
+  <text x="502" y="278" font-size="8" fill="#4a5a70">16Q</text>
+  <text x="502" y="318" font-size="8" fill="#4a5a70">64Q</text>
+  <text x="502" y="358" font-size="8" fill="#4a5a70">AM</text>
+  <text x="494" y="270" font-size="9" fill="#6b7a90" transform="rotate(-90,490,270)">Gercek ↓</text>
+
+  <!-- Matris hucreleri: koyegen guclu (yesil), bazilari karisik (kirmizi/turuncu) -->
+  <!-- BPSK satiri -->
+  <rect x="548" y="138" width="38" height="28" rx="2" fill="#1a8a3a" fill-opacity="0.8"/>
+  <text x="567" y="157" text-anchor="middle" font-size="9" fill="white">95%</text>
+  <rect x="588" y="138" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="607" y="157" text-anchor="middle" font-size="9" fill="#1565c0">3%</text>
+  <rect x="628" y="138" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="647" y="157" text-anchor="middle" font-size="9" fill="#6b7a90">1%</text>
+  <rect x="668" y="138" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="687" y="157" text-anchor="middle" font-size="9" fill="#6b7a90">1%</text>
+  <rect x="708" y="138" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="727" y="157" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+  <rect x="748" y="138" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="767" y="157" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+
+  <!-- QPSK satiri -->
+  <rect x="548" y="178" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="567" y="197" text-anchor="middle" font-size="9" fill="#6b7a90">2%</text>
+  <rect x="588" y="178" width="38" height="28" rx="2" fill="#1a8a3a" fill-opacity="0.8"/>
+  <text x="607" y="197" text-anchor="middle" font-size="9" fill="white">88%</text>
+  <rect x="628" y="178" width="38" height="28" rx="2" fill="#fce4e4"/>
+  <text x="647" y="197" text-anchor="middle" font-size="9" fill="#c0392b">9%</text>
+  <rect x="668" y="178" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="687" y="197" text-anchor="middle" font-size="9" fill="#6b7a90">1%</text>
+  <rect x="708" y="178" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="727" y="197" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+  <rect x="748" y="178" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="767" y="197" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+
+  <!-- 8PSK satiri -->
+  <rect x="548" y="218" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="567" y="237" text-anchor="middle" font-size="9" fill="#6b7a90">1%</text>
+  <rect x="588" y="218" width="38" height="28" rx="2" fill="#fce4e4"/>
+  <text x="607" y="237" text-anchor="middle" font-size="9" fill="#c0392b">10%</text>
+  <rect x="628" y="218" width="38" height="28" rx="2" fill="#1a8a3a" fill-opacity="0.7"/>
+  <text x="647" y="237" text-anchor="middle" font-size="9" fill="white">82%</text>
+  <rect x="668" y="218" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="687" y="237" text-anchor="middle" font-size="9" fill="#6b7a90">6%</text>
+  <rect x="708" y="218" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="727" y="237" text-anchor="middle" font-size="9" fill="#6b7a90">1%</text>
+  <rect x="748" y="218" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="767" y="237" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+
+  <!-- 16QAM satiri -->
+  <rect x="548" y="258" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="567" y="277" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+  <rect x="588" y="258" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="607" y="277" text-anchor="middle" font-size="9" fill="#6b7a90">2%</text>
+  <rect x="628" y="258" width="38" height="28" rx="2" fill="#fce4e4"/>
+  <text x="647" y="277" text-anchor="middle" font-size="9" fill="#c0392b">11%</text>
+  <rect x="668" y="258" width="38" height="28" rx="2" fill="#1a8a3a" fill-opacity="0.7"/>
+  <text x="687" y="277" text-anchor="middle" font-size="9" fill="white">76%</text>
+  <rect x="708" y="258" width="38" height="28" rx="2" fill="#fce4e4"/>
+  <text x="727" y="277" text-anchor="middle" font-size="9" fill="#c0392b">11%</text>
+  <rect x="748" y="258" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="767" y="277" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+
+  <!-- 64QAM satiri -->
+  <rect x="548" y="298" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="567" y="317" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+  <rect x="588" y="298" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="607" y="317" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+  <rect x="628" y="298" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="647" y="317" text-anchor="middle" font-size="9" fill="#6b7a90">2%</text>
+  <rect x="668" y="298" width="38" height="28" rx="2" fill="#fce4e4"/>
+  <text x="687" y="317" text-anchor="middle" font-size="9" fill="#c0392b">14%</text>
+  <rect x="708" y="298" width="38" height="28" rx="2" fill="#1a8a3a" fill-opacity="0.7"/>
+  <text x="727" y="317" text-anchor="middle" font-size="9" fill="white">82%</text>
+  <rect x="748" y="298" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="767" y="317" text-anchor="middle" font-size="9" fill="#6b7a90">2%</text>
+
+  <!-- AM satiri -->
+  <rect x="548" y="338" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="567" y="357" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+  <rect x="588" y="338" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="607" y="357" text-anchor="middle" font-size="9" fill="#6b7a90">1%</text>
+  <rect x="628" y="338" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="647" y="357" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+  <rect x="668" y="338" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="687" y="357" text-anchor="middle" font-size="9" fill="#6b7a90">1%</text>
+  <rect x="708" y="338" width="38" height="28" rx="2" fill="#e3f2fd"/>
+  <text x="727" y="357" text-anchor="middle" font-size="9" fill="#6b7a90">0%</text>
+  <rect x="748" y="338" width="38" height="28" rx="2" fill="#1a8a3a" fill-opacity="0.8"/>
+  <text x="767" y="357" text-anchor="middle" font-size="9" fill="white">98%</text>
+
+  <!-- Karisiklik matrisi aciklama -->
+  <text x="660" y="388" text-anchor="middle" font-size="9" fill="#1a8a3a">Koyegen (yesil): dogru siniflandirma orani</text>
+  <text x="660" y="400" text-anchor="middle" font-size="9" fill="#c0392b">Koyegen disi (kirmizi): karisma/yanlis sinif</text>
+  <text x="660" y="412" text-anchor="middle" font-size="9" fill="#6b7a90">16QAM↔64QAM: ozunde zor cift — yuksek SNR'da bile karisir</text>
+
+  <!-- Alt ozet -->
+  <rect x="20" y="432" width="820" height="22" rx="3" fill="#f0f4ff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="430" y="447" text-anchor="middle" font-size="9" fill="#4a5a70">Tek dogruluk sayisi reklamdır; dogruluk-SNR egrisi + karisiklik matrisi muhendisliktir. Hangi SNR'da, hangi cift karisir? — Sistemin calisma SNR'i gecis bolgesine dusmemeli.</text>
+</svg>

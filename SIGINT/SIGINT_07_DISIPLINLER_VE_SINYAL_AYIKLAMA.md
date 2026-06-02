@@ -273,6 +273,8 @@ Pratik bir ölçüm refleksi: Bir darbe treninin ardışık TOA farklarını (de
 <a id="7"></a>
 ## 7. Deinterleaving: Üst Üste Binmiş Darbe Trenlerini Ayırma (CDIF/SDIF)
 
+![Deinterleaving — Uc ic ice darbe treni zaman cizgisi ve TOA-farki PRI histogrami](img/b07_deinterleaving_pri.svg)
+
 Deinterleaving, iç içe geçmiş darbe trenlerini yalnızca zamanlama bilgisinden ayırma işidir. Bölüm 4'teki parametre kümelemesi akışı kaba alt-kümelere böldükten sonra, her alt-küme içinde hâlâ birden çok yayıcı olabilir (aynı frekans/açıda iki radar). Onları ayıran tek şey zamansal ritimleridir; deinterleaving bu ritimleri bulur.
 
 ### Temel fikir: PRI'yi histogramdan bulmak
@@ -325,6 +327,8 @@ Her iki yöntemin de ortak iskeleti: (1) TOA farklarından bir histogram kur, (2
 <a id="8"></a>
 ## 8. Otomatik Modülasyon Tanıma (AMC): Öznitelik ve İstatistik Tabanlı
 
+![AMC — BPSK/QPSK/16-QAM takimyildiz ve 4. derece kumulant bolge imzalari](img/b07_amc_kumulant.svg)
+
 Haberleşme (COMINT) ayıklamasında, bir sinyali yakaladıktan sonraki ilk soru "bu hangi modülasyon?" sorusudur. Bölüm 1 ve 4 modülasyon türlerini tanıttı; burada bir makinenin etiket olmadan, kör biçimde modülasyonu nasıl çıkardığına bakıyoruz. Buna Otomatik Modülasyon Tanıma (AMC, Automatic Modulation Classification) denir. İki büyük aile vardır.
 
 Karar-teorik (likelihood-based) yaklaşım, her olası modülasyon için bir olasılık modeli kurar ve gözlenen IQ örneklerinin hangi modeli en olası kıldığını hesaplar. Teorik olarak optimaldir (en düşük hata) ama kanal parametrelerini (faz, frekans kayması, gürültü gücü) bilmeyi ya da kestirmeyi gerektirir ve hesabı ağırdır. Pratikte daha çok öznitelik tabanlı yaklaşım kullanılır.
@@ -374,6 +378,8 @@ Pratik bir uyarı: yayınlanmış AMC doğrulukları çoğunlukla belirli bir ve
 
 <a id="9"></a>
 ## 9. Spesifik Yayıcı Tanıma (SEI) ve RF Parmak İzi
+
+![SEI — Verici acilis transient ve kararli durum faz-gurultus/UMOP imza bolgeleri](img/b07_sei_transient.svg)
 
 Şimdiye kadar yayıcı tipini (hangi model radar, hangi modülasyon) çıkarmaya odaklandık. Bir adım daha ileri gidip aynı modelin iki ayrı fiziksel cihazını birbirinden ayırmak, Spesifik Yayıcı Tanıma'dır (SEI, Specific Emitter Identification). Halk dilindeki karşılığı RF parmak izi (RF fingerprinting). Bu, Bölüm 1'de değindiğimiz ELINT-MASINT kesişiminde durur.
 

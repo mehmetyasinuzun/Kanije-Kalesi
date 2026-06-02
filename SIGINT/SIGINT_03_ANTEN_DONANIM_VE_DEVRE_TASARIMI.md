@@ -121,6 +121,8 @@ L(çeyrek dalga) ≈ ──────      ( = yarım dalga / 2 )
 
 > **Püf:** ADS-B (1090 MHz) için "tam boy" çeyrek dalga sadece **6,5 cm**'dir. Bir SMA konnektöre 6,5 cm bakır tel lehimleyip altına dört adet ~6,9 cm "radyal" eklersen, ev yapımı ground-plane anten **mağaza antenini sollar**. Maliyet: bir kahve parasından az. İşte SIGINT donanımının güzelliği bu — **bilgi, paradan değerlidir**.
 
+![Ceyrek dalga anten boyu - frekans egrisi (log eksen): 27, 137, 433, 1090, 2400 MHz isaretli; L=71.5/f formulu](img/b03_anten_boy_frekans.svg)
+
 ### 2.3 Empedans — neden 50 Ω?
 
 Her anten, beslendiği noktada bir **empedans** (Z, ohm cinsinden, AC direnci) gösterir. Bu, "anten kaynaktan ne kadar kolay enerji alır/verir" ölçüsüdür. Rezonanstaki ideal yarım dalga dipolün serbest uzay empedansı teorik olarak **≈ 73 Ω**, çeyrek dalga monopolünki (ideal toprak düzlemiyle) **≈ 36 Ω** civarıdır.
@@ -358,6 +360,8 @@ F_top = 10  →  NF_top = 10 dB    ← 8,7 dB daha kötü
 ```
 
 > **Sonuç:** İyi yerleştirilmiş LNA, sistem gürültü figürünü **10 dB'den ~1,3 dB'ye** indirdi. Bu, gürültü tabanını ~8–9 dB düşürmek = daha önce **duyulamayan** zayıf sinyalleri **duyulur** yapmak demektir. **Antene en yakın aktif kat, sistemin kaderini belirler.**
+
+![Friis gurultu kaskad: KOTU zincir (kablo oncede, NF 6.1 dB) vs IYI zincir (LNA antende, NF 1.1 dB); her halkada NF ve kazanc etiketi](img/b03_lna_kaskad_gurultu.svg)
 
 ### 5.4  Ne zaman LNA ZARAR verir? (aşırı sürme / IMD)
 LNA her derde deva değildir — **yanlış kullanılırsa zincirini bozar:**

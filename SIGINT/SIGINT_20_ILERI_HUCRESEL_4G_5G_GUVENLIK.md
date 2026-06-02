@@ -50,6 +50,8 @@ Aşağıdaki tablo, nesil × güvenlik özelliği eksenini özetler. Burada ama�
 | Home-network'ün doğrulamaya katılımı | Düşük | Orta | Orta | Yüksek (ev ağı kontrolü) |
 | Çekirdek ağ arası güven modeli | Kapalı/güvenilen | SS7/MAP | Diameter | SBA + TLS, roaming'de SEPP |
 
+![Hucresel guvenlik evrimi matrisi: 2G/3G/4G/5G x guvenlik ozelligi — yok/kismi/var/zorunlu renk kodu](img/b20_nesil_evrim_matrisi.svg)
+
 > Mühendislik sezgisi: Tablodaki en kritik iki satır "karşılıklı doğrulama" ve "kalıcı kimlik gizliliği"dir. 2G'nin iki kanonik zafiyeti tam olarak bunların yokluğundan doğar: cihaz ağı doğrulayamadığı için sahte baz istasyonu mümkündür, ve IMSI açık gittiği için yakalanabilir. 3G karşılıklı doğrulamayı getirerek birincisini büyük ölçüde kapadı; 5G ise SUCI ile ikincisini hedef aldı. LTE bu ikisinin arasında durur: karşılıklı doğrulaması güçlüdür ama ilk ek (attach) sırasında kalıcı kimlik hâlâ açık gidebilir. Bu tek cümle, 7. ve 10. bölümlerin neredeyse tamamını çerçeveler.
 
 ### Neslin ötesinde: "geriye uyumluluk" güvenlik borcudur
@@ -336,6 +338,8 @@ Bu ayrım kritiktir: "5G" etiketli bir bağlantı, eğer NSA ise güvenlik avant
 
 ### gNB ve 5GC düğümleri
 
+![LTE EPC ve 5G NR/5GC mimari karsilastirmasi: EPC dugumler (MME/HSS/SGW/PGW) sol, 5GC (AMF/UDM/SMF/UPF/AUSF/SIDF) sag, eslesme oklari ve SBA notu](img/b20_lte_5g_mimari.svg)
+
 Radyo tarafında baz istasyonu artık gNB'dir (Next Generation Node B; LTE'deki eNodeB'nin 5G karşılığı). Çekirdek tarafında ise LTE'nin tek-amaçlı düğümleri (MME, HSS, ...), servis-tabanlı bir mimaride yeniden adlandırılmış ve bölünmüş ağ fonksiyonlarına (NF) dönüşür.
 
 | 5GC fonksiyonu | Açılım | LTE'deki kabaca karşılığı | Görevi |
@@ -442,6 +446,8 @@ Beamforming'in dolaylı bir güvenlik/gizlilik etkisi vardır ve bunu doğru çe
         │
    Sonuç: havadaki bir pasif dinleyici (veya sahte hücre) kalıcı kimliği OKUYAMAZ
 ```
+
+![SUCI kimlik gizliligi: LTE'de IMSI acik (sahte hucre yakalar) vs 5G SA'da SUCI sifreli (sahte hucrede isine yaramaz); SIDF yalnizca ev aginda cozer — iki paralel senaryo](img/b20_suci_gizliligi.svg)
 
 Bu tasarımın doğrudan etkisi: 7. bölümdeki "IMSI yakalama" sınıfı, 5G SA'da kökünden zayıflar; çünkü sahte bir hücre cihazı kimliğini göndermeye ikna etse bile, eline yalnızca şifreli SUCI geçer ve onu çözecek özel anahtara sahip değildir. Bu, sahte baz istasyonunun en temel amacına (kalıcı kimlik toplama) karşı yapısal bir savunmadır. (Açık anahtar şifrelemesinin temelleri için Bölüm 1/genel kriptografi; burada önemli olan ilkedir: kimlik, yalnızca ev ağının çözebileceği biçimde şifrelenir.)
 
@@ -649,6 +655,8 @@ Tüm bu mimari ve zafiyet bilgisinin pratik karşılığı, somut savunma hamlel
 Buradaki en güçlü iki bireysel hamle şudur. Birincisi, mümkünse 2G'yi cihazda tümüyle kapatmaktır; bu, downgrade tabanlı tehdit sınıfının çoğunu doğrudan ortadan kaldırır, çünkü cihaz artık en zayıf nesle düşürülemez. İkincisi, alt katmana (hücresel şifrelemeye) güvenmeyip her şeyi uygulama katmanında uçtan uca şifrelemektir (HTTPS/TLS, güvenli DNS, uçtan uca mesajlaşma); bu, alt katmanda ne olursa olsun (downgrade, manipülasyon, yakalama) içeriğin gizli ve bütün kalmasını sağlar. Bu iki ilke birlikte, bireysel kullanıcının elindeki savunmanın belkemiğidir.
 
 ### Sahte-BTS tespiti (kavramsal)
+
+![Sahte-BTS tespit karar agaci: PSS/SSS normal mi - MIB/SIB operatorle tutarli mi - beklenmedik hucre - 2G'ye dusme uyarisi - alarm (pasif gozlem, savunma)](img/b20_imsi_catcher_savunma.svg)
 
 Sahte baz istasyonu tespiti, bir reçete değil bir izleme ilkesidir: ortamdaki hücrelerin açık yayın bilgileri (PSS/SSS, MIB/SIB; Bölüm 4-5) ve davranışları, beklenen operatör profiliyle tutarlı mı? Tutarsızlıklar (beklenmedik bir hücrenin ani belirmesi, anormal güçte yayın, şifrelemenin beklenmedik biçimde kalkması, cihazın açıklanamaz biçimde 2G'ye düşmesi) bir uyarı işaretidir. Bu izleme pasiftir (yalnızca açık yayını gözlemler) ve yayın gerektirmez; bireysel ve kurumsal sahte-BTS farkındalığının temelidir. (Bölüm 6'daki sahte baz istasyonu kavramı, buranın tehdit zeminidir.)
 

@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="880" height="480" fill="#f4f7fb"/>
+  <text x="440" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Yillara Gore Kablosuz Zafiyet Zaman Cizelgesi</text>
+
+  <!-- Y ekseni etiketler (protokol kategorileri) -->
+  <rect x="10" y="40" width="120" height="420" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="70" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">WiFi</text>
+  <text x="70" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Bluetooth</text>
+  <text x="70" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">Hucresel</text>
+  <text x="70" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">SS7/Tel.</text>
+  <text x="70" y="360" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7a90">GNSS</text>
+  <text x="70" y="430" text-anchor="middle" font-size="11" font-weight="bold" fill="#7a8aa0">IoT/RFID</text>
+
+  <!-- Ana zemin grafik alanı -->
+  <rect x="136" y="40" width="730" height="420" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Izgara çizgileri ve yıl etiketleri -->
+  <!-- X ekseni: 1994..2022, 28 yıl, aralık ~26px -->
+  <!-- Yıllar: 1994,1996,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016,2018,2020,2022 -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#6b7a90"/>
+    </marker>
+  </defs>
+
+  <!-- Dikey ızgara çizgileri (her 2 yıl) -->
+  <!-- x = 136 + (yil-1994)*(730/28) -->
+  <!-- yıl=1994: x=136, 1996:136+52=188, 1998:240, 2000:292, 2002:344, 2004:396, 2006:448, 2008:500, 2010:552, 2012:604, 2014:656, 2016:708, 2018:760, 2020:812, 2022:864 -->
+  <line x1="188" y1="40" x2="188" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="240" y1="40" x2="240" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="292" y1="40" x2="292" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="344" y1="40" x2="344" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="396" y1="40" x2="396" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="448" y1="40" x2="448" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="500" y1="40" x2="500" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="552" y1="40" x2="552" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="604" y1="40" x2="604" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="656" y1="40" x2="656" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="708" y1="40" x2="708" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="760" y1="40" x2="760" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="812" y1="40" x2="812" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="864" y1="40" x2="864" y2="460" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- Yıl etiketleri -->
+  <text x="136" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">1994</text>
+  <text x="188" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">1996</text>
+  <text x="240" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">1998</text>
+  <text x="292" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2000</text>
+  <text x="344" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2002</text>
+  <text x="396" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2004</text>
+  <text x="448" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2006</text>
+  <text x="500" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2008</text>
+  <text x="552" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2010</text>
+  <text x="604" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2012</text>
+  <text x="656" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2014</text>
+  <text x="708" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2016</text>
+  <text x="760" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2018</text>
+  <text x="812" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2020</text>
+  <text x="864" y="474" text-anchor="middle" font-size="9" fill="#4a5a70">2022+</text>
+
+  <!-- Yatay bant ayıraçları -->
+  <line x1="136" y1="110" x2="866" y2="110" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="136" y1="180" x2="866" y2="180" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="136" y1="250" x2="866" y2="250" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="136" y1="320" x2="866" y2="320" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="136" y1="390" x2="866" y2="390" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- ===== WiFi (y bant: 40-110, merkez y=75) ===== -->
+  <!-- WEP 2001: x=292 tarihsel -->
+  <rect x="282" y="62" width="52" height="16" rx="3" fill="#c0392b" opacity="0.8"/>
+  <text x="308" y="74" text-anchor="middle" font-size="9" fill="white">WEP</text>
+  <!-- WPA-TKIP 2008-2009: x=500-526 -->
+  <rect x="490" y="62" width="36" height="16" rx="3" fill="#c0392b" opacity="0.7"/>
+  <text x="508" y="74" text-anchor="middle" font-size="9" fill="white">TKIP</text>
+  <!-- WPS 2011: x=578 surüyor -->
+  <rect x="569" y="62" width="30" height="16" rx="3" fill="#ff8f00" opacity="0.9"/>
+  <text x="584" y="74" text-anchor="middle" font-size="9" fill="white">WPS</text>
+  <!-- KRACK 2017: x=734 yamandi -->
+  <rect x="725" y="62" width="30" height="16" rx="3" fill="#1a8a3a" opacity="0.9"/>
+  <text x="740" y="74" text-anchor="middle" font-size="9" fill="white">KRACK</text>
+  <!-- Kr00k/Dragonblood 2019: x=786 -->
+  <rect x="771" y="62" width="28" height="16" rx="3" fill="#1a8a3a" opacity="0.9"/>
+  <text x="785" y="74" text-anchor="middle" font-size="9" fill="white">Kr00k</text>
+  <!-- FragAttacks 2021: x=838 kismen -->
+  <rect x="826" y="62" width="36" height="16" rx="3" fill="#ff8f00" opacity="0.9"/>
+  <text x="844" y="74" text-anchor="middle" font-size="9" fill="white">Frag</text>
+  <!-- WPA3 Dragonblood 2019 -->
+  <rect x="771" y="84" width="36" height="14" rx="3" fill="#1a8a3a" opacity="0.8"/>
+  <text x="789" y="95" text-anchor="middle" font-size="9" fill="white">Dragon</text>
+
+  <!-- ===== Bluetooth (y bant: 110-180, merkez y=145) ===== -->
+  <!-- BlueBorne 2017: x=734 yamandi -->
+  <rect x="723" y="118" width="44" height="16" rx="3" fill="#1a8a3a" opacity="0.9"/>
+  <text x="745" y="130" text-anchor="middle" font-size="9" fill="white">BlueBorne</text>
+  <!-- KNOB 2019 -->
+  <rect x="770" y="118" width="28" height="16" rx="3" fill="#1a8a3a" opacity="0.9"/>
+  <text x="784" y="130" text-anchor="middle" font-size="9" fill="white">KNOB</text>
+  <!-- BIAS 2020 -->
+  <rect x="800" y="118" width="24" height="16" rx="3" fill="#1a8a3a" opacity="0.9"/>
+  <text x="812" y="130" text-anchor="middle" font-size="9" fill="white">BIAS</text>
+  <!-- SweynTooth/BleedingTooth 2020 -->
+  <rect x="798" y="138" width="40" height="14" rx="3" fill="#1a8a3a" opacity="0.8"/>
+  <text x="818" y="149" text-anchor="middle" font-size="9" fill="white">Sweyn/BT</text>
+  <!-- BLESA 2020 kismen -->
+  <rect x="798" y="156" width="30" height="14" rx="3" fill="#ff8f00" opacity="0.9"/>
+  <text x="813" y="167" text-anchor="middle" font-size="9" fill="white">BLESA</text>
+
+  <!-- ===== Hucresel (y bant: 180-250, merkez y=215) ===== -->
+  <!-- A5/1-A5/2 1994-2003: uzun bar tarihsel -->
+  <rect x="136" y="188" width="214" height="16" rx="3" fill="#c0392b" opacity="0.8"/>
+  <text x="243" y="200" text-anchor="middle" font-size="9" fill="white">A5/1 A5/2 (2G)</text>
+  <!-- IMSI catcher 2010s: surüyor -->
+  <rect x="552" y="188" width="156" height="16" rx="3" fill="#ff8f00" opacity="0.9"/>
+  <text x="630" y="200" text-anchor="middle" font-size="9" fill="white">IMSI Catcher / Downgrade</text>
+  <!-- aLTeR/ToRPEDO 2019 -->
+  <rect x="770" y="188" width="42" height="16" rx="3" fill="#ff8f00" opacity="0.9"/>
+  <text x="791" y="200" text-anchor="middle" font-size="9" fill="white">aLTeR/TORP</text>
+  <!-- 5G arastirma 2019+ -->
+  <rect x="770" y="210" width="94" height="14" rx="3" fill="#ff8f00" opacity="0.8"/>
+  <text x="817" y="221" text-anchor="middle" font-size="9" fill="white">5G SUCI/arastirma</text>
+
+  <!-- ===== SS7/Telekom (y bant: 250-320, merkez y=285) ===== -->
+  <!-- SS7 tasarim: uzun bar suruyor -->
+  <rect x="136" y="258" width="728" height="16" rx="3" fill="#ff8f00" opacity="0.8"/>
+  <text x="500" y="270" text-anchor="middle" font-size="9" fill="#1a2b40">SS7 / Diameter / GTP — Tasarim Kaynakli, Devam Ediyor (firewall ile azaltma)</text>
+  <!-- Kamuoyu 2014 -->
+  <rect x="646" y="280" width="40" height="14" rx="3" fill="#1565c0" opacity="0.9"/>
+  <text x="666" y="291" text-anchor="middle" font-size="9" fill="white">CCC 2014</text>
+
+  <!-- ===== GNSS (y bant: 320-390, merkez y=355) ===== -->
+  <!-- Jamming/Spoofing: suruyor -->
+  <rect x="136" y="328" width="728" height="16" rx="3" fill="#ff8f00" opacity="0.7"/>
+  <text x="500" y="340" text-anchor="middle" font-size="9" fill="#1a2b40">GNSS Jamming / Spoofing — Tasarim Kaynakli, Devam Ediyor (OSNMA azaltma)</text>
+  <!-- Gosterim 2010s -->
+  <rect x="552" y="350" width="40" height="14" rx="3" fill="#6b7a90" opacity="0.8"/>
+  <text x="572" y="361" text-anchor="middle" font-size="9" fill="white">Gost. 2013</text>
+
+  <!-- ===== IoT/RFID (y bant: 390-460, merkez y=425) ===== -->
+  <!-- KeeLoq/Crypto-1 2007-2008 -->
+  <rect x="448" y="398" width="52" height="16" rx="3" fill="#c0392b" opacity="0.8"/>
+  <text x="474" y="410" text-anchor="middle" font-size="9" fill="white">KeeLoq/Crypto-1</text>
+  <!-- RollJam 2015 -->
+  <rect x="681" y="398" width="32" height="16" rx="3" fill="#ff8f00" opacity="0.9"/>
+  <text x="697" y="410" text-anchor="middle" font-size="9" fill="white">RollJam</text>
+  <!-- LoRaWAN/Zigbee 2018 -->
+  <rect x="760" y="398" width="48" height="16" rx="3" fill="#ff8f00" opacity="0.8"/>
+  <text x="784" y="410" text-anchor="middle" font-size="9" fill="white">Zigbee/LoRa</text>
+  <!-- Rolling-PWN 2022 -->
+  <rect x="848" y="398" width="18" height="16" rx="3" fill="#1565c0" opacity="0.8"/>
+  <text x="857" y="410" text-anchor="middle" font-size="9" fill="white">RPW</text>
+
+  <!-- LEGENDA -->
+  <rect x="140" y="424" width="12" height="12" rx="2" fill="#c0392b"/>
+  <text x="156" y="435" font-size="10" fill="#4a5a70">Tarihsel / Yamandi</text>
+  <rect x="270" y="424" width="12" height="12" rx="2" fill="#1a8a3a"/>
+  <text x="286" y="435" font-size="10" fill="#4a5a70">Yamandi</text>
+  <rect x="360" y="424" width="12" height="12" rx="2" fill="#ff8f00"/>
+  <text x="376" y="435" font-size="10" fill="#4a5a70">Suruyor / Kismen</text>
+  <rect x="492" y="424" width="12" height="12" rx="2" fill="#1565c0"/>
+  <text x="508" y="435" font-size="10" fill="#4a5a70">Kilometre Tasi</text>
+</svg>

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">SATCOM Guvenlik — Neden Bazi Sistemler Zayiftir</text>
+  <line x1="20" y1="38" x2="840" y2="38" stroke="#9fb3c8" stroke-width="0.8"/>
+
+  <!-- Ana panel -->
+  <rect x="20" y="44" width="820" height="400" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+
+  <!-- Ok tanimlari -->
+  <defs>
+    <marker id="arrD" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#1a2b40"/>
+    </marker>
+    <marker id="arrR3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#c0392b"/>
+    </marker>
+    <marker id="arrG3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#1a8a3a"/>
+    </marker>
+  </defs>
+
+  <!-- ========= BLOK DIAGRAM: 3 KATMAN ========= -->
+  <!-- Katman 1: PAYLOAD (ust) -->
+  <rect x="36" y="62" width="788" height="88" fill="#1565c0" fill-opacity="0.07" stroke="#1565c0" stroke-width="1.5" rx="5"/>
+  <text x="430" y="82" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">PAYLOAD — Kullanici Trafigi (Haberlesme Yuku)</text>
+
+  <!-- PAYLOAD ici kutu -->
+  <rect x="46" y="90" width="180" height="54" fill="#ffffff" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="136" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Bent-Pipe</text>
+  <text x="136" y="120" text-anchor="middle" font-size="9" fill="#36506e">iceriklere kayitsiz</text>
+  <text x="136" y="133" text-anchor="middle" font-size="9" fill="#36506e">taşıyıcı = boru</text>
+  <!-- Zafiyet etiketi -->
+  <rect x="240" y="90" width="210" height="54" fill="#fff0f0" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="345" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Zafiyet 1: Sifresiz Downlink</text>
+  <text x="345" y="120" text-anchor="middle" font-size="9" fill="#36506e">Sifreleme yoksa footprint'teki</text>
+  <text x="345" y="133" text-anchor="middle" font-size="9" fill="#36506e">HERKES gorur</text>
+  <!-- Savunma etiketi -->
+  <rect x="464" y="90" width="220" height="54" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="574" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Savunma 1: Uctan-Uca Sifreleme</text>
+  <text x="574" y="120" text-anchor="middle" font-size="9" fill="#36506e">TLS/IPsec gibi uygulama</text>
+  <text x="574" y="133" text-anchor="middle" font-size="9" fill="#36506e">katmanı sifreleme</text>
+  <!-- Basit aciklama sagda -->
+  <rect x="698" y="90" width="118" height="54" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1" rx="3"/>
+  <text x="757" y="107" text-anchor="middle" font-size="9" fill="#36506e">"Kimse bakmaz"</text>
+  <text x="757" y="120" text-anchor="middle" font-size="9" fill="#c0392b">varsayimi zayiftir</text>
+  <text x="757" y="133" text-anchor="middle" font-size="9" fill="#36506e">fiziksel gizlilik YOK</text>
+
+  <!-- Orta ok -->
+  <line x1="430" y1="152" x2="430" y2="168" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arrD)"/>
+
+  <!-- Katman 2: BENT-PIPE TRANSPONDER (orta) -->
+  <rect x="36" y="168" width="788" height="88" fill="#ff8f00" fill-opacity="0.07" stroke="#ff8f00" stroke-width="1.5" rx="5"/>
+  <text x="430" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">BENT-PIPE TRANSPONDER — Frekans Cevirici</text>
+
+  <rect x="46" y="195" width="180" height="54" fill="#ffffff" stroke="#ff8f00" stroke-width="1" rx="3"/>
+  <text x="136" y="212" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">LNA → Cevirim → HPA</text>
+  <text x="136" y="225" text-anchor="middle" font-size="9" fill="#36506e">uplink f → downlink f</text>
+  <text x="136" y="238" text-anchor="middle" font-size="9" fill="#36506e">kimlik sorgulamaz</text>
+
+  <rect x="240" y="195" width="210" height="54" fill="#fff0f0" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="345" y="212" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Zafiyet 2: Kim Yolluyor?</text>
+  <text x="345" y="225" text-anchor="middle" font-size="9" fill="#36506e">Uydu yetkili/yetkisiz</text>
+  <text x="345" y="238" text-anchor="middle" font-size="9" fill="#36506e">uplinkı AYIRT EDEMEZ</text>
+
+  <rect x="464" y="195" width="220" height="54" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="574" y="212" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Savunma 2: Taşiyici Izleme</text>
+  <text x="574" y="225" text-anchor="middle" font-size="9" fill="#36506e">Operatör spektral envanter</text>
+  <text x="574" y="238" text-anchor="middle" font-size="9" fill="#36506e">beklenmeyen taşiyiciyi yakalar</text>
+
+  <rect x="698" y="195" width="118" height="54" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1" rx="3"/>
+  <text x="757" y="212" text-anchor="middle" font-size="9" fill="#36506e">Yetkisiz uplink +</text>
+  <text x="757" y="225" text-anchor="middle" font-size="c0392b">hırsızlık +</text>
+  <text x="757" y="238" text-anchor="middle" font-size="9" fill="#c0392b">girisim = suç</text>
+
+  <!-- Alttaki ok -->
+  <line x1="430" y1="258" x2="430" y2="274" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arrD)"/>
+
+  <!-- Katman 3: TT&C (alt, kritik) -->
+  <rect x="36" y="274" width="788" height="90" fill="#c0392b" fill-opacity="0.07" stroke="#c0392b" stroke-width="2" rx="5"/>
+  <text x="430" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">TT&amp;C — Telemetri, Takip ve Komuta (EN KRITİK)</text>
+  <text x="430" y="307" text-anchor="middle" font-size="10" fill="#c0392b">Payload'a yetkisiz erisim: kotu. TT&amp;C'ye yetkisiz erisim: FELAKET.</text>
+
+  <rect x="46" y="312" width="180" height="44" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="136" y="328" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Komuta Bagi</text>
+  <text x="136" y="341" text-anchor="middle" font-size="9" fill="#36506e">yorunge, transponder,</text>
+  <text x="136" y="354" text-anchor="middle" font-size="9" fill="#36506e">yonelim kontrolu</text>
+
+  <rect x="240" y="312" width="210" height="44" fill="#fff0f0" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="345" y="328" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Zafiyet 3: Eski Kimlik Dogrulama</text>
+  <text x="345" y="341" text-anchor="middle" font-size="9" fill="#36506e">Saldirgan uydunun kendisini</text>
+  <text x="345" y="354" text-anchor="middle" font-size="9" fill="#36506e">yonlendirebilir / kaybettirebilir</text>
+
+  <rect x="464" y="312" width="220" height="44" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1.5" rx="3"/>
+  <text x="574" y="328" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Savunma 3: Modern TT&amp;C Sifreleme</text>
+  <text x="574" y="341" text-anchor="middle" font-size="9" fill="#36506e">Kriptografik kimlik dogrulama</text>
+  <text x="574" y="354" text-anchor="middle" font-size="9" fill="#36506e">komut yetkilendirme zorunlu</text>
+
+  <rect x="698" y="312" width="118" height="44" fill="#fff0f0" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <text x="757" y="328" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">Eski uydu riski</text>
+  <text x="757" y="341" text-anchor="middle" font-size="9" fill="#36506e">Modern operatorler</text>
+  <text x="757" y="354" text-anchor="middle" font-size="9" fill="#36506e">sifreleme uygular</text>
+
+  <!-- Sag taraf aciklama: Temel ilke kutusu -->
+  <!-- Genel prensip baslik -->
+  <rect x="36" y="374" width="788" height="60" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1" rx="3"/>
+  <text x="430" y="392" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Temel Guvenlik İlkesi</text>
+  <text x="430" y="408" text-anchor="middle" font-size="10" fill="#36506e">Uydu sinyali genis alana yayilir → fiziksel mesafe gizlilik saglamaz → gizlilik YALNIZCA sifrelemeyle saglanir.</text>
+  <text x="430" y="424" text-anchor="middle" font-size="10" fill="#36506e">Savunma: her katmanda sifreleme + TT&amp;C kimlik dogrulama + "kimse bakmaz" varsayimina asla guvenmemek.</text>
+
+  <!-- Alt aciklama -->
+  <rect x="20" y="448" width="820" height="30" fill="#f4f7fb"/>
+  <line x1="20" y1="448" x2="840" y2="448" stroke="#d3dde8" stroke-width="0.8"/>
+  <text x="430" y="463" text-anchor="middle" font-size="10" fill="#36506e">
+    NOT: Eski sistemler zayif olmayabilir; burada <tspan font-weight="bold">mekanizma</tspan> gosteriliyor. Modern operatorler downlink + TT&amp;C sifrelemesini ciddiye alir. Yetkisiz uplink her durumda agir suc.
+  </text>
+</svg>

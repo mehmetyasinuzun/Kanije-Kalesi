@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="820" height="500" fill="#f4f7fb"/>
+  <text x="410" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Zafiyet Mekanizma Siniflandirmasi</text>
+  <text x="410" y="46" text-anchor="middle" font-size="11" fill="#6b7a90">Ornek — Savunma Yonu</text>
+
+  <!-- Sinif kutulari: 3 sol, 3 sag, iki sutun -->
+  <!-- Sutun sol: x=20, sutun sag: x=425 -->
+  <!-- Her kutu: genislik 380, yukseklik 90 -->
+
+  <!-- 1. Kirlik Kripto ilkel -->
+  <rect x="20" y="60" width="380" height="90" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="20" y="60" width="8" height="90" rx="3" fill="#c0392b"/>
+  <text x="40" y="80" font-size="12" font-weight="bold" fill="#c0392b">Kirik Kripto Ilkel</text>
+  <text x="40" y="96" font-size="10" fill="#4a5a70">Ornek: WEP RC4, A5/1, Crypto-1 MIFARE</text>
+  <text x="40" y="111" font-size="10" fill="#4a5a70">Katman: Baglanti / Uygulama</text>
+  <text x="40" y="126" font-size="10" fill="#1a8a3a">Savunma: Ilkeli degistir (AES, KASUMI+, modern kart)</text>
+  <text x="40" y="141" font-size="10" fill="#6b7a90">Durum: Buyuk olcude tarihsel; eski cihazlarda suruyor</text>
+
+  <!-- 2. Anahtar yonetimi -->
+  <rect x="420" y="60" width="380" height="90" rx="6" fill="#ffffff" stroke="#1565c0" stroke-width="2"/>
+  <rect x="420" y="60" width="8" height="90" rx="3" fill="#1565c0"/>
+  <text x="440" y="80" font-size="12" font-weight="bold" fill="#1565c0">Anahtar Yonetimi / Yeniden Kullanim</text>
+  <text x="440" y="96" font-size="10" fill="#4a5a70">Ornek: KRACK (nonce reuse), KNOB (zayif anahtar)</text>
+  <text x="440" y="111" font-size="10" fill="#4a5a70">Katman: Baglanti</text>
+  <text x="440" y="126" font-size="10" fill="#1a8a3a">Savunma: Yama + guclu anahtar zorlama</text>
+  <text x="440" y="141" font-size="10" fill="#1a8a3a">Durum: Yamandi (uygulama yaması)</text>
+
+  <!-- 3. Protokol durum makinesi -->
+  <rect x="20" y="165" width="380" height="90" rx="6" fill="#ffffff" stroke="#1565c0" stroke-width="2"/>
+  <rect x="20" y="165" width="8" height="90" rx="3" fill="#1565c0"/>
+  <text x="40" y="185" font-size="12" font-weight="bold" fill="#1565c0">Protokol Durum Makinesi Hatasi</text>
+  <text x="40" y="201" font-size="10" fill="#4a5a70">Ornek: FragAttacks (parcalama), BIAS, BLESA</text>
+  <text x="40" y="216" font-size="10" fill="#4a5a70">Katman: Baglanti / MAC</text>
+  <text x="40" y="231" font-size="10" fill="#1a8a3a">Savunma: Yama + siki durum dogrulama</text>
+  <text x="40" y="246" font-size="10" fill="#ff8f00">Durum: Kismen yamandi; bazi tasarim azaltma ister</text>
+
+  <!-- 4. Uygulama kodu hatasi -->
+  <rect x="420" y="165" width="380" height="90" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="420" y="165" width="8" height="90" rx="3" fill="#c0392b"/>
+  <text x="440" y="185" font-size="12" font-weight="bold" fill="#c0392b">Uygulama (Kod) Hatasi</text>
+  <text x="440" y="201" font-size="10" fill="#4a5a70">Ornek: BlueBorne, SweynTooth, BleedingTooth</text>
+  <text x="440" y="216" font-size="10" fill="#4a5a70">Katman: Yigin / Surucu</text>
+  <text x="440" y="231" font-size="10" fill="#1a8a3a">Savunma: Yama + bellek-guvenli kod</text>
+  <text x="440" y="246" font-size="10" fill="#1a8a3a">Durum: Yamandi (OS/firmware guncelleme)</text>
+
+  <!-- 5. Yan kanal -->
+  <rect x="20" y="270" width="380" height="90" rx="6" fill="#ffffff" stroke="#ff8f00" stroke-width="2"/>
+  <rect x="20" y="270" width="8" height="90" rx="3" fill="#ff8f00"/>
+  <text x="40" y="290" font-size="12" font-weight="bold" fill="#ff8f00">Yan Kanal Sizintisi</text>
+  <text x="40" y="306" font-size="10" fill="#4a5a70">Ornek: Dragonblood (zamanlama/onbellek), Kr00k</text>
+  <text x="40" y="321" font-size="10" fill="#4a5a70">Katman: Fiziksel / Uygulama</text>
+  <text x="40" y="336" font-size="10" fill="#1a8a3a">Savunma: Sabit-zaman kod + yama + TEMPEST</text>
+  <text x="40" y="351" font-size="10" fill="#1a8a3a">Durum: Buyuk olcude yamandi</text>
+
+  <!-- 6. Tasarim / geriye uyumluluk -->
+  <rect x="420" y="270" width="380" height="90" rx="6" fill="#ffffff" stroke="#ff8f00" stroke-width="2"/>
+  <rect x="420" y="270" width="8" height="90" rx="3" fill="#ff8f00"/>
+  <text x="440" y="290" font-size="12" font-weight="bold" fill="#ff8f00">Tasarim / Geriye Uyumluluk</text>
+  <text x="440" y="306" font-size="10" fill="#4a5a70">Ornek: 2G downgrade, IMSI ifsa, SS7 guven</text>
+  <text x="440" y="321" font-size="10" fill="#4a5a70">Katman: Sistem / Ag</text>
+  <text x="440" y="336" font-size="10" fill="#1a8a3a">Savunma: Eski surumu kapat, guven siniri ciz</text>
+  <text x="440" y="351" font-size="10" fill="#ff8f00">Durum: Suruyor — mimari degisim gerekli</text>
+
+  <!-- Orta oklar (sol -> sag) -->
+  <line x1="210" y1="155" x2="210" y2="165" stroke="#d3dde8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="610" y1="155" x2="610" y2="165" stroke="#d3dde8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="210" y1="260" x2="210" y2="270" stroke="#d3dde8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="610" y1="260" x2="610" y2="270" stroke="#d3dde8" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Alt cerceve: 4 eksen ozeti -->
+  <rect x="20" y="378" width="780" height="110" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="30" y="396" font-size="11" font-weight="bold" fill="#1a2b40">Zafiyet Okuma Cercevesi (4 Eksen)</text>
+
+  <!-- 4 sutun -->
+  <rect x="30" y="404" width="175" height="76" rx="4" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1"/>
+  <text x="117" y="419" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Mekanizma</text>
+  <text x="117" y="433" text-anchor="middle" font-size="9" fill="#4a5a70">Hangi katmanda kirildi?</text>
+  <text x="117" y="447" text-anchor="middle" font-size="9" fill="#4a5a70">Kripto / Kod / Tasarim?</text>
+
+  <rect x="215" y="404" width="175" height="76" rx="4" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1"/>
+  <text x="302" y="419" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Katman</text>
+  <text x="302" y="433" text-anchor="middle" font-size="9" fill="#4a5a70">Fiziksel / MAC /</text>
+  <text x="302" y="447" text-anchor="middle" font-size="9" fill="#4a5a70">Ag / Uygulama?</text>
+
+  <rect x="400" y="404" width="175" height="76" rx="4" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1"/>
+  <text x="487" y="419" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Erisim</text>
+  <text x="487" y="433" text-anchor="middle" font-size="9" fill="#4a5a70">Menzil yeterli mi?</text>
+  <text x="487" y="447" text-anchor="middle" font-size="9" fill="#4a5a70">Operator erisimi mi?</text>
+
+  <rect x="585" y="404" width="205" height="76" rx="4" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1"/>
+  <text x="687" y="419" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Durum</text>
+  <text x="687" y="433" text-anchor="middle" font-size="9" fill="#4a5a70">Yamandi mi / Surüyor mu?</text>
+  <text x="687" y="447" text-anchor="middle" font-size="9" fill="#4a5a70">Saha guncellendi mi?</text>
+</svg>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="760" height="430" fill="#f4f7fb"/>
+  <text x="380" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">RFID/NFC Guvenlik Spektrumu</text>
+  <text x="380" y="48" text-anchor="middle" font-size="11" fill="#6b7a90">LF EM4100 &#x2192; HF MIFARE Classic &#x2192; DESFire EV3 — sifreleme kademesi</text>
+
+  <!-- Panel -->
+  <rect x="30" y="58" width="700" height="350" fill="#fff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Oklari ekseni -->
+  <defs>
+    <marker id="rarrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#6b7a90"/>
+    </marker>
+  </defs>
+  <line x1="60" y1="200" x2="710" y2="200" stroke="#6b7a90" stroke-width="2" marker-end="url(#rarrow)"/>
+  <text x="385" y="390" text-anchor="middle" font-size="11" fill="#6b7a90" font-weight="bold">Guvenlik GucU &#x2192; (ZAYIF &#x2192; GUCLU)</text>
+
+  <!-- 3 kutu: LF, MIFARE Classic, DESFire -->
+  <!-- LF EM4100 -->
+  <rect x="55" y="90" width="185" height="258" fill="#c0392b" opacity="0.08" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="148" y="116" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">LF</text>
+  <text x="148" y="133" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">EM4100 / HID Prox</text>
+  <text x="148" y="150" text-anchor="middle" font-size="10" fill="#6b7a90">125 kHz / 134 kHz</text>
+
+  <line x1="75" y1="162" x2="225" y2="162" stroke="#d3dde8" stroke-width="1"/>
+
+  <text x="75" y="182" font-size="10.5" font-weight="bold" fill="#c0392b">Mimari:</text>
+  <text x="75" y="197" font-size="10" fill="#4a5a70">Sadece UID yayinlar</text>
+  <text x="75" y="211" font-size="10" fill="#4a5a70">Sifreleme: YOK</text>
+  <text x="75" y="225" font-size="10" fill="#4a5a70">Kimlik dogrulama: YOK</text>
+
+  <line x1="75" y1="235" x2="225" y2="235" stroke="#d3dde8" stroke-width="1"/>
+
+  <text x="75" y="253" font-size="10.5" font-weight="bold" fill="#c0392b">Zafiyet:</text>
+  <text x="75" y="268" font-size="10" fill="#4a5a70">UID okuyunca klon</text>
+  <text x="75" y="282" font-size="10" fill="#4a5a70">Ucuz aracla saniyeler</text>
+  <text x="75" y="296" font-size="10" fill="#4a5a70">icinde kopyalanir</text>
+
+  <rect x="75" y="306" width="150" height="22" fill="#c0392b" opacity="0.15" rx="3"/>
+  <text x="150" y="321" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">KLONLANABILIR</text>
+
+  <!-- MIFARE Classic -->
+  <rect x="285" y="90" width="185" height="258" fill="#ff8f00" opacity="0.08" stroke="#ff8f00" stroke-width="1.5" rx="6"/>
+  <text x="378" y="116" text-anchor="middle" font-size="13" font-weight="bold" fill="#ff8f00">HF</text>
+  <text x="378" y="133" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">MIFARE Classic</text>
+  <text x="378" y="150" text-anchor="middle" font-size="10" fill="#6b7a90">13,56 MHz</text>
+
+  <line x1="305" y1="162" x2="455" y2="162" stroke="#d3dde8" stroke-width="1"/>
+
+  <text x="305" y="182" font-size="10.5" font-weight="bold" fill="#ff8f00">Mimari:</text>
+  <text x="305" y="197" font-size="10" fill="#4a5a70">Sektor/blok + Crypto-1</text>
+  <text x="305" y="211" font-size="10" fill="#4a5a70">Sifreleme: Crypto-1</text>
+  <text x="305" y="225" font-size="10" fill="#4a5a70">(48-bit, tescilli, kirik)</text>
+
+  <line x1="305" y1="235" x2="455" y2="235" stroke="#d3dde8" stroke-width="1"/>
+
+  <text x="305" y="253" font-size="10.5" font-weight="bold" fill="#ff8f00">Zafiyet:</text>
+  <text x="305" y="268" font-size="10" fill="#4a5a70">Crypto-1 akademik olarak</text>
+  <text x="305" y="282" font-size="10" fill="#4a5a70">kirildi; sektorler elde</text>
+  <text x="305" y="296" font-size="10" fill="#4a5a70">edilirse klon mumkun</text>
+
+  <rect x="305" y="306" width="150" height="22" fill="#ff8f00" opacity="0.15" rx="3"/>
+  <text x="380" y="321" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">ZAYIF SIFRELEME</text>
+
+  <!-- DESFire EV3 -->
+  <rect x="515" y="90" width="185" height="258" fill="#1a8a3a" opacity="0.08" stroke="#1a8a3a" stroke-width="1.5" rx="6"/>
+  <text x="608" y="116" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">HF</text>
+  <text x="608" y="133" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">MIFARE DESFire EV3</text>
+  <text x="608" y="150" text-anchor="middle" font-size="10" fill="#6b7a90">13,56 MHz</text>
+
+  <line x1="535" y1="162" x2="685" y2="162" stroke="#d3dde8" stroke-width="1"/>
+
+  <text x="535" y="182" font-size="10.5" font-weight="bold" fill="#1a8a3a">Mimari:</text>
+  <text x="535" y="197" font-size="10" fill="#4a5a70">AES-128/3DES</text>
+  <text x="535" y="211" font-size="10" fill="#4a5a70">Karsilikli kimlik dogr.</text>
+  <text x="535" y="225" font-size="10" fill="#4a5a70">CMAC / dinamik veri</text>
+
+  <line x1="535" y1="235" x2="685" y2="235" stroke="#d3dde8" stroke-width="1"/>
+
+  <text x="535" y="253" font-size="10.5" font-weight="bold" fill="#1a8a3a">Savunma:</text>
+  <text x="535" y="268" font-size="10" fill="#4a5a70">Kart + okuyucu birbirini</text>
+  <text x="535" y="282" font-size="10" fill="#4a5a70">kanitlar; statik UID</text>
+  <text x="535" y="296" font-size="10" fill="#4a5a70">tek basina yetmez</text>
+
+  <rect x="535" y="306" width="150" height="22" fill="#1a8a3a" opacity="0.15" rx="3"/>
+  <text x="610" y="321" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">MODERN STANDART</text>
+
+  <!-- Ok: LF → MIFARE -->
+  <line x1="240" y1="200" x2="285" y2="200" stroke="#6b7a90" stroke-width="1.5"/>
+  <!-- Ok: MIFARE → DESFire -->
+  <line x1="470" y1="200" x2="515" y2="200" stroke="#6b7a90" stroke-width="1.5"/>
+
+  <!-- Eksen alti maliyet iconu -->
+  <text x="148" y="408" text-anchor="middle" font-size="11" fill="#6b7a90">Ucuz, yaygın, eski</text>
+  <text x="378" y="408" text-anchor="middle" font-size="11" fill="#6b7a90">Milyarlarca kart; geciş doneminde</text>
+  <text x="608" y="408" text-anchor="middle" font-size="11" fill="#1a8a3a">Modern, tercih edilen</text>
+</svg>

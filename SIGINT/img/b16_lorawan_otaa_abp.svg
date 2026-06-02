@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">LoRaWAN Aktivasyon: OTAA vs ABP Karsilastirmasi</text>
+
+  <!-- Sol panel: OTAA -->
+  <rect x="30" y="48" width="380" height="402" fill="#fff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="30" y="48" width="380" height="30" fill="#1a8a3a" opacity="0.12"/>
+  <text x="220" y="69" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">OTAA (Over-The-Air Activation)</text>
+  <text x="220" y="90" text-anchor="middle" font-size="10.5" fill="#6b7a90">Tercih edilen, guclu yontem</text>
+
+  <!-- OTAA akis adimlar -->
+  <!-- Cihaz kutusu -->
+  <rect x="50" y="104" width="100" height="36" fill="#1565c0" opacity="0.18" rx="4" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="100" y="119" text-anchor="middle" font-size="10" fill="#1565c0" font-weight="bold">Uc Cihaz</text>
+  <text x="100" y="132" text-anchor="middle" font-size="9" fill="#1565c0">(AppKey gizli)</text>
+
+  <!-- Sunucu kutusu -->
+  <rect x="255" y="104" width="120" height="36" fill="#1a8a3a" opacity="0.18" rx="4" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="315" y="119" text-anchor="middle" font-size="10" fill="#1a8a3a" font-weight="bold">Ag Sunucusu</text>
+  <text x="315" y="132" text-anchor="middle" font-size="9" fill="#1a8a3a">(AppKey bilir)</text>
+
+  <!-- Adim 1: Join Request -->
+  <defs>
+    <marker id="oa1" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 7,3 0,6" fill="#1565c0"/>
+    </marker>
+    <marker id="oa2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 7,3 0,6" fill="#1a8a3a"/>
+    </marker>
+    <marker id="red1" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 7,3 0,6" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <line x1="150" y1="155" x2="255" y2="155" stroke="#1565c0" stroke-width="1.5" marker-end="url(#oa1)"/>
+  <text x="203" y="149" text-anchor="middle" font-size="9.5" fill="#1565c0">1. Join Request</text>
+  <text x="203" y="162" text-anchor="middle" font-size="8.5" fill="#6b7a90">(DevEUI + AppEUI + DevNonce)</text>
+
+  <!-- Adim 2: Join Accept -->
+  <line x1="255" y1="185" x2="150" y2="185" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#oa2)"/>
+  <text x="203" y="179" text-anchor="middle" font-size="9.5" fill="#1a8a3a">2. Join Accept</text>
+  <text x="203" y="192" text-anchor="middle" font-size="8.5" fill="#6b7a90">(AppNonce + NetID + DevAddr)</text>
+
+  <!-- Adim 3: Anahtar turetme -->
+  <rect x="50" y="205" width="340" height="36" fill="#1a8a3a" opacity="0.08" rx="3"/>
+  <text x="220" y="220" text-anchor="middle" font-size="10" fill="#1a8a3a" font-weight="bold">3. Dinamik Oturum Anahtari Turetme</text>
+  <text x="220" y="234" text-anchor="middle" font-size="9.5" fill="#4a5a70">NwkSKey + AppSKey = AES128(AppKey, nonce'lar)</text>
+
+  <!-- Adim 4: Veri -->
+  <line x1="150" y1="260" x2="255" y2="260" stroke="#1565c0" stroke-width="1.5" marker-end="url(#oa1)"/>
+  <text x="203" y="254" text-anchor="middle" font-size="9.5" fill="#1565c0">4. Sifrelenmis Veri</text>
+  <text x="203" y="268" text-anchor="middle" font-size="8.5" fill="#6b7a90">(dinamik anahtar, taze nonce)</text>
+
+  <!-- OTAA Avantajlar -->
+  <rect x="50" y="284" width="340" height="90" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="60" y="302" font-size="10.5" font-weight="bold" fill="#1a8a3a">Avantajlar:</text>
+  <text x="60" y="320" font-size="10" fill="#4a5a70">&#x2713; Her katilimda taze nonce → replay yok</text>
+  <text x="60" y="336" font-size="10" fill="#4a5a70">&#x2713; Oturum anahtarlari dinamik → sizmaz</text>
+  <text x="60" y="352" font-size="10" fill="#4a5a70">&#x2713; 1.1: NwkKey + AppKey ayrik → daha guclu</text>
+  <text x="60" y="368" font-size="10" fill="#4a5a70">&#x2713; Frame counter her katilimda sifirlanir</text>
+
+  <!-- OTAA ozet -->
+  <rect x="50" y="384" width="340" height="46" fill="#1a8a3a" opacity="0.12" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="220" y="405" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1a8a3a">OTAA = TERCIH EDILEN, GUVENLI</text>
+  <text x="220" y="420" text-anchor="middle" font-size="10" fill="#4a5a70">Dinamik anahtarlar + taze nonce = replay + tekrar kullanim engellenir</text>
+
+  <!-- Sag panel: ABP -->
+  <rect x="450" y="48" width="380" height="402" fill="#fff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="450" y="48" width="380" height="30" fill="#c0392b" opacity="0.12"/>
+  <text x="640" y="69" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ABP (Activation By Personalization)</text>
+  <text x="640" y="90" text-anchor="middle" font-size="10.5" fill="#6b7a90">Basit ama riskli; statik anahtarlar</text>
+
+  <!-- ABP gosterim: cihaza gomulu sabit -->
+  <rect x="468" y="104" width="340" height="60" fill="#fff3f3" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="638" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Cihaza Sabit Gomulu Anahtarlar</text>
+  <text x="638" y="140" text-anchor="middle" font-size="10" fill="#4a5a70">DevAddr + NwkSKey + AppSKey = fabrikada yazilir</text>
+  <text x="638" y="155" text-anchor="middle" font-size="10" fill="#4a5a70">Join proseduru YOK — ag sunucusuna dogrudan bagli</text>
+
+  <!-- Zayif nokta: frame counter -->
+  <rect x="468" y="174" width="340" height="100" fill="#fff3f3" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="638" y="196" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Kritik Zayiflik: Frame Counter</text>
+
+  <!-- Counter ok -->
+  <text x="478" y="218" font-size="10" fill="#4a5a70">Sayac dogru yonetilmezse:</text>
+
+  <!-- Sayac sifirlama riski ok -->
+  <line x1="480" y1="234" x2="600" y2="234" stroke="#c0392b" stroke-width="2" marker-end="url(#red1)"/>
+  <text x="540" y="229" text-anchor="middle" font-size="9.5" fill="#c0392b">sayac sifirlama</text>
+
+  <text x="478" y="252" font-size="10" fill="#c0392b">&#x2717; Sayac sifirlanirsa → anahtar</text>
+  <text x="478" y="265" font-size="10" fill="#c0392b">   akisi yeniden kullanimi → replay</text>
+
+  <!-- Tehdit kutusu -->
+  <rect x="468" y="284" width="340" height="90" fill="#fff3f3" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="478" y="302" font-size="10.5" font-weight="bold" fill="#c0392b">Tehditler:</text>
+  <text x="478" y="320" font-size="10" fill="#4a5a70">&#x2717; Statik anahtarlar → sizmasi tum trafigi aciga cikarir</text>
+  <text x="478" y="336" font-size="10" fill="#4a5a70">&#x2717; Frame counter sifirlanirsa → replay acigi</text>
+  <text x="478" y="352" font-size="10" fill="#4a5a70">&#x2717; Cihazdan fiziksel anahtar cikartilabilir</text>
+  <text x="478" y="368" font-size="10" fill="#4a5a70">&#x2717; Join yoksa anahtar tazeleme imkani sinirli</text>
+
+  <!-- ABP ozet -->
+  <rect x="468" y="384" width="340" height="46" fill="#c0392b" opacity="0.12" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="638" y="405" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#c0392b">ABP = BASIT AMA RISKLI</text>
+  <text x="638" y="420" text-anchor="middle" font-size="10" fill="#4a5a70">Statik anahtar + kotu sayac yonetimi → replay + anahtar ifşası riski</text>
+</svg>

@@ -178,6 +178,8 @@ ITU (Uluslararası Telekomünikasyon Birliği) spektrumu standart bandlara böle
     yüzeyi kucaklar       verici   ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔ alıcı                      kıvrımı kaçar
 ```
 
+![Radyo yayilim mekanizmalari: yer dalgasi (VLF/MF), iyonosfer sekmesi (HF binlerce km), gorus hatti LOS (VHF/UHF ufka kadar)](img/b01_yayilim_mekanizmalari.svg)
+
 > **SIGINT için kritik sezgi:**
 > - **HF (kısa dalga)** iyonosferden seker → **bir verici binlerce km öteden duyulabilir** (ve gece/gündüz, güneş aktivitesiyle dramatik değişir). Bu yüzden uzun mesafe istihbaratı tarihsel olarak HF'tedir.
 > - **VHF/UHF görüş hattıdır** → kabaca ufuk çizgisine kadar duyarsın. Daha uzağı için yüksek anten ya da tekrarlayıcı (repeater) gerekir. Mesafe ≈ **4,12 × (√h_verici + √h_alıcı)** km (h = metre cinsi anten yüksekliği — radyo ufku, optik ufuktan biraz uzaktır, teyit et).
@@ -263,6 +265,8 @@ Antenler güç *üretmez*; gücü **yönlendirir** (bir yönde yoğunlaştırır
 
 <a id="7"></a>
 ## 7.  Link Budget, FSPL ve Friis Denklemi
+
+![Link budget selale diyagrami: P_TX + G_TX - FSPL - kablo + G_RX = P_alinan; her basamak kazanc (yesil) veya kayip (kirmizi)](img/b01_link_budget_selale.svg)
 
 **Link budget (bağlantı bütçesi)**, sinyalin vericiden alıcıya ulaşırken tüm kazanç ve kayıpların **toplamıdır**. dB sayesinde basit bir toplama/çıkarma:
 
@@ -376,6 +380,8 @@ $$ C = 20\,000\,000 \cdot \log_2(1+1000) = 20{,}000{,}000 \cdot 9{,}97 \approx \
 ```
 
 **Analog modülasyon** taşıyıcıyı *sürekli* bir bilgiyle (ses dalgası) değiştirir. **Sayısal (dijital) modülasyon** ise bilgiyi *ayrık sembollere* (bit grupları) çevirip taşıyıcıyı bu sembollere göre **basamaklar** halinde değiştirir. SIGINT'te sinyali tanımanın ilk adımı, "bu hangi modülasyon?" sorusudur — çünkü modülasyon türü cihazı/sistemi ele verir.
+
+![Modulasyon dalga formlari: AM (genlik zarfi), FM (frekans yogunlugu), OOK (acik/kapali) ve BPSK (faz gecisi) karsilastirmasi zaman ekseninde](img/b01_modulasyon_dalga.svg)
 
 ---
 

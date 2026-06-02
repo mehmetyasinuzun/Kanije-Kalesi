@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="420" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Kisa Menzilli IoT Frekans Haritasi</text>
+  <text x="430" y="46" text-anchor="middle" font-size="10.5" fill="#6b7a90">125 kHz RFID'den 2,4 GHz BLE/Zigbee/WiFi'ye — bant, menzil, sifreleme durumu</text>
+
+  <!-- Panel -->
+  <rect x="30" y="56" width="800" height="344" fill="#fff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Frekans ekseni -->
+  <defs>
+    <marker id="ax" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" fill="#6b7a90"/>
+    </marker>
+  </defs>
+  <line x1="60" y1="290" x2="810" y2="290" stroke="#6b7a90" stroke-width="2" marker-end="url(#ax)"/>
+  <text x="435" y="380" text-anchor="middle" font-size="11" fill="#6b7a90" font-weight="bold">Frekans (logaritmik &#x2014; 125 kHz &#x2192; 2,4 GHz)</text>
+
+  <!-- Frekans etiketleri -->
+  <text x="82" y="310" text-anchor="middle" font-size="9.5" fill="#6b7a90">125 kHz</text>
+  <text x="168" y="310" text-anchor="middle" font-size="9.5" fill="#6b7a90">433 MHz</text>
+  <text x="310" y="310" text-anchor="middle" font-size="9.5" fill="#6b7a90">868 MHz</text>
+  <text x="445" y="310" text-anchor="middle" font-size="9.5" fill="#6b7a90">915 MHz</text>
+  <text x="570" y="310" text-anchor="middle" font-size="9.5" fill="#6b7a90">~1 GHz</text>
+  <text x="760" y="310" text-anchor="middle" font-size="9.5" fill="#6b7a90">2,4 GHz</text>
+
+  <!-- Cubuklar: x=frekans konum, y=ust kenar, height=yukseklik -->
+  <!-- RFID LF: 125 kHz -->
+  <rect x="65" y="200" width="34" height="90" fill="#c0392b" opacity="0.75" rx="3"/>
+  <text x="82" y="195" text-anchor="middle" font-size="9" fill="#c0392b" font-weight="bold">LF RFID</text>
+  <text x="82" y="184" text-anchor="middle" font-size="8.5" fill="#c0392b">EM4100</text>
+
+  <!-- Sub-GHz IoT 433 MHz -->
+  <rect x="145" y="170" width="46" height="120" fill="#ff8f00" opacity="0.75" rx="3"/>
+  <text x="168" y="165" text-anchor="middle" font-size="9" fill="#ff8f00" font-weight="bold">433 MHz</text>
+  <text x="168" y="154" text-anchor="middle" font-size="8.5" fill="#ff8f00">Sub-GHz IoT</text>
+
+  <!-- NFC/HF: 13.56 MHz - araya ekliyoruz -->
+  <rect x="98" y="190" width="34" height="100" fill="#ff8f00" opacity="0.60" rx="3"/>
+  <text x="115" y="184" text-anchor="middle" font-size="9" fill="#7a5000" font-weight="bold">NFC</text>
+  <text x="115" y="174" text-anchor="middle" font-size="8.5" fill="#7a5000">13,56 MHz</text>
+
+  <!-- Keyless RKE 315 MHz civarı -->
+  <rect x="120" y="185" width="22" height="105" fill="#c0392b" opacity="0.45" rx="3"/>
+  <text x="131" y="180" text-anchor="middle" font-size="8" fill="#c0392b">315 MHz</text>
+  <text x="131" y="170" text-anchor="middle" font-size="8" fill="#c0392b">RKE</text>
+
+  <!-- Sub-GHz 868 MHz (Avrupa) -->
+  <rect x="285" y="160" width="50" height="130" fill="#1565c0" opacity="0.70" rx="3"/>
+  <text x="310" y="154" text-anchor="middle" font-size="9" fill="#1565c0" font-weight="bold">868 MHz</text>
+  <text x="310" y="143" text-anchor="middle" font-size="8.5" fill="#1565c0">LoRaWAN/Z-Wave</text>
+
+  <!-- 915 MHz Amerika -->
+  <rect x="422" y="175" width="46" height="115" fill="#1565c0" opacity="0.55" rx="3"/>
+  <text x="445" y="169" text-anchor="middle" font-size="9" fill="#1565c0" font-weight="bold">915 MHz</text>
+  <text x="445" y="158" text-anchor="middle" font-size="8.5" fill="#1565c0">LoRa (US)</text>
+
+  <!-- Zigbee 2.4 GHz -->
+  <rect x="720" y="130" width="42" height="160" fill="#1a8a3a" opacity="0.75" rx="3"/>
+  <text x="741" y="124" text-anchor="middle" font-size="9" fill="#1a8a3a" font-weight="bold">Zigbee</text>
+  <text x="741" y="113" text-anchor="middle" font-size="8.5" fill="#1a8a3a">2,4 GHz</text>
+
+  <!-- BLE 2.4 GHz -->
+  <rect x="765" y="115" width="42" height="175" fill="#1565c0" opacity="0.75" rx="3"/>
+  <text x="786" y="109" text-anchor="middle" font-size="9" fill="#1565c0" font-weight="bold">BLE</text>
+  <text x="786" y="98" text-anchor="middle" font-size="8.5" fill="#1565c0">2,4 GHz</text>
+
+  <!-- WiFi 2.4/5 cizgisi -->
+  <rect x="695" y="142" width="20" height="148" fill="#6b7a90" opacity="0.45" rx="3"/>
+  <text x="705" y="136" text-anchor="middle" font-size="8" fill="#6b7a90">WiFi</text>
+
+  <!-- Menzil + sifreleme aciklama satirlari - alt bilgi tablosu -->
+  <rect x="50" y="322" width="760" height="62" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1" rx="3"/>
+
+  <!-- Renk aciklama -->
+  <rect x="60" y="330" width="12" height="12" fill="#c0392b" rx="2"/>
+  <text x="78" y="341" font-size="9.5" fill="#4a5a70">Sifreleme YOK (LF/eski RKE)</text>
+  <rect x="60" y="348" width="12" height="12" fill="#ff8f00" rx="2"/>
+  <text x="78" y="359" font-size="9.5" fill="#4a5a70">Zayif/degisken sifreleme</text>
+
+  <rect x="240" y="330" width="12" height="12" fill="#1565c0" rx="2"/>
+  <text x="258" y="341" font-size="9.5" fill="#4a5a70">AES-128 (LoRa/BLE LE SC)</text>
+  <rect x="240" y="348" width="12" height="12" fill="#1a8a3a" rx="2"/>
+  <text x="258" y="359" font-size="9.5" fill="#4a5a70">AES-128 + install code (Zigbee 3.0)</text>
+
+  <text x="530" y="340" font-size="9.5" fill="#6b7a90">Cubuk yuksekligi ~ menzil:</text>
+  <text x="530" y="355" font-size="9.5" fill="#6b7a90">kisa cubuk = cm-m menzil (RFID)</text>
+  <text x="530" y="368" font-size="9.5" fill="#6b7a90">uzun cubuk = 100 m+ menzil (LoRa km)</text>
+</svg>

@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="aB" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1565c0"/>
+    </marker>
+    <marker id="aG" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1a8a3a"/>
+    </marker>
+    <marker id="aR" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#c0392b"/>
+    </marker>
+    <marker id="aO" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#ff8f00"/>
+    </marker>
+    <marker id="aGr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#6b7a90"/>
+    </marker>
+  </defs>
+
+  <rect width="860" height="500" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Arac-Ici Ag Segmentasyonu - ECU Adalari ve Merkezi Gateway</text>
+
+  <!-- Merkezi Gateway - ortada -->
+  <rect x="328" y="188" width="204" height="88" rx="8" fill="#ffffff" stroke="#36506e" stroke-width="2.5"/>
+  <text x="430" y="212" text-anchor="middle" font-size="13" font-weight="bold" fill="#36506e">MERKEZI GATEWAY</text>
+  <text x="430" y="230" text-anchor="middle" font-size="10" fill="#4a5a70">Yonlendirme + Filtreleme</text>
+  <text x="430" y="246" text-anchor="middle" font-size="9" fill="#6b7a90">segment-arası politika uygular</text>
+  <text x="430" y="262" text-anchor="middle" font-size="9" fill="#c0392b">kritik ↔ dusuk-guven trafiği engeller</text>
+
+  <!-- === POWERTRAIN SEGMENTI === -->
+  <rect x="20" y="44" width="180" height="150" rx="6" fill="#e8f4fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="110" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">POWERTRAIN</text>
+  <text x="110" y="80" text-anchor="middle" font-size="9" fill="#4a5a70">CAN 500 kbit/s (yuksek hiz)</text>
+  <rect x="32" y="90" width="74" height="38" rx="4" fill="#ffffff" stroke="#1565c0" stroke-width="1"/>
+  <text x="69" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">ECM</text>
+  <text x="69" y="121" text-anchor="middle" font-size="8" fill="#4a5a70">motor/yak.</text>
+  <rect x="114" y="90" width="74" height="38" rx="4" fill="#ffffff" stroke="#1565c0" stroke-width="1"/>
+  <text x="151" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">TCM</text>
+  <text x="151" y="121" text-anchor="middle" font-size="8" fill="#4a5a70">vites kut.</text>
+  <rect x="32" y="136" width="155" height="44" rx="4" fill="#ffffff" stroke="#1565c0" stroke-width="1"/>
+  <text x="110" y="153" text-anchor="middle" font-size="9" fill="#4a5a70">Motor devir, yakıt, ates zam.</text>
+  <text x="110" y="166" text-anchor="middle" font-size="8" fill="#c0392b" font-weight="bold">KRITİK — en yuksek oncelik</text>
+
+  <!-- Powertrain -> Gateway ok -->
+  <line x1="200" y1="119" x2="328" y2="222" stroke="#1565c0" stroke-width="2" marker-end="url(#aB)"/>
+  <text x="268" y="163" text-anchor="middle" font-size="9" fill="#1565c0">CAN kopru</text>
+
+  <!-- === SASI/FREN SEGMENTI === -->
+  <rect x="20" y="240" width="180" height="150" rx="6" fill="#e8fde8" stroke="#1a8a3a" stroke-width="2"/>
+  <text x="110" y="261" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a8a3a">SASI / FREN</text>
+  <text x="110" y="276" text-anchor="middle" font-size="9" fill="#4a5a70">CAN/FlexRay (kritik)</text>
+  <rect x="32" y="286" width="74" height="38" rx="4" fill="#ffffff" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="69" y="303" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">ABS/ESP</text>
+  <text x="69" y="317" text-anchor="middle" font-size="8" fill="#4a5a70">fren/stab.</text>
+  <rect x="114" y="286" width="74" height="38" rx="4" fill="#ffffff" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="151" y="303" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">EPS</text>
+  <text x="151" y="317" text-anchor="middle" font-size="8" fill="#4a5a70">elekt. yön.</text>
+  <rect x="32" y="332" width="155" height="44" rx="4" fill="#ffffff" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="110" y="349" text-anchor="middle" font-size="9" fill="#4a5a70">Tekerlek hizi, yaw, yanal ivme</text>
+  <text x="110" y="362" text-anchor="middle" font-size="8" fill="#c0392b" font-weight="bold">KRITİK — safety</text>
+
+  <!-- Sasi -> Gateway ok -->
+  <line x1="200" y1="315" x2="328" y2="262" stroke="#1a8a3a" stroke-width="2" marker-end="url(#aG)"/>
+  <text x="268" y="302" text-anchor="middle" font-size="9" fill="#1a8a3a">CAN kopru</text>
+
+  <!-- === GOVDE / KONFOR SEGMENTI === -->
+  <rect x="660" y="44" width="180" height="150" rx="6" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <text x="750" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">GOVDE / KONFOR</text>
+  <text x="750" y="80" text-anchor="middle" font-size="9" fill="#4a5a70">CAN/LIN (dusuk hiz)</text>
+  <rect x="672" y="90" width="74" height="38" rx="4" fill="#ffffff" stroke="#ff8f00" stroke-width="1"/>
+  <text x="709" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">BCM</text>
+  <text x="709" y="121" text-anchor="middle" font-size="8" fill="#4a5a70">kapi/isik</text>
+  <rect x="754" y="90" width="74" height="38" rx="4" fill="#ffffff" stroke="#ff8f00" stroke-width="1"/>
+  <text x="791" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">LIN</text>
+  <text x="791" y="121" text-anchor="middle" font-size="8" fill="#4a5a70">ayna/koltuk</text>
+  <rect x="672" y="136" width="155" height="44" rx="4" fill="#ffffff" stroke="#ff8f00" stroke-width="1"/>
+  <text x="750" y="153" text-anchor="middle" font-size="9" fill="#4a5a70">Kapi kilit, camlar, ısıklar</text>
+  <text x="750" y="166" text-anchor="middle" font-size="8" fill="#4a5a70">dusuk kritiklik</text>
+
+  <!-- Govde -> Gateway ok -->
+  <line x1="660" y1="119" x2="532" y2="222" stroke="#ff8f00" stroke-width="2" marker-end="url(#aO)"/>
+  <text x="596" y="163" text-anchor="middle" font-size="9" fill="#ff8f00">CAN/LIN kopru</text>
+
+  <!-- === INFOTAINMENT SEGMENTI === -->
+  <rect x="660" y="240" width="180" height="150" rx="6" fill="#f4f7fb" stroke="#6b7a90" stroke-width="2"/>
+  <text x="750" y="261" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7a90">INFOTAINMENT</text>
+  <text x="750" y="276" text-anchor="middle" font-size="9" fill="#4a5a70">Ethernet/MOST</text>
+  <rect x="672" y="286" width="74" height="38" rx="4" fill="#ffffff" stroke="#6b7a90" stroke-width="1"/>
+  <text x="709" y="303" text-anchor="middle" font-size="10" font-weight="bold" fill="#6b7a90">IVI</text>
+  <text x="709" y="317" text-anchor="middle" font-size="8" fill="#4a5a70">ekran/nav</text>
+  <rect x="754" y="286" width="74" height="38" rx="4" fill="#ffffff" stroke="#6b7a90" stroke-width="1"/>
+  <text x="791" y="303" text-anchor="middle" font-size="10" font-weight="bold" fill="#6b7a90">TCU</text>
+  <text x="791" y="317" font-size="8" fill="#4a5a70" text-anchor="middle">4G/WiFi/BT</text>
+  <rect x="672" y="332" width="155" height="44" rx="4" fill="#ffffff" stroke="#6b7a90" stroke-width="1"/>
+  <text x="750" y="349" text-anchor="middle" font-size="9" fill="#4a5a70">Navigasyon, ses, telematik</text>
+  <text x="750" y="362" text-anchor="middle" font-size="8" fill="#c0392b">dusuk guven — segmente edilmeli</text>
+
+  <!-- Infotainment -> Gateway ok -->
+  <line x1="660" y1="315" x2="532" y2="262" stroke="#6b7a90" stroke-width="2" marker-end="url(#aGr)"/>
+  <text x="596" y="302" text-anchor="middle" font-size="9" fill="#6b7a90">Eth kopru</text>
+
+  <!-- === OBD SEGMENTI === -->
+  <rect x="328" y="368" width="204" height="100" rx="6" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="430" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">OBD-II PORT</text>
+  <text x="430" y="407" text-anchor="middle" font-size="9" fill="#5a6b80">Tespit/Teshis Canal</text>
+  <text x="430" y="422" text-anchor="middle" font-size="9" fill="#5a6b80">CAN'e dogrudan erisim noktasi</text>
+  <text x="430" y="438" text-anchor="middle" font-size="9" fill="#c0392b">Fiziksel erisim → risk yüzeyi</text>
+  <text x="430" y="454" text-anchor="middle" font-size="8" fill="#6b7a90">pin6=CANH, pin14=CANL</text>
+
+  <!-- OBD -> Gateway ok -->
+  <line x1="430" y1="368" x2="430" y2="276" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#aR)"/>
+
+  <!-- Trafik gecis aciklamalari - ortada yanlarda -->
+  <rect x="220" y="188" width="100" height="88" rx="4" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1"/>
+  <text x="270" y="210" text-anchor="middle" font-size="9" font-weight="bold" fill="#36506e">Gecer:</text>
+  <text x="270" y="224" text-anchor="middle" font-size="8" fill="#4a5a70">ABS → ECM</text>
+  <text x="270" y="237" text-anchor="middle" font-size="8" fill="#4a5a70">(fren etkisi)</text>
+  <text x="270" y="252" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">Gecmez:</text>
+  <text x="270" y="266" text-anchor="middle" font-size="8" fill="#c0392b">IVI → ECM</text>
+
+  <rect x="540" y="188" width="112" height="88" rx="4" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1"/>
+  <text x="596" y="210" text-anchor="middle" font-size="9" font-weight="bold" fill="#36506e">Gecer:</text>
+  <text x="596" y="224" text-anchor="middle" font-size="8" fill="#4a5a70">BCM → IVI</text>
+  <text x="596" y="237" text-anchor="middle" font-size="8" fill="#4a5a70">(hız göst.)</text>
+  <text x="596" y="252" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">Gecmez:</text>
+  <text x="596" y="266" text-anchor="middle" font-size="8" fill="#c0392b">OBD → ABS</text>
+
+  <!-- Alt bilgi -->
+  <text x="430" y="478" text-anchor="middle" font-size="10" fill="#36506e" font-weight="bold">Segmentasyon kalitesi = modern arac guvenliginin belkemigi | SecOC + IDS + gateway politikası = katmanli savunma</text>
+</svg>

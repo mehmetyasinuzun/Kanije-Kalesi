@@ -66,6 +66,8 @@ Mühendislik sezgisi: **LEO mega-konstelasyonu, GEO'nun "tek büyük uydu" model
 <a id="2"></a>
 ## 2. Yörünge Kabukları, İnter-Satellite Link ve Yer Ağı Geçitleri
 
+![LEO yorunge kabuklari (550/780/1200 km), ISL lazer baglari ve kullanici terminali-uydu-gateway paket yolu](img/b32_leo_konstelasyon_kabuklar.svg)
+
 Mega-konstelasyon "rastgele binlerce uydu" değildir; dikkatle tasarlanmış **yörünge kabukları (orbital shells)** sisteminden oluşur. Bir kabuk, aynı yükseklik ve eğimde, belirli sayıda yörünge düzlemine (orbital plane) ve her düzlemde belirli sayıda uyduya bölünmüş bir alt-konstelasyondur. Walker konstelasyon deseni denen bu geometri, gökyüzünü tekdüze kaplamayı amaçlar.
 
 ```
@@ -235,6 +237,8 @@ Bu yüzden mega-konstelasyon terminali GEO çanağı gibi "kur ve unut" değildi
 
 <a id="5"></a>
 ## 5. Faz-Dizili Kullanıcı Terminali vs Mekanik İzleme (Bölüm 27 Bağı)
+
+![LEO handover: faz-dizili terminal make-before-break gecis, aci/zaman ekseni ve kabuk yuksekligi/Doppler/handover sikli karsilastirma tablosu](img/b32_leo_handover_faz_dizisi.svg)
 
 Bölüm 11, LEO uydusunu izlemek için ya elle çevrilen yönlü anten, ya motorlu azimut+yükseklik takip sistemi, ya da yön bağımsız geniş açılı anten (QFH/turnike) gerektiğini söylemişti. Mega-konstelasyon, hiçbirini kullanmaz; dördüncü ve en güçlü yolu seçer: **elektronik tarama yapan faz-dizili anten (phased array).** Bu konunun fiziği Bölüm 27'de (Anten Dizileri ve Beamforming) derinlemesine işlenir; burada mega-konstelasyona özgü uygulamayı ele alıyoruz.
 
@@ -550,6 +554,8 @@ Mühendislik sezgisi: **Mega-konstelasyon manzarası tek tip değil — geniş b
 
 <a id="12"></a>
 ## 12. Uydu-IoT: Küçük-Uydu Mesajlaşma (Swarm, Astrocast, Lacuna, Kineis/Argos)
+
+![Uydu-IoT yildiz topoloji: saha sensorleri → LEO uydu → yer istasyonu → bulut; D2D telefon → LEO yolu](img/b32_uydu_iot_topoloji.svg)
 
 Mega-konstelasyon devriminin sessiz ama yaygın kolu, **uydu-IoT'dir**: küçük, ucuz uydularla (genelde CubeSat sınıfı) düşük güçlü, düşük veri hacimli, gecikmeye toleranslı mesajlaşma. Hedef, insanın değil **makinenin** bağlanmasıdır: okyanustaki bir şamandıra, çöldeki bir boru hattı sensörü, tundradaki bir hayvan izleme tasması, tarladaki bir toprak nemi ölçeri. Bu cihazlar küçük durum mesajlarını (konum, sıcaklık, seviye) aralıklı olarak gönderir; sürekli geniş bant gerekmez.
 

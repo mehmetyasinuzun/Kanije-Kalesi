@@ -135,6 +135,8 @@ Sinyali ölçtün; şimdi **eşleştirme** zamanı. Tek tek ezberlemek imkânsı
 <a id="4"></a>
 ## 4.  ADS-B — Uçakları Gökyüzünden Çek
 
+![ADS-B veri akis zinciri: ucak transponder, 1090 MHz PPM, SDR, dump1090 cozucu, ICAO/konum/hiz verisi, web harita](img/b05_adsb_akis.svg)
+
 **ADS-B (Automatic Dependent Surveillance–Broadcast)**, SIGINT'e yeni başlayan herkesin ilk "vay be!" anıdır. Uçaklar konum, irtifa, hız ve kimliklerini **şifresiz** olarak yayınlar; sen bir antenle bunu yakalayıp kendi canlı uçak haritanı kurarsın. Tamamen meşru ve müthiş tatmin edici.
 
 | Özellik | Değer |
@@ -537,6 +539,8 @@ LTE, "neyin açık, neyin kapalı" ayrımını net biçimde örnekler — SIGINT
 
 > **Genel savunma çıkarımı:** Nesil ilerledikçe (2G→5G) hem **şifreleme** hem **kimlik gizliliği** hem **karşılıklı doğrulama** güçlenir. En zayıf halka neredeyse her zaman **en eski nesle (2G) düşürme (downgrade) saldırısıdır** — bu yüzden cihazını mümkünse 2G'den arındırmak somut bir koruma sağlar.
 
+![Hucresel nesil guvenlik karsilastirma tablosu: 2G/3G/4G/5G sutunlari; sifreleme, karsilikli kimlik dogrulama, kimlik gizliligi, IMSI-catcher direnci satirlari; kirmizi/sari/yesil renk skala](img/b05_hucresel_nesil_guvenlik.svg)
+
 ---
 
 <a id="15"></a>
@@ -585,6 +589,8 @@ Bu bölümü "okuyup geçme" — **yap.** Aşağıdakilerin hepsi yasaldır, ucu
 > **Ustalık rozeti:** Bu yedi alıştırmayı bitirdiğinde, "sinyal yakalama → tanımlama → çözme" zincirini hem **açık protokollerde** hem **kendi cihazlarında** uçtan uca yapmış olursun. Hücresel kısmı ise **anlamış** ama yasal sınırın hangi tarafında durduğunu **bilen** biri olarak tamamlarsın — gerçek bir SIGINT savunmacısının duruşu budur.
 
 ---
+
+![Frekans bantlari haritasi: 100 kHz - 2 GHz log eksen, ADS-B, AIS, NOAA, APRS, ISM, FM, GSM renkli etiketler](img/b05_protokol_frekans_haritasi.svg)
 
 <a id="17"></a>
 ## 17.  Hızlı Referans Tablosu (Protokol × Frekans × Araç)

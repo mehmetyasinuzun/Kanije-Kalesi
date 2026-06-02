@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="500" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Huzme Sekillendirme: Gecikme-Topla (ULA, N=6)</text>
+
+  <!-- Sol panel: eleman + faz gecikmeleri -->
+  <rect x="20" y="45" width="390" height="440" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="215" y="68" text-anchor="middle" font-size="13" font-weight="bold" fill="#36506e">Faz Gecikmesi Atamasi</text>
+
+  <!-- Dizi ekseni -->
+  <line x1="60" y1="420" x2="360" y2="420" stroke="#6b7a90" stroke-width="1.5"/>
+  <text x="370" y="424" font-size="11" fill="#6b7a90">eksen</text>
+
+  <!-- 6 eleman -->
+  <!-- Eleman araligi d = lambda/2 gorsel -->
+  <!-- elemanlar x=80,130,180,230,280,330 -->
+  <defs>
+    <marker id="arrowB" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1565c0"/>
+    </marker>
+    <marker id="arrowR" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c0392b"/>
+    </marker>
+    <marker id="arrowG" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1a8a3a"/>
+    </marker>
+  </defs>
+
+  <!-- eleman sembolleri -->
+  <rect x="68" y="408" width="24" height="24" rx="3" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="80" y="424" text-anchor="middle" font-size="11" fill="#1565c0">0</text>
+  <rect x="118" y="408" width="24" height="24" rx="3" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="130" y="424" text-anchor="middle" font-size="11" fill="#1565c0">1</text>
+  <rect x="168" y="408" width="24" height="24" rx="3" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="180" y="424" text-anchor="middle" font-size="11" fill="#1565c0">2</text>
+  <rect x="218" y="408" width="24" height="24" rx="3" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="230" y="424" text-anchor="middle" font-size="11" fill="#1565c0">3</text>
+  <rect x="268" y="408" width="24" height="24" rx="3" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="280" y="424" text-anchor="middle" font-size="11" fill="#1565c0">4</text>
+  <rect x="318" y="408" width="24" height="24" rx="3" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="330" y="424" text-anchor="middle" font-size="11" fill="#1565c0">5</text>
+
+  <!-- d = lambda/2 etiketi -->
+  <line x1="80" y1="438" x2="130" y2="438" stroke="#9fb3c8" stroke-width="1"/>
+  <line x1="80" y1="434" x2="80" y2="442" stroke="#9fb3c8" stroke-width="1"/>
+  <line x1="130" y1="434" x2="130" y2="442" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="105" y="452" text-anchor="middle" font-size="10" fill="#6b7a90">d = λ/2</text>
+
+  <!-- Gelen dalga cephesi egik (theta0=30 derece gelen) -->
+  <!-- Dalga cepheleri: egik cizgiler sol ustden sag alta -->
+  <!-- theta0 = 30 deg, sin(30)=0.5, psi0 = pi/2 per eleman -->
+  <!-- Dalga cephe cizgileri -->
+  <line x1="40" y1="300" x2="170" y2="120" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.7"/>
+  <line x1="90" y1="300" x2="220" y2="120" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.7"/>
+  <line x1="140" y1="300" x2="270" y2="120" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.7"/>
+  <line x1="190" y1="300" x2="320" y2="120" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.7"/>
+  <line x1="240" y1="300" x2="370" y2="120" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.7"/>
+
+  <!-- theta0 aci gostergesi -->
+  <text x="380" y="130" text-anchor="end" font-size="11" fill="#ff8f00" font-weight="bold">dalga</text>
+  <text x="380" y="143" text-anchor="end" font-size="11" fill="#ff8f00" font-weight="bold">cepheleri</text>
+  <text x="380" y="156" text-anchor="end" font-size="11" fill="#ff8f00">(θ₀ = 30°)</text>
+
+  <!-- gelen ok -->
+  <line x1="340" y1="170" x2="280" y2="380" stroke="#ff8f00" stroke-width="2" marker-end="url(#arrowR)"/>
+  <text x="355" y="270" font-size="11" fill="#ff8f00" font-weight="bold">θ₀</text>
+
+  <!-- Faz agirlik gostergesi: her elemana psi0 kayma -->
+  <!-- Toplamici -->
+  <rect x="130" y="85" width="80" height="30" rx="5" fill="#1565c0" opacity="0.15" stroke="#1565c0" stroke-width="1"/>
+  <text x="170" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">Σ</text>
+
+  <!-- Her elemandan toplamiciya cizgi + faz etiketi -->
+  <!-- el 0: faz 0 -->
+  <line x1="80" y1="408" x2="80" y2="280" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="80" y1="280" x2="130" y2="100" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="50" y="265" width="56" height="18" rx="3" fill="#e8f0fb" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="78" y="277" text-anchor="middle" font-size="10" fill="#1565c0">φ₀ = 0</text>
+
+  <!-- el 1: faz -psi0 -->
+  <line x1="130" y1="408" x2="130" y2="310" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="130" y1="310" x2="150" y2="115" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="96" y="295" width="72" height="18" rx="3" fill="#e8f0fb" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="132" y="307" text-anchor="middle" font-size="10" fill="#1565c0">φ₁ = -ψ₀</text>
+
+  <!-- el 2: faz -2psi0 -->
+  <line x1="180" y1="408" x2="180" y2="330" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="180" y1="330" x2="170" y2="115" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="143" y="315" width="80" height="18" rx="3" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="183" y="327" text-anchor="middle" font-size="10" fill="#1a8a3a">φ₂ = -2ψ₀</text>
+
+  <!-- el 3: faz -3psi0 -->
+  <line x1="230" y1="408" x2="230" y2="350" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="230" y1="350" x2="185" y2="115" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="193" y="335" width="80" height="18" rx="3" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="233" y="347" text-anchor="middle" font-size="10" fill="#1a8a3a">φ₃ = -3ψ₀</text>
+
+  <!-- el 4: faz -4psi0 -->
+  <line x1="280" y1="408" x2="280" y2="368" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="280" y1="368" x2="200" y2="115" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="243" y="353" width="80" height="18" rx="3" fill="#fdf0f0" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="283" y="365" text-anchor="middle" font-size="10" fill="#c0392b">φ₄ = -4ψ₀</text>
+
+  <!-- el 5: faz -5psi0 -->
+  <line x1="330" y1="408" x2="330" y2="385" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="330" y1="385" x2="210" y2="115" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="293" y="370" width="80" height="18" rx="3" fill="#fdf0f0" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="333" y="382" text-anchor="middle" font-size="10" fill="#c0392b">φ₅ = -5ψ₀</text>
+
+  <!-- Toplam ok -->
+  <line x1="170" y1="115" x2="170" y2="90" stroke="#1565c0" stroke-width="2"/>
+  <text x="230" y="70" font-size="11" fill="#1565c0">w_n = e^(-jnψ₀)/N</text>
+  <text x="230" y="83" font-size="11" fill="#1565c0">ψ₀=(2π/λ)d·sin(θ₀)</text>
+
+  <!-- Cikis etiketi -->
+  <text x="170" y="83" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">y(t)</text>
+
+  <!-- Aci bilgisi -->
+  <rect x="28" y="460" width="374" height="18" rx="3" fill="#e8f0fb"/>
+  <text x="215" y="473" text-anchor="middle" font-size="10" fill="#1565c0">θ₀=30°: eleman 0'dan 5'e ek yol = n·d·sin(30°) = n·λ/4 artis</text>
+
+  <!-- Sag panel: yapici girisim gostergesi -->
+  <rect x="430" y="45" width="410" height="440" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="635" y="68" text-anchor="middle" font-size="13" font-weight="bold" fill="#36506e">Yapici Girisim: θ₀ Yonunde Esfahz Toplama</text>
+
+  <!-- Koordinat sistemi: basit polar benzeri gosterim -->
+  <!-- Merkez: 635, 280 -->
+  <line x1="635" y1="100" x2="635" y2="420" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="445" y1="270" x2="830" y2="270" stroke="#d3dde8" stroke-width="1"/>
+  <text x="835" y="274" font-size="10" fill="#6b7a90">0°</text>
+  <text x="625" y="96" font-size="10" fill="#6b7a90">90°</text>
+
+  <!-- Huzme deseni (yaklaşık polar, ana lob theta0=30 deg) -->
+  <!-- Ana lob: merkez (635,270), yoni 30 derece sol ustune (60 derece kartezyen'den) -->
+  <!-- Basit elips + lob cizimi -->
+  <!-- Ana lob yonu: theta=30 deg yukaridan, yani kartezyen icinde 90-30=60 deg -->
+  <!-- Lob merkezi: 635+180*cos(60), 270-180*sin(60) = 635+90, 270-156 = 725, 114 -->
+
+  <!-- Merkez nokta -->
+  <circle cx="635" cy="270" r="4" fill="#1565c0"/>
+
+  <!-- Ana lob egri - elips rotasyonlu -->
+  <!-- Lob yonu 60 deg kartezyen (theta=30 antenden) -->
+  <!-- elips: a=160, b=40, merkezi (635,270), rotasyon -60 deg -->
+  <ellipse cx="635" cy="270" rx="160" ry="38" fill="#1565c0" fill-opacity="0.18" stroke="#1565c0" stroke-width="2"
+    transform="rotate(-60, 635, 270)"/>
+
+  <!-- Yan loblar: kucuk loblar simetrik -->
+  <ellipse cx="635" cy="270" rx="55" ry="18" fill="#1565c0" fill-opacity="0.10" stroke="#1565c0" stroke-width="1"
+    transform="rotate(30, 635, 270)"/>
+  <ellipse cx="635" cy="270" rx="55" ry="18" fill="#1565c0" fill-opacity="0.10" stroke="#1565c0" stroke-width="1"
+    transform="rotate(-150, 635, 270)"/>
+  <ellipse cx="635" cy="270" rx="35" ry="12" fill="#1565c0" fill-opacity="0.07" stroke="#9fb3c8" stroke-width="1"
+    transform="rotate(120, 635, 270)"/>
+  <ellipse cx="635" cy="270" rx="35" ry="12" fill="#1565c0" fill-opacity="0.07" stroke="#9fb3c8" stroke-width="1"
+    transform="rotate(-60, 635, 270) translate(0, -170)"/>
+
+  <!-- Huzme yonu oku -->
+  <line x1="635" y1="270" x2="725" y2="113" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrowR)"/>
+  <text x="732" y="108" font-size="12" fill="#c0392b" font-weight="bold">θ₀=30°</text>
+  <text x="732" y="121" font-size="11" fill="#c0392b">ana huzme</text>
+
+  <!-- Esfahz toplama aciklamasi -->
+  <rect x="438" y="300" width="195" height="80" rx="4" fill="#e8f0fb" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="536" y="317" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">θ₀ yonunde:</text>
+  <text x="536" y="332" text-anchor="middle" font-size="10" fill="#4a5a70">Faz kaymalari dalga</text>
+  <text x="536" y="345" text-anchor="middle" font-size="10" fill="#4a5a70">cephesi egimini iptal eder</text>
+  <text x="536" y="358" text-anchor="middle" font-size="10" fill="#1a8a3a">→ esfahz toplama (N kat)</text>
+  <text x="536" y="371" text-anchor="middle" font-size="10" fill="#1a8a3a">→ SNR kazanci: 10·log(N) dB</text>
+
+  <!-- Yan lob aciklamasi -->
+  <rect x="638" y="300" width="195" height="65" rx="4" fill="#fdf0f0" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="736" y="317" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Diger yonlerde:</text>
+  <text x="736" y="332" text-anchor="middle" font-size="10" fill="#4a5a70">Faz farklari birikir</text>
+  <text x="736" y="345" text-anchor="middle" font-size="10" fill="#4a5a70">→ yikici girisim</text>
+  <text x="736" y="358" text-anchor="middle" font-size="10" fill="#c0392b">→ yan loblar (~-13 dB)</text>
+
+  <!-- HPBW aciklamasi -->
+  <text x="635" y="395" text-anchor="middle" font-size="10" fill="#6b7a90">HPBW ≈ 102°/N  (d=λ/2, N=6 → ~17°)</text>
+
+  <!-- Formul altta -->
+  <rect x="438" y="415" width="395" height="60" rx="4" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="636" y="432" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">Gecikme-Topla Agirligi:</text>
+  <text x="636" y="448" text-anchor="middle" font-size="11" fill="#36506e">w_n = e^(-jnψ₀)/N ,   ψ₀ = (2π/λ)·d·sin(θ₀)</text>
+  <text x="636" y="464" text-anchor="middle" font-size="10" fill="#36506e">B(θ₀) = w^H · a(θ₀) = 1   (tepe θ₀ yonunde)</text>
+
+</svg>

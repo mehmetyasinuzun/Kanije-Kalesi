@@ -45,6 +45,8 @@ Senior bir SIGINT/CTI uzmanını junior'dan ayıran ilk şey teknik bilgi miktar
 <a id="1-1"></a>
 ### 1.1 Birincil ve İkincil Kaynak Ayrımı
 
+![Bilgi kaynagi piramidi: birincil (standart/datasheet/kendi olcum), ikincil (akademik/uretici notu), ucuncul (blog/forum/sosyal) — her katman guven duzeyi ve teyit gerekliligi](img/b14_kaynak_piramidi.svg)
+
 Her bilginin bir kökeni vardır ve o kökenden uzaklaştıkça güvenilirlik düşer, hata birikir. Kaynakları köken mesafesine göre üç katmana ayırmak, hangi kaynağa ne kadar güveneceğini belirler.
 
 | Katman | Tanım | SIGINT/CTI örneği | Güven düzeyi |
@@ -207,6 +209,8 @@ Not: CVE/NVD bir zafiyetin "varlığını" ve "skorunu" verir; ancak gerçek eyl
 <a id="5-2"></a>
 ### 5.2 Koordineli Açıklama (CVD) ve Sorumlu Açıklama Etiği
 
+![CVD yasam dongusu: kesif, ozel bildirim, uretici dogrulama, yama gelistirme, kamuya aciklama+CVE, operator yama dagitimi, cihaz guncelleme — sure etiketleri; sahada kapatilma en yavas halka](img/b14_zafiyet_yasam_dongusu.svg)
+
 Bir araştırmacı bir zafiyet bulduğunda, onu nasıl açıklayacağı bir etik ve süreç sorusudur. Hâkim norm, koordineli zafiyet açıklamasıdır (CVD — Coordinated Vulnerability Disclosure): araştırmacı zafiyeti önce üreticiye/sorumlu tarafa bildirir, makul bir süre (yama geliştirme için) tanır ve ancak yama hazır olduktan (ya da süre dolduktan) sonra kamuya açıklar.
 
 ```
@@ -337,6 +341,8 @@ Düzenli pratik: Teori pratiğe dökülmezse körelir. Düzenli (örneğin hafta
 
 <a id="9"></a>
 ## 9. Senior'a Giden Yol: 6-12 Aylık Öğrenme Programı
+
+![6-12 aylik ogrenme programi: teori-pratik-topluluk uc eksende; her donemde odak bolum numaralari ve pratik hedef](img/b14_ogrenme_yolu.svg)
 
 Senior olmak bir sertifika değil, üç ayağın birlikte olgunlaşmasıdır: teori (DSP/RF), pratik (lab) ve topluluk/etik. Aşağıda, bu serinin bölümlerini bir öğrenme takvimine bağlayan önerilen bir program var. Süreler kişiye göre esner; önemli olan sıra ve dengedir (her ay biraz teori + biraz pratik + biraz takip).
 

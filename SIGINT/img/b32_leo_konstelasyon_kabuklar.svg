@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arLB" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1565c0"/>
+    </marker>
+    <marker id="arLG" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1a8a3a"/>
+    </marker>
+    <marker id="arLO" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#ff8f00"/>
+    </marker>
+    <marker id="arLR" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect width="860" height="500" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">LEO Yorunge Kabuklari, ISL Lazer Baglari ve Kullanici Veri Yolu</text>
+
+  <!-- Dunya merkezi -->
+  <circle cx="360" cy="265" r="52" fill="#1565c0" fill-opacity="0.18" stroke="#1565c0" stroke-width="2"/>
+  <circle cx="360" cy="265" r="46" fill="#1565c0" fill-opacity="0.25" stroke="#1565c0" stroke-width="1"/>
+  <text x="360" y="261" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a2b40">DUNYA</text>
+  <text x="360" y="277" text-anchor="middle" font-size="9" fill="#4a5a70">R ≈ 6371 km</text>
+
+  <!-- Kabuk 1: Ana LEO ~550 km (Starlink tarzi) -->
+  <ellipse cx="360" cy="265" rx="148" ry="148" fill="none" stroke="#1565c0" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="430" y="122" font-size="10" fill="#1565c0" font-weight="bold">Kabuk 1: ~550 km</text>
+  <text x="430" y="135" font-size="9" fill="#4a5a70">egim ~53° (orta enlem)</text>
+  <text x="430" y="147" font-size="9" fill="#4a5a70">Starlink ana kabuk</text>
+
+  <!-- Kabuk 2: Orta LEO ~780 km (Iridium tarzi) -->
+  <ellipse cx="360" cy="265" rx="192" ry="192" fill="none" stroke="#ff8f00" stroke-width="1.8" stroke-dasharray="6,4"/>
+  <text x="484" y="79" font-size="10" fill="#ff8f00" font-weight="bold">Kabuk 2: ~780 km</text>
+  <text x="484" y="92" font-size="9" fill="#4a5a70">egim ~86° (kutupsal)</text>
+  <text x="484" y="104" font-size="9" fill="#4a5a70">Iridium tarzi</text>
+
+  <!-- Kabuk 3: Yüksek LEO ~1200 km (OneWeb tarzi) -->
+  <ellipse cx="360" cy="265" rx="238" ry="238" fill="none" stroke="#1a8a3a" stroke-width="1.5" stroke-dasharray="5,5"/>
+  <text x="544" y="46" font-size="10" fill="#1a8a3a" font-weight="bold">Kabuk 3: ~1200 km</text>
+  <text x="544" y="58" font-size="9" fill="#4a5a70">egim ~87° (kutupsal)</text>
+  <text x="544" y="70" font-size="9" fill="#4a5a70">OneWeb tarzi</text>
+
+  <!-- Uydular Kabuk 1 -->
+  <!-- Uydu 1-1 (ust) -->
+  <circle cx="360" cy="117" r="7" fill="#1565c0" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="360" y="107" text-anchor="middle" font-size="8" fill="#1565c0">S1</text>
+  <!-- Uydu 1-2 (sag ust) -->
+  <circle cx="465" cy="163" r="7" fill="#1565c0" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="478" y="160" font-size="8" fill="#1565c0">S2</text>
+  <!-- Uydu 1-3 (sag alt) -->
+  <circle cx="465" cy="367" r="7" fill="#1565c0" stroke="#ffffff" stroke-width="1.5"/>
+  <!-- Uydu 1-4 (sol) -->
+  <circle cx="212" cy="265" r="7" fill="#1565c0" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Uydular Kabuk 2 -->
+  <circle cx="360" cy="73" r="6" fill="#ff8f00" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="541" cy="152" r="6" fill="#ff8f00" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="541" cy="378" r="6" fill="#ff8f00" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="168" cy="265" r="6" fill="#ff8f00" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Uydular Kabuk 3 -->
+  <circle cx="360" cy="27" r="5" fill="#1a8a3a" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="578" cy="118" r="5" fill="#1a8a3a" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="578" cy="412" r="5" fill="#1a8a3a" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="122" cy="265" r="5" fill="#1a8a3a" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- ISL Lazer baglar (S1 ile S2 arasi) -->
+  <line x1="365" y1="117" x2="460" y2="167" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,2"/>
+  <text x="418" y="135" font-size="9" fill="#c0392b" font-weight="bold">ISL lazer</text>
+  <!-- ISL S1 ile sol uydu -->
+  <line x1="355" y1="118" x2="219" y2="261" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,2"/>
+
+  <!-- Kullanici terminali -->
+  <rect x="30" y="338" width="100" height="48" rx="4" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="80" y="358" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Kullanici</text>
+  <text x="80" y="372" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Terminali</text>
+  <text x="80" y="384" text-anchor="middle" font-size="8" fill="#4a5a70">faz-dizili panel</text>
+
+  <!-- Gateway -->
+  <rect x="686" y="220" width="140" height="52" rx="4" fill="#ffffff" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="756" y="244" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">GATEWAY</text>
+  <text x="756" y="260" text-anchor="middle" font-size="9" fill="#4a5a70">Ka besleme bagi</text>
+  <text x="756" y="272" text-anchor="middle" font-size="9" fill="#4a5a70">internet POP</text>
+
+  <!-- Paket yolu: Terminal -> S2 (Ku uplink) -->
+  <line x1="130" y1="353" x2="459" y2="167" stroke="#1565c0" stroke-width="2" marker-end="url(#arLB)"/>
+  <text x="265" y="247" text-anchor="middle" font-size="9" fill="#1565c0" font-weight="bold">Ku uplink</text>
+  <text x="265" y="260" text-anchor="middle" font-size="8" fill="#6b7a90">14-14.5 GHz</text>
+
+  <!-- ISL: S2 -> S1 -->
+  <!-- daha once cizdim -->
+
+  <!-- S1 -> Gateway (Ka downlink) -->
+  <line x1="364" y1="113" x2="686" y2="233" stroke="#1a8a3a" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arLG)"/>
+  <text x="550" y="165" text-anchor="middle" font-size="9" fill="#1a8a3a" font-weight="bold">Ka feeder</text>
+  <text x="550" y="178" text-anchor="middle" font-size="8" fill="#6b7a90">17.8-20.2 GHz</text>
+
+  <!-- Kullanici Ku downlink: S2 -> terminal -->
+  <line x1="460" y1="170" x2="130" y2="355" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arLO)"/>
+  <text x="320" y="300" text-anchor="middle" font-size="9" fill="#ff8f00">Ku downlink</text>
+  <text x="320" y="313" text-anchor="middle" font-size="8" fill="#6b7a90">10.7-12.7 GHz</text>
+
+  <!-- Legend -->
+  <rect x="685" y="300" width="155" height="170" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="762" y="318" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2b40">Aciklama</text>
+  <circle cx="700" cy="334" r="5" fill="#1565c0"/>
+  <text x="712" y="338" font-size="9" fill="#1565c0">Kabuk 1 (~550km)</text>
+  <circle cx="700" cy="352" r="5" fill="#ff8f00"/>
+  <text x="712" y="356" font-size="9" fill="#ff8f00">Kabuk 2 (~780km)</text>
+  <circle cx="700" cy="370" r="5" fill="#1a8a3a"/>
+  <text x="712" y="374" font-size="9" fill="#1a8a3a">Kabuk 3 (~1200km)</text>
+  <line x1="695" y1="390" x2="715" y2="390" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="724" y="394" font-size="9" fill="#c0392b">ISL lazer (optik)</text>
+  <line x1="695" y1="408" x2="715" y2="408" stroke="#1565c0" stroke-width="2"/>
+  <text x="724" y="412" font-size="9" fill="#1565c0">Ku uplink/feeder</text>
+  <line x1="695" y1="426" x2="715" y2="426" stroke="#ff8f00" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="724" y="430" font-size="9" fill="#ff8f00">Ku downlink</text>
+  <line x1="695" y1="444" x2="715" y2="444" stroke="#1a8a3a" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="724" y="448" font-size="9" fill="#1a8a3a">Ka feeder link</text>
+  <text x="762" y="464" text-anchor="middle" font-size="8" fill="#6b7a90">ISL: RF degil, optik</text>
+
+  <!-- Alt bilgi -->
+  <text x="430" y="480" text-anchor="middle" font-size="10" fill="#36506e">Walker konstelasyonu: ayni egim/yükseklikte P düzlem × S uydu | ISL: uzayda paket yönlendirme | Gateway sayisi azalir</text>
+</svg>

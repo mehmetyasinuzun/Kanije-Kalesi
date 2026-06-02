@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="axArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#1a2b40"/>
+    </marker>
+  </defs>
+
+  <rect width="860" height="500" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Endustriyel Kablosuz: Karistirma Direnci vs Kriptografik Koruma</text>
+
+  <!-- Eksen altyapisi -->
+  <!-- Dikey eksen: kriptografik koruma (Y) -->
+  <line x1="120" y1="50" x2="120" y2="440" stroke="#1a2b40" stroke-width="2" marker-end="url(#axArrow)"/>
+  <!-- Yatay eksen: karistirma direnci (X) -->
+  <line x1="120" y1="440" x2="830" y2="440" stroke="#1a2b40" stroke-width="2" marker-end="url(#axArrow)"/>
+
+  <!-- Y ekseni etiketi (dikey) -->
+  <text transform="translate(30,260) rotate(-90)" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">Kriptografik Koruma</text>
+  <text transform="translate(60,270) rotate(-90)" text-anchor="middle" font-size="10" fill="#4a5a70">(AES + Kimlik Dogrulama + Anahtar Yonetimi)</text>
+
+  <!-- X ekseni etiketi -->
+  <text x="475" y="482" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Karistirma Direnci</text>
+  <text x="475" y="496" text-anchor="middle" font-size="10" fill="#4a5a70">(FHSS / DSSS / Kanal Atlama)</text>
+
+  <!-- Eksen isaretleri Y -->
+  <text x="110" y="444" text-anchor="end" font-size="10" fill="#6b7a90">Dusuk</text>
+  <text x="110" y="344" text-anchor="end" font-size="10" fill="#6b7a90">Orta</text>
+  <text x="110" y="244" text-anchor="end" font-size="10" fill="#6b7a90">Yuksek</text>
+  <text x="110" y="130" text-anchor="end" font-size="10" fill="#6b7a90">Cok Y.</text>
+
+  <!-- Eksen isaretleri X -->
+  <text x="200" y="456" text-anchor="middle" font-size="10" fill="#6b7a90">Dusuk</text>
+  <text x="370" y="456" text-anchor="middle" font-size="10" fill="#6b7a90">Orta</text>
+  <text x="570" y="456" text-anchor="middle" font-size="10" fill="#6b7a90">Yuksek</text>
+  <text x="760" y="456" text-anchor="middle" font-size="10" fill="#6b7a90">Cok Y.</text>
+
+  <!-- Izgara kilavuz cizgileri -->
+  <line x1="120" y1="340" x2="820" y2="340" stroke="#d3dde8" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="120" y1="240" x2="820" y2="240" stroke="#d3dde8" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="120" y1="130" x2="820" y2="130" stroke="#d3dde8" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="240" y1="50" x2="240" y2="440" stroke="#d3dde8" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="420" y1="50" x2="420" y2="440" stroke="#d3dde8" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="610" y1="50" x2="610" y2="440" stroke="#d3dde8" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="800" y1="50" x2="800" y2="440" stroke="#d3dde8" stroke-width="0.8" stroke-dasharray="4,3"/>
+
+  <!-- NOKTA 1: Eski UHF Telemetri - sol alt (dusuk her ikisi de) -->
+  <circle cx="185" cy="410" r="26" fill="#c0392b" fill-opacity="0.15" stroke="#c0392b" stroke-width="2"/>
+  <text x="185" y="406" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Eski UHF</text>
+  <text x="185" y="420" text-anchor="middle" font-size="9" fill="#c0392b">Telemetri</text>
+  <text x="185" y="436" text-anchor="middle" font-size="8" fill="#6b7a90">acik metin</text>
+  <text x="185" y="448" text-anchor="middle" font-size="8" fill="#6b7a90">sabit frekans</text>
+  <!-- Notlar sol alt -->
+  <rect x="130" y="465" width="110" height="28" rx="3" fill="#fce8e8" stroke="#c0392b" stroke-width="0.5"/>
+  <text x="185" y="477" text-anchor="middle" font-size="8" fill="#c0392b">En yuksek risk</text>
+  <text x="185" y="489" text-anchor="middle" font-size="8" fill="#c0392b">legacy OT</text>
+
+  <!-- NOKTA 2: FHSS ozel SCADA modemi - orta sol (yuksek karistirma, dusuk kripto) -->
+  <circle cx="650" cy="395" r="26" fill="#ff8f00" fill-opacity="0.15" stroke="#ff8f00" stroke-width="2"/>
+  <text x="650" y="391" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">FHSS SCADA</text>
+  <text x="650" y="405" text-anchor="middle" font-size="9" fill="#ff8f00">Modem</text>
+  <text x="650" y="419" text-anchor="middle" font-size="8" fill="#6b7a90">900 MHz / 2.4G</text>
+  <text x="650" y="431" text-anchor="middle" font-size="8" fill="#6b7a90">atlama var</text>
+  <!-- Not: FHSS != kripto -->
+  <rect x="590" y="360" width="120" height="24" rx="3" fill="#fff8e1" stroke="#ff8f00" stroke-width="0.5"/>
+  <text x="650" y="374" text-anchor="middle" font-size="8" fill="#ff8f00">FHSS ≠ sifrelenme!</text>
+
+  <!-- NOKTA 3: WirelessHART - yuksek kripto, yuksek karistirma -->
+  <circle cx="690" cy="115" r="28" fill="#1565c0" fill-opacity="0.15" stroke="#1565c0" stroke-width="2"/>
+  <text x="690" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">Wireless</text>
+  <text x="690" y="122" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">HART</text>
+  <text x="690" y="136" text-anchor="middle" font-size="8" fill="#6b7a90">2.4 GHz TDMA</text>
+  <text x="690" y="148" text-anchor="middle" font-size="8" fill="#6b7a90">AES-128 + auth</text>
+  <!-- Etiketi -->
+  <rect x="630" y="66" width="120" height="24" rx="3" fill="#e8f4fd" stroke="#1565c0" stroke-width="0.5"/>
+  <text x="690" y="80" text-anchor="middle" font-size="8" fill="#1565c0">Tasarımdan guvenli</text>
+
+  <!-- NOKTA 4: ISA100.11a - yuksek kripto, yuksek karistirma -->
+  <circle cx="750" cy="135" r="26" fill="#1a8a3a" fill-opacity="0.15" stroke="#1a8a3a" stroke-width="2"/>
+  <text x="750" y="128" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">ISA100</text>
+  <text x="750" y="142" text-anchor="middle" font-size="9" fill="#1a8a3a">.11a</text>
+  <text x="750" y="156" text-anchor="middle" font-size="8" fill="#6b7a90">802.15.4 PHY</text>
+  <text x="750" y="168" text-anchor="middle" font-size="8" fill="#6b7a90">AES-128 esnek</text>
+
+  <!-- NOKTA 5: LoRaWAN - orta kripto, dusuk-orta karistirma -->
+  <circle cx="310" cy="175" r="28" fill="#1565c0" fill-opacity="0.15" stroke="#1565c0" stroke-width="2"/>
+  <text x="310" y="168" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">LoRaWAN</text>
+  <text x="310" y="182" text-anchor="middle" font-size="9" fill="#1565c0">(endüstriyel)</text>
+  <text x="310" y="196" text-anchor="middle" font-size="8" fill="#6b7a90">433/868/915 MHz</text>
+  <text x="310" y="208" text-anchor="middle" font-size="8" fill="#6b7a90">AES-128 OTAA</text>
+  <rect x="250" y="138" width="120" height="22" rx="3" fill="#e8f4fd" stroke="#1565c0" stroke-width="0.5"/>
+  <text x="310" y="153" text-anchor="middle" font-size="8" fill="#1565c0">OTAA ↔ ABP risk</text>
+
+  <!-- NOKTA 6: Hucresel ozel APN - cok yuksek kripto, orta karistirma -->
+  <circle cx="465" cy="90" r="28" fill="#1a8a3a" fill-opacity="0.15" stroke="#1a8a3a" stroke-width="2"/>
+  <text x="465" y="83" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Hücresel</text>
+  <text x="465" y="97" text-anchor="middle" font-size="9" fill="#1a8a3a">Ozel APN</text>
+  <text x="465" y="111" text-anchor="middle" font-size="8" fill="#6b7a90">LTE/5G + VPN</text>
+  <text x="465" y="123" text-anchor="middle" font-size="8" fill="#6b7a90">IPsec/TLS</text>
+  <rect x="405" y="57" width="120" height="22" rx="3" fill="#e8fde8" stroke="#1a8a3a" stroke-width="0.5"/>
+  <text x="465" y="71" text-anchor="middle" font-size="8" fill="#1a8a3a">VPN dogru konfigüre?</text>
+
+  <!-- NOKTA 7: Uydu VSAT - dusuk-orta kripto (ekipmana bagli), dusuk karistirma -->
+  <circle cx="200" cy="265" r="26" fill="#6b7a90" fill-opacity="0.15" stroke="#6b7a90" stroke-width="2"/>
+  <text x="200" y="258" text-anchor="middle" font-size="10" font-weight="bold" fill="#6b7a90">Uydu</text>
+  <text x="200" y="272" text-anchor="middle" font-size="9" fill="#6b7a90">VSAT</text>
+  <text x="200" y="286" text-anchor="middle" font-size="8" fill="#6b7a90">Ku/Ka SCADA</text>
+  <text x="200" y="298" text-anchor="middle" font-size="8" fill="#6b7a90">link kripto?</text>
+  <rect x="140" y="228" width="120" height="22" rx="3" fill="#f4f7fb" stroke="#6b7a90" stroke-width="0.5"/>
+  <text x="200" y="242" text-anchor="middle" font-size="8" fill="#6b7a90">ekipmana bagımlı</text>
+
+  <!-- Konum aciklamalari -->
+  <!-- Kirmizi alan: risk bölgesi -->
+  <rect x="125" y="370" width="200" height="66" rx="4" fill="#c0392b" fill-opacity="0.05" stroke="#c0392b" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <text x="225" y="387" text-anchor="middle" font-size="8" fill="#c0392b">Yuksek Risk Bölgesi</text>
+  <text x="225" y="400" text-anchor="middle" font-size="8" fill="#6b7a90">Dusuk karistirma</text>
+  <text x="225" y="413" text-anchor="middle" font-size="8" fill="#6b7a90">+ Dusuk kripto</text>
+
+  <!-- Yesil alan: guvenli bolge -->
+  <rect x="600" y="60" width="215" height="130" rx="4" fill="#1a8a3a" fill-opacity="0.05" stroke="#1a8a3a" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <text x="707" y="78" text-anchor="middle" font-size="8" fill="#1a8a3a">Guvenli Bölge</text>
+  <text x="707" y="91" text-anchor="middle" font-size="8" fill="#6b7a90">Yuksek karistirma</text>
+  <text x="707" y="104" text-anchor="middle" font-size="8" fill="#6b7a90">+ Yuksek kripto</text>
+
+  <!-- Genel ders -->
+  <text x="430" y="468" text-anchor="middle" font-size="10" fill="#36506e" font-weight="bold">Ders: FHSS/DSSS ≠ Sifreli | Yeni standartlar (WirelessHART, ISA100, LoRaWAN, Hucresel) ikisini de tasarımdan sunar</text>
+  <text x="430" y="484" text-anchor="middle" font-size="9" fill="#6b7a90">Risk merkezi: eski/legacy telemetri radyolari (sol-alt kose) | Dogru konfigurasyon kritik: "var" ≠ "acik"</text>
+</svg>

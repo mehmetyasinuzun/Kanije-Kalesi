@@ -55,6 +55,8 @@ Bir RF/yayılım uzmanı için bu modların ortak teması şudur: ortam, sinyali
 | Ground-wave | Yer yüzeyi (yüzey dalgası) | < 3 MHz (en iyi) | 10-1000 km | Düşük frekans, iletken yer | Kararlı, yavaş zayıflar |
 | VLF/ELF | İyonosfer-yer dalga kılavuzu | 3 Hz-30 kHz | Küresel | Devasa anten/güç | Su altına işler, çok yavaş |
 
+![Egzotik Yayilim Modu Haritasi: Frekans x Menzil Dagilimi](img/b22_yayilim_modu_haritasi.svg)
+
 Bu tablo bir referans çapasıdır; aşağıdaki başlıklar her satırı fiziğiyle açar. Dikkat edilecek temel sezgi: egzotik modlar "her zaman açık" değildir. İyonosfer güneşin keyfine, ducting havaya, meteor scatter gökyüzüne bir cismin girmesine, EME ise Ay'ın ufkun üstünde olmasına bağlıdır. Bu kesintililik, egzotik yayılımı hem büyüleyici hem de operasyonel olarak güvenilmez kılar; bu yüzden zayıf-sinyal modları (Bölüm 10) bu kesintili pencerelerden en çok bilgiyi sıkıştırmak için doğmuştur.
 
 ```
@@ -109,6 +111,8 @@ Sky-wave'in mantığı şudur: yere göre belirli bir açıyla yukarı yayılan 
    Skip zone: vericiye yakın, ground-wave bittiği ama
    ilk sky-wave hop'unun düşmediği "sağır" halka.
 ```
+
+![Iyonosfer Katmanlari: Sky-Wave, NVIS ve Gri-Çizgi Geometrisi](img/b22_iyonosfer_katmanlari.svg)
 
 ### Kritik frekans, MUF ve LUF
 
@@ -817,6 +821,8 @@ Yukarıdaki gözlemlerden birinde (ya da herhangi bir bantta) tanımadığın bi
 Amaç: Serinin tüm araçlarını tek bir gerçek (yasal, pasif) gözlemde birleştirmek ve "bu nasıl buraya geldi?" (yayılım) sorusunu "bu ne?" (içerik/tip) sorusundan önce sormayı içselleştirmek.
 
 ---
+
+![Gelecek Spektrum Katmanlari: ELF'ten Optik'e Dikey Mimari](img/b22_gelecek_spektrum.svg)
 
 <a id="21"></a>
 ## 21. Hızlı Referans ve Diğer Bölümler

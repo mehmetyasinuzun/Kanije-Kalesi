@@ -83,6 +83,8 @@ Bir SDR'ı "anlamak", sinyalin **antenden bilgisayara** nasıl aktığını anla
         └───────────────────────────────────────────────────────────────────────────────────
 ```
 
+![SDR blok mimarisi: Anten - LNA - Filtre - Mikser/Tuner - ADC - DSP/FPGA - USB - Bilgisayar RX yolu; TX yolunda DAC - PA - Anten ters yonde](img/b02_sdr_blok_mimari.svg)
+
 ### Halka halka ne yapar
 
 1. **Anten:** Havadaki elektromanyetik dalgayı elektrik sinyaline (ve TX'te tersi) çevirir. **Frekansa uygun anten = her şey.** Yanlış antenle en pahalı SDR bile sağırdır.
@@ -128,6 +130,8 @@ Cihazın **tek seferde, aynı anda** görebildiği spektrum genişliği. Örnekl
 
 ### 3.3 ADC Bit Derinliği (Dinamik Aralık)
 Her örneğin kaç bitle sayısallaştırıldığı. **Dinamik aralığı** — yani *aynı anda* çok zayıf ve çok güçlü sinyalleri birlikte ayırt edebilme yeteneğini — belirler. Kabaca her bit ~6 dB dinamik aralık ekler.
+
+![ADC bit derinligi karsilastirmasi: 8-bit 48 dB (kirmizi dar), 12-bit 72 dB (turuncu), 14-bit 84 dB (mavi), 16-bit 96 dB (yesil genis); guclu sinyal yaninda zayif hedefi kurtarma](img/b02_adc_bit_dinamik.svg)
 
 | Bit | Yaklaşık dinamik aralık | Tipik cihaz | Anlamı |
 |---|---|---|---|
@@ -462,6 +466,8 @@ Bu kategori diğerlerinden **farklı** bir soruyu yanıtlar: "Sinyal **nereden g
 
 <a id="6"></a>
 ## 6.  "Neye Göre Hangisi" — Karar Rehberi
+
+![SDR cihaz karar agaci: yon bulma icin KrakenSDR, TX/full-duplex icin LimeSDR/USRP, half-duplex TX icin HackRF, HF+temizlik icin SDRplay/Airspy HF+, baslangic icin RTL-SDR V4](img/b02_cihaz_karar_agaci.svg)
 
 Tek "en iyi SDR" yoktur; **işine göre** en iyi vardır. Senaryondan cihaza:
 

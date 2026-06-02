@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <!-- Zemin -->
+  <rect width="860" height="480" fill="#f4f7fb"/>
+  <!-- Baslik -->
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">DragonOS Arac Ekosistemi — Gorev Kategori Haritasi</text>
+
+  <!-- Kategori kutusu: Genel Alim -->
+  <rect x="20" y="50" width="140" height="160" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="20" y="50" width="140" height="26" rx="6" fill="#1565c0"/>
+  <rect x="20" y="68" width="140" height="8" fill="#1565c0"/>
+  <text x="90" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Genel Alim</text>
+  <text x="90" y="95" text-anchor="middle" font-size="11" fill="#4a5a70">GQRX</text>
+  <text x="90" y="112" text-anchor="middle" font-size="11" fill="#4a5a70">SDR++</text>
+  <text x="90" y="129" text-anchor="middle" font-size="11" fill="#4a5a70">SDRangel</text>
+  <text x="90" y="146" text-anchor="middle" font-size="11" fill="#4a5a70">CubicSDR</text>
+  <text x="90" y="163" text-anchor="middle" font-size="11" fill="#6b7a90">IQ kayit/oynatma</text>
+  <text x="90" y="180" text-anchor="middle" font-size="11" fill="#6b7a90">Waterfall gorsellestime</text>
+
+  <!-- Kategori kutusu: Cozuculer -->
+  <rect x="175" y="50" width="140" height="160" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="175" y="50" width="140" height="26" rx="6" fill="#1a8a3a"/>
+  <rect x="175" y="68" width="140" height="8" fill="#1a8a3a"/>
+  <text x="245" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Cozuculer</text>
+  <text x="245" y="95" text-anchor="middle" font-size="11" fill="#4a5a70">rtl_433</text>
+  <text x="245" y="112" text-anchor="middle" font-size="11" fill="#4a5a70">dump1090 / readsb</text>
+  <text x="245" y="129" text-anchor="middle" font-size="11" fill="#4a5a70">multimon-ng</text>
+  <text x="245" y="146" text-anchor="middle" font-size="11" fill="#4a5a70">Dire Wolf (APRS)</text>
+  <text x="245" y="163" text-anchor="middle" font-size="11" fill="#4a5a70">WSJT-X (FT8)</text>
+  <text x="245" y="180" text-anchor="middle" font-size="11" fill="#6b7a90">JSON / ucat / ses</text>
+
+  <!-- Kategori kutusu: Uydu -->
+  <rect x="330" y="50" width="140" height="160" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="330" y="50" width="140" height="26" rx="6" fill="#ff8f00"/>
+  <rect x="330" y="68" width="140" height="8" fill="#ff8f00"/>
+  <text x="400" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Uydu</text>
+  <text x="400" y="95" text-anchor="middle" font-size="11" fill="#4a5a70">SatDump</text>
+  <text x="400" y="112" text-anchor="middle" font-size="11" fill="#4a5a70">NOAA APT / Meteor LRPT</text>
+  <text x="400" y="129" text-anchor="middle" font-size="11" fill="#4a5a70">GOES HRIT</text>
+  <text x="400" y="146" text-anchor="middle" font-size="11" fill="#6b7a90">SatNOGS telemetri</text>
+  <text x="400" y="163" text-anchor="middle" font-size="11" fill="#6b7a90">Canli / kayittan islem</text>
+  <text x="400" y="180" text-anchor="middle" font-size="11" fill="#6b7a90">~137 MHz / ~1.69 GHz</text>
+
+  <!-- Kategori kutusu: Tersine Muhendislik -->
+  <rect x="485" y="50" width="140" height="160" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="485" y="50" width="140" height="26" rx="6" fill="#c0392b"/>
+  <rect x="485" y="68" width="140" height="8" fill="#c0392b"/>
+  <text x="555" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Tersine Muhendislik</text>
+  <text x="555" y="95" text-anchor="middle" font-size="11" fill="#4a5a70">URH (Evrensel Radyo Hacker)</text>
+  <text x="555" y="112" text-anchor="middle" font-size="11" fill="#4a5a70">Inspectrum</text>
+  <text x="555" y="129" text-anchor="middle" font-size="11" fill="#4a5a70">baudline</text>
+  <text x="555" y="146" text-anchor="middle" font-size="11" fill="#6b7a90">Kayit→demod→bit</text>
+  <text x="555" y="163" text-anchor="middle" font-size="11" fill="#6b7a90">→kodlama→alan</text>
+  <text x="555" y="180" text-anchor="middle" font-size="11" fill="#6b7a90">SADECE kendi cihazin</text>
+
+  <!-- Kategori kutusu: Tarama-DF -->
+  <rect x="640" y="50" width="200" height="160" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="640" y="50" width="200" height="26" rx="6" fill="#6b7a90"/>
+  <rect x="640" y="68" width="200" height="8" fill="#6b7a90"/>
+  <text x="740" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Tarama / Yon Bulma (DF)</text>
+  <text x="740" y="95" text-anchor="middle" font-size="11" fill="#4a5a70">rtl_power + heatmap.py</text>
+  <text x="740" y="112" text-anchor="middle" font-size="11" fill="#4a5a70">soapy_power</text>
+  <text x="740" y="129" text-anchor="middle" font-size="11" fill="#4a5a70">QSpectrumAnalyzer</text>
+  <text x="740" y="146" text-anchor="middle" font-size="11" fill="#4a5a70">KrakenSDR DOA</text>
+  <text x="740" y="163" text-anchor="middle" font-size="11" fill="#6b7a90">Genisbant survey</text>
+  <text x="740" y="180" text-anchor="middle" font-size="11" fill="#6b7a90">Faz-uyumlu 5 kanal</text>
+
+  <!-- Altyapi kutusu - orta alt -->
+  <rect x="175" y="270" width="510" height="80" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="175" y="270" width="510" height="26" rx="6" fill="#36506e"/>
+  <rect x="175" y="288" width="510" height="8" fill="#36506e"/>
+  <text x="430" y="288" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Altyapi Katmani</text>
+  <text x="310" y="315" text-anchor="middle" font-size="11" fill="#4a5a70">SoapySDR (cihaz soyutlama)</text>
+  <text x="490" y="315" text-anchor="middle" font-size="11" fill="#4a5a70">GNU Radio Companion (GRC)</text>
+  <text x="310" y="332" text-anchor="middle" font-size="11" fill="#6b7a90">rtl_test  hackrf_info  kal (PPM)</text>
+  <text x="490" y="332" text-anchor="middle" font-size="11" fill="#6b7a90">SoapySDRUtil  uhd_find_devices</text>
+
+  <!-- Veri akisi oklari: kategorilerden altyapiya -->
+  <defs>
+    <marker id="arrowB12" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#7a8aa0"/>
+    </marker>
+  </defs>
+  <!-- Genel Alim -> Altyapi -->
+  <line x1="90" y1="210" x2="210" y2="270" stroke="#7a8aa0" stroke-width="1.3" marker-end="url(#arrowB12)" stroke-dasharray="4,3"/>
+  <!-- Cozuculer -> Altyapi -->
+  <line x1="245" y1="210" x2="280" y2="270" stroke="#7a8aa0" stroke-width="1.3" marker-end="url(#arrowB12)" stroke-dasharray="4,3"/>
+  <!-- Uydu -> Altyapi -->
+  <line x1="400" y1="210" x2="400" y2="270" stroke="#7a8aa0" stroke-width="1.3" marker-end="url(#arrowB12)" stroke-dasharray="4,3"/>
+  <!-- Tersine Muh -> Altyapi -->
+  <line x1="555" y1="210" x2="530" y2="270" stroke="#7a8aa0" stroke-width="1.3" marker-end="url(#arrowB12)" stroke-dasharray="4,3"/>
+  <!-- Tarama-DF -> Altyapi -->
+  <line x1="690" y1="210" x2="640" y2="270" stroke="#7a8aa0" stroke-width="1.3" marker-end="url(#arrowB12)" stroke-dasharray="4,3"/>
+
+  <!-- SDR Donanim kutusu -->
+  <rect x="330" y="380" width="200" height="46" rx="6" fill="#e8f0fb" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="430" y="397" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">SDR Donanim</text>
+  <text x="430" y="415" text-anchor="middle" font-size="11" fill="#36506e">RTL-SDR  HackRF  Airspy  SDRplay  USRP  KrakenSDR</text>
+
+  <!-- Altyapi -> SDR donanim -->
+  <line x1="430" y1="350" x2="430" y2="380" stroke="#1565c0" stroke-width="1.5" marker-end="url(#arrowB12)"/>
+
+  <!-- Gorev secim notu -->
+  <rect x="20" y="270" width="145" height="60" rx="5" fill="#fff8e1" stroke="#ff8f00" stroke-width="1"/>
+  <text x="93" y="286" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">Gorev - Arac</text>
+  <text x="93" y="300" text-anchor="middle" font-size="10" fill="#36506e">Bir sinyali coz → Cozucu</text>
+  <text x="93" y="314" text-anchor="middle" font-size="10" fill="#36506e">Nerede? → Tarama/DF</text>
+  <text x="93" y="328" text-anchor="middle" font-size="10" fill="#36506e">Bilinmiyor → Tersine Muh.</text>
+
+  <!-- Gorev secim notu -->
+  <rect x="695" y="270" width="145" height="60" rx="5" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="768" y="286" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Her biri DragonOS'ta</text>
+  <text x="768" y="300" text-anchor="middle" font-size="10" fill="#36506e">hazir kurulu gelir.</text>
+  <text x="768" y="314" text-anchor="middle" font-size="10" fill="#36506e">Bagimlilik yonetimi</text>
+  <text x="768" y="328" text-anchor="middle" font-size="10" fill="#36506e">cozulmus durumdadir.</text>
+
+  <!-- Ayrac alt -->
+  <line x1="20" y1="455" x2="840" y2="455" stroke="#d3dde8" stroke-width="1"/>
+  <text x="430" y="470" text-anchor="middle" font-size="10" fill="#6b7a90">Bolum 12 — Veri akisi: Kullanici gorevi → Dogru arac kategorisi → Altyapi → Donanim</text>
+</svg>

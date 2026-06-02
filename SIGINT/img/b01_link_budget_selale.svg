@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="440" fill="#f4f7fb"/>
+  <text x="380" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Link Budget — Selale (Waterfall) Hesabi</text>
+  <text x="380" y="46" text-anchor="middle" font-size="12" fill="#5a6b80">P_alinan = P_TX + G_TX - FSPL - L_kablo + G_RX</text>
+
+  <!-- Bar genislik hesabi: baslangic deger 100 dBm birim = 5.5 px/dB -->
+  <!-- Referans deger aks X=80, her dBm birim esasinda gorselde 0 baz -->
+
+  <!-- Basamak 1: P_TX = +20 dBm (kazanc, yesil) -->
+  <rect x="60" y="70" width="220" height="44" fill="#1a8a3a" rx="3"/>
+  <text x="175" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">P_TX (Verici Gucu)</text>
+  <text x="175" y="106" text-anchor="middle" font-size="12" fill="#ffffff">+20 dBm  (100 mW)</text>
+  <text x="290" y="95" font-size="13" fill="#1a8a3a" font-weight="bold">+20 dBm</text>
+  <!-- ok -->
+  <line x1="175" y1="114" x2="175" y2="128" stroke="#6b7a90" stroke-width="1.5"/>
+  <polygon points="175,132 170,122 180,122" fill="#6b7a90"/>
+
+  <!-- Basamak 2: G_TX = +3 dBi (kazanc, yesil, biraz kisa) -->
+  <rect x="60" y="136" width="253" height="44" fill="#1a8a3a" rx="3" opacity="0.85"/>
+  <text x="191" y="154" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">G_TX Anten Kazanci</text>
+  <text x="191" y="172" text-anchor="middle" font-size="12" fill="#ffffff">+3 dBi  (yonlendirme kazanci)</text>
+  <text x="323" y="161" font-size="13" fill="#1a8a3a" font-weight="bold">+3 dBm</text>
+  <text x="323" y="175" font-size="11" fill="#6b7a90">Birikim: +23 dBm</text>
+  <!-- ok -->
+  <line x1="175" y1="180" x2="175" y2="194" stroke="#6b7a90" stroke-width="1.5"/>
+  <polygon points="175,198 170,188 180,188" fill="#6b7a90"/>
+
+  <!-- Basamak 3: FSPL = -100 dB (kayip, kirmizi, genis) -->
+  <rect x="60" y="202" width="360" height="44" fill="#c0392b" rx="3"/>
+  <text x="240" y="220" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">FSPL — Serbest Uzay Yol Kaybi</text>
+  <text x="240" y="238" text-anchor="middle" font-size="12" fill="#ffffff">-100 dB  (1 km, 2400 MHz WiFi)</text>
+  <text x="430" y="218" font-size="13" fill="#c0392b" font-weight="bold">-100 dB</text>
+  <text x="430" y="233" font-size="11" fill="#6b7a90">Birikim: -77 dBm</text>
+  <!-- ok -->
+  <line x1="175" y1="246" x2="175" y2="260" stroke="#6b7a90" stroke-width="1.5"/>
+  <polygon points="175,264 170,254 180,254" fill="#6b7a90"/>
+
+  <!-- Basamak 4: Kablo kaybi = -2 dB (kirmizi, dar) -->
+  <rect x="60" y="268" width="236" height="44" fill="#c0392b" rx="3" opacity="0.80"/>
+  <text x="178" y="286" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Kablo / Konnektor Kaybi</text>
+  <text x="178" y="304" text-anchor="middle" font-size="12" fill="#ffffff">-2 dB</text>
+  <text x="306" y="284" font-size="13" fill="#c0392b" font-weight="bold">-2 dB</text>
+  <text x="306" y="299" font-size="11" fill="#6b7a90">Birikim: -79 dBm</text>
+  <!-- ok -->
+  <line x1="175" y1="312" x2="175" y2="326" stroke="#6b7a90" stroke-width="1.5"/>
+  <polygon points="175,330 170,320 180,320" fill="#6b7a90"/>
+
+  <!-- Basamak 5: G_RX = +3 dBi (kazanc, yesil) -->
+  <rect x="60" y="334" width="253" height="44" fill="#1a8a3a" rx="3" opacity="0.85"/>
+  <text x="191" y="352" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">G_RX Alici Anten Kazanci</text>
+  <text x="191" y="370" text-anchor="middle" font-size="12" fill="#ffffff">+3 dBi</text>
+  <text x="323" y="350" font-size="13" fill="#1a8a3a" font-weight="bold">+3 dBm</text>
+  <text x="323" y="365" font-size="11" fill="#6b7a90">Birikim: -76 dBm</text>
+
+  <!-- Sonuc kutusu -->
+  <rect x="60" y="392" width="340" height="38" fill="#1565c0" rx="3"/>
+  <text x="230" y="407" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">P_ALINAN = -76 dBm</text>
+  <text x="230" y="422" text-anchor="middle" font-size="11" fill="#cfe4fa">(+20 +3 -100 -2 +3 = -76 dBm)</text>
+
+  <!-- Sag panel: ozet ve karar -->
+  <rect x="480" y="70" width="260" height="360" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="2"/>
+  <text x="610" y="92" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a2b40">Temel Kurallar</text>
+  <line x1="490" y1="100" x2="730" y2="100" stroke="#d3dde8" stroke-width="1"/>
+  <text x="490" y="118" font-size="11" fill="#36506e" font-weight="bold">Mesafe kurali:</text>
+  <text x="490" y="132" font-size="11" fill="#4a5a70">Mesafe 2x → FSPL +6 dB</text>
+  <text x="490" y="146" font-size="11" fill="#4a5a70">(guc dortte bire iner)</text>
+  <line x1="490" y1="156" x2="730" y2="156" stroke="#d3dde8" stroke-width="1"/>
+  <text x="490" y="174" font-size="11" fill="#36506e" font-weight="bold">Frekans kurali:</text>
+  <text x="490" y="188" font-size="11" fill="#4a5a70">Frekans 2x → FSPL +6 dB</text>
+  <text x="490" y="202" font-size="11" fill="#4a5a70">(mmWave kisa menzillidir)</text>
+  <line x1="490" y1="212" x2="730" y2="212" stroke="#d3dde8" stroke-width="1"/>
+  <text x="490" y="230" font-size="11" fill="#36506e" font-weight="bold">FSPL formulu:</text>
+  <text x="490" y="244" font-size="11" fill="#4a5a70">20log(d_km) + 20log(f_MHz)</text>
+  <text x="490" y="258" font-size="11" fill="#4a5a70">+ 32.45 = dB kayip</text>
+  <line x1="490" y1="268" x2="730" y2="268" stroke="#d3dde8" stroke-width="1"/>
+  <text x="490" y="286" font-size="11" fill="#36506e" font-weight="bold">SNR esigi:</text>
+  <text x="490" y="300" font-size="11" fill="#4a5a70">P_alinan > gürultü tabani</text>
+  <text x="490" y="314" font-size="11" fill="#4a5a70">= cozulebilir sinyal</text>
+  <line x1="490" y1="322" x2="730" y2="322" stroke="#d3dde8" stroke-width="1"/>
+  <text x="490" y="340" font-size="11" fill="#1565c0" font-weight="bold">dB toplama kolayligi:</text>
+  <text x="490" y="354" font-size="11" fill="#4a5a70">Carpma yerine toplama:</text>
+  <text x="490" y="368" font-size="11" fill="#4a5a70">+20+3-100-2+3 = -76 dBm</text>
+  <line x1="490" y1="378" x2="730" y2="378" stroke="#d3dde8" stroke-width="1"/>
+  <text x="610" y="395" text-anchor="middle" font-size="11" fill="#c0392b" font-weight="bold">-76 dBm &gt; -90 dBm taban</text>
+  <text x="610" y="410" text-anchor="middle" font-size="11" fill="#1a8a3a">Sinyal cozulebilir!</text>
+
+  <!-- Kazanc/kayip efsane -->
+  <rect x="480" y="438" width="120" height="16" fill="#1a8a3a" rx="2"/>
+  <text x="541" y="450" text-anchor="middle" font-size="10" fill="#ffffff">Kazanc (artis)</text>
+  <rect x="620" y="438" width="120" height="16" fill="#c0392b" rx="2"/>
+  <text x="681" y="450" text-anchor="middle" font-size="10" fill="#ffffff">Kayip (azalis)</text>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b40">IMSI Catcher / Sahte BTS Mimarisi + 5G Savunmasi</text>
+
+  <defs>
+    <marker id="mA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c0392b"/>
+    </marker>
+    <marker id="mB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1565c0"/>
+    </marker>
+    <marker id="mG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1a8a3a"/>
+    </marker>
+  </defs>
+
+  <!-- === SOL PANEL: 2G Zaafiyeti + IMSI Catcher === -->
+  <rect x="20" y="50" width="490" height="400" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="265" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">2G Zafiyeti — IMSI Catcher Calismasi</text>
+
+  <!-- Telefon -->
+  <rect x="50" y="95" width="110" height="70" fill="#e8f0fb" stroke="#1565c0" stroke-width="2" rx="6"/>
+  <text x="105" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">Telefon</text>
+  <text x="105" y="138" text-anchor="middle" font-size="10" fill="#4a5a70">2G destekli</text>
+  <text x="105" y="152" text-anchor="middle" font-size="10" fill="#4a5a70">IMSI: 28601xxxxxxx</text>
+
+  <!-- Sahte BTS -->
+  <rect x="195" y="85" width="130" height="90" fill="#fce8e8" stroke="#c0392b" stroke-width="2" rx="6"/>
+  <text x="260" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Sahte BTS</text>
+  <text x="260" y="128" text-anchor="middle" font-size="10" fill="#4a5a70">(IMSI Catcher)</text>
+  <text x="260" y="144" text-anchor="middle" font-size="10" fill="#4a5a70">Guclu sinyal + 2G</text>
+  <text x="260" y="160" text-anchor="middle" font-size="9" fill="#c0392b">Stingray / ticari ad</text>
+
+  <!-- Gercek BTS -->
+  <rect x="365" y="95" width="120" height="70" fill="#e8f4e8" stroke="#1a8a3a" stroke-width="2" rx="6"/>
+  <text x="425" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a8a3a">Gercek Ag</text>
+  <text x="425" y="138" text-anchor="middle" font-size="10" fill="#4a5a70">Operatör BTS</text>
+  <text x="425" y="152" text-anchor="middle" font-size="10" fill="#4a5a70">4G/5G var</text>
+
+  <!-- Telefon → Sahte BTS (kirmizi - kandirma) -->
+  <line x1="160" y1="126" x2="193" y2="126" stroke="#c0392b" stroke-width="2" marker-end="url(#mA)"/>
+  <text x="176" y="118" text-anchor="middle" font-size="9" fill="#c0392b">baglaniyor</text>
+  <text x="176" y="108" text-anchor="middle" font-size="9" fill="#c0392b">(kandirma)</text>
+
+  <!-- Sahte BTS → Gercek (gri - iletme) -->
+  <line x1="325" y1="126" x2="363" y2="126" stroke="#6b7a90" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#mG)"/>
+  <text x="344" y="118" text-anchor="middle" font-size="9" fill="#6b7a90">MitM</text>
+  <text x="344" y="108" text-anchor="middle" font-size="9" fill="#6b7a90">iletme</text>
+
+  <!-- Neden calisiyor -->
+  <rect x="40" y="195" width="460" height="80" fill="#fce8e8" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="270" y="212" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Neden Calisiyor? (2G Zaafiyeti)</text>
+  <text x="55" y="230" font-size="10" fill="#4a5a70">1. Telefon guclu sinyalli hukreye baglanma egilimi gosterir → sahte BTS guclu yayin yapar</text>
+  <text x="55" y="245" font-size="10" fill="#4a5a70">2. 2G'de AG aboneyi dogrular, ama ABONE AGI DOGRULAMAZ (tek yonlu kimlik dog.)</text>
+  <text x="55" y="260" font-size="10" fill="#4a5a70">3. Kalici IMSI kimlik ac iletilir → saldirgan IMSI'yi topladi, konum bildi</text>
+
+  <!-- IMSI toplama gostergesi -->
+  <rect x="40" y="290" width="460" height="60" fill="#fffbe6" stroke="#ff8f00" stroke-width="1" rx="4"/>
+  <text x="270" y="308" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">Saldirgan Ne Elde Eder?</text>
+  <text x="55" y="325" font-size="10" fill="#4a5a70">• IMSI toplayarak kovulunan kisi kimligini cikararir  •  2G'ye dusurur → A5/1 ile dinler</text>
+  <text x="55" y="340" font-size="10" fill="#4a5a70">• MitM: iletisimi okur/degistirir  •  Bazi durumlarda iletisimi engeller</text>
+
+  <!-- Tespit ipuclari -->
+  <rect x="40" y="365" width="460" height="65" fill="#e8f0fb" stroke="#1565c0" stroke-width="1" rx="4"/>
+  <text x="270" y="382" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">Tespit Ipuclari (Bireysel)</text>
+  <text x="55" y="398" font-size="10" fill="#4a5a70">Ani 2G dususu  |  Bilinmeyen hucre kimliği  |  Sifrelemenin kalkması</text>
+  <text x="55" y="413" font-size="10" fill="#4a5a70">Uygulama: AIMSICD / CellGuard / SnoopSnitch (cihaz uyumu teyit et)</text>
+
+  <!-- === SAG PANEL: 5G Savunmasi === -->
+  <rect x="530" y="50" width="310" height="400" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="685" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">5G SA Savunmasi</text>
+
+  <!-- SUCI sema -->
+  <rect x="548" y="88" width="274" height="90" fill="#e8f4e8" stroke="#1a8a3a" stroke-width="1.5" rx="4"/>
+  <text x="685" y="107" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">SUCI — Kimlik Sifrelemesi</text>
+  <text x="685" y="124" text-anchor="middle" font-size="10" fill="#4a5a70">5G'de kalici kimlik (SUPI/IMSI)</text>
+  <text x="685" y="140" text-anchor="middle" font-size="10" fill="#4a5a70">acik iletilmez — SUCI olarak</text>
+  <text x="685" y="156" text-anchor="middle" font-size="10" fill="#1a8a3a">sifrelenerek gonder</text>
+  <text x="548" y="107" font-size="20" fill="#1a8a3a">🔒</text>
+
+  <!-- Karsilikli auth -->
+  <rect x="548" y="192" width="274" height="90" fill="#e8f4e8" stroke="#1a8a3a" stroke-width="1.5" rx="4"/>
+  <text x="685" y="213" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">Karsilikli Kimlik Dogrulama</text>
+  <text x="685" y="230" text-anchor="middle" font-size="10" fill="#4a5a70">Hem TELEFON hem AG</text>
+  <text x="685" y="247" text-anchor="middle" font-size="10" fill="#4a5a70">birbirini dogrular (AKA protokolu)</text>
+  <text x="685" y="264" text-anchor="middle" font-size="10" fill="#1a8a3a">Sahte BTS kimlik gosteredmez</text>
+
+  <!-- Bireysel savunma -->
+  <rect x="548" y="296" width="274" height="130" fill="#f4f7fb" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="685" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#36506e">Bireysel Savunma Ozeti</text>
+  <text x="560" y="333" font-size="10" fill="#4a5a70">✓  2G'yi telefon ayarindan kapat</text>
+  <text x="560" y="350" font-size="10" fill="#4a5a70">✓  5G SA / yalnizca 4G-5G modu sec</text>
+  <text x="560" y="367" font-size="10" fill="#4a5a70">✓  Hassas konusmalara Signal kullan</text>
+  <text x="560" y="384" font-size="10" fill="#4a5a70">   (ag ele gecilse bile icerik gizli)</text>
+  <text x="560" y="401" font-size="10" fill="#4a5a70">✓  SMS 2FA → TOTP/FIDO2 gec</text>
+  <text x="560" y="418" font-size="10" fill="#4a5a70">✓  Anomali uygulama ile izle</text>
+
+  <!-- Alt bilgi -->
+  <line x1="20" y1="458" x2="840" y2="458" stroke="#d3dde8" stroke-width="1"/>
+  <text x="430" y="473" text-anchor="middle" font-size="10" fill="#6b7a90">Savunma: Dinleme, tanitma ve tespit amaciyla — aktif saldiri kurma degil</text>
+</svg>

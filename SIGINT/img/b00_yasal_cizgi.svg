@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 440" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="780" height="440" fill="#f4f7fb"/>
+  <text x="390" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b40">Yasal ve Etik Cerceve — Izin Verilen / Yasak</text>
+
+  <!-- SOL PANEL: Izin verilen -->
+  <rect x="20" y="50" width="360" height="370" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="20" y="50" width="360" height="38" fill="#1a8a3a" rx="0"/>
+  <text x="200" y="74" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">GENELDE SERBEST</text>
+  <text x="200" y="90" text-anchor="middle" font-size="11" fill="#1a8a3a">(egitim, hobi, kendi cihazin)</text>
+
+  <!-- Satirlar: serbest -->
+  <line x1="20" y1="105" x2="380" y2="105" stroke="#d3dde8" stroke-width="1"/>
+  <rect x="30" y="112" width="22" height="22" fill="#1a8a3a" rx="3"/>
+  <text x="42" y="127" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">RX</text>
+  <text x="65" y="128" font-size="12" fill="#36506e">Dinlemek / almak (pasif alim)</text>
+  <text x="65" y="143" font-size="11" fill="#5a6b80">ADS-B, AIS, NOAA uydu, FM radyo</text>
+
+  <line x1="20" y1="158" x2="380" y2="158" stroke="#d3dde8" stroke-width="1"/>
+  <rect x="30" y="165" width="22" height="22" fill="#1a8a3a" rx="3"/>
+  <text x="41" y="180" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">SB</text>
+  <text x="65" y="181" font-size="12" fill="#36506e">Spektrumu gozlemlemek</text>
+  <text x="65" y="196" font-size="11" fill="#5a6b80">Waterfall izlemek, frekans tarama</text>
+
+  <line x1="20" y1="211" x2="380" y2="211" stroke="#d3dde8" stroke-width="1"/>
+  <rect x="30" y="218" width="22" height="22" fill="#1a8a3a" rx="3"/>
+  <text x="41" y="233" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">KD</text>
+  <text x="65" y="234" font-size="12" fill="#36506e">Kendi cihazini / sinyalini analiz etmek</text>
+  <text x="65" y="249" font-size="11" fill="#5a6b80">Lab ortami, kendi devren, donanim</text>
+
+  <line x1="20" y1="264" x2="380" y2="264" stroke="#d3dde8" stroke-width="1"/>
+  <rect x="30" y="271" width="22" height="22" fill="#1a8a3a" rx="3"/>
+  <text x="41" y="286" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">PT</text>
+  <text x="65" y="287" font-size="12" fill="#36506e">Kendi aginda yetkili penetrasyon testi</text>
+  <text x="65" y="302" font-size="11" fill="#5a6b80">Kendi WiFi/BLE/RFID, izinli ortam</text>
+
+  <line x1="20" y1="317" x2="380" y2="317" stroke="#d3dde8" stroke-width="1"/>
+  <rect x="30" y="324" width="22" height="22" fill="#1a8a3a" rx="3"/>
+  <text x="41" y="339" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">AY</text>
+  <text x="65" y="340" font-size="12" fill="#36506e">Acik yayinlari dinlemek</text>
+  <text x="65" y="355" font-size="11" fill="#5a6b80">Hava durumu, FM, amatör radyo</text>
+
+  <line x1="20" y1="370" x2="380" y2="370" stroke="#d3dde8" stroke-width="1"/>
+  <text x="200" y="408" text-anchor="middle" font-size="11" fill="#1a8a3a" font-weight="bold">Alici cogu yerde serbest</text>
+
+  <!-- SAG PANEL: Yasak -->
+  <rect x="400" y="50" width="360" height="370" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="400" y="50" width="360" height="38" fill="#c0392b" rx="0"/>
+  <text x="580" y="74" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">GENELDE SUC</text>
+  <text x="580" y="90" text-anchor="middle" font-size="11" fill="#c0392b">(yetki veya lisans gerekir)</text>
+
+  <!-- Satirlar: yasak -->
+  <line x1="400" y1="105" x2="760" y2="105" stroke="#d3dde8" stroke-width="1"/>
+  <rect x="410" y="112" width="22" height="22" fill="#c0392b" rx="3"/>
+  <text x="421" y="127" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">TX</text>
+  <text x="445" y="128" font-size="12" fill="#36506e">Yetkisiz yayin (TX)</text>
+  <text x="445" y="143" font-size="11" fill="#5a6b80">Lisanssiz vericilik, izinsiz yayin</text>
+
+  <line x1="400" y1="158" x2="760" y2="158" stroke="#d3dde8" stroke-width="1"/>
+  <rect x="410" y="165" width="22" height="22" fill="#c0392b" rx="3"/>
+  <text x="421" y="180" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">JM</text>
+  <text x="445" y="181" font-size="12" fill="#36506e">Jamming (karistirma)</text>
+  <text x="445" y="196" font-size="11" fill="#5a6b80">Her yerde agir suc, can guvenligi tehdidi</text>
+
+  <line x1="400" y1="211" x2="760" y2="211" stroke="#d3dde8" stroke-width="1"/>
+  <rect x="410" y="218" width="22" height="22" fill="#c0392b" rx="3"/>
+  <text x="421" y="233" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">YD</text>
+  <text x="445" y="234" font-size="12" fill="#36506e">Baskasinin haberlesme dinlemek</text>
+  <text x="445" y="249" font-size="11" fill="#5a6b80">Sifreleme cozme, kayit/yayma</text>
+
+  <line x1="400" y1="264" x2="760" y2="264" stroke="#d3dde8" stroke-width="1"/>
+  <rect x="410" y="271" width="22" height="22" fill="#c0392b" rx="3"/>
+  <text x="421" y="286" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">IZ</text>
+  <text x="445" y="287" font-size="12" fill="#36506e">Baskasinin agina / cihazina erisim</text>
+  <text x="445" y="302" font-size="11" fill="#5a6b80">Izinsiz; kart, router, cihaz hedefi</text>
+
+  <line x1="400" y1="317" x2="760" y2="317" stroke="#d3dde8" stroke-width="1"/>
+  <rect x="410" y="324" width="22" height="22" fill="#c0392b" rx="3"/>
+  <text x="421" y="339" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">SP</text>
+  <text x="445" y="340" font-size="12" fill="#36506e">Spoofing / replay (baskasinin sistemi)</text>
+  <text x="445" y="355" font-size="11" fill="#5a6b80">GPS yaniltma, kimlik taklidi</text>
+
+  <line x1="400" y1="370" x2="760" y2="370" stroke="#d3dde8" stroke-width="1"/>
+  <text x="580" y="408" text-anchor="middle" font-size="11" fill="#c0392b" font-weight="bold">Verici her yerde sorumluluktur</text>
+
+  <!-- Alt notu -->
+  <text x="390" y="430" text-anchor="middle" font-size="10.5" fill="#6b7a90">TR: TCK 132-140, 243-244, BTK mevzuati — ABD: FCC + Wiretap Act — AB: ePrivacy</text>
+</svg>

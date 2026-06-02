@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="760" height="430" fill="#f4f7fb"/>
+  <text x="380" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">MAC Randomizasyonu: Korunan ve Korunmayan Yuzeyler</text>
+
+  <!-- Panel -->
+  <rect x="30" y="48" width="700" height="356" fill="#fff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Merkez: cihaz ikonu -->
+  <rect x="330" y="180" width="100" height="66" rx="12" fill="#1565c0" opacity="0.18"/>
+  <rect x="330" y="180" width="100" height="66" rx="12" fill="none" stroke="#1565c0" stroke-width="2"/>
+  <text x="380" y="202" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">CIHAZ</text>
+  <text x="380" y="218" text-anchor="middle" font-size="9.5" fill="#1565c0">(akilli telefon /</text>
+  <text x="380" y="230" text-anchor="middle" font-size="9.5" fill="#1565c0">laptop)</text>
+
+  <!-- Baslik sol: Koruyor -->
+  <rect x="48" y="58" width="240" height="24" fill="#1a8a3a" opacity="0.15" rx="3"/>
+  <text x="168" y="75" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a8a3a">MAC Randomizasyonu KORUYOR</text>
+
+  <!-- Baslik sag: Korumaz -->
+  <rect x="472" y="58" width="240" height="24" fill="#c0392b" opacity="0.15" rx="3"/>
+  <text x="592" y="75" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">MAC Randomizasyonu KORUMAZ</text>
+
+  <!-- Sol: Korunan maddeler -->
+  <!-- 1 -->
+  <rect x="48" y="92" width="240" height="48" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="58" y="110" font-size="10.5" fill="#1a8a3a" font-weight="bold">&#x2713; MAC Tabanli Takip</text>
+  <text x="58" y="126" font-size="10" fill="#4a5a70">Rastgele MAC → ayni cihaz</text>
+  <text x="58" y="136" font-size="10" fill="#4a5a70">farkli lokasyonlarda eslestirilemez</text>
+
+  <!-- 2 -->
+  <rect x="48" y="148" width="240" height="48" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="58" y="166" font-size="10.5" fill="#1a8a3a" font-weight="bold">&#x2713; Pasif Konum Izleme</text>
+  <text x="58" y="182" font-size="10" fill="#4a5a70">MAC degisince alici sensorkler</text>
+  <text x="58" y="192" font-size="10" fill="#4a5a70">konum gecmisi olusturamaz</text>
+
+  <!-- 3 -->
+  <rect x="48" y="204" width="240" height="48" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="58" y="222" font-size="10.5" fill="#1a8a3a" font-weight="bold">&#x2713; Profilleme (MAC baz.)</text>
+  <text x="58" y="238" font-size="10" fill="#4a5a70">Beacon/probe analitigi MAC</text>
+  <text x="58" y="248" font-size="10" fill="#4a5a70">bazli profillemeyi engelliyor</text>
+
+  <!-- Sol ok 1 -->
+  <line x1="288" y1="116" x2="330" y2="213" stroke="#1a8a3a" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <polygon points="325,210 335,216 330,206" fill="#1a8a3a"/>
+  <!-- Sol ok 2 -->
+  <line x1="288" y1="172" x2="330" y2="213" stroke="#1a8a3a" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <!-- Sol ok 3 -->
+  <line x1="288" y1="228" x2="330" y2="218" stroke="#1a8a3a" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- Sag: Korunmayan maddeler -->
+  <!-- 1: IE Parmak izi -->
+  <rect x="472" y="92" width="240" height="48" fill="#fff3f3" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="482" y="110" font-size="10.5" fill="#c0392b" font-weight="bold">&#x2717; IE Parmak Izi</text>
+  <text x="482" y="126" font-size="10" fill="#4a5a70">Desteklenen hiz, IE sirasi,</text>
+  <text x="482" y="136" font-size="10" fill="#4a5a70">uretici bilgisi MAC'e gore sabit</text>
+
+  <!-- 2: PNL probe sizintisi -->
+  <rect x="472" y="148" width="240" height="48" fill="#fff3f3" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="482" y="166" font-size="10.5" fill="#c0392b" font-weight="bold">&#x2717; PNL Probe Sizintisi</text>
+  <text x="482" y="182" font-size="10" fill="#4a5a70">Eski cihazlar PNL'i probe'da</text>
+  <text x="482" y="192" font-size="10" fill="#4a5a70">yayinlar → konum gecmisi</text>
+
+  <!-- 3: Baglandiktan sonra MAC -->
+  <rect x="472" y="204" width="240" height="48" fill="#fff3f3" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="482" y="222" font-size="10.5" fill="#c0392b" font-weight="bold">&#x2717; Baglandiktan Sonra MAC</text>
+  <text x="482" y="238" font-size="10" fill="#4a5a70">Ayni aga baglanirken MAC</text>
+  <text x="482" y="248" font-size="10" fill="#4a5a70">tutarli → ag bazli izleme acik</text>
+
+  <!-- Sag ok 1 -->
+  <line x1="472" y1="116" x2="430" y2="213" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <polygon points="425,210 435,216 430,206" fill="#c0392b"/>
+  <!-- Sag ok 2 -->
+  <line x1="472" y1="172" x2="430" y2="213" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <!-- Sag ok 3 -->
+  <line x1="472" y1="228" x2="430" y2="218" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- Ust ozet satirlar -->
+  <line x1="50" y1="264" x2="710" y2="264" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- Alt ozet -->
+  <rect x="48" y="272" width="664" height="112" fill="#f4f7fb" stroke="#d3dde8" stroke-width="1" rx="4"/>
+  <text x="380" y="294" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Savunma Sezgisi</text>
+  <text x="380" y="312" text-anchor="middle" font-size="10.5" fill="#4a5a70">MAC randomizasyonu tek basina yeterli degil. Tam gizlilik icin:</text>
+  <text x="380" y="330" text-anchor="middle" font-size="10.5" fill="#4a5a70">&#x2022; Cihaz PNL'i havaya sacmamali (pasif tarama veya broadcast-only probe)</text>
+  <text x="380" y="348" text-anchor="middle" font-size="10.5" fill="#4a5a70">&#x2022; IE payload'inda sabit tanimlayici birakilmamali (parmak izini azalt)</text>
+  <text x="380" y="366" text-anchor="middle" font-size="10.5" fill="#4a5a70">&#x2022; Modern OS'lar bunu buyuk olcude kapatti; eski cihazlar hala sizdirir</text>
+</svg>

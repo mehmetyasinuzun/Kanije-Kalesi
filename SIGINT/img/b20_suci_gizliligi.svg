@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="440" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">SUCI ile Kimlik Gizliligi — LTE vs 5G</text>
+  <text x="430" y="46" text-anchor="middle" font-size="11" fill="#6b7a90">Sahte hucreye karsi yapısal savunma: IMSI acik (LTE) vs SUCI sifreli (5G) — iki paralel senaryo</text>
+
+  <defs>
+    <marker id="redarr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#c0392b"/>
+    </marker>
+    <marker id="grnarr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#1a8a3a"/>
+    </marker>
+    <marker id="blkarr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#6b7a90"/>
+    </marker>
+  </defs>
+
+  <!-- Sol senaryo: LTE -->
+  <rect x="20" y="58" width="400" height="350" rx="5" fill="#fce4e4" stroke="#c0392b" stroke-width="2"/>
+  <text x="220" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">LTE — IMSI Acik Gidebilir</text>
+  <text x="220" y="94" text-anchor="middle" font-size="10" fill="#c0392b">Sahte BTS IMSI'yi yakalayabilir</text>
+
+  <!-- LTE: Cihaz -->
+  <rect x="60" y="112" width="100" height="52" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="110" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">UE / USIM</text>
+  <text x="110" y="146" text-anchor="middle" font-size="9" fill="#4a5a70">IMSI = 123456789</text>
+  <text x="110" y="158" text-anchor="middle" font-size="9" fill="#4a5a70">gizli anahtar K</text>
+
+  <!-- Sahte BTS (LTE) -->
+  <rect x="270" y="112" width="110" height="52" rx="4" fill="#fce4e4" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="325" y="130" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Sahte BTS</text>
+  <text x="325" y="144" text-anchor="middle" font-size="9" fill="#c0392b">(saldırgan)</text>
+  <text x="325" y="158" text-anchor="middle" font-size="9" fill="#c0392b">gercek gibi yayin</text>
+
+  <!-- LTE: 1. Adim: Sahte BTS Identity Request gonder -->
+  <line x1="270" y1="145" x2="160" y2="145" stroke="#c0392b" stroke-width="1.5" marker-end="url(#redarr)"/>
+  <rect x="165" y="122" width="100" height="18" rx="2" fill="#fce4e4"/>
+  <text x="215" y="135" text-anchor="middle" font-size="8" fill="#c0392b">1. Identity Request</text>
+
+  <!-- LTE: 2. Adim: Cihaz IMSI gonder -->
+  <line x1="160" y1="168" x2="270" y2="168" stroke="#c0392b" stroke-width="2" marker-end="url(#redarr)"/>
+  <rect x="165" y="150" width="100" height="24" rx="2" fill="#c0392b" fill-opacity="0.2"/>
+  <text x="215" y="163" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">2. IMSI = 123456789</text>
+  <text x="215" y="175" text-anchor="middle" font-size="8" fill="#c0392b">ACIK iletim!</text>
+
+  <!-- LTE: Sahte BTS IMSI yakalar -->
+  <rect x="258" y="180" width="130" height="36" rx="3" fill="#c0392b" fill-opacity="0.15" stroke="#c0392b" stroke-width="1"/>
+  <text x="323" y="197" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">IMSI YAKALANDI!</text>
+  <text x="323" y="210" text-anchor="middle" font-size="9" fill="#c0392b">Saldirgan kimlik elde etti</text>
+
+  <!-- LTE: Neden oluyor aciklama -->
+  <rect x="38" y="230" width="362" height="80" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="219" y="248" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Neden Calisiyor?</text>
+  <text x="50" y="263" font-size="9" fill="#4a5a70">• UE, aga baglanmadan once kimlik gonderebilir</text>
+  <text x="50" y="276" font-size="9" fill="#4a5a70">• LTE'de kalici kimlik (IMSI) sifreli degil</text>
+  <text x="50" y="289" font-size="9" fill="#4a5a70">• Sahte BTS yeterince guclu yayin yaparsa UE baglanabilir</text>
+  <text x="50" y="302" font-size="9" fill="#4a5a70">• Karsilikli dogrulama LTE'de var ama IMSI zaten ifsa oldu</text>
+
+  <!-- LTE sonuc -->
+  <rect x="38" y="322" width="362" height="64" rx="4" fill="#c0392b" fill-opacity="0.12" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="219" y="342" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Sonuc: IMSI Yakalama Mumkun</text>
+  <text x="219" y="358" text-anchor="middle" font-size="9" fill="#4a5a70">Saldirgan: kim oldugun biliyor (kimlik takibi)</text>
+  <text x="219" y="372" text-anchor="middle" font-size="9" fill="#4a5a70">Not: Karsilikli dogr. (3G+) IMSI'yi KORUMAZ, sadece</text>
+  <text x="219" y="384" text-anchor="middle" font-size="9" fill="#4a5a70">baglantinin gercek ag oldugunu dogrular.</text>
+
+  <!-- Sag senaryo: 5G -->
+  <rect x="440" y="58" width="400" height="350" rx="5" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="2"/>
+  <text x="640" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a8a3a">5G SA — SUCI Sifreli</text>
+  <text x="640" y="94" text-anchor="middle" font-size="10" fill="#1a8a3a">Sahte BTS isine yaramaz</text>
+
+  <!-- 5G: Cihaz -->
+  <rect x="476" y="112" width="100" height="52" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="526" y="130" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">UE / USIM</text>
+  <text x="526" y="144" text-anchor="middle" font-size="9" fill="#4a5a70">SUPI (gizli)</text>
+  <text x="526" y="158" text-anchor="middle" font-size="9" fill="#4a5a70">HN acik anahtar</text>
+
+  <!-- Sahte BTS (5G) -->
+  <rect x="684" y="112" width="130" height="52" rx="4" fill="#fce4e4" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="749" y="130" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Sahte BTS</text>
+  <text x="749" y="144" text-anchor="middle" font-size="9" fill="#c0392b">(saldırgan)</text>
+  <text x="749" y="158" text-anchor="middle" font-size="9" fill="#c0392b">SUCI acamaz!</text>
+
+  <!-- 5G: Identity Request -->
+  <line x1="684" y1="145" x2="576" y2="145" stroke="#c0392b" stroke-width="1.5" marker-end="url(#redarr)"/>
+  <rect x="584" y="122" width="95" height="18" rx="2" fill="#fce4e4"/>
+  <text x="631" y="135" text-anchor="middle" font-size="8" fill="#c0392b">1. Identity Request</text>
+
+  <!-- 5G: Cihaz SUCI (sifreli) gonder -->
+  <line x1="576" y1="168" x2="684" y2="168" stroke="#1a8a3a" stroke-width="2" marker-end="url(#grnarr)"/>
+  <rect x="584" y="150" width="95" height="24" rx="2" fill="#1a8a3a" fill-opacity="0.15"/>
+  <text x="631" y="163" text-anchor="middle" font-size="9" font-weight="bold" fill="#1a8a3a">2. SUCI = enc(SUPI)</text>
+  <text x="631" y="175" text-anchor="middle" font-size="8" fill="#1a8a3a">Sifreli iletim</text>
+
+  <!-- Sahte BTS: SUCI alir ama acamaz -->
+  <rect x="676" y="184" width="150" height="36" rx="3" fill="#1a8a3a" fill-opacity="0.12" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="751" y="201" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">SUCI ele gecti — ISINIMI YOK</text>
+  <text x="751" y="215" text-anchor="middle" font-size="9" fill="#1a8a3a">Coz. icin ozel anahtar lazim</text>
+
+  <!-- Aciklama: SIDF -->
+  <rect x="456" y="234" width="362" height="80" rx="3" fill="#ffffff" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="637" y="252" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">Neden Calismıyor?</text>
+  <text x="468" y="267" font-size="9" fill="#4a5a70">• SUCI = Home Network'un acik anahtariyla sifrelenmis SUPI</text>
+  <text x="468" y="280" font-size="9" fill="#4a5a70">• Cozme (SUCI→SUPI) yalnizca SIDF'te (ev aginda) mumkun</text>
+  <text x="468" y="293" font-size="9" fill="#4a5a70">• Sahte BTS ozel anahtara sahip degil → SUCI anlamlı degil</text>
+  <text x="468" y="306" font-size="9" fill="#4a5a70">• AMF bile tek basina SUCI'yi SUPI'ye donusturemez</text>
+
+  <!-- 5G sonuc -->
+  <rect x="456" y="322" width="362" height="64" rx="4" fill="#1a8a3a" fill-opacity="0.12" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="637" y="342" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">Sonuc: IMSI Yakalama Engellendi (SA)</text>
+  <text x="637" y="358" text-anchor="middle" font-size="9" fill="#4a5a70">Saldirgan: yalnizca anlamsiz bir sifreli deger (SUCI) elde etti</text>
+  <text x="637" y="372" text-anchor="middle" font-size="9" fill="#4a5a70">Gercek SUPI (kalici kimlik) ev aginda guvenli kalir</text>
+  <text x="637" y="384" text-anchor="middle" font-size="9" fill="#4a5a70">Sinir: yalnizca 5G SA'da; NSA'da SUCI koruması kisitli olabilir</text>
+
+  <!-- Alt: Ozet -->
+  <rect x="20" y="418" width="820" height="18" rx="3" fill="#f0f4ff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="430" y="431" text-anchor="middle" font-size="9" fill="#4a5a70">SUCI'nin panzehiri oldugu tek senaryo: kalici kimlik toplama (IMSI yakalama). Sahte BTS-kaynaklı DoS ve downgrade saldirilarinin onune gecmez. 5G'nin bir guvenligi, otomatik guncellik degil yapisal kapama. SA + dogru yapilandirma sarttir.</text>
+</svg>

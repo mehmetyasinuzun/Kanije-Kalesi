@@ -62,6 +62,8 @@ Bölümün omurgası: önce **iç ağı** (özellikle CAN) ve yapısal güvensiz
 <a id="2"></a>
 ## 2. ECU Mimarisi ve Araç-İçi Ağ Topolojisi
 
+![Arac-ici ag segmentasyonu: powertrain, sasi/fren, govde/konfor, infotainment ve OBD adalari; merkezi gateway kopru](img/b30_ag_segmentasyon.svg)
+
 Bir ECU (Electronic Control Unit), bir mikrodenetleyici (MCU), bir/birden çok veriyolu alıcı-vericisi (transceiver), giriş/çıkış arabirimleri ve gömülü yazılım (firmware) içeren özelleşmiş bir gömülü bilgisayardır. İşlevine göre adlandırılır: ECM/PCM (motor/güç aktarımı), BCM (gövde kontrol modülü — kapılar, ışıklar, kornalar), ABS/ESP (fren/stabilite), EPS (elektrikli direksiyon), TCU (telematik kontrol ünitesi), IVI (infotainment), gateway (ağ geçidi).
 
 Araç-içi ağ tek bir düz veriyolu değil, **birden çok ayrı veriyolunun bir gateway etrafında segmentlenmiş** halidir; farklı kritiklikteki sistemler ayrı veriyollarına yerleştirilir, aralarındaki trafik bir **merkezi gateway** üzerinden filtrelenerek geçer:
@@ -90,6 +92,8 @@ Eski (ve bazı maliyet-odaklı modern) araçlarda bu segmentasyon zayıftır vey
 
 <a id="3"></a>
 ## 3. CAN Bus Derinlemesine: Çerçeve, Arbitrasyon, Bit Rate
+
+![CAN bus topolojisi: CANH/CANL diferansiyel hat, 120 ohm sonlandirmalar, ECU'lar ve arbitrasyon bit-zaman cizelgesi](img/b30_can_bus_topoloji.svg)
 
 CAN (Controller Area Network), 1980'lerde Bosch tarafından geliştirilen ve otomotivin baskın iç-ağ standardı olan bir seri veriyolu protokolüdür (ISO 11898). Anlaşılması güvenliğin temelidir, çünkü güvensizliği rastgele değil **tasarım hedeflerinin doğrudan sonucudur.** CAN, gürültülü ortamda **güvenilir, gerçek-zamanlı, çok-uçlu (multi-master)** iletişim için tasarlandı; gizlilik veya kimlik doğrulama hiçbir zaman hedef değildi.
 
@@ -381,6 +385,8 @@ Rolling-code basit replay'i çözer ama "her rolling-code güvenlidir" demek yan
 
 <a id="13"></a>
 ## 13. Saldırı Sınıfları II — Relay (Röle) Saldırısı: Prensip ve Savunma
+
+![PKES normal calisma, relay saldirisi prensibi ve UWB ile gercek mesafe olcumu savunmasi](img/b30_pkes_relay_uwb.svg)
 
 Relay (röle / menzil uzatma) saldırısı, **günümüzde anahtarsız araçlara yönelik en yaygın hırsızlık yöntemidir** ve PKES'in (Bölüm 10) fiziksel varsayımını hedef alır. Bu başlık prensip ve savunmaya odaklanır; bilinçli olarak hiçbir kurulum adımı, donanım reçetesi veya zamanlama parametresi vermez.
 

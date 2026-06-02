@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">BLE Esleme Modlari: Tehdit x Direnç Matrisi</text>
+
+  <!-- Panel -->
+  <rect x="30" y="48" width="800" height="406" fill="#fff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Sutun basliklar -->
+  <rect x="30" y="48" width="200" height="36" fill="#f4f7fb" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="130" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Esleme Yontemi</text>
+  <rect x="230" y="48" width="150" height="36" fill="#f4f7fb" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="305" y="65" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1a2b40">Nasil Calisir</text>
+  <rect x="380" y="48" width="140" height="36" fill="#f4f7fb" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="450" y="65" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1a2b40">Pasif Sniff</text>
+  <text x="450" y="75" text-anchor="middle" font-size="10" fill="#6b7a90">(gizlilik)</text>
+  <rect x="520" y="48" width="140" height="36" fill="#f4f7fb" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="590" y="65" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1a2b40">MITM Direnci</text>
+  <text x="590" y="75" text-anchor="middle" font-size="10" fill="#6b7a90">(kimlik dogrulama)</text>
+  <rect x="660" y="48" width="170" height="36" fill="#f4f7fb" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="745" y="65" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#1a2b40">Tipik Cihaz</text>
+
+  <!-- Satir 1: Just Works -->
+  <rect x="30" y="84" width="200" height="72" fill="#fff3f3" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="130" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Just Works</text>
+  <rect x="40" y="118" width="180" height="18" fill="#c0392b" opacity="0.15" rx="3"/>
+  <text x="130" y="131" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">MITM'E ACIK</text>
+  <text x="130" y="146" text-anchor="middle" font-size="9" fill="#6b7a90">En zayif; yaygın</text>
+
+  <rect x="230" y="84" width="150" height="72" fill="#fff3f3" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="305" y="108" text-anchor="middle" font-size="10" fill="#4a5a70">Kullanici</text>
+  <text x="305" y="121" text-anchor="middle" font-size="10" fill="#4a5a70">dogrulamasi yok;</text>
+  <text x="305" y="134" text-anchor="middle" font-size="10" fill="#4a5a70">otomatik kabul.</text>
+
+  <!-- Pasif sniff ikon: LE SC varsa korur -->
+  <rect x="380" y="84" width="140" height="72" fill="#fff3f3" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="450" y="112" text-anchor="middle" font-size="10" fill="#ff8f00">Legacy: ACIK</text>
+  <text x="450" y="127" text-anchor="middle" font-size="10" fill="#1a8a3a">LE SC ile:</text>
+  <text x="450" y="140" text-anchor="middle" font-size="10" fill="#1a8a3a">KORUNUR</text>
+
+  <!-- MITM -->
+  <rect x="520" y="84" width="140" height="72" fill="#fff3f3" stroke="#9fb3c8" stroke-width="1"/>
+  <circle cx="590" cy="120" r="16" fill="#c0392b" opacity="0.18"/>
+  <text x="590" y="115" text-anchor="middle" font-size="11" fill="#c0392b" font-weight="bold">&#x2717;</text>
+  <text x="590" y="131" text-anchor="middle" font-size="10" fill="#c0392b">DIRENC YOK</text>
+  <text x="590" y="143" text-anchor="middle" font-size="9" fill="#6b7a90">(en zayif)</text>
+
+  <!-- Cihaz -->
+  <rect x="660" y="84" width="170" height="72" fill="#fff3f3" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="745" y="107" text-anchor="middle" font-size="10" fill="#4a5a70">Ekransiz/tussuz</text>
+  <text x="745" y="121" text-anchor="middle" font-size="10" fill="#4a5a70">ucuz IoT (akilli</text>
+  <text x="745" y="135" text-anchor="middle" font-size="10" fill="#4a5a70">ampul, sensor)</text>
+
+  <!-- Satir 2: Passkey Entry -->
+  <rect x="30" y="156" width="200" height="72" fill="#fffbf0" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="130" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff8f00">Passkey Entry</text>
+  <rect x="40" y="190" width="180" height="18" fill="#ff8f00" opacity="0.15" rx="3"/>
+  <text x="130" y="203" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">MITM DIRENCI VAR</text>
+  <text x="130" y="218" text-anchor="middle" font-size="9" fill="#6b7a90">6 haneli kod</text>
+
+  <rect x="230" y="156" width="150" height="72" fill="#fffbf0" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="305" y="180" text-anchor="middle" font-size="10" fill="#4a5a70">Bir cihazda 6</text>
+  <text x="305" y="193" text-anchor="middle" font-size="10" fill="#4a5a70">hane gosterilir,</text>
+  <text x="305" y="206" text-anchor="middle" font-size="10" fill="#4a5a70">digerine girilir.</text>
+
+  <rect x="380" y="156" width="140" height="72" fill="#fffbf0" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="450" y="186" text-anchor="middle" font-size="10" fill="#ff8f00">Legacy: ACIK</text>
+  <text x="450" y="201" text-anchor="middle" font-size="10" fill="#1a8a3a">LE SC ile:</text>
+  <text x="450" y="214" text-anchor="middle" font-size="10" fill="#1a8a3a">KORUNUR</text>
+
+  <rect x="520" y="156" width="140" height="72" fill="#fffbf0" stroke="#9fb3c8" stroke-width="1"/>
+  <circle cx="590" cy="192" r="16" fill="#ff8f00" opacity="0.18"/>
+  <text x="590" y="188" text-anchor="middle" font-size="11" fill="#ff8f00" font-weight="bold">&#x2713;</text>
+  <text x="590" y="204" text-anchor="middle" font-size="10" fill="#ff8f00">VAR</text>
+  <text x="590" y="216" text-anchor="middle" font-size="9" fill="#6b7a90">(kodu girmek gerek)</text>
+
+  <rect x="660" y="156" width="170" height="72" fill="#fffbf0" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="745" y="179" text-anchor="middle" font-size="10" fill="#4a5a70">Ekran + tus olan</text>
+  <text x="745" y="193" text-anchor="middle" font-size="10" fill="#4a5a70">cihazlar</text>
+  <text x="745" y="207" text-anchor="middle" font-size="10" fill="#4a5a70">(akilli kilit, PC)</text>
+
+  <!-- Satir 3: Numeric Comparison -->
+  <rect x="30" y="228" width="200" height="72" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="130" y="254" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">Numeric Comparison</text>
+  <rect x="40" y="262" width="180" height="18" fill="#1a8a3a" opacity="0.15" rx="3"/>
+  <text x="130" y="275" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">GUCLU MITM DIRENCI</text>
+  <text x="130" y="290" text-anchor="middle" font-size="9" fill="#6b7a90">LE SC + onay</text>
+
+  <rect x="230" y="228" width="150" height="72" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="305" y="252" text-anchor="middle" font-size="10" fill="#4a5a70">Iki ekranda ayni</text>
+  <text x="305" y="265" text-anchor="middle" font-size="10" fill="#4a5a70">sayi; kullanici</text>
+  <text x="305" y="278" text-anchor="middle" font-size="10" fill="#4a5a70">onaylar.</text>
+
+  <rect x="380" y="228" width="140" height="72" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="450" y="264" text-anchor="middle" font-size="10" fill="#1a8a3a">LE SC:</text>
+  <text x="450" y="279" text-anchor="middle" font-size="10" fill="#1a8a3a">KORUNUR</text>
+
+  <rect x="520" y="228" width="140" height="72" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <circle cx="590" cy="264" r="16" fill="#1a8a3a" opacity="0.18"/>
+  <text x="590" y="260" text-anchor="middle" font-size="12" fill="#1a8a3a" font-weight="bold">&#x2713;&#x2713;</text>
+  <text x="590" y="276" text-anchor="middle" font-size="10" fill="#1a8a3a">GUCLU</text>
+
+  <rect x="660" y="228" width="170" height="72" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="745" y="252" text-anchor="middle" font-size="10" fill="#4a5a70">Iki ekranli cihazlar</text>
+  <text x="745" y="266" text-anchor="middle" font-size="10" fill="#4a5a70">(LE Secure</text>
+  <text x="745" y="280" text-anchor="middle" font-size="10" fill="#4a5a70">Connections)</text>
+
+  <!-- Satir 4: OOB -->
+  <rect x="30" y="300" width="200" height="72" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="130" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565c0">OOB</text>
+  <text x="130" y="342" text-anchor="middle" font-size="11" fill="#1565c0">(Out of Band)</text>
+  <rect x="40" y="354" width="180" height="18" fill="#1565c0" opacity="0.15" rx="3"/>
+  <text x="130" y="367" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">KANALA BAGLI GUCLU</text>
+
+  <rect x="230" y="300" width="150" height="72" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="305" y="324" text-anchor="middle" font-size="10" fill="#4a5a70">Anahtar baska</text>
+  <text x="305" y="337" text-anchor="middle" font-size="10" fill="#4a5a70">kanaldan (NFC)</text>
+  <text x="305" y="350" text-anchor="middle" font-size="10" fill="#4a5a70">tasinir.</text>
+
+  <rect x="380" y="300" width="140" height="72" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="450" y="334" text-anchor="middle" font-size="10" fill="#1a8a3a">OOB kanalina</text>
+  <text x="450" y="349" text-anchor="middle" font-size="10" fill="#1a8a3a">bagli; guclu</text>
+
+  <rect x="520" y="300" width="140" height="72" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <circle cx="590" cy="336" r="16" fill="#1565c0" opacity="0.18"/>
+  <text x="590" y="332" text-anchor="middle" font-size="12" fill="#1565c0" font-weight="bold">&#x2713;&#x2713;</text>
+  <text x="590" y="348" text-anchor="middle" font-size="10" fill="#1565c0">GUCLU</text>
+
+  <rect x="660" y="300" width="170" height="72" fill="#f0fff4" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="745" y="324" text-anchor="middle" font-size="10" fill="#4a5a70">NFC destekli</text>
+  <text x="745" y="338" text-anchor="middle" font-size="10" fill="#4a5a70">esleme; medikal</text>
+  <text x="745" y="352" text-anchor="middle" font-size="10" fill="#4a5a70">cihazlar vb.</text>
+
+  <!-- Alt ozet banner -->
+  <rect x="30" y="372" width="800" height="82" fill="none" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="30" y="372" width="800" height="82" fill="#f4f7fb"/>
+  <text x="430" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Temel Ders: LE Secure Connections (4.2+) gizliligi saglar; MITM direnci esleme yontemiyle belirlenir</text>
+  <text x="430" y="413" text-anchor="middle" font-size="10.5" fill="#4a5a70">"Just Works" = MITM'e acik: ekransiz ucuz IoT cihazlarda yaygin. Kritik cihazlarda Passkey/Numeric/OOB secin.</text>
+  <text x="430" y="431" text-anchor="middle" font-size="10.5" fill="#4a5a70">Bonding guvenligi ilk eslemenin guvenligi kadardir; zayif ilk esleme, kalici zayif bagdir.</text>
+  <text x="430" y="449" text-anchor="middle" font-size="10.5" fill="#4a5a70">Komut karakteristigi yazmadan once kimlik dogrulama isteyin: akilli kilit komutunda auth zorunlu olmali.</text>
+</svg>

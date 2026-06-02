@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="820" height="500" fill="#f4f7fb"/>
+  <text x="410" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Acik Kaynak SDR/SIGINT Arac Ekosistemi</text>
+  <text x="410" y="46" text-anchor="middle" font-size="11" fill="#6b7a90">Katmanli Mimari ve Bagimlilik Haritas</text>
+
+  <defs>
+    <marker id="dep" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#9fb3c8"/>
+    </marker>
+  </defs>
+
+  <!-- Katman 1: SDR Cerceve (en alt, zemin) -->
+  <rect x="20" y="380" width="780" height="72" rx="6" fill="#1565c0" opacity="0.12" stroke="#1565c0" stroke-width="2"/>
+  <text x="30" y="398" font-size="12" font-weight="bold" fill="#1565c0">SDR CERCEVE KATMANI (Temel)</text>
+  <rect x="35" y="404" width="100" height="36" rx="4" fill="#1565c0" opacity="0.85"/>
+  <text x="85" y="420" text-anchor="middle" font-size="10" fill="white" font-weight="bold">GNU Radio</text>
+  <text x="85" y="434" text-anchor="middle" font-size="9" fill="white">Referans</text>
+  <rect x="148" y="404" width="100" height="36" rx="4" fill="#1565c0" opacity="0.85"/>
+  <text x="198" y="420" text-anchor="middle" font-size="10" fill="white" font-weight="bold">SoapySDR</text>
+  <text x="198" y="434" text-anchor="middle" font-size="9" fill="white">Donanim soyutlama</text>
+  <rect x="262" y="404" width="90" height="36" rx="4" fill="#1565c0" opacity="0.7"/>
+  <text x="307" y="420" text-anchor="middle" font-size="10" fill="white" font-weight="bold">VOLK</text>
+  <text x="307" y="434" text-anchor="middle" font-size="9" fill="white">SIMD performans</text>
+  <rect x="365" y="404" width="90" height="36" rx="4" fill="#1565c0" opacity="0.65"/>
+  <text x="410" y="420" text-anchor="middle" font-size="10" fill="white" font-weight="bold">LuaRadio</text>
+  <text x="410" y="434" text-anchor="middle" font-size="9" fill="white">Hafif / gomulu</text>
+  <rect x="468" y="404" width="90" height="36" rx="4" fill="#1565c0" opacity="0.65"/>
+  <text x="513" y="420" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Pothos</text>
+  <text x="513" y="434" text-anchor="middle" font-size="9" fill="white">Alternatif akis</text>
+
+  <!-- Katman 2: Surucu/Alici/Cozucu -->
+  <rect x="20" y="280" width="780" height="88" rx="6" fill="#1a8a3a" opacity="0.10" stroke="#1a8a3a" stroke-width="2"/>
+  <text x="30" y="298" font-size="12" font-weight="bold" fill="#1a8a3a">SURUCU / ALICI / COZUCU KATMANI</text>
+  <rect x="35" y="305" width="85" height="50" rx="4" fill="#1a8a3a" opacity="0.8"/>
+  <text x="77" y="323" text-anchor="middle" font-size="9" fill="white" font-weight="bold">rtl-sdr</text>
+  <text x="77" y="336" text-anchor="middle" font-size="9" fill="white">RTL-SDR suruc</text>
+  <text x="77" y="348" text-anchor="middle" font-size="9" fill="white">osmocom/blog</text>
+  <rect x="130" y="305" width="85" height="50" rx="4" fill="#1a8a3a" opacity="0.8"/>
+  <text x="172" y="323" text-anchor="middle" font-size="9" fill="white" font-weight="bold">HackRF</text>
+  <text x="172" y="336" text-anchor="middle" font-size="9" fill="white">geniş bant TX/RX</text>
+  <text x="172" y="348" text-anchor="middle" font-size="9" fill="white">greatscottgadgets</text>
+  <rect x="225" y="305" width="85" height="50" rx="4" fill="#1a8a3a" opacity="0.75"/>
+  <text x="267" y="323" text-anchor="middle" font-size="9" fill="white" font-weight="bold">GQRX / SDR++</text>
+  <text x="267" y="336" text-anchor="middle" font-size="9" fill="white">Alici GUI</text>
+  <text x="267" y="348" text-anchor="middle" font-size="9" fill="white">gqrx-sdr/SDR++</text>
+  <rect x="320" y="305" width="85" height="50" rx="4" fill="#1a8a3a" opacity="0.75"/>
+  <text x="362" y="323" text-anchor="middle" font-size="9" fill="white" font-weight="bold">SDRangel</text>
+  <text x="362" y="336" text-anchor="middle" font-size="9" fill="white">Cok kanal GUI</text>
+  <text x="362" y="348" text-anchor="middle" font-size="9" fill="white">f4exb/sdrangel</text>
+  <rect x="415" y="305" width="85" height="50" rx="4" fill="#1a8a3a" opacity="0.7"/>
+  <text x="457" y="323" text-anchor="middle" font-size="9" fill="white" font-weight="bold">URH</text>
+  <text x="457" y="336" text-anchor="middle" font-size="9" fill="white">Sinyal analiz/</text>
+  <text x="457" y="348" text-anchor="middle" font-size="9" fill="white">tersine muhen.</text>
+  <rect x="510" y="305" width="85" height="50" rx="4" fill="#1a8a3a" opacity="0.7"/>
+  <text x="552" y="323" text-anchor="middle" font-size="9" fill="white" font-weight="bold">SatDump</text>
+  <text x="552" y="336" text-anchor="middle" font-size="9" fill="white">Uydu cozucu</text>
+  <text x="552" y="348" text-anchor="middle" font-size="9" fill="white">altillium/satdump</text>
+  <rect x="605" y="305" width="85" height="50" rx="4" fill="#1a8a3a" opacity="0.7"/>
+  <text x="647" y="323" text-anchor="middle" font-size="9" fill="white" font-weight="bold">GNU Radio +</text>
+  <text x="647" y="336" text-anchor="middle" font-size="9" fill="white">gr-*ekler</text>
+  <text x="647" y="348" text-anchor="middle" font-size="9" fill="white">Cozucu bloklar</text>
+
+  <!-- Katman 3: Ozel Alan Araclari -->
+  <rect x="20" y="168" width="780" height="100" rx="6" fill="#ff8f00" opacity="0.10" stroke="#ff8f00" stroke-width="2"/>
+  <text x="30" y="186" font-size="12" font-weight="bold" fill="#ff8f00">OZEL ALAN KATMANI</text>
+
+  <rect x="35" y="193" width="90" height="64" rx="4" fill="#ff8f00" opacity="0.8"/>
+  <text x="80" y="211" text-anchor="middle" font-size="9" fill="white" font-weight="bold">Hucresel</text>
+  <text x="80" y="224" text-anchor="middle" font-size="9" fill="white">srsRAN</text>
+  <text x="80" y="237" text-anchor="middle" font-size="9" fill="white">Open5GS</text>
+  <text x="80" y="250" text-anchor="middle" font-size="9" fill="white">gr-gsm (pasif)</text>
+
+  <rect x="138" y="193" width="90" height="64" rx="4" fill="#ff8f00" opacity="0.75"/>
+  <text x="183" y="211" text-anchor="middle" font-size="9" fill="white" font-weight="bold">GNSS</text>
+  <text x="183" y="224" text-anchor="middle" font-size="9" fill="white">GNSS-SDR</text>
+  <text x="183" y="237" text-anchor="middle" font-size="9" fill="white">pasif/arastirma</text>
+
+  <rect x="241" y="193" width="90" height="64" rx="4" fill="#ff8f00" opacity="0.75"/>
+  <text x="286" y="211" text-anchor="middle" font-size="9" fill="white" font-weight="bold">Yon Bulma</text>
+  <text x="286" y="224" text-anchor="middle" font-size="9" fill="white">KrakenSDR</text>
+  <text x="286" y="237" text-anchor="middle" font-size="9" fill="white">gr-doa</text>
+  <text x="286" y="250" text-anchor="middle" font-size="9" fill="white">bearing360</text>
+
+  <rect x="344" y="193" width="90" height="64" rx="4" fill="#1565c0" opacity="0.75"/>
+  <text x="389" y="211" text-anchor="middle" font-size="9" fill="white" font-weight="bold">WiFi</text>
+  <text x="389" y="224" text-anchor="middle" font-size="9" fill="white">aircrack-ng</text>
+  <text x="389" y="237" text-anchor="middle" font-size="9" fill="white">hcxtools</text>
+  <text x="389" y="250" text-anchor="middle" font-size="9" fill="white">Wireshark</text>
+
+  <rect x="447" y="193" width="90" height="64" rx="4" fill="#1565c0" opacity="0.75"/>
+  <text x="492" y="211" text-anchor="middle" font-size="9" fill="white" font-weight="bold">BLE / RFID</text>
+  <text x="492" y="224" text-anchor="middle" font-size="9" fill="white">Ubertooth</text>
+  <text x="492" y="237" text-anchor="middle" font-size="9" fill="white">Proxmark3</text>
+  <text x="492" y="250" text-anchor="middle" font-size="9" fill="white">nRF Sniffer</text>
+
+  <rect x="550" y="193" width="90" height="64" rx="4" fill="#1565c0" opacity="0.7"/>
+  <text x="595" y="211" text-anchor="middle" font-size="9" fill="white" font-weight="bold">ADS-B / rtl</text>
+  <text x="595" y="224" text-anchor="middle" font-size="9" fill="white">dump1090</text>
+  <text x="595" y="237" text-anchor="middle" font-size="9" fill="white">readsb</text>
+  <text x="595" y="250" text-anchor="middle" font-size="9" fill="white">rtl_433</text>
+
+  <rect x="653" y="193" width="130" height="64" rx="4" fill="#6b7a90" opacity="0.75"/>
+  <text x="718" y="211" text-anchor="middle" font-size="9" fill="white" font-weight="bold">Analog / Genel</text>
+  <text x="718" y="224" text-anchor="middle" font-size="9" fill="white">Inspectrum</text>
+  <text x="718" y="237" text-anchor="middle" font-size="9" fill="white">baudline / Spectrum</text>
+  <text x="718" y="250" text-anchor="middle" font-size="9" fill="white">WSJT-X (FT8)</text>
+
+  <!-- Katman 4: Destek -->
+  <rect x="20" y="58" width="780" height="98" rx="6" fill="#6b7a90" opacity="0.10" stroke="#6b7a90" stroke-width="2"/>
+  <text x="30" y="76" font-size="12" font-weight="bold" fill="#6b7a90">DESTEK KATMANI</text>
+
+  <rect x="35" y="82" width="130" height="62" rx="4" fill="#6b7a90" opacity="0.75"/>
+  <text x="100" y="99" text-anchor="middle" font-size="9" fill="white" font-weight="bold">Veri Kumeleri / ML</text>
+  <text x="100" y="112" text-anchor="middle" font-size="9" fill="white">sigmf-data</text>
+  <text x="100" y="125" text-anchor="middle" font-size="9" fill="white">RadioML 2018</text>
+  <text x="100" y="138" text-anchor="middle" font-size="9" fill="white">IQ Zoo</text>
+
+  <rect x="177" y="82" width="140" height="62" rx="4" fill="#6b7a90" opacity="0.7"/>
+  <text x="247" y="99" text-anchor="middle" font-size="9" fill="white" font-weight="bold">Topluluk / Kaynak</text>
+  <text x="247" y="112" text-anchor="middle" font-size="9" fill="white">NVD/CVE</text>
+  <text x="247" y="125" text-anchor="middle" font-size="9" fill="white">CISA KEV</text>
+  <text x="247" y="138" text-anchor="middle" font-size="9" fill="white">GSMA FS serisi</text>
+
+  <rect x="329" y="82" width="140" height="62" rx="4" fill="#6b7a90" opacity="0.7"/>
+  <text x="399" y="99" text-anchor="middle" font-size="9" fill="white" font-weight="bold">Dagitimlar</text>
+  <text x="399" y="112" text-anchor="middle" font-size="9" fill="white">DragonOS</text>
+  <text x="399" y="125" text-anchor="middle" font-size="9" fill="white">Kali Linux</text>
+  <text x="399" y="138" text-anchor="middle" font-size="9" fill="white">SDR for Pi</text>
+
+  <rect x="481" y="82" width="140" height="62" rx="4" fill="#6b7a90" opacity="0.65"/>
+  <text x="551" y="99" text-anchor="middle" font-size="9" fill="white" font-weight="bold">Donanim (AC Tasar.)</text>
+  <text x="551" y="112" text-anchor="middle" font-size="9" fill="white">HackRF schematic</text>
+  <text x="551" y="125" text-anchor="middle" font-size="9" fill="white">KrakenSDR HW</text>
+  <text x="551" y="138" text-anchor="middle" font-size="9" fill="white">Libre ADF</text>
+
+  <rect x="633" y="82" width="155" height="62" rx="4" fill="#6b7a90" opacity="0.65"/>
+  <text x="710" y="99" text-anchor="middle" font-size="9" fill="white" font-weight="bold">Veritabani / Online</text>
+  <text x="710" y="112" text-anchor="middle" font-size="9" fill="white">sigidwiki.com</text>
+  <text x="710" y="125" text-anchor="middle" font-size="9" fill="white">radioreference.com</text>
+  <text x="710" y="138" text-anchor="middle" font-size="9" fill="white">SatNOGS</text>
+
+  <!-- Bagimlilik oklari: ust->alt -->
+  <line x1="200" y1="168" x2="200" y2="280" stroke="#9fb3c8" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#dep)"/>
+  <line x1="400" y1="168" x2="400" y2="280" stroke="#9fb3c8" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#dep)"/>
+  <line x1="600" y1="168" x2="600" y2="280" stroke="#9fb3c8" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#dep)"/>
+  <line x1="200" y1="280" x2="200" y2="380" stroke="#9fb3c8" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#dep)"/>
+  <line x1="400" y1="280" x2="400" y2="380" stroke="#9fb3c8" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#dep)"/>
+  <line x1="600" y1="280" x2="600" y2="380" stroke="#9fb3c8" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#dep)"/>
+</svg>

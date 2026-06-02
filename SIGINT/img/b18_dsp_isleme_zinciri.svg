@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">RF-ADC-DDC-DSP Isleme Zinciri</text>
+  <text x="430" y="48" text-anchor="middle" font-size="11" fill="#6b7a90">Anten'den bite giden tam sinyal isleme zinciri — her blok Bolum 18 alt basligina karsil gelir</text>
+
+  <!-- Bloklari cizmek icin yatay zincir, 2 satir -->
+  <!-- Satir 1: RF onucu -->
+  <text x="20" y="80" font-size="10" font-weight="bold" fill="#6b7a90">RF ON-UCU</text>
+  <line x1="20" y1="84" x2="270" y2="84" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- Anten blogu -->
+  <rect x="20" y="92" width="60" height="46" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="50" y="110" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">ANTEN</text>
+  <text x="50" y="124" text-anchor="middle" font-size="9" fill="#4a5a70">RF sinyal</text>
+  <text x="50" y="134" text-anchor="middle" font-size="9" fill="#6b7a90">§ Bolum 3</text>
+
+  <!-- Ok -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0,0 6,3 0,6" fill="#6b7a90"/>
+    </marker>
+  </defs>
+  <line x1="80" y1="115" x2="96" y2="115" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- LNA -->
+  <rect x="97" y="92" width="60" height="46" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="127" y="110" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">LNA</text>
+  <text x="127" y="122" text-anchor="middle" font-size="9" fill="#4a5a70">Dusuk gurultu</text>
+  <text x="127" y="132" text-anchor="middle" font-size="9" fill="#4a5a70">kuvvetlendirici</text>
+  <text x="127" y="142" text-anchor="middle" font-size="9" fill="#6b7a90">§ Bolum 2</text>
+
+  <line x1="157" y1="115" x2="173" y2="115" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ADC -->
+  <rect x="174" y="92" width="70" height="46" rx="4" fill="#fff8e6" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="209" y="110" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">ADC</text>
+  <text x="209" y="122" text-anchor="middle" font-size="9" fill="#4a5a70">6.02N+1.76 dB</text>
+  <text x="209" y="132" text-anchor="middle" font-size="9" fill="#4a5a70">SNR; dither</text>
+  <text x="209" y="142" text-anchor="middle" font-size="9" fill="#6b7a90">§ Kisim 4</text>
+
+  <line x1="244" y1="115" x2="280" y2="115" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- DDC satir baslik -->
+  <text x="282" y="80" font-size="10" font-weight="bold" fill="#6b7a90">DDC (FPGA — yuksek hiz, sabit fonksiyon)</text>
+  <line x1="282" y1="84" x2="600" y2="84" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- DDC kutusu icinde alt bloklar -->
+  <rect x="282" y="88" width="318" height="56" rx="5" fill="#f0f4ff" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- NCO + carpim -->
+  <rect x="290" y="96" width="82" height="40" rx="3" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="331" y="111" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">NCO</text>
+  <text x="331" y="122" text-anchor="middle" font-size="9" fill="#4a5a70">karmasik carpim</text>
+  <text x="331" y="132" text-anchor="middle" font-size="9" fill="#6b7a90">frekans cevir</text>
+
+  <line x1="372" y1="116" x2="382" y2="116" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- CIC -->
+  <rect x="383" y="96" width="54" height="40" rx="3" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="410" y="111" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">CIC</text>
+  <text x="410" y="122" text-anchor="middle" font-size="9" fill="#4a5a70">decimation</text>
+  <text x="410" y="132" text-anchor="middle" font-size="9" fill="#6b7a90">carpansiz</text>
+
+  <line x1="437" y1="116" x2="447" y2="116" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- HB + FIR -->
+  <rect x="448" y="96" width="68" height="40" rx="3" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="482" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">HB + FIR</text>
+  <text x="482" y="120" text-anchor="middle" font-size="9" fill="#4a5a70">ince decimation</text>
+  <text x="482" y="130" text-anchor="middle" font-size="9" fill="#4a5a70">duzeltme</text>
+
+  <line x1="516" y1="116" x2="526" y2="116" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Taban bant cikis -->
+  <rect x="527" y="96" width="64" height="40" rx="3" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="559" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">IQ</text>
+  <text x="559" y="120" text-anchor="middle" font-size="9" fill="#4a5a70">taban-bant</text>
+  <text x="559" y="130" text-anchor="middle" font-size="9" fill="#4a5a70">karmasik</text>
+
+  <line x1="600" y1="116" x2="616" y2="116" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- DSP satir baslik -->
+  <text x="618" y="80" font-size="10" font-weight="bold" fill="#6b7a90">DSP (CPU/GPU — esnek, dusuk hiz)</text>
+  <line x1="618" y1="84" x2="850" y2="84" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- AGC + Demod -->
+  <rect x="618" y="92" width="80" height="46" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="658" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Demod</text>
+  <text x="658" y="120" text-anchor="middle" font-size="9" fill="#4a5a70">AM/FM/PSK/QAM</text>
+  <text x="658" y="130" text-anchor="middle" font-size="9" fill="#4a5a70">CORDIC |z|,∠z</text>
+  <text x="658" y="140" text-anchor="middle" font-size="9" fill="#6b7a90">§ Kisim 14</text>
+
+  <line x1="698" y1="115" x2="714" y2="115" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Senkron -->
+  <rect x="715" y="92" width="72" height="46" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="751" y="107" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Senkron</text>
+  <text x="751" y="119" text-anchor="middle" font-size="9" fill="#4a5a70">Costas PLL</text>
+  <text x="751" y="129" text-anchor="middle" font-size="9" fill="#4a5a70">Gardner TED</text>
+  <text x="751" y="139" text-anchor="middle" font-size="9" fill="#6b7a90">§ K.15-16</text>
+
+  <line x1="787" y1="115" x2="803" y2="115" stroke="#6b7a90" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- FEC -->
+  <rect x="804" y="92" width="46" height="46" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="827" y="110" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">FEC</text>
+  <text x="827" y="122" text-anchor="middle" font-size="9" fill="#4a5a70">Viterbi</text>
+  <text x="827" y="132" text-anchor="middle" font-size="9" fill="#4a5a70">LDPC</text>
+  <text x="827" y="142" text-anchor="middle" font-size="9" fill="#6b7a90">§ K.19</text>
+
+  <!-- Ikinci satir: Tasiyici/zamanlama/esleme detay -->
+  <text x="20" y="184" font-size="11" font-weight="bold" fill="#1a2b40">Tasiyici Geri Kazanim (§ Kisim 15)</text>
+
+  <rect x="20" y="196" width="200" height="56" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <!-- PLL diyagram icinde -->
+  <text x="30" y="214" font-size="9" fill="#4a5a70">gelen IQ ──► [Faz Det.] ──► [Dongü Filtresi] ──► NCO ──┐</text>
+  <text x="30" y="228" font-size="9" fill="#4a5a70">                                                    geri besleme ◄─────────────┘</text>
+  <text x="30" y="242" font-size="9" fill="#4a5a70">Costas (BPSK): e = I·Q ≈ A²θ (kucuk θ)</text>
+
+  <text x="240" y="184" font-size="11" font-weight="bold" fill="#1a2b40">Zamanlama Geri Kazanim (§ Kisim 16)</text>
+  <rect x="240" y="196" width="200" height="56" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="250" y="214" font-size="9" fill="#4a5a70">Gardner TED: e = Re{(y[n]−y[n−2])·y*[n−1]}</text>
+  <text x="250" y="228" font-size="9" fill="#4a5a70">Mueller-Muller: e = Re{â[n−1]y*[n] − â[n]y*[n−1]}</text>
+  <text x="250" y="244" font-size="9" fill="#4a5a70">Interpole (Farrow) → sembol aninda ornekle</text>
+
+  <text x="460" y="184" font-size="11" font-weight="bold" fill="#1a2b40">Esitleme (§ Kisim 17)</text>
+  <rect x="460" y="196" width="180" height="56" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="470" y="214" font-size="9" fill="#4a5a70">LMS/RLS adaptif: e[n] = d[n] − ŷ[n]</text>
+  <text x="470" y="228" font-size="9" fill="#4a5a70">Karar-Geri Besleme (DFE): ISI bastirma</text>
+  <text x="470" y="244" font-size="9" fill="#4a5a70">MMSE: SNR ve ISI dengesini minimize eder</text>
+
+  <!-- Bit geri kazanim / Dosya cikis -->
+  <text x="660" y="184" font-size="11" font-weight="bold" fill="#1a2b40">Cikis</text>
+  <rect x="660" y="196" width="180" height="56" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1.5"/>
+  <text x="750" y="216" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a8a3a">Ham Bit Akisi</text>
+  <text x="750" y="232" text-anchor="middle" font-size="10" fill="#4a5a70">De-interleave → FEC</text>
+  <text x="750" y="244" text-anchor="middle" font-size="10" fill="#4a5a70">→ Uygulama/Protokol</text>
+
+  <!-- Cekim cizgisi -->
+  <line x1="20" y1="270" x2="840" y2="270" stroke="#d3dde8" stroke-width="1"/>
+  <text x="430" y="284" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2b40">Veri Hizi Profili</text>
+
+  <!-- Veri hizi profili oklar -->
+  <rect x="20" y="296" width="820" height="24" rx="3" fill="#f0f4ff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="20" y="296" width="250" height="24" rx="3" fill="#fff3e0" stroke="none"/>
+  <rect x="270" y="296" width="330" height="24" rx="3" fill="#e3f2fd" stroke="none"/>
+  <rect x="600" y="296" width="240" height="24" rx="3" fill="#e8f5e9" stroke="none"/>
+  <text x="145" y="312" text-anchor="middle" font-size="10" fill="#ff8f00">Analog / Yuksek Hiz (100+ MS/s) → FPGA</text>
+  <text x="435" y="312" text-anchor="middle" font-size="10" fill="#1565c0">Orta Hiz (decimated IQ) → FPGA/CPU</text>
+  <text x="720" y="312" text-anchor="middle" font-size="10" fill="#1a8a3a">Dusuk Hiz → CPU/GPU (esnek DSP)</text>
+
+  <!-- Process gain aciklamalari -->
+  <text x="430" y="350" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2b40">Temel Formüller</text>
+  <rect x="20" y="360" width="820" height="80" rx="4" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="30" y="380" font-size="9" fill="#36506e">ADC SNR: 6.02·N + 1.76 dB  |  Process Gain: G = 10·log10(f_s / 2B) dB  |  FFT G = 10·log10(N/2) dB</text>
+  <text x="30" y="396" font-size="9" fill="#36506e">NCO cozunurluk: Δf = f_s / 2^M  |  Nyquist (karm.): kullanilabilir bant = f_s  |  Decimation: D kat → f_s/D</text>
+  <text x="30" y="412" font-size="9" fill="#36506e">CIC: |H| = |sin(πMRf/f_s) / sin(πf/f_s)|^N  |  FIR grup gecikmesi: τ_g = (M−1)/2 ornek (sabit)</text>
+  <text x="30" y="428" font-size="9" fill="#36506e">Matched filter: h(t) = s*(T−t) → SNR_max = 2·E_s/N_0  |  FM demod: m = ∠(z[n]·z*[n−1])</text>
+</svg>

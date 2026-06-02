@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="760" height="440" fill="#f4f7fb"/>
+  <text x="380" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Drone / IHA RF Baglari ve Zafiyet Seviyeleri</text>
+
+  <defs>
+    <!-- Zafiyet renk gostergesi: Yuksek=kirmizi, Orta=turuncu, Dusuk=yesil -->
+    <marker id="arrowDroneR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c0392b"/>
+    </marker>
+    <marker id="arrowDroneO" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#ff8f00"/>
+    </marker>
+    <marker id="arrowDroneG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1a8a3a"/>
+    </marker>
+    <marker id="arrowDroneB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1565c0"/>
+    </marker>
+  </defs>
+
+  <!-- MERKEZ: Drone -->
+  <ellipse cx="380" cy="220" rx="62" ry="52" fill="#1a2b40"/>
+  <text x="380" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">DRONE</text>
+  <text x="380" y="228" text-anchor="middle" font-size="9" fill="#9fb3c8">/ IHA</text>
+  <text x="380" y="244" text-anchor="middle" font-size="9" fill="#9fb3c8">Ucus Kontrol</text>
+
+  <!-- BAG 1: GNSS (soldan yukari) -->
+  <!-- GNSS uydu sembol -->
+  <rect x="42" y="48" width="140" height="90" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="112" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">GNSS / GPS</text>
+  <text x="112" y="85" text-anchor="middle" font-size="10" fill="#4a5a70">L1: 1575.42 MHz</text>
+  <text x="112" y="100" text-anchor="middle" font-size="10" fill="#4a5a70">L2: 1227.60 MHz</text>
+  <!-- Zafiyet etiketi -->
+  <rect x="52" y="112" width="120" height="20" rx="3" fill="#c0392b"/>
+  <text x="112" y="126" text-anchor="middle" font-size="9" font-weight="bold" fill="#ffffff">Zafiyet: YUKSEK</text>
+  <!-- Bag aciklamasi -->
+  <text x="112" y="148" text-anchor="middle" font-size="8.5" fill="#36506e">Zayif sinyal (~gurultu tabaninda)</text>
+  <text x="112" y="160" text-anchor="middle" font-size="8.5" fill="#36506e">Karistirma + sahtelemeye acik</text>
+  <!-- Cizgi -->
+  <line x1="182" y1="138" x2="324" y2="194" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowDroneR)"/>
+  <!-- Bag etiketi -->
+  <text x="248" y="176" text-anchor="middle" font-size="9" fill="#c0392b" font-weight="bold">konum + RTH</text>
+
+  <!-- BAG 2: RC Kontrol (soldan asagi) -->
+  <rect x="42" y="280" width="140" height="90" rx="6" fill="#ffffff" stroke="#ff8f00" stroke-width="2"/>
+  <text x="112" y="300" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">RC Kontrol</text>
+  <text x="112" y="317" text-anchor="middle" font-size="10" fill="#4a5a70">2.4 GHz / 5.8 GHz</text>
+  <text x="112" y="333" text-anchor="middle" font-size="10" fill="#4a5a70">ISM bandi</text>
+  <rect x="52" y="344" width="120" height="20" rx="3" fill="#ff8f00"/>
+  <text x="112" y="358" text-anchor="middle" font-size="9" font-weight="bold" fill="#ffffff">Zafiyet: ORTA</text>
+  <text x="112" y="378" text-anchor="middle" font-size="8.5" fill="#36506e">Bazi eski modellerde sifresiz;</text>
+  <text x="112" y="390" text-anchor="middle" font-size="8.5" fill="#36506e">failsafe davranisi ozetle bilinen</text>
+  <line x1="182" y1="305" x2="325" y2="245" stroke="#ff8f00" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowDroneO)"/>
+  <text x="248" y="278" text-anchor="middle" font-size="9" fill="#ff8f00" font-weight="bold">pilot komutlari</text>
+
+  <!-- BAG 3: Video Downlink (sagdan yukari) -->
+  <rect x="578" y="48" width="140" height="90" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="648" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Video Downlink</text>
+  <text x="648" y="85" text-anchor="middle" font-size="10" fill="#4a5a70">2.4 / 5.8 GHz</text>
+  <text x="648" y="100" text-anchor="middle" font-size="10" fill="#4a5a70">Analog veya dijital</text>
+  <rect x="588" y="112" width="120" height="20" rx="3" fill="#c0392b"/>
+  <text x="648" y="126" text-anchor="middle" font-size="9" font-weight="bold" fill="#ffffff">Zafiyet: YUKSEK</text>
+  <text x="648" y="148" text-anchor="middle" font-size="8.5" fill="#36506e">Analog video cogunlukla sifresiz;</text>
+  <text x="648" y="160" text-anchor="middle" font-size="8.5" fill="#36506e">Dinleme + bozulmaya acik</text>
+  <line x1="578" y1="138" x2="436" y2="194" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowDroneR)"/>
+  <text x="510" y="176" text-anchor="middle" font-size="9" fill="#c0392b" font-weight="bold">goruntu akisi</text>
+
+  <!-- BAG 4: Telemetri (sagdan asagi) -->
+  <rect x="578" y="280" width="140" height="90" rx="6" fill="#ffffff" stroke="#ff8f00" stroke-width="2"/>
+  <text x="648" y="300" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">Telemetri</text>
+  <text x="648" y="317" text-anchor="middle" font-size="10" fill="#4a5a70">Modele bagli</text>
+  <text x="648" y="333" text-anchor="middle" font-size="10" fill="#4a5a70">(MAVLink vb.)</text>
+  <rect x="588" y="344" width="120" height="20" rx="3" fill="#ff8f00"/>
+  <text x="648" y="358" text-anchor="middle" font-size="9" font-weight="bold" fill="#ffffff">Zafiyet: ORTA</text>
+  <text x="648" y="378" text-anchor="middle" font-size="8.5" fill="#36506e">Sifreleme/kimlik dogrulama</text>
+  <text x="648" y="390" text-anchor="middle" font-size="8.5" fill="#36506e">modele gore degisir</text>
+  <line x1="578" y1="305" x2="435" y2="245" stroke="#ff8f00" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowDroneO)"/>
+  <text x="510" y="278" text-anchor="middle" font-size="9" fill="#ff8f00" font-weight="bold">durum/konum geri bildirim</text>
+
+  <!-- BAG 5: Remote ID (asagidan) -->
+  <rect x="305" y="348" width="150" height="70" rx="6" fill="#ffffff" stroke="#1a8a3a" stroke-width="2"/>
+  <text x="380" y="368" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">Remote ID</text>
+  <text x="380" y="385" text-anchor="middle" font-size="10" fill="#4a5a70">Wi-Fi / Bluetooth yayin</text>
+  <rect x="315" y="394" width="130" height="20" rx="3" fill="#1a8a3a"/>
+  <text x="380" y="408" text-anchor="middle" font-size="9" font-weight="bold" fill="#ffffff">Zafiyet: DUSUK (acik tasarim)</text>
+  <line x1="380" y1="348" x2="380" y2="272" stroke="#1a8a3a" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrowDroneG)"/>
+  <text x="390" y="320" text-anchor="start" font-size="9" fill="#1a8a3a" font-weight="bold">kimlik+konum yayin (yasal)</text>
+
+  <!-- RENK AÇIKLAMASI -->
+  <rect x="250" y="424" width="260" height="12" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="380" y="434" text-anchor="middle" font-size="9" fill="#c0392b">Kirmizi cerceve = Yuksek zafiyet</text>
+
+  <rect x="520" y="424" width="225" height="12" rx="3" fill="#fff3e0" stroke="#ff8f00" stroke-width="1"/>
+  <text x="633" y="434" text-anchor="middle" font-size="9" fill="#ff8f00">Turuncu = Orta zafiyet</text>
+
+  <rect x="20" y="424" width="220" height="12" rx="3" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="130" y="434" text-anchor="middle" font-size="9" fill="#1a8a3a">Yesil = Dusuk zafiyet (acik tasarim)</text>
+</svg>

@@ -48,6 +48,8 @@ Bu dört eksen, kataloğun her satırını okurken zihninde işletmen gereken ç
 | Yan kanal | Dragonblood (zamanlama/önbellek), Kr00k (sıfır anahtar) | Fiziksel/uygulama | Sabit-zaman kod + yama |
 | Tasarım/geriye uyumluluk | 2G downgrade, IMSI ifşası, SS7 güveni | Sistem/ağ | Eski sürümü kapat, güven sınırı çiz |
 
+![Zafiyet Mekanizma Sınıflandırması — 6 sınıf, örnek ve savunma yönleriyle](img/b24_mekanizma_siniflandirma.svg)
+
 > Sezgi: İyi yamanmış bir açık bile, yama dağıtılmadıkça (cihaz güncellenmedikçe) sömürülmeye devam eder. Bu yüzden katalogdaki "durum" sütunu iki şey söyler: protokol/üretici tarafında durum (yama yayımlandı mı) ve saha tarafında durum (cihazlar güncellendi mi). İkisi neredeyse hiçbir zaman aynı anda "tamam" olmaz. Eski açıkların hâlâ sömürülmesinin tek sebebi budur (Bölüm 11).
 
 ---
@@ -215,6 +217,8 @@ Birincisi firmware zafiyetleri. WiFi/Bluetooth/baseband yongalarının firmware'
 <a id="10"></a>
 ## 10. Yıllara Göre Zaman Çizelgesi (Büyük Tablo)
 
+![Yıllara Göre Kablosuz Zafiyet Zaman Çizelgesi — WiFi, Bluetooth, Hücresel, SS7, GNSS, IoT/RFID eksenlerinde 1994'ten günümüze tüm büyük açıklar](img/b24_zafiyet_zaman_cizelgesi.svg)
+
 Aşağıdaki tablo, kablosuz/telekom zafiyet manzarasının kronolojik omurgasıdır. Amaç, "ne zaman ne kırıldı ve bugün ne durumda" sorusuna tek bakışta yanıt vermektir. Tarihler keşif/kamuoyuna açıklama yılıdır; CVE ve tam tarih için ilgili satırın §2-9'daki kaydına ve NVD'ye bakılmalıdır.
 
 | Yıl | Zafiyet / olay | Sistem | Etki özeti | Bugünkü durum |
@@ -248,6 +252,8 @@ Aşağıdaki tablo, kablosuz/telekom zafiyet manzarasının kronolojik omurgası
 
 <a id="11"></a>
 ## 11. Açığın Yaşam Döngüsü: Keşiften KEV'e (ASCII)
+
+![Açığın Yaşam Döngüsü — Keşif, CVD embargo, CVE, yama yayımı, saha dağıtımı, KEV; sıfır-gün ve n-gün pencereleri](img/b24_acik_yasam_dongusu.svg)
 
 Bir zafiyetin doğuşundan kapanışına giden yol standart bir döngü izler. Bu döngüyü anlamak, hem "neden bir açık hâlâ tehlikeli" hem de "yamayı ne zaman öncelemeliyim" sorularını yanıtlar.
 

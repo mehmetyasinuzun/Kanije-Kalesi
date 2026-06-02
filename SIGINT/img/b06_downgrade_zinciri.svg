@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="480" fill="#f4f7fb"/>
+  <text x="380" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a2b40">Downgrade Saldirisi — Zincirin En Zayif Halkasi</text>
+
+  <!-- Sol panel: Nesilller zinciri -->
+  <rect x="30" y="50" width="340" height="400" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="200" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#36506e">Nesil Zinciri (Guclu → Zayif)</text>
+
+  <!-- 5G kutusu -->
+  <rect x="55" y="88" width="290" height="64" fill="#e8f4e8" stroke="#1a8a3a" stroke-width="2" rx="4"/>
+  <text x="100" y="113" font-size="14" font-weight="bold" fill="#1a8a3a">5G (SA)</text>
+  <text x="100" y="130" font-size="10" fill="#4a5a70">SUCI — kimlik sifreli</text>
+  <text x="100" y="143" font-size="10" fill="#4a5a70">Karsilikli kimlik dogrulama (AKA)</text>
+  <text x="320" y="122" text-anchor="middle" font-size="11" fill="#1a8a3a" font-weight="bold">GUCLU</text>
+
+  <!-- ok asagi -->
+  <defs>
+    <marker id="arrowR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c0392b"/>
+    </marker>
+    <marker id="arrowG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#6b7a90"/>
+    </marker>
+  </defs>
+  <line x1="200" y1="152" x2="200" y2="168" stroke="#6b7a90" stroke-width="2" marker-end="url(#arrowG)"/>
+
+  <!-- 4G kutusu -->
+  <rect x="55" y="170" width="290" height="64" fill="#e8f0fb" stroke="#1565c0" stroke-width="2" rx="4"/>
+  <text x="100" y="195" font-size="14" font-weight="bold" fill="#1565c0">4G / LTE</text>
+  <text x="100" y="212" font-size="10" fill="#4a5a70">Diameter sinyallesmesi</text>
+  <text x="100" y="225" font-size="10" fill="#4a5a70">Karsilikli kimlik dogrulama</text>
+  <text x="320" y="203" text-anchor="middle" font-size="11" fill="#1565c0" font-weight="bold">GUCLU</text>
+
+  <line x1="200" y1="234" x2="200" y2="250" stroke="#6b7a90" stroke-width="2" marker-end="url(#arrowG)"/>
+
+  <!-- 3G kutusu -->
+  <rect x="55" y="252" width="290" height="64" fill="#fffbe6" stroke="#ff8f00" stroke-width="2" rx="4"/>
+  <text x="100" y="277" font-size="14" font-weight="bold" fill="#ff8f00">3G / UMTS</text>
+  <text x="100" y="294" font-size="10" fill="#4a5a70">SS7 sinyallesmesi</text>
+  <text x="100" y="307" font-size="10" fill="#4a5a70">Karsilikli kimlik dogrulama var</text>
+  <text x="320" y="285" text-anchor="middle" font-size="11" fill="#ff8f00" font-weight="bold">ORTA</text>
+
+  <line x1="200" y1="316" x2="200" y2="332" stroke="#6b7a90" stroke-width="2" marker-end="url(#arrowG)"/>
+
+  <!-- 2G kutusu -->
+  <rect x="55" y="334" width="290" height="80" fill="#fce8e8" stroke="#c0392b" stroke-width="2" rx="4"/>
+  <text x="100" y="359" font-size="14" font-weight="bold" fill="#c0392b">2G / GSM</text>
+  <text x="100" y="376" font-size="10" fill="#4a5a70">A5/1 — zayif sifrele</text>
+  <text x="100" y="389" font-size="10" fill="#4a5a70">Tek yonlu kimlik dogrulama</text>
+  <text x="100" y="402" font-size="10" fill="#4a5a70">IMSI acik dolasir</text>
+  <text x="320" y="381" text-anchor="middle" font-size="11" fill="#c0392b" font-weight="bold">ZAYIF</text>
+
+  <!-- Saldirgan ok + etiket -->
+  <line x1="340" y1="200" x2="430" y2="200" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrowR)"/>
+  <text x="385" y="195" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="bold">saldirgan</text>
+  <text x="385" y="210" text-anchor="middle" font-size="9" fill="#c0392b">buradan iter</text>
+
+  <line x1="430" y1="200" x2="430" y2="370" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  <line x1="430" y1="370" x2="345" y2="370" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrowR)"/>
+  <text x="490" y="295" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="bold">asagi</text>
+  <text x="490" y="308" text-anchor="middle" font-size="9" fill="#c0392b">itme</text>
+
+  <!-- Sag panel: Savunma + etiketler -->
+  <rect x="395" y="50" width="340" height="400" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="565" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#36506e">Savunma Onlemleri</text>
+
+  <!-- Savunma maddeleri -->
+  <rect x="415" y="90" width="300" height="44" fill="#e8f4e8" stroke="#1a8a3a" stroke-width="1" rx="3"/>
+  <text x="425" y="108" font-size="11" fill="#1a2b40" font-weight="bold">2G'yi Kapat</text>
+  <text x="425" y="124" font-size="10" fill="#4a5a70">Telefon ayari → yalnizca 4G/5G mod</text>
+
+  <rect x="415" y="145" width="300" height="44" fill="#e8f0fb" stroke="#1565c0" stroke-width="1" rx="3"/>
+  <text x="425" y="163" font-size="11" fill="#1a2b40" font-weight="bold">5G SA Tercih Et</text>
+  <text x="425" y="179" font-size="10" fill="#4a5a70">SUCI ile IMSI ifsa olmaz</text>
+
+  <rect x="415" y="200" width="300" height="44" fill="#fffbe6" stroke="#ff8f00" stroke-width="1" rx="3"/>
+  <text x="425" y="218" font-size="11" fill="#1a2b40" font-weight="bold">Anomali Tespiti</text>
+  <text x="425" y="234" font-size="10" fill="#4a5a70">Beklenmedik nesil dususu → uyari</text>
+
+  <rect x="415" y="255" width="300" height="44" fill="#fce8e8" stroke="#c0392b" stroke-width="1" rx="3"/>
+  <text x="425" y="273" font-size="11" fill="#1a2b40" font-weight="bold">MDM Politikasi (Kurumsal)</text>
+  <text x="425" y="289" font-size="10" fill="#4a5a70">Cihazda 2G yasagi — MDM ile zorunlu</text>
+
+  <rect x="415" y="310" width="300" height="44" fill="#f0e8f8" stroke="#7a4a90" stroke-width="1" rx="3"/>
+  <text x="425" y="328" font-size="11" fill="#1a2b40" font-weight="bold">Uctan Uca Sifreleme</text>
+  <text x="425" y="344" font-size="10" fill="#4a5a70">Signal gibi uyg. — ag ele gecirilse bile</text>
+
+  <!-- Altin kural -->
+  <rect x="415" y="370" width="300" height="60" fill="#f4f7fb" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+  <text x="565" y="390" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a2b40">Altin Kural</text>
+  <text x="565" y="406" text-anchor="middle" font-size="9" fill="#4a5a70">Guvenlik = en zayif desteklenen</text>
+  <text x="565" y="419" text-anchor="middle" font-size="9" fill="#4a5a70">secenege kadar guclu</text>
+
+  <!-- Ayrac cizgisi -->
+  <line x1="30" y1="455" x2="730" y2="455" stroke="#d3dde8" stroke-width="1"/>
+  <text x="380" y="472" text-anchor="middle" font-size="10" fill="#6b7a90">Gercek savunma: eski nesli kapat — downgrade zemini kalkar</text>
+</svg>

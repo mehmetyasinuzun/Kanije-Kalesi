@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Anti-Spoofing Savunma Mimarisi — 7 Katman</text>
+  <line x1="20" y1="38" x2="840" y2="38" stroke="#9fb3c8" stroke-width="0.8"/>
+
+  <!-- Ana panel -->
+  <rect x="20" y="44" width="820" height="428" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+
+  <!-- Merkez hedef sembol (sahte sinyal) -->
+  <circle cx="430" cy="260" r="38" fill="#c0392b" fill-opacity="0.12" stroke="#c0392b" stroke-width="2"/>
+  <text x="430" y="254" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">SAHTE</text>
+  <text x="430" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">SINYAL</text>
+  <text x="430" y="285" text-anchor="middle" font-size="9" fill="#c0392b">(spoofing)</text>
+
+  <!-- Katman 7 (en dis): INS / bagimsiz yedek -->
+  <rect x="38" y="58" width="784" height="390" fill="none" stroke="#1565c0" stroke-width="2.2" rx="40"/>
+  <text x="430" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">7 — INS / Bagimsiz Yedek</text>
+  <text x="430" y="94" text-anchor="middle" font-size="10" fill="#1565c0">kirar: "GNSS tek kaynak varsayimi"  |  jirostop+ivme, GNSS ile catisinca alarm</text>
+
+  <!-- Katman 6: OSNMA -->
+  <rect x="62" y="106" width="736" height="340" fill="none" stroke="#1a8a3a" stroke-width="2" rx="34"/>
+  <text x="430" y="126" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">6 — Kriptografik Kimlik Dogrulama (Galileo OSNMA)</text>
+  <text x="430" y="140" text-anchor="middle" font-size="10" fill="#1a8a3a">kirar: "sinyalin gercekligi sorgulanmaz"  |  navigasyon mesajina imza; taklit edilemez</text>
+
+  <!-- Katman 5: Zaman tutarliligi -->
+  <rect x="88" y="156" width="684" height="290" fill="none" stroke="#ff8f00" stroke-width="1.8" rx="28"/>
+  <text x="430" y="176" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">5 — Zaman Tutarlılıgı Denetimi</text>
+  <text x="430" y="190" text-anchor="middle" font-size="10" fill="#ff8f00">kirar: "zaman sicramasi fark edilmez"  |  yerel saat ile GNSS zamanını karsilastir</text>
+
+  <!-- Katman 4: AGC / guc izleme -->
+  <rect x="114" y="204" width="632" height="242" fill="none" stroke="#7a8aa0" stroke-width="1.7" rx="22"/>
+  <text x="430" y="222" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7a90">4 — Guc ve AGC Izleme</text>
+  <text x="430" y="236" text-anchor="middle" font-size="10" fill="#6b7a90">kirar: "guc profili sorgulanmaz"  |  beklenenden guclu sinyal = erken uyari</text>
+
+  <!-- Katman 3: Anten dizisi / null-steering -->
+  <rect x="140" y="250" width="580" height="196" fill="none" stroke="#c0392b" stroke-width="1.7" rx="18" stroke-dasharray="7,3"/>
+  <text x="430" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">3 — Anten Dizisi / Null-Steering</text>
+  <text x="430" y="282" text-anchor="middle" font-size="10" fill="#c0392b">kirar: "tek yonden yaymak fark edilmez"  |  gercek uydular farkli yonden gelir</text>
+
+  <!-- Katman 2: Coklu konstelasyon -->
+  <rect x="166" y="296" width="528" height="148" fill="none" stroke="#1565c0" stroke-width="1.5" rx="14"/>
+  <text x="430" y="314" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">2 — Coklu-Konstelasyon Capraz-Kontrol</text>
+  <text x="430" y="328" text-anchor="middle" font-size="10" fill="#1565c0">kirar: "tek sistemi taklit yeter"  |  GPS+GAL+GLO+BDS hepsini ayni anda taklit et</text>
+
+  <!-- Katman 1 (en ic): RAIM -->
+  <rect x="192" y="338" width="476" height="100" fill="#f0f4fa" stroke="#1a8a3a" stroke-width="1.5" rx="10"/>
+  <text x="430" y="358" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">1 — RAIM / FDE (Alici Ozerk Butunluk Izleme)</text>
+  <text x="430" y="374" text-anchor="middle" font-size="10" fill="#1a8a3a">kirar: "tum olcumler tutarli gorunur"  |  fazlalik olcumden tutarsizligi yakala</text>
+  <text x="430" y="390" text-anchor="middle" font-size="10" fill="#36506e">Prensip: 4+ uydudan artik hatalar kucukse tutarli; biri buyurse RAIM alarm → FDE dislama</text>
+  <text x="430" y="408" text-anchor="middle" font-size="10" fill="#36506e">Sinir: butunsel tutarli spoof varsa tek basina yetmez — diger katmanlar devreye girer</text>
+  <text x="430" y="424" text-anchor="middle" font-size="10" fill="#36506e">Havacılik alıcılarında standart; genis kullanim</text>
+
+  <!-- Legand / notlar sol ust -->
+  <rect x="30" y="455" width="800" height="18" fill="#f4f7fb"/>
+  <text x="430" y="468" text-anchor="middle" font-size="10" fill="#36506e">
+    Savunma sezgisi: spoofing TEK varsayima dayanir; bu 7 katman o varsayimi farkli acilardan sarar → ayni anda hepsini gecmek pratikte imkansizdir.
+  </text>
+</svg>

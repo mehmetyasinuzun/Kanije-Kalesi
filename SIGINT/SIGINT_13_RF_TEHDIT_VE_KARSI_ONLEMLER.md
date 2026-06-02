@@ -187,6 +187,8 @@ Yasal uyarı: Bu etkiler tam olarak karıştırmanın neden suç olduğunu açı
 <a id="5"></a>
 ## 5. Karıştırma Tespiti: Spektrum İzleme, Gürültü Tabanı, Anomali ve Yön Bulma
 
+![Karistirma tespiti: zaman ekseninde gurultu tabani izleme + spektral anomali sekli + sistem kalitesi cokusu (C/N0 / RSRP); ucu birlesip tespit karari](img/b13_karistirma_tespit_fuzyon.svg)
+
 Karıştırmaya karşı ilk savunma, onu görmektir (ES fonksiyonu). Tespit, dört tamamlayıcı katmandan oluşur ve hepsi pasiftir — yalnızca dinler, hiçbir şey yaymaz. Bu, savunmacının yasal olarak ve sürekli işletebileceği bir yetenektir.
 
 ### 5.1 Gürültü tabanı (noise floor) izleme
@@ -301,6 +303,8 @@ Yasal/etik not: Bu savunmaların hepsi savunan tarafın kendi sistemine uygulad�
 
 <a id="7"></a>
 ## 7. Drone/İHA RF Güvenliği: Tipik Bağlar ve Neden Savunmasız
+
+![Dron merkezde: GNSS, RC kontrol, video downlink, telemetri, Remote ID — her bagin frekansi ve zafiyet seviyesi renk kodlu](img/b13_drone_rf_baglari.svg)
 
 İnsansız hava araçları (İHA, drone), savunmacı için iki ayrı şapkayla incelenir: (a) korunması gereken bir varlık (kendi/kurumun dronu hedef olabilir) ve (b) bir tehdit (yetkisiz bir drone, mahremiyet/güvenlik/kritik altyapı riski oluşturabilir). Her iki şapka da aynı RF gerçeğine dayanır: bir drone, birden çok radyo bağına bağımlıdır ve her bağ bir saldırı yüzeyidir. Bu başlık, bu bağların nasıl çalıştığını ve neden bazılarının zayıf olduğunu — saldırı icrası vermeden — anlatır.
 
@@ -465,6 +469,8 @@ Yasal uyarı: Kendi cihazının (kendi garaj kumandanın, kendi aracının anaht
 
 <a id="10"></a>
 ## 10. Sinyal Dayanıklılığı: Hangi Sinyaller Manipülasyona Açık/Kapalı — Tasarım Dersleri
+
+![Dayaniklilik basamaklari: kimlik dogrulama, tazelik, butunluk, mesafe, yayma, yedeklilik — hangi tehdit sinifini engeller renk kodlu matris-merdiven](img/b13_dayaniklilik_merdiveni.svg)
 
 Önceki başlıkların hepsi tek bir tasarım sorusuna yakınsar: bir sinyali manipülasyona (replay, spoof, jamming-aldatma) açık ya da kapalı yapan nedir? Aşağıdaki matris, savunmacının ve sistem tasarımcısının "bu sinyal güvenilir mi" sorusuna yapısal cevabıdır. Bu, bölümün belki de en kalıcı dersidir.
 

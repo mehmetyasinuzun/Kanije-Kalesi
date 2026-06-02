@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 460" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="820" height="460" fill="#f4f7fb"/>
+  <text x="410" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Iyonosfer Katmanlari: Sky-Wave, NVIS ve Gri-Çizgi Geometrisi</text>
+
+  <!-- Sol panel: katman bandları -->
+  <rect x="15" y="42" width="360" height="355" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Yükseklik ekseni -->
+  <line x1="80" y1="55" x2="80" y2="390" stroke="#9fb3c8" stroke-width="1.5"/>
+  <polygon points="80,55 75,65 85,65" fill="#9fb3c8"/>
+  <text x="55" y="224" text-anchor="middle" font-size="10" fill="#4a5a70" transform="rotate(-90,55,224)">Yükseklik (km)</text>
+
+  <!-- Yükseklik isaretleri -->
+  <line x1="75" y1="370" x2="80" y2="370" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="70" y="374" text-anchor="end" font-size="9" fill="#6b7a90">0</text>
+  <line x1="75" y1="315" x2="80" y2="315" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="70" y="319" text-anchor="end" font-size="9" fill="#6b7a90">60</text>
+  <line x1="75" y1="250" x2="80" y2="250" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="70" y="254" text-anchor="end" font-size="9" fill="#6b7a90">120</text>
+  <line x1="75" y1="180" x2="80" y2="180" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="70" y="184" text-anchor="end" font-size="9" fill="#6b7a90">220</text>
+  <line x1="75" y1="108" x2="80" y2="108" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="70" y="112" text-anchor="end" font-size="9" fill="#6b7a90">400+</text>
+
+  <!-- Katman bantlari (renkli) -->
+  <!-- D katmanı: 60-90 km = 315-285 -->
+  <rect x="82" y="285" width="185" height="30" rx="3" fill="#ff8f00" fill-opacity="0.25" stroke="#ff8f00" stroke-width="1"/>
+  <text x="175" y="304" text-anchor="middle" font-size="10" font-weight="bold" fill="#b36200">D Katmanı (~60–90 km)</text>
+
+  <!-- E katmanı: 90-150 km = 285-220 -->
+  <rect x="82" y="220" width="185" height="65" rx="3" fill="#1a8a3a" fill-opacity="0.18" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="175" y="250" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">E Katmanı (~90–150 km)</text>
+  <text x="175" y="264" text-anchor="middle" font-size="9" fill="#1a8a3a">Sporadic-E bulutu burada</text>
+
+  <!-- F1 katmanı: 150-220 km = 220-155 -->
+  <rect x="82" y="155" width="185" height="65" rx="3" fill="#1565c0" fill-opacity="0.15" stroke="#1565c0" stroke-width="1"/>
+  <text x="175" y="185" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">F1 Katmanı (~150–220 km)</text>
+  <text x="175" y="198" text-anchor="middle" font-size="9" fill="#1565c0">Yalniz gündüz</text>
+
+  <!-- F2 katmanı: 220-400+ = 155-80 -->
+  <rect x="82" y="80" width="185" height="75" rx="3" fill="#c0392b" fill-opacity="0.15" stroke="#c0392b" stroke-width="1"/>
+  <text x="175" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">F2 Katmanı (~220–400+ km)</text>
+  <text x="175" y="122" text-anchor="middle" font-size="9" fill="#c0392b">Gece de devam eder</text>
+  <text x="175" y="136" text-anchor="middle" font-size="9" fill="#c0392b">Sky-wave ana yansitici</text>
+
+  <!-- Yer çizgisi -->
+  <rect x="82" y="370" width="185" height="14" rx="2" fill="#4a5a70" fill-opacity="0.2"/>
+  <text x="175" y="381" text-anchor="middle" font-size="9" fill="#4a5a70">Yer yüzeyi</text>
+
+  <!-- Gündüz/Gece etiketleri -->
+  <text x="290" y="302" font-size="9" fill="#b36200">Yalnız gündüz</text>
+  <text x="290" y="317" font-size="9" fill="#b36200">HF'i yutar</text>
+  <text x="290" y="248" font-size="9" fill="#1a8a3a">Gündüz baskın</text>
+  <text x="290" y="188" font-size="9" fill="#1565c0">Gündüz F2'den</text>
+  <text x="290" y="200" font-size="9" fill="#1565c0">ayrılır</text>
+  <text x="290" y="112" font-size="9" fill="#c0392b">MUF'u belirler</text>
+  <text x="290" y="124" font-size="9" fill="#c0392b">Gece kalır</text>
+
+  <!-- Sag panel: Sky-wave ve NVIS geometrisi -->
+  <rect x="395" y="42" width="410" height="355" rx="6" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="600" y="62" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">Sky-Wave, NVIS ve Gri-Çizgi</text>
+
+  <!-- Yer çizgisi -->
+  <line x1="405" y1="350" x2="795" y2="350" stroke="#4a5a70" stroke-width="2"/>
+  <text x="600" y="366" text-anchor="middle" font-size="9" fill="#4a5a70">Yer yüzeyi</text>
+
+  <!-- F2 katmanı yayı -->
+  <path d="M 405 200 Q 600 160 795 200" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3" fill="none"/>
+  <text x="600" y="185" text-anchor="middle" font-size="9" fill="#c0392b">F2 Katmanı</text>
+
+  <!-- Sky-wave çoklu hop -->
+  <!-- TX noktası -->
+  <circle cx="430" cy="350" r="5" fill="#1565c0"/>
+  <text x="430" y="345" text-anchor="middle" font-size="9" fill="#1565c0">TX</text>
+
+  <!-- Hop 1 -->
+  <path d="M 430 350 Q 490 195 550 350" stroke="#1565c0" stroke-width="1.8" fill="none"/>
+  <!-- Hop 2 -->
+  <path d="M 550 350 Q 610 185 670 350" stroke="#1565c0" stroke-width="1.8" fill="none"/>
+  <!-- RX noktası -->
+  <circle cx="670" cy="350" r="5" fill="#1565c0"/>
+  <text x="670" y="345" text-anchor="middle" font-size="9" fill="#1565c0">RX</text>
+
+  <!-- Sky-wave etiketi -->
+  <text x="550" y="320" text-anchor="middle" font-size="9" font-weight="bold" fill="#1565c0">Sky-wave (çoklu hop)</text>
+  <text x="550" y="333" text-anchor="middle" font-size="9" fill="#1565c0">1000–12000 km</text>
+
+  <!-- NVIS geometrisi -->
+  <!-- Dik yukarı yaylar -->
+  <path d="M 740 350 Q 740 240 735 220 Q 730 240 720 350" stroke="#ff8f00" stroke-width="1.8" fill="none"/>
+  <path d="M 770 350 Q 770 240 765 220 Q 760 240 750 350" stroke="#ff8f00" stroke-width="1.8" fill="none"/>
+  <circle cx="740" cy="350" r="4" fill="#ff8f00"/>
+  <text x="745" y="345" font-size="9" fill="#b36200">NVIS TX</text>
+  <text x="760" y="218" text-anchor="middle" font-size="9" font-weight="bold" fill="#b36200">NVIS</text>
+  <text x="760" y="230" text-anchor="middle" font-size="9" fill="#b36200">Dik çıkış</text>
+  <text x="760" y="242" text-anchor="middle" font-size="9" fill="#b36200">0–400 km</text>
+
+  <!-- Gri-çizgi göstergesi -->
+  <!-- Alinlık çizgisi  -->
+  <line x1="490" y1="60" x2="490" y2="355" stroke="#6b7a90" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="493" y="75" font-size="8" fill="#6b7a90">GECE</text>
+  <text x="455" y="75" font-size="8" fill="#6b7a90">GÜNDÜZ</text>
+  <text x="472" y="88" text-anchor="middle" font-size="8" font-weight="bold" fill="#6b7a90">Gri-Çizgi</text>
+  <text x="472" y="100" text-anchor="middle" font-size="8" fill="#6b7a90">(Terminator)</text>
+
+  <!-- Gri-çizgi penceresi kutusu -->
+  <rect x="420" y="108" width="100" height="55" rx="4" fill="#6b7a90" fill-opacity="0.12" stroke="#6b7a90" stroke-width="1"/>
+  <text x="470" y="126" text-anchor="middle" font-size="8" font-weight="bold" fill="#5a6b80">Altin Pencere</text>
+  <text x="470" y="139" text-anchor="middle" font-size="8" fill="#5a6b80">D zayıf + F güçlü</text>
+  <text x="470" y="152" text-anchor="middle" font-size="8" fill="#5a6b80">Düşük yutma</text>
+
+  <!-- Ok: gri-çizgi penceresinden uzun menzile -->
+  <line x1="520" y1="135" x2="555" y2="135" stroke="#6b7a90" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <polygon points="555,135 548,131 548,139" fill="#6b7a90"/>
+
+  <!-- Gece tarafı: D yok, F surer -->
+  <rect x="620" y="108" width="105" height="40" rx="4" fill="#1a2b40" fill-opacity="0.08" stroke="#1a2b40" stroke-width="1"/>
+  <text x="673" y="125" text-anchor="middle" font-size="8" fill="#1a2b40">Gece: D yok</text>
+  <text x="673" y="138" text-anchor="middle" font-size="8" fill="#1a2b40">F2 devam → LF/MF açılır</text>
+
+  <!-- Alt not -->
+  <rect x="15" y="412" width="790" height="36" rx="5" fill="#ffffff" stroke="#d3dde8" stroke-width="1"/>
+  <text x="410" y="428" text-anchor="middle" font-size="10" fill="#4a5a70">Güneş döngüsü: Solar max → MUF yükselir, 28 MHz+ açılır. Solar min → yüksek bantlar kapanır. Güneş patlaması → D şişer, HF blackout (dakika-saatler).</text>
+  <text x="410" y="443" text-anchor="middle" font-size="9" fill="#6b7a90">MUF: Kullanılabilir azami frekans (iyonosfer yansıtır). LUF: D yutması altında iletisim kopar. Çalışma penceresi: LUF &lt; f &lt; MUF.</text>
+
+  <line x1="10" y1="454" x2="810" y2="454" stroke="#d3dde8" stroke-width="1"/>
+  <text x="410" y="452" text-anchor="middle" font-size="9" fill="#7a8aa0">SIGINT El Kitabı — Bölüm 22: HF ve Iyonosfer</text>
+</svg>

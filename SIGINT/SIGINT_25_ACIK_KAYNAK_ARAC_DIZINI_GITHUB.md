@@ -8,6 +8,8 @@
 
 > Depo adresleri hakkında kritik uyarı: Aşağıdaki `org/repo` yolları, yazım anında bilinen resmî depolardır. Açık kaynak dünyasında depolar taşınır, organizasyon adı değişir, ana geliştirme çatallanır (fork) ve kötü amaçlı taklit çatallar türeyebilir. Bir depo yolunu körlemesine `git clone`'lamadan önce, projenin resmî sitesinden veya bilinen topluluk kaynağından teyit et. Adresinden tam emin olmadığım yerlerde "GitHub'da '<isim>' aratıp resmî depoyu teyit et" notu bıraktım; uydurma/yanlış yol vermektense teyit notu vermeyi tercih ettim. Bir GitHub projesinin güvenilirliğini değerlendirmenin yöntemi §16'da; kötü amaçlı çatal tuzakları §17'de.
 
+![Araç Kullanımı Yasallık Matrisi — Pasif RX / Aktif TX / Pentest / Simülasyon × Kendi cihaz / İzole lab / Yetkili pentest / Yetkisiz](img/b25_yasallik_matrisi.svg)
+
 ---
 
 ## İÇİNDEKİLER
@@ -98,6 +100,8 @@ Bu dizin tek başına durmaz; her aracın *fiili kullanımı* serinin başka bö
 | İleri hücresel 4G/5G | §7 | Bölüm 20 |
 | Yapay zeka / ML SIGINT | §12 | Bölüm 19 |
 | Güvenlik/açık/savunma sınırı | tüm tablolar | Bölüm 06, Bölüm 00 |
+
+![Açık Kaynak SDR/SIGINT Araç Ekosistemi — SDR çerçeve, sürücü/alıcı/çözücü, özel alan ve destek katmanları ile bağımlılık haritası](img/b25_arac_kategori_haritasi.svg)
 
 ---
 

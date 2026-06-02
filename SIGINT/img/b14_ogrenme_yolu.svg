@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Senior'a Giden Yol — 6-12 Aylik Ogrenme Programi</text>
+
+  <!-- EKSEN BASLIKLARI -->
+  <rect x="16" y="44" width="90" height="18" rx="3" fill="#1565c0"/>
+  <text x="61" y="57" text-anchor="middle" font-size="9" font-weight="bold" fill="#ffffff">TEORİ</text>
+
+  <rect x="16" y="64" width="90" height="18" rx="3" fill="#1a8a3a"/>
+  <text x="61" y="77" text-anchor="middle" font-size="9" font-weight="bold" fill="#ffffff">PRATİK</text>
+
+  <rect x="16" y="84" width="90" height="18" rx="3" fill="#ff8f00"/>
+  <text x="61" y="97" text-anchor="middle" font-size="9" font-weight="bold" fill="#ffffff">TOPLULUK/TAKİP</text>
+
+  <!-- DONEM SUTUNLARI (6 donem) -->
+  <!-- Donem 1: Ay 1-2 -->
+  <rect x="115" y="44" width="118" height="296" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <!-- Baslik -->
+  <rect x="115" y="44" width="118" height="22" rx="5" fill="#36506e"/>
+  <rect x="115" y="58" width="118" height="8" fill="#36506e"/>
+  <text x="174" y="59" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">AY 1-2: TEMEL</text>
+
+  <!-- Teori -->
+  <rect x="120" y="75" width="108" height="84" rx="4" fill="#e3f0fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="174" y="91" text-anchor="middle" font-size="9" font-weight="bold" fill="#1565c0">Teori</text>
+  <text x="174" y="106" text-anchor="middle" font-size="8.5" fill="#36506e">Bolum 1:</text>
+  <text x="174" y="119" text-anchor="middle" font-size="8.5" fill="#36506e">RF fizigi, dB,</text>
+  <text x="174" y="132" text-anchor="middle" font-size="8.5" fill="#36506e">modulasyon, IQ</text>
+  <text x="174" y="148" text-anchor="middle" font-size="8" fill="#6b7a90">Temel anlayis</text>
+  <!-- Pratik -->
+  <rect x="120" y="162" width="108" height="84" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="174" y="178" text-anchor="middle" font-size="9" font-weight="bold" fill="#1a8a3a">Pratik</text>
+  <text x="174" y="193" text-anchor="middle" font-size="8.5" fill="#36506e">Cihaz secimi +</text>
+  <text x="174" y="206" text-anchor="middle" font-size="8.5" fill="#36506e">yazilim kurulumu;</text>
+  <text x="174" y="219" text-anchor="middle" font-size="8.5" fill="#36506e">ilk waterfall goruntus</text>
+  <text x="174" y="234" text-anchor="middle" font-size="8" fill="#6b7a90">Hedef: bir sinyal goru</text>
+  <!-- Topluluk -->
+  <rect x="120" y="249" width="108" height="84" rx="4" fill="#fff3e0" stroke="#ff8f00" stroke-width="1"/>
+  <text x="174" y="265" text-anchor="middle" font-size="9" font-weight="bold" fill="#ff8f00">Topluluk</text>
+  <text x="174" y="280" text-anchor="middle" font-size="8.5" fill="#36506e">RTL-SDR.com</text>
+  <text x="174" y="293" text-anchor="middle" font-size="8.5" fill="#36506e">r/RTLSDR takibi</text>
+  <text x="174" y="317" text-anchor="middle" font-size="8" fill="#6b7a90">Pasif okuma</text>
+
+  <!-- Donem 2: Ay 3-4 -->
+  <rect x="242" y="44" width="118" height="296" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="242" y="44" width="118" height="22" rx="5" fill="#36506e"/>
+  <rect x="242" y="58" width="118" height="8" fill="#36506e"/>
+  <text x="301" y="59" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">AY 3-4: İLK SİNYAL</text>
+
+  <rect x="247" y="75" width="108" height="84" rx="4" fill="#e3f0fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="301" y="91" text-anchor="middle" font-size="9" font-weight="bold" fill="#1565c0">Teori</text>
+  <text x="301" y="106" text-anchor="middle" font-size="8.5" fill="#36506e">Bolum 5:</text>
+  <text x="301" y="119" text-anchor="middle" font-size="8.5" fill="#36506e">Protokol temelleri</text>
+  <text x="301" y="132" text-anchor="middle" font-size="8.5" fill="#36506e">ADS-B, APRS, ISM</text>
+  <text x="301" y="148" text-anchor="middle" font-size="8" fill="#6b7a90">Uygulama odakli</text>
+
+  <rect x="247" y="162" width="108" height="84" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="301" y="178" text-anchor="middle" font-size="9" font-weight="bold" fill="#1a8a3a">Pratik</text>
+  <text x="301" y="193" text-anchor="middle" font-size="8.5" fill="#36506e">ADS-B, NOAA,</text>
+  <text x="301" y="206" text-anchor="middle" font-size="8.5" fill="#36506e">rtl_433 (kendi sensor)</text>
+  <text x="301" y="219" text-anchor="middle" font-size="8.5" fill="#36506e">Sinyal gunlugu basla</text>
+  <text x="301" y="234" text-anchor="middle" font-size="8" fill="#6b7a90">Hedef: 3 farkli protokol</text>
+
+  <rect x="247" y="249" width="108" height="84" rx="4" fill="#fff3e0" stroke="#ff8f00" stroke-width="1"/>
+  <text x="301" y="265" text-anchor="middle" font-size="9" font-weight="bold" fill="#ff8f00">Topluluk</text>
+  <text x="301" y="280" text-anchor="middle" font-size="8.5" fill="#36502e">sigidwiki ile sinyal</text>
+  <text x="301" y="293" text-anchor="middle" font-size="8.5" fill="#36506e">kimliklendirme</text>
+  <text x="301" y="317" text-anchor="middle" font-size="8" fill="#6b7a90">Forumda soru sor</text>
+
+  <!-- Donem 3: Ay 5-6 -->
+  <rect x="369" y="44" width="118" height="296" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="369" y="44" width="118" height="22" rx="5" fill="#36506e"/>
+  <rect x="369" y="58" width="118" height="8" fill="#36506e"/>
+  <text x="428" y="59" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">AY 5-6: DONANIM</text>
+
+  <rect x="374" y="75" width="108" height="84" rx="4" fill="#e3f0fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="428" y="91" text-anchor="middle" font-size="9" font-weight="bold" fill="#1565c0">Teori</text>
+  <text x="428" y="106" text-anchor="middle" font-size="8.5" fill="#36506e">Bolum 3:</text>
+  <text x="428" y="119" text-anchor="middle" font-size="8.5" fill="#36506e">Anten / LNA / filtre</text>
+  <text x="428" y="132" text-anchor="middle" font-size="8.5" fill="#36506e">teorisi</text>
+  <text x="428" y="148" text-anchor="middle" font-size="8" fill="#6b7a90">RF zinciri anlayisi</text>
+
+  <rect x="374" y="162" width="108" height="84" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="428" y="178" text-anchor="middle" font-size="9" font-weight="bold" fill="#1a8a3a">Pratik</text>
+  <text x="428" y="193" text-anchor="middle" font-size="8.5" fill="#36506e">Kendi anten/filtre dene;</text>
+  <text x="428" y="206" text-anchor="middle" font-size="8.5" fill="#36506e">SatNOGS'a gonullu</text>
+  <text x="428" y="219" text-anchor="middle" font-size="8.5" fill="#36506e">katilim</text>
+  <text x="428" y="234" text-anchor="middle" font-size="8" fill="#6b7a90">Hedef: uydu goruntu</text>
+
+  <rect x="374" y="249" width="108" height="84" rx="4" fill="#fff3e0" stroke="#ff8f00" stroke-width="1"/>
+  <text x="428" y="265" text-anchor="middle" font-size="9" font-weight="bold" fill="#ff8f00">Topluluk</text>
+  <text x="428" y="280" text-anchor="middle" font-size="8.5" fill="#36506e">GRCon sunumlari;</text>
+  <text x="428" y="293" text-anchor="middle" font-size="8.5" fill="#36506e">anten/prop. forumu</text>
+  <text x="428" y="317" text-anchor="middle" font-size="8" fill="#6b7a90">Katki vermeye basla</text>
+
+  <!-- Donem 4: Ay 7-8 -->
+  <rect x="496" y="44" width="118" height="296" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="496" y="44" width="118" height="22" rx="5" fill="#36506e"/>
+  <rect x="496" y="58" width="118" height="8" fill="#36506e"/>
+  <text x="555" y="59" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">AY 7-8: ANALİZ</text>
+
+  <rect x="501" y="75" width="108" height="84" rx="4" fill="#e3f0fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="555" y="91" text-anchor="middle" font-size="9" font-weight="bold" fill="#1565c0">Teori</text>
+  <text x="555" y="106" text-anchor="middle" font-size="8.5" fill="#36506e">Bolum 7: Ayiklama,</text>
+  <text x="555" y="119" text-anchor="middle" font-size="8.5" fill="#36506e">PRI, AMC, SEI</text>
+  <text x="555" y="132" text-anchor="middle" font-size="8.5" fill="#36506e">Bolum 8: Tahsis</text>
+  <text x="555" y="148" text-anchor="middle" font-size="8" fill="#6b7a90">Parametre analizi</text>
+
+  <rect x="501" y="162" width="108" height="84" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="555" y="178" text-anchor="middle" font-size="9" font-weight="bold" fill="#1a8a3a">Pratik</text>
+  <text x="555" y="193" text-anchor="middle" font-size="8.5" fill="#36506e">Parametre uzayi ve</text>
+  <text x="555" y="206" text-anchor="middle" font-size="8.5" fill="#36506e">PRI alistirmalari</text>
+  <text x="555" y="219" text-anchor="middle" font-size="8.5" fill="#36506e">(kendi cihazlarinla)</text>
+  <text x="555" y="234" text-anchor="middle" font-size="8" fill="#6b7a90">Hedef: URH ile coz</text>
+
+  <rect x="501" y="249" width="108" height="84" rx="4" fill="#fff3e0" stroke="#ff8f00" stroke-width="1"/>
+  <text x="555" y="265" text-anchor="middle" font-size="9" font-weight="bold" fill="#ff8f00">Topluluk</text>
+  <text x="555" y="280" text-anchor="middle" font-size="8.5" fill="#36506e">DEF CON / CCC RF</text>
+  <text x="555" y="293" text-anchor="middle" font-size="8.5" fill="#36506e">sunumu izle + ozetle</text>
+  <text x="555" y="317" text-anchor="middle" font-size="8" fill="#6b7a90">Analitik okuma becerisi</text>
+
+  <!-- Donem 5: Ay 9-10 -->
+  <rect x="623" y="44" width="118" height="296" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="623" y="44" width="118" height="22" rx="5" fill="#36506e"/>
+  <rect x="623" y="58" width="118" height="8" fill="#36506e"/>
+  <text x="682" y="59" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">AY 9-10: GUVENLIK</text>
+
+  <rect x="628" y="75" width="108" height="84" rx="4" fill="#e3f0fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="682" y="91" text-anchor="middle" font-size="9" font-weight="bold" fill="#1565c0">Teori</text>
+  <text x="682" y="106" text-anchor="middle" font-size="8.5" fill="#36506e">Bolum 6, 13:</text>
+  <text x="682" y="119" text-anchor="middle" font-size="8.5" fill="#36506e">TEMPEST, OPSEC,</text>
+  <text x="682" y="132" text-anchor="middle" font-size="8.5" fill="#36506e">savunma + tehdit</text>
+  <text x="682" y="148" text-anchor="middle" font-size="8" fill="#6b7a90">WiSec literatur</text>
+
+  <rect x="628" y="162" width="108" height="84" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="682" y="178" text-anchor="middle" font-size="9" font-weight="bold" fill="#1a8a3a">Pratik</text>
+  <text x="682" y="193" text-anchor="middle" font-size="8.5" fill="#36506e">Kendi trafigin OPSEC</text>
+  <text x="682" y="206" text-anchor="middle" font-size="8.5" fill="#36506e">analizi; savunma</text>
+  <text x="682" y="219" text-anchor="middle" font-size="8.5" fill="#36506e">denetim listesi</text>
+  <text x="682" y="234" text-anchor="middle" font-size="8" fill="#6b7a90">Hedef: bir CVE incele</text>
+
+  <rect x="628" y="249" width="108" height="84" rx="4" fill="#fff3e0" stroke="#ff8f00" stroke-width="1"/>
+  <text x="682" y="265" text-anchor="middle" font-size="9" font-weight="bold" fill="#ff8f00">Topluluk</text>
+  <text x="682" y="280" text-anchor="middle" font-size="8.5" fill="#36506e">CERT bulletinleri +</text>
+  <text x="682" y="293" text-anchor="middle" font-size="8.5" fill="#36506e">acik MISP feed'leri</text>
+  <text x="682" y="317" text-anchor="middle" font-size="8" fill="#6b7a90">Pasif alert kurulumu</text>
+
+  <!-- Donem 6: Ay 11-12 -->
+  <rect x="741" y="44" width="104" height="296" rx="5" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+  <rect x="741" y="44" width="104" height="22" rx="5" fill="#1a2b40"/>
+  <rect x="741" y="58" width="104" height="8" fill="#1a2b40"/>
+  <text x="793" y="59" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">AY 11-12: SENTEZİ</text>
+
+  <rect x="746" y="75" width="94" height="84" rx="4" fill="#e3f0fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="793" y="91" text-anchor="middle" font-size="9" font-weight="bold" fill="#1565c0">Teori</text>
+  <text x="793" y="106" text-anchor="middle" font-size="8.5" fill="#36506e">Birincil standart</text>
+  <text x="793" y="119" text-anchor="middle" font-size="8.5" fill="#36506e">okuma: ITU/3GPP</text>
+  <text x="793" y="132" text-anchor="middle" font-size="8.5" fill="#36506e">/IEEE ilgili bolum</text>
+  <text x="793" y="148" text-anchor="middle" font-size="8" fill="#6b7a90">Dogrudan birincil</text>
+
+  <rect x="746" y="162" width="94" height="84" rx="4" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="793" y="178" text-anchor="middle" font-size="9" font-weight="bold" fill="#1a8a3a">Pratik</text>
+  <text x="793" y="193" text-anchor="middle" font-size="8.5" fill="#36506e">Tam zincir bir</text>
+  <text x="793" y="206" text-anchor="middle" font-size="8.5" fill="#36506e">vaka uzerinde;</text>
+  <text x="793" y="219" text-anchor="middle" font-size="8.5" fill="#36506e">lab kalici feed/alert</text>
+  <text x="793" y="234" text-anchor="middle" font-size="8" fill="#6b7a90">Hedef: senior rutil</text>
+
+  <rect x="746" y="249" width="94" height="84" rx="4" fill="#fff3e0" stroke="#ff8f00" stroke-width="1"/>
+  <text x="793" y="265" text-anchor="middle" font-size="9" font-weight="bold" fill="#ff8f00">Topluluk</text>
+  <text x="793" y="280" text-anchor="middle" font-size="8.5" fill="#36506e">Duzenli pratik</text>
+  <text x="793" y="293" text-anchor="middle" font-size="8.5" fill="#36506e">takvim otur;</text>
+  <text x="793" y="306" text-anchor="middle" font-size="8.5" fill="#36506e">etigi icsellestir</text>
+  <text x="793" y="317" text-anchor="middle" font-size="8" fill="#6b7a90">Surdurulebilir alis</text>
+
+  <!-- SENIOR etiketi -->
+  <rect x="741" y="348" width="104" height="24" rx="4" fill="#1a2b40"/>
+  <text x="793" y="364" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">SENIOR</text>
+
+  <!-- Ok zinciri asama-asama -->
+  <defs>
+    <marker id="arrowPhase" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#36506e"/>
+    </marker>
+  </defs>
+  <line x1="233" y1="190" x2="242" y2="190" stroke="#36506e" stroke-width="1.5" marker-end="url(#arrowPhase)"/>
+  <line x1="360" y1="190" x2="369" y2="190" stroke="#36506e" stroke-width="1.5" marker-end="url(#arrowPhase)"/>
+  <line x1="487" y1="190" x2="496" y2="190" stroke="#36506e" stroke-width="1.5" marker-end="url(#arrowPhase)"/>
+  <line x1="614" y1="190" x2="623" y2="190" stroke="#36506e" stroke-width="1.5" marker-end="url(#arrowPhase)"/>
+  <line x1="735" y1="190" x2="741" y2="190" stroke="#36506e" stroke-width="1.5" marker-end="url(#arrowPhase)"/>
+
+  <!-- Alt not -->
+  <rect x="16" y="356" width="718" height="24" rx="4" fill="#e3f0fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="375" y="372" text-anchor="middle" font-size="9" fill="#36506e">Teori olmadan pratik ezber; pratik olmadan teori kuru; etik olmadan ikisi de tehlikeli. Uc ayagi dengede tut.</text>
+
+  <line x1="16" y1="390" x2="844" y2="390" stroke="#d3dde8" stroke-width="1"/>
+  <text x="430" y="406" text-anchor="middle" font-size="10" fill="#6b7a90">Bolum 14 — Senior olmak varisi degil, surudurulen disiplindir: birincil kaynaga in, iddiay dogrula, lab'i yasit, topluluğa katki ver.</text>
+  <text x="430" y="422" text-anchor="middle" font-size="10" fill="#6b7a90">Bu program bir oneriden ibarettir; kisisel duruma ve ilgi alani secimi tercihine gore esner.</text>
+</svg>

@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Geometri ve GDOP — Iyi vs Kotu Alici Yerlesimi</text>
+
+  <!-- Sol panel: IYI GDOP -->
+  <rect x="20" y="44" width="400" height="422" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+  <text x="220" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a8a3a">IYI GDOP — Alicilar Hedefi Sarıyor</text>
+  <text x="220" y="84" text-anchor="middle" font-size="11" fill="#4a5a70">kısıt egrileri dik kesişir → kucuk dairesel hata elipsi</text>
+
+  <!-- Sag panel: KOTU GDOP -->
+  <rect x="440" y="44" width="400" height="422" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="3"/>
+  <text x="640" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">KOTU GDOP — Alicilar Es-Dogrusal</text>
+  <text x="640" y="84" text-anchor="middle" font-size="11" fill="#4a5a70">kısıt egrileri sig kesişir → uzun ince hata elipsi</text>
+
+  <!-- Ayirici cizgi -->
+  <line x1="430" y1="44" x2="430" y2="466" stroke="#9fb3c8" stroke-width="1.5"/>
+
+  <!-- ===== SOL PANEL: IYI GDOP ===== -->
+  <!-- Kaynak ortada -->
+  <circle cx="220" cy="270" r="10" fill="#ff8f00" stroke="#1a2b40" stroke-width="1.5"/>
+  <text x="232" y="266" font-size="11" font-weight="bold" fill="#1a2b40">S</text>
+
+  <!-- Alici 1: sol ust -->
+  <circle cx="80" cy="130" r="9" fill="#1565c0"/>
+  <text x="56" y="126" font-size="12" font-weight="bold" fill="#1565c0">A1</text>
+
+  <!-- Alici 2: sag ust -->
+  <circle cx="360" cy="130" r="9" fill="#1565c0"/>
+  <text x="366" y="126" font-size="12" font-weight="bold" fill="#1565c0">A2</text>
+
+  <!-- Alici 3: alt merkez -->
+  <circle cx="220" cy="420" r="9" fill="#1565c0"/>
+  <text x="228" y="440" font-size="12" font-weight="bold" fill="#1565c0">A3</text>
+
+  <!-- AOA cizgileri - Gelen hiperbollerin normal yonleri (iyi GDOP: dik kesisim) -->
+  <!-- A1'den S'ye kesit cizgisi -->
+  <line x1="80" y1="130" x2="220" y2="270" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <!-- A2'den S'ye -->
+  <line x1="360" y1="130" x2="220" y2="270" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <!-- A3'den S'ye -->
+  <line x1="220" y1="420" x2="220" y2="270" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Kısit egrileri - dik kesisim gosteren yaylar -->
+  <!-- A1-A2 hiperbolu yatay kesiyor -->
+  <path d="M 60 260 Q 150 230 220 270 Q 290 310 390 280" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <!-- A1-A3 hiperbolu dikey kesiyor -->
+  <path d="M 160 110 Q 180 190 220 270 Q 260 350 240 430" fill="none" stroke="#1a8a3a" stroke-width="2"/>
+
+  <!-- Hata elipsi - kucuk ve yuvarlak -->
+  <ellipse cx="220" cy="270" rx="18" ry="16" fill="#ff8f00" fill-opacity="0.15" stroke="#ff8f00" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="244" y="275" font-size="10" fill="#ff8f00">kucuk elips</text>
+  <text x="244" y="288" font-size="10" fill="#ff8f00">GDOP ≈ 1-2</text>
+
+  <!-- Aci isaretleri - dik -->
+  <rect x="213" y="263" width="10" height="10" fill="none" stroke="#ff8f00" stroke-width="1.5"/>
+
+  <!-- Aciklama - sol alt -->
+  <rect x="32" y="380" width="376" height="70" fill="#f4f7fb" rx="2" stroke="#d3dde8" stroke-width="1"/>
+  <text x="44" y="398" font-size="11" font-weight="bold" fill="#1a8a3a">konum hatası ≈ GDOP × ölcum hatası</text>
+  <text x="44" y="414" font-size="10" fill="#36506e">Alicilar hedefi farkli yonlerden sarınca,</text>
+  <text x="44" y="428" font-size="10" fill="#36506e">kısıt egrileri dik kesisir. Hata elipsi kucuk ve</text>
+  <text x="44" y="442" font-size="10" fill="#36506e">yuvarlak → GDOP dusuk → iyi dogruluk.</text>
+
+  <!-- ===== SAG PANEL: KOTU GDOP ===== -->
+  <!-- Alicilar hizali (sol tarafta diz) -->
+  <circle cx="490" cy="160" r="9" fill="#1565c0"/>
+  <text x="500" y="156" font-size="12" font-weight="bold" fill="#1565c0">B1</text>
+
+  <circle cx="490" cy="270" r="9" fill="#1565c0"/>
+  <text x="500" y="266" font-size="12" font-weight="bold" fill="#1565c0">B2</text>
+
+  <circle cx="490" cy="380" r="9" fill="#1565c0"/>
+  <text x="500" y="376" font-size="12" font-weight="bold" fill="#1565c0">B3</text>
+
+  <!-- Kaynak - orta-sag -->
+  <circle cx="700" cy="270" r="10" fill="#ff8f00" stroke="#1a2b40" stroke-width="1.5"/>
+  <text x="713" y="266" font-size="11" font-weight="bold" fill="#1a2b40">S</text>
+
+  <!-- Cizgiler - hepsi ayni yonde, sig kesisim -->
+  <line x1="490" y1="160" x2="700" y2="270" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="490" y1="270" x2="700" y2="270" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="490" y1="380" x2="700" y2="270" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Kısıt egrileri sig kesisim -->
+  <path d="M 470 100 Q 560 130 620 180 Q 660 220 700 270" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 470 430 Q 560 400 620 360 Q 660 320 700 270" fill="none" stroke="#1a8a3a" stroke-width="2"/>
+
+  <!-- Hata elipsi - uzun ve ince (yatay) -->
+  <ellipse cx="700" cy="270" rx="58" ry="10" fill="#c0392b" fill-opacity="0.12" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <!-- Etiket elipsin altinda -->
+  <text x="650" y="295" font-size="10" fill="#c0392b">uzun ince elips  |  GDOP &gt;&gt; 1  |  mesafe yonunde patlama</text>
+
+  <!-- Sig kesisim aci gostergesi -->
+  <text x="680" y="235" font-size="22" fill="#c0392b" opacity="0.6">~</text>
+
+  <!-- Aciklama - sag alt -->
+  <rect x="452" y="380" width="376" height="70" fill="#f4f7fb" rx="2" stroke="#d3dde8" stroke-width="1"/>
+  <text x="464" y="398" font-size="11" font-weight="bold" fill="#c0392b">Es-dogrusal (collinear) yerlesim</text>
+  <text x="464" y="414" font-size="10" fill="#36506e">Alicilar ayni hizada olunca kısıt egrileri</text>
+  <text x="464" y="428" font-size="10" fill="#36506e">sig aciyla kesisir. Mesafe yonunde belirsizlik</text>
+  <text x="464" y="442" font-size="10" fill="#36506e">patlar → GDOP buyuk → kotu dogruluk.</text>
+
+  <!-- Altta genel kural -->
+  <rect x="20" y="455" width="820" height="22" fill="#f4f7fb"/>
+  <text x="430" y="470" text-anchor="middle" font-size="11" fill="#1a2b40">
+    <tspan font-weight="bold">Kural:</tspan> Alicilar hedefi genis aciyla sarınca GDOP dusuk; hizalı/esit yönde olunca GDOP buyuk. Geometri, dogrulugu belirler.
+  </text>
+</svg>

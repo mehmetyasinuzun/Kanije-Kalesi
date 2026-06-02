@@ -74,6 +74,8 @@ NATO SDIP-27 bağlamında kamuya açık düzeyde bilinen şey, ekipmanın koruma
 <a id="3"></a>
 ## 3. Emanasyon Türleri: EM, İletilen, Akustik, Güç, Optik
 
+![Cihaz silüeti etrafinda 5 emanasyon kanali (yayilan EM, iletilen EM, akustik, guc, optik) ve her kanala karsilik savunma eslestirmesi](img/b17_emanasyon_savunma.svg)
+
 Kompromize edici emanasyon yalnızca "havadan yayılan radyo dalgası" değildir. Bilgi, cihazdan birden çok fiziksel taşıyıcı üzerinden sızabilir. Bu taşıyıcıları sınıflamak, hem tehdidi anlamak hem de savunmayı doğru noktaya yöneltmek için temeldir. Beş ana aileyi mekanizması ve karşı savunmasıyla birlikte ele alalım.
 
 | Emanasyon türü | Fiziksel mekanizma | Tipik kaynak | Birincil savunma |
@@ -173,6 +175,8 @@ Monitör kablosu, ekran emanasyonunun (Bölüm 4-5) baş aktörlerinden biridir:
 <a id="7"></a>
 ## 7. Güç Hattı Yan-Kanalı: SPA ve DPA (Kavramsal)
 
+![SPA tek guc izi (tepe sekillerinden anahtar biti) ve DPA cok-iz istatistiksel korelasyon farki (N iz → ortalama ayrisma) — iki zaman-genlik grafigi](img/b17_spa_dpa_guc_izi.svg)
+
 Şimdiye kadarki kanallar büyük ölçüde "havaya yayılan" emanasyondu. Güç hattı yan-kanalı ise farklı ve donanım güvenliğinin merkezinde duran bir kanaldır: bir cihazın çektiği anlık güç, içinde yürüttüğü işlemle ilişkilidir. Bir işlemci farklı komutları çalıştırırken, farklı veriler üzerinde işlem yaparken, içindeki transistörler farklı sayıda ve biçimde anahtarlanır; bu da çekilen anlık akımı değiştirir. Eğer bu işlem bir kriptografik algoritmaysa ve gizli anahtar kullanıyorsa, güç çekişindeki desen anahtarla ilişkili olabilir. Bu, güç analizi (power analysis) saldırılarının temelidir ve iki klasik biçimi vardır.
 
 ```
@@ -264,6 +268,8 @@ Burada kritik ayrım şudur: bu senaryolar zaten ele geçirilmiş (zararlı yaz�
 | DiskFiltration | Akustik (disk sesi) | Hareketli disk başlığının sesini modüle etmek | Katı hal disk, ses yalıtımı |
 | BitWhisper / termal | Termal | Sıcaklık değişimini bilgi taşıyacak şekilde modüle etmek | Termal ayrım, mesafe |
 | LED tabanlı | Optik | Gösterge LED'lerini gözle fark edilmeden modüle etmek | LED maskeleme/kaldırma, görüş engeli |
+
+![Hava-bosluklu makineden kacak kanallar: EM/bellek yolu, fan sesi, termal, LED → SDR/mikrofon/termal sensor/kamera alici eslestirmesi](img/b17_airgap_kanallar.svg)
 
 Bu çalışmaların ortak iskeleti şudur: yazılımla kontrol edilebilen bir fiziksel büyüklüğü (ekran kartının yaydığı RF, bellek veri yolunun emanasyonu, fan/disk sesi, sıcaklık, LED parlaklığı) hızlıca değiştirerek bir taşıyıcı sinyal üretmek ve gizli veriyi bu taşıyıcıya bindirmek (modülasyon — Bölüm 1). Karşı taraftaki bir alıcı (yakındaki bir SDR, bir mikrofon, bir kamera, bir termal sensör) bu modüle sinyali yakalayıp veriyi geri çıkarır. Veri hızları genellikle çok düşüktür (saniyede bitler ila yüzlerce bit mertebesinde) ve menziller kısadır; ama küçük bir sırrı (örneğin bir şifreleme anahtarını) sızdırmak için düşük hız bile yeterli olabilir.
 

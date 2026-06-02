@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="820" height="320" fill="#f4f7fb"/>
+  <text x="410" y="27" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">ADS-B Veri Akis Zinciri (1090 MHz)</text>
+
+  <defs>
+    <marker id="ab" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <polygon points="0,0 9,4 0,8" fill="#1565c0"/>
+    </marker>
+    <marker id="ab2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <polygon points="0,0 9,4 0,8" fill="#7a8aa0"/>
+    </marker>
+  </defs>
+
+  <!-- Panel -->
+  <rect x="20" y="42" width="780" height="245" fill="#ffffff" stroke="#9fb3c8" stroke-width="1"/>
+
+  <!-- Blok 1: Ucak Transponder -->
+  <rect x="35" y="80" width="110" height="90" rx="6" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.8"/>
+  <text x="90" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">Ucak</text>
+  <text x="90" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">Transponder</text>
+  <text x="90" y="133" text-anchor="middle" font-size="10" fill="#0d47a1">ICAO adresi</text>
+  <text x="90" y="147" text-anchor="middle" font-size="10" fill="#0d47a1">konum GPS</text>
+  <text x="90" y="159" text-anchor="middle" font-size="10" fill="#0d47a1">hiz / irtifa</text>
+
+  <!-- Ucak simgesi -->
+  <text x="90" y="68" text-anchor="middle" font-size="22" fill="#1565c0">&#9992;</text>
+
+  <!-- ok 1: RF dalga -->
+  <line x1="145" y1="125" x2="190" y2="125" stroke="#1565c0" stroke-width="2" marker-end="url(#ab)"/>
+  <!-- Dalga sembolu -->
+  <path d="M152 118 Q157 113 162 118 Q167 123 172 118 Q177 113 182 118" fill="none" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="167" y="140" text-anchor="middle" font-size="9.5" fill="#1565c0">1090 MHz</text>
+  <text x="167" y="153" text-anchor="middle" font-size="9" fill="#4a5a70">PPM, 1 Mbps</text>
+
+  <!-- Blok 2: SDR Anten + Alici -->
+  <rect x="190" y="80" width="120" height="90" rx="6" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1.8"/>
+  <text x="250" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a8a3a">SDR + Anten</text>
+  <text x="250" y="117" text-anchor="middle" font-size="10" fill="#2e7d32">1090 MHz BPF</text>
+  <text x="250" y="131" text-anchor="middle" font-size="10" fill="#2e7d32">RTL-SDR / Airspy</text>
+  <text x="250" y="145" text-anchor="middle" font-size="10" fill="#2e7d32">IQ ornekleme</text>
+  <text x="250" y="159" text-anchor="middle" font-size="10" fill="#2e7d32">ham IQ → USB</text>
+
+  <!-- ok 2 -->
+  <line x1="310" y1="125" x2="350" y2="125" stroke="#7a8aa0" stroke-width="2" marker-end="url(#ab2)"/>
+  <text x="330" y="118" text-anchor="middle" font-size="9.5" fill="#4a5a70">IQ akis</text>
+  <text x="330" y="140" text-anchor="middle" font-size="9" fill="#4a5a70">USB</text>
+
+  <!-- Blok 3: dump1090 / readsb -->
+  <rect x="350" y="75" width="140" height="100" rx="6" fill="#fff3e0" stroke="#ff8f00" stroke-width="1.8"/>
+  <text x="420" y="97" text-anchor="middle" font-size="11" font-weight="bold" fill="#ff8f00">dump1090</text>
+  <text x="420" y="113" text-anchor="middle" font-size="10" fill="#e65100">ADS-B dekoducu</text>
+  <text x="420" y="127" text-anchor="middle" font-size="10" fill="#e65100">IQ → PPM → bit</text>
+  <text x="420" y="141" text-anchor="middle" font-size="10" fill="#e65100">→ ADS-B mesaj</text>
+  <text x="420" y="155" text-anchor="middle" font-size="10" fill="#e65100">CRC dogrulama</text>
+  <text x="420" y="169" text-anchor="middle" font-size="9.5" fill="#4a5a70">(readsb modern fork)</text>
+
+  <!-- ok 3 -->
+  <line x1="490" y1="125" x2="530" y2="125" stroke="#7a8aa0" stroke-width="2" marker-end="url(#ab2)"/>
+  <text x="510" y="118" text-anchor="middle" font-size="9.5" fill="#4a5a70">JSON/Beast</text>
+  <text x="510" y="140" text-anchor="middle" font-size="9" fill="#4a5a70">port 30003</text>
+
+  <!-- Blok 4: Cozulen Veri -->
+  <rect x="530" y="75" width="140" height="100" rx="6" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="1.8"/>
+  <text x="600" y="97" text-anchor="middle" font-size="11" font-weight="bold" fill="#7b1fa2">Cozulen Veri</text>
+  <text x="600" y="115" text-anchor="middle" font-size="10.5" fill="#4a148c">ICAO: 4BABCD</text>
+  <text x="600" y="130" text-anchor="middle" font-size="10.5" fill="#4a148c">Ucus: THY1924</text>
+  <text x="600" y="145" text-anchor="middle" font-size="10.5" fill="#4a148c">Irtifa: 37000 ft</text>
+  <text x="600" y="160" text-anchor="middle" font-size="10.5" fill="#4a148c">Hiz: 458 kt</text>
+  <text x="600" y="175" text-anchor="middle" font-size="10" fill="#6b7a90">41.01N, 29.04E</text>
+
+  <!-- ok 4 -->
+  <line x1="670" y1="125" x2="705" y2="125" stroke="#7a8aa0" stroke-width="2" marker-end="url(#ab2)"/>
+  <text x="687" y="118" text-anchor="middle" font-size="9.5" fill="#4a5a70">HTTP/:8080</text>
+  <text x="687" y="140" text-anchor="middle" font-size="9" fill="#4a5a70">JSON</text>
+
+  <!-- Blok 5: Web Harita -->
+  <rect x="705" y="80" width="85" height="90" rx="6" fill="#e0f2f1" stroke="#00796b" stroke-width="1.8"/>
+  <text x="747" y="100" text-anchor="middle" font-size="11" font-weight="bold" fill="#00796b">Web</text>
+  <text x="747" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#00796b">Harita</text>
+  <text x="747" y="132" text-anchor="middle" font-size="10" fill="#004d40">tarayici</text>
+  <text x="747" y="146" text-anchor="middle" font-size="10" fill="#004d40">:8080</text>
+  <text x="747" y="162" text-anchor="middle" font-size="10" fill="#004d40">canli</text>
+
+  <!-- Harita simgesi -->
+  <text x="747" y="68" text-anchor="middle" font-size="20" fill="#00796b">&#128506;</text>
+
+  <!-- Alt bilgi satiri -->
+  <rect x="30" y="200" width="760" height="75" rx="4" fill="#eef2f8" stroke="none"/>
+  <text x="410" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a2b40">ADS-B: Tamamen acik, sifresiz, yasal dinleme — 1090 MHz uçak transponder verisi</text>
+  <text x="410" y="235" text-anchor="middle" font-size="10.5" fill="#36506e">Basit kurulum: dump1090 --interactive --net → tarayici :8080 → haritada ucaklar</text>
+  <text x="410" y="250" text-anchor="middle" font-size="10.5" fill="#36506e">DIY anten: 6.5 cm tel + 4 radyal = ev yapimi ground-plane (magaza antenini sollar)</text>
+  <text x="410" y="265" text-anchor="middle" font-size="10.5" fill="#4a5a70">FlightAware / OpenSky feeder olarak katkida bulunabilirsin (premium erisim karsiligi)</text>
+</svg>

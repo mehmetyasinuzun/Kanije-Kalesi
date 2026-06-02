@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="480" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">ICS RF Tehdit Sinifi — Tespit — Savunma Birlesik Matrisi</text>
+
+  <!-- Tablo baslik satiri -->
+  <rect x="20" y="44" width="820" height="36" rx="4" fill="#1a2b40"/>
+  <text x="130" y="67" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Tehdit Sinifi</text>
+  <text x="290" y="67" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Hedef Ozellik</text>
+  <text x="440" y="67" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Tespit Sinyali</text>
+  <text x="620" y="67" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Birincil Savunma</text>
+  <text x="790" y="67" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">Risk</text>
+
+  <!-- Ayirici dikeyler -->
+  <line x1="210" y1="44" x2="210" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="370" y1="44" x2="370" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="520" y1="44" x2="520" y2="460" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="720" y1="44" x2="720" y2="460" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- SATIR 1: Dinleme -->
+  <rect x="20" y="80" width="820" height="72" rx="0" fill="#e8f4fd" stroke="#d3dde8" stroke-width="0.5"/>
+  <!-- Isı rengi kutusu: dusuk risk -->
+  <rect x="722" y="84" width="114" height="64" fill="#dff0d8" rx="3"/>
+  <text x="779" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">DUSUK</text>
+  <text x="779" y="130" text-anchor="middle" font-size="10" fill="#1a8a3a">(dolaylı hasar)</text>
+
+  <text x="32" y="104" font-size="12" font-weight="bold" fill="#1565c0">Telemetri</text>
+  <text x="32" y="120" font-size="12" font-weight="bold" fill="#1565c0">Dinleme</text>
+  <text x="32" y="138" font-size="9" fill="#4a5a70">(Pasif Gozlem)</text>
+
+  <text x="222" y="104" font-size="11" fill="#36506e">Gizlilik</text>
+  <rect x="222" y="108" width="60" height="16" rx="3" fill="#1565c0"/>
+  <text x="252" y="120" text-anchor="middle" font-size="9" fill="#ffffff">C</text>
+  <text x="222" y="136" font-size="9" fill="#6b7a90">surecin ifşası</text>
+  <text x="222" y="148" font-size="9" fill="#6b7a90">istihbarat zemini</text>
+
+  <text x="382" y="104" font-size="10" fill="#36506e">Pasif — dogrudan tespit zor</text>
+  <text x="382" y="118" font-size="9" fill="#6b7a90">Konfig. denetimi: "acik metin mi?"</text>
+  <text x="382" y="132" font-size="9" fill="#6b7a90">RF spektrum: yeni alıcı imzası?</text>
+  <text x="382" y="146" font-size="9" fill="#6b7a90">Risk modelleme (olasilik)</text>
+
+  <text x="532" y="104" font-size="10" fill="#36506e">Icerik sifrelemesi</text>
+  <text x="532" y="118" font-size="9" fill="#6b7a90">Guvenli protokol (IEC 62351)</text>
+  <text x="532" y="132" font-size="9" fill="#6b7a90">veya sifreli tunel (VPN)</text>
+  <text x="532" y="146" font-size="9" fill="#6b7a90">Acik-metin baglari kapat</text>
+
+  <!-- SATIR 2: Spoof -->
+  <rect x="20" y="152" width="820" height="72" rx="0" fill="#ffffff" stroke="#d3dde8" stroke-width="0.5"/>
+  <rect x="722" y="156" width="114" height="64" fill="#f2dede" rx="3"/>
+  <text x="779" y="185" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">KRITIK</text>
+  <text x="779" y="202" text-anchor="middle" font-size="10" fill="#c0392b">(fiziksel hasar)</text>
+
+  <text x="32" y="176" font-size="12" font-weight="bold" fill="#c0392b">Sahte Komut</text>
+  <text x="32" y="192" font-size="12" font-weight="bold" fill="#c0392b">Enjeksiyonu</text>
+  <text x="32" y="210" font-size="9" fill="#4a5a70">(Spoofing)</text>
+
+  <text x="222" y="176" font-size="11" fill="#36506e">Butunlük / Safety</text>
+  <rect x="222" y="180" width="60" height="16" rx="3" fill="#c0392b"/>
+  <text x="252" y="192" text-anchor="middle" font-size="9" fill="#ffffff">I + S</text>
+  <text x="222" y="208" font-size="9" fill="#6b7a90">yanlis komut →</text>
+  <text x="222" y="220" font-size="9" fill="#6b7a90">vana/pompa hatası</text>
+
+  <text x="382" y="176" font-size="10" fill="#36506e">Deterministik baz. sapma</text>
+  <text x="382" y="190" font-size="9" fill="#6b7a90">Beklenmeyen kaynak/zaman</text>
+  <text x="382" y="204" font-size="9" fill="#6b7a90">Beklenmeyen fonksiyon kodu</text>
+  <text x="382" y="218" font-size="9" fill="#6b7a90">"Yazma komutu" anomalisi</text>
+
+  <text x="532" y="176" font-size="10" fill="#36506e">Kriptografik kimlik dogr.</text>
+  <text x="532" y="190" font-size="9" fill="#6b7a90">DNP3 SAv5, IEC 62351</text>
+  <text x="532" y="204" font-size="9" fill="#6b7a90">Salt-okuma/yazma ayrımı</text>
+  <text x="532" y="218" font-size="9" fill="#6b7a90">Fiziksel interlock (ESD)</text>
+
+  <!-- SATIR 3: Replay -->
+  <rect x="20" y="224" width="820" height="72" rx="0" fill="#e8f4fd" stroke="#d3dde8" stroke-width="0.5"/>
+  <rect x="722" y="228" width="114" height="64" fill="#fcf8e3" rx="3"/>
+  <text x="779" y="257" text-anchor="middle" font-size="13" font-weight="bold" fill="#ff8f00">ORTA</text>
+  <text x="779" y="274" text-anchor="middle" font-size="10" fill="#ff8f00">(senaryo baglı)</text>
+
+  <text x="32" y="248" font-size="12" font-weight="bold" fill="#ff8f00">Replay</text>
+  <text x="32" y="264" font-size="12" font-weight="bold" fill="#ff8f00">(Tekrar Oyna.)</text>
+  <text x="32" y="282" font-size="9" fill="#4a5a70">(eski mesaj)</text>
+
+  <text x="222" y="248" font-size="11" fill="#36506e">Butunlük</text>
+  <rect x="222" y="252" width="60" height="16" rx="3" fill="#ff8f00"/>
+  <text x="252" y="264" text-anchor="middle" font-size="9" fill="#ffffff">I</text>
+  <text x="222" y="280" font-size="9" fill="#6b7a90">eski gecerli mesaj</text>
+  <text x="222" y="292" font-size="9" fill="#6b7a90">yeniden gonderilir</text>
+
+  <text x="382" y="248" font-size="10" fill="#36506e">Sayac tutarsızlıgı</text>
+  <text x="382" y="262" font-size="9" fill="#6b7a90">Ayni mesajin tekrari</text>
+  <text x="382" y="276" font-size="9" fill="#6b7a90">Zaman damgası sapması</text>
+  <text x="382" y="290" font-size="9" fill="#6b7a90">Baz. davranıs anomalisi</text>
+
+  <text x="532" y="248" font-size="10" fill="#36506e">Tazelik mekanizması</text>
+  <text x="532" y="262" font-size="9" fill="#6b7a90">Nonce / sayac / zaman d.</text>
+  <text x="532" y="276" font-size="9" fill="#6b7a90">Guvenli protokol tüneli</text>
+  <text x="532" y="290" font-size="9" fill="#6b7a90">(TLS oturum tazeligi)</text>
+
+  <!-- SATIR 4: Jamming -->
+  <rect x="20" y="296" width="820" height="72" rx="0" fill="#ffffff" stroke="#d3dde8" stroke-width="0.5"/>
+  <rect x="722" y="300" width="114" height="64" fill="#f2dede" rx="3"/>
+  <text x="779" y="329" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">KRITIK</text>
+  <text x="779" y="346" text-anchor="middle" font-size="10" fill="#c0392b">(kör/kesinti)</text>
+
+  <text x="32" y="320" font-size="12" font-weight="bold" fill="#c0392b">RF Jamming</text>
+  <text x="32" y="336" font-size="12" font-weight="bold" fill="#c0392b">(Alan DoS)</text>
+  <text x="32" y="354" font-size="9" fill="#4a5a70">(erisilebilirlik)</text>
+
+  <text x="222" y="320" font-size="11" fill="#36506e">Erisebilirlik</text>
+  <rect x="222" y="324" width="60" height="16" rx="3" fill="#c0392b"/>
+  <text x="252" y="336" text-anchor="middle" font-size="9" fill="#ffffff">A</text>
+  <text x="222" y="352" font-size="9" fill="#6b7a90">saha kori → kontrol</text>
+  <text x="222" y="364" font-size="9" fill="#6b7a90">kaybı</text>
+
+  <text x="382" y="320" font-size="10" fill="#36506e">Gurultu tabanı yukselmesi</text>
+  <text x="382" y="334" font-size="9" fill="#6b7a90">RTU yanıt kaybı + RF sıçrama</text>
+  <text x="382" y="348" font-size="9" fill="#6b7a90">Zaman korelasyonu (fùzyon)</text>
+  <text x="382" y="362" font-size="9" fill="#6b7a90">Yon bulma → yetkili rapora</text>
+
+  <text x="532" y="320" font-size="10" fill="#36506e">FHSS/DSSS direnci</text>
+  <text x="532" y="334" font-size="9" fill="#6b7a90">Yedek bag (hucresel+uydu)</text>
+  <text x="532" y="348" font-size="9" fill="#6b7a90">Fail-safe durumu</text>
+  <text x="532" y="362" font-size="9" fill="#6b7a90">(bag kopsa bile guvenli)</text>
+
+  <!-- SATIR 5: MitM -->
+  <rect x="20" y="368" width="820" height="72" rx="0" fill="#e8f4fd" stroke="#d3dde8" stroke-width="0.5"/>
+  <rect x="722" y="372" width="114" height="64" fill="#f2dede" rx="3"/>
+  <text x="779" y="401" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">YUKSEK</text>
+  <text x="779" y="418" text-anchor="middle" font-size="10" fill="#c0392b">(gizli sapma)</text>
+
+  <text x="32" y="392" font-size="12" font-weight="bold" fill="#6b7a90">Sahte RTU /</text>
+  <text x="32" y="408" font-size="12" font-weight="bold" fill="#6b7a90">MitM</text>
+  <text x="32" y="426" font-size="9" fill="#4a5a70">(kimlik/ortada)</text>
+
+  <text x="222" y="392" font-size="11" fill="#36506e">Butunlük / Kimlik</text>
+  <rect x="222" y="396" width="60" height="16" rx="3" fill="#6b7a90"/>
+  <text x="252" y="408" text-anchor="middle" font-size="9" fill="#ffffff">I + A</text>
+  <text x="222" y="424" font-size="9" fill="#6b7a90">taraflar birbirini</text>
+  <text x="222" y="436" font-size="9" fill="#6b7a90">ayırt edemez</text>
+
+  <text x="382" y="392" font-size="10" fill="#36506e">Beklenmeyen cihaz kimliği</text>
+  <text x="382" y="406" font-size="9" fill="#6b7a90">Yanıt gecikmesi artışı</text>
+  <text x="382" y="420" font-size="9" fill="#6b7a90">Trafik deseni anomalisi</text>
+  <text x="382" y="434" font-size="9" fill="#6b7a90">RTU varlık baseline sapması</text>
+
+  <text x="532" y="392" font-size="10" fill="#36506e">Karsilikli kimlik dogrulama</text>
+  <text x="532" y="406" font-size="9" fill="#6b7a90">Sertifika / anahtar bazlı</text>
+  <text x="532" y="420" font-size="9" fill="#6b7a90">Ag segmentasyonu</text>
+  <text x="532" y="434" font-size="9" fill="#6b7a90">(kime erişim izni var?)</text>
+
+  <!-- Alt aciklama -->
+  <text x="430" y="462" text-anchor="middle" font-size="9" fill="#36506e">ICS trafigi deterministik → baz. sapma belirgin | Savunma onceligi: Safety + Erisebilirlik + Butunlük > Gizlilik</text>
+</svg>

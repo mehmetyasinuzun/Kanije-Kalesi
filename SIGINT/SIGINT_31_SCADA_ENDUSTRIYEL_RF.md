@@ -171,6 +171,8 @@ RF bağının bir ICS'te taşıdığı iki tür yük vardır ve ikisinin de risk
 <a id="4"></a>
 ## 4. Endüstriyel Kablosuz Teknolojiler: Frekans, Kullanım, Güvenlik Durumu
 
+![Endustriyel kablosuz teknolojiler: karistirma direnci (FHSS/DSSS) vs kriptografik koruma (AES+auth) iki ekseninde](img/b31_endustriyel_kablosuz_eksenler.svg)
+
 ICS sahasında karşılaşılan kablosuz teknolojiler geniş bir yelpazedir. Aşağıdaki büyük tablo hepsini tek bakışta konumlandırır; ardından her aile ayrı ele alınır. Frekanslar **bölgeye göre değişir** ve ulusal tahsis planından (Bölüm 8) teyit edilmelidir; "tipik" değerler verilmiştir.
 
 | Teknoloji | Tipik frekans/bant | Birincil ICS kullanımı | Tipik güvenlik durumu (savunmacı notu) |
@@ -422,6 +424,8 @@ Yasal/kaynak notu: Belirli olayların adları, atıfları ve teknik detayları i
 <a id="9"></a>
 ## 9. Savunma Mimarisi: Purdue Modeli, Segmentasyon ve Derinlemesine Savunma
 
+![Purdue modeli ICS/SCADA savunma katmanlari: Seviye 0-5, endustriyel DMZ ve RF telemetri konumu](img/b31_scada_purdue.svg)
+
 ICS savunmasının omurgası, **mimaridir** — tek tek kontroller değil, sistemin nasıl katmanlara bölündüğü. Bu mimarinin referans çerçevesi, on yıllardır endüstride standart olan **Purdue Modeli** (Purdue Enterprise Reference Architecture'dan türeyen ISA-95 katman modeli) ve onun üzerine kurulan **derinlemesine savunma** (defense-in-depth) yaklaşımıdır.
 
 ### Purdue Modeli: katmanlı ICS mimarisi
@@ -606,6 +610,8 @@ Sektörel düzenlemeler de vardır ve bölgeye göre değişir (örneğin enerji
 
 <a id="12"></a>
 ## 12. Tehdit → Tespit → Savunma Birleşik Matrisi
+
+![ICS RF tehdit sinifi matrisi: dinleme/spoof/replay/jamming/MitM × hedef ozellik × tespit sinyali × savunma × risk renk kodu](img/b31_ics_tehdit_matrisi.svg)
 
 Aşağıdaki birleşik matris, bölümün tüm ICS RF tehditlerini tek bir savunmacı referansında toplar. Her satır: tehdit (kavram), fiziksel/mantıksal temel, pasif tespit (ES), tasarımsal savunma (EP/mimari), ve yasal not. Bu tablo, bir olayla karşılaştığında hızlı yönlendirme içindir; hiçbir satırda savunmacının doğru cevabı "karşı saldırı" değildir.
 

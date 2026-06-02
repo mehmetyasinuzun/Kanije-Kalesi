@@ -186,6 +186,8 @@ Geçmiş ağ ifşası, gizlilik açısından en çarpıcı sızıntıdır. Eğer
 
 ### MAC randomizasyonu ve sınırları
 
+![MAC randomizasyonu: korunan (MAC tabanli takip) vs korunmayan (IE parmak izi, PNL probe sizintisi, baglandiktan sonra tutarli MAC)](img/b15_mac_randomizasyon.svg)
+
 Bu gizlilik sızıntısına karşı modern işletim sistemleri (iOS, Android, Windows, çoğu Linux masaüstü) MAC randomizasyonu uygular: cihaz tararken ve hatta ağlara bağlanırken gerçek donanım MAC'i yerine rastgele/cihaza-özel-ama-ağa-özel bir MAC kullanır. Amaç, aynı cihazın farklı yer ve zamanlarda izlenmesini (MAC tabanlı takibi) kırmaktır.
 
 Ancak randomizasyonun sınırları vardır ve bir savunma analisti bunları bilmek zorundadır:
@@ -466,6 +468,8 @@ Sezgi şudur: kırma hızı sabit kalsa bile, parolaya her eklenen rastgele kara
 <a id="10"></a>
 ## 10. WPA3 (SAE/Dragonfly): Yakala-Kır Neden Artık İşe Yaramıyor
 
+![WPA2-PSK vs WPA3-SAE saldiri yuzeyi karsilastirmasi: handshake yakalanabilirligi, cevrimdisi tahmin, forward secrecy, deauth direnci, PMF durumu](img/b15_wpa2_wpa3_yuzey.svg)
+
 Bölüm 5-9 boyunca anlatılan tüm saldırı zinciri tek bir tasarım kusuruna dayanıyordu: WPA2-PSK'de, parolaya bağlı doğrulama materyali (handshake/PMKID) havadan yakalanıp sınırsız sayıda çevrimdışı tahmine sokulabiliyordu. WPA3, tam olarak bu zinciri kırmak için tasarlandı.
 
 ### SAE / Dragonfly: çevrimdışı sözlük saldırısını imkânsızlaştırmak
@@ -603,6 +607,8 @@ Captive portal, açık ağlarda (otel/kafe/havaalanı) ilk bağlantıda kullanı
 
 <a id="13"></a>
 ## 13. Kapsamlı Savunma: PMF, WPA3, 802.1X, WIDS/WIPS, İstemci Yalıtımı
+
+![9 WLAN savunma onlemi maliyet x etki scatter grafigi: guclu parola, WPA3, PMF, WPS kapali, firmware, izolasyon, 802.1X, WIDS, segmentasyon](img/b15_wlan_savunma_katmanlari.svg)
 
 Bölüm boyunca her saldırının yanına savunmasını koyduk; burada onları tek bir savunma mimarisinde topluyoruz. Sıralama önemlidir: en üstteki maddeler en ucuz ve en yüksek etkilidir.
 

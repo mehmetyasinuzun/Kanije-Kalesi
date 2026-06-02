@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 480" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="820" height="480" fill="#f4f7fb"/>
+  <text x="410" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Kalici SDR Istasyon Mimarisi</text>
+  <text x="410" y="46" text-anchor="middle" font-size="11" fill="#6b7a90">Cati anteni → LNA → koaks → bias-tee → Pi + RTL-SDR → SSH uzak yonetim</text>
+
+  <defs>
+    <marker id="sig" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1565c0"/>
+    </marker>
+    <marker id="pwr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff8f00"/>
+    </marker>
+    <marker id="net" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1a8a3a"/>
+    </marker>
+  </defs>
+
+  <!-- Zemin bölge etiketleri -->
+  <rect x="10" y="56" width="200" height="360" rx="6" fill="#e8f0f8" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="110" y="72" text-anchor="middle" font-size="10" font-weight="bold" fill="#1565c0">DIS MEKAN / CATI</text>
+
+  <rect x="225" y="56" width="330" height="360" rx="6" fill="#edf7ed" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="390" y="72" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a8a3a">IC MEKAN (KORUNAK)</text>
+
+  <rect x="570" y="56" width="240" height="360" rx="6" fill="#fff8ee" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="690" y="72" text-anchor="middle" font-size="10" font-weight="bold" fill="#ff8f00">AG / UZAK ERISIM</text>
+
+  <!-- ===== DIS MEKAN ===== -->
+
+  <!-- Anten -->
+  <rect x="40" y="90" width="130" height="68" rx="6" fill="#1565c0"/>
+  <text x="105" y="114" text-anchor="middle" font-size="11" font-weight="bold" fill="white">CATI ANTENI</text>
+  <text x="105" y="130" text-anchor="middle" font-size="9" fill="#d3dde8">1090 / 137 / discone</text>
+  <text x="105" y="144" text-anchor="middle" font-size="9" fill="#d3dde8">yüksek montaj = menzil</text>
+
+  <!-- Yıldırım/statik koruma -->
+  <rect x="55" y="172" width="100" height="40" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="105" y="188" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="bold">Statik Koruma</text>
+  <text x="105" y="202" text-anchor="middle" font-size="9" fill="#4a5a70">yıldırım/su sızdırmazlık</text>
+  <line x1="105" y1="158" x2="105" y2="172" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- LNA anten dibi -->
+  <rect x="40" y="225" width="130" height="54" rx="5" fill="#1a8a3a"/>
+  <text x="105" y="248" text-anchor="middle" font-size="11" font-weight="bold" fill="white">LNA (Anten Dibi)</text>
+  <text x="105" y="263" text-anchor="middle" font-size="9" fill="#d3dde8">kayıptan ONCE yükselt</text>
+  <text x="105" y="275" text-anchor="middle" font-size="9" fill="#d3dde8">+20-30 dB NF iyilestir</text>
+  <line x1="105" y1="212" x2="105" y2="225" stroke="#1565c0" stroke-width="2" marker-end="url(#sig)"/>
+  <text x="115" y="221" font-size="9" fill="#1565c0">RF</text>
+
+  <!-- Koaks kablo -->
+  <rect x="40" y="292" width="130" height="36" rx="4" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="105" y="308" text-anchor="middle" font-size="10" fill="#1565c0" font-weight="bold">Kaliteli Koaks</text>
+  <text x="105" y="322" text-anchor="middle" font-size="9" fill="#4a5a70">RG-316/LMR-195 (kısa)</text>
+  <line x1="105" y1="279" x2="105" y2="292" stroke="#1565c0" stroke-width="2" marker-end="url(#sig)"/>
+
+  <!-- ===== IC MEKAN ===== -->
+
+  <!-- Bias-tee -->
+  <rect x="248" y="120" width="110" height="50" rx="5" fill="#ff8f00"/>
+  <text x="303" y="143" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Bias-Tee</text>
+  <text x="303" y="158" text-anchor="middle" font-size="9" fill="white">LNA'ya DC besleme</text>
+
+  <!-- Koaks ic mekan icine giriyor -->
+  <line x1="170" y1="310" x2="248" y2="145" stroke="#1565c0" stroke-width="2" marker-end="url(#sig)"/>
+  <text x="205" y="225" text-anchor="middle" font-size="9" fill="#1565c0" transform="rotate(-50,205,225)">Koaks</text>
+
+  <!-- RTL-SDR -->
+  <rect x="375" y="120" width="110" height="50" rx="5" fill="#1565c0"/>
+  <text x="430" y="143" text-anchor="middle" font-size="11" font-weight="bold" fill="white">RTL-SDR</text>
+  <text x="430" y="158" text-anchor="middle" font-size="9" fill="white">V3/V4 dongle</text>
+  <line x1="358" y1="145" x2="375" y2="145" stroke="#1565c0" stroke-width="2" marker-end="url(#sig)"/>
+  <text x="366" y="140" text-anchor="middle" font-size="9" fill="#1565c0">SMA</text>
+
+  <!-- USB -->
+  <line x1="485" y1="145" x2="510" y2="145" stroke="#1565c0" stroke-width="2" marker-end="url(#sig)"/>
+  <rect x="488" y="133" width="26" height="14" rx="2" fill="#4a5a70"/>
+  <text x="501" y="144" text-anchor="middle" font-size="8" fill="white">USB</text>
+
+  <!-- Raspberry Pi -->
+  <rect x="240" y="225" width="280" height="80" rx="6" fill="#1565c0"/>
+  <text x="380" y="248" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Raspberry Pi (headless)</text>
+  <text x="380" y="265" text-anchor="middle" font-size="10" fill="#d3dde8">DragonOS / Pi OS</text>
+  <text x="380" y="281" text-anchor="middle" font-size="9" fill="#d3dde8">systemd servisleri: dump1090, rtl_433, readsb...</text>
+  <text x="380" y="296" text-anchor="middle" font-size="9" fill="#d3dde8">SSD kayit | journalctl loglama</text>
+
+  <!-- USB dongle -> Pi -->
+  <line x1="430" y1="170" x2="380" y2="225" stroke="#1565c0" stroke-width="2" marker-end="url(#sig)"/>
+
+  <!-- RFI azaltma notlari -->
+  <rect x="240" y="318" width="280" height="84" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="380" y="336" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">RFI Azaltma Noktaları</text>
+  <text x="250" y="353" font-size="9" fill="#4a5a70">● Ferrit boncuk: USB + güç kablosuna</text>
+  <text x="250" y="367" font-size="9" fill="#4a5a70">● Kaliteli 5V PSU (ucuz PSU → genis bant gurultu)</text>
+  <text x="250" y="381" font-size="9" fill="#4a5a70">● Pi ve USB cihazlari antenden uzak tut</text>
+  <text x="250" y="395" font-size="9" fill="#4a5a70">● Ekranlı kasa / metal kutu tercih et</text>
+
+  <!-- ===== AG / UZAK ERISIM ===== -->
+
+  <!-- Ethernet -->
+  <rect x="590" y="120" width="100" height="44" rx="5" fill="#1a8a3a"/>
+  <text x="640" y="140" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Yonlendirici</text>
+  <text x="640" y="156" text-anchor="middle" font-size="9" fill="white">LAN / Ethernet</text>
+  <line x1="520" y1="145" x2="590" y2="140" stroke="#1a8a3a" stroke-width="2" marker-end="url(#net)"/>
+  <text x="555" y="138" font-size="9" fill="#1a8a3a">ETH</text>
+
+  <!-- SSH -->
+  <rect x="585" y="196" width="110" height="44" rx="5" fill="#1a8a3a"/>
+  <text x="640" y="216" text-anchor="middle" font-size="11" font-weight="bold" fill="white">SSH / VNC</text>
+  <text x="640" y="230" text-anchor="middle" font-size="9" fill="white">uzak yonetim</text>
+  <line x1="640" y1="164" x2="640" y2="196" stroke="#1a8a3a" stroke-width="2" marker-end="url(#net)"/>
+
+  <!-- Web paneli -->
+  <rect x="585" y="260" width="110" height="44" rx="5" fill="#1a8a3a"/>
+  <text x="640" y="280" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Web Paneli</text>
+  <text x="640" y="294" text-anchor="middle" font-size="9" fill="white">tar1090 / Grafana</text>
+  <line x1="640" y1="240" x2="640" y2="260" stroke="#1a8a3a" stroke-width="2" marker-end="url(#net)"/>
+
+  <!-- Uzak cihaz -->
+  <rect x="585" y="326" width="110" height="44" rx="5" fill="#ffffff" stroke="#1a8a3a" stroke-width="2"/>
+  <text x="640" y="346" text-anchor="middle" font-size="11" fill="#1a8a3a">Dizustu /</text>
+  <text x="640" y="360" text-anchor="middle" font-size="11" fill="#1a8a3a">Telefon</text>
+  <line x1="640" y1="304" x2="640" y2="326" stroke="#1a8a3a" stroke-width="2" marker-end="url(#net)"/>
+
+  <!-- Güç hattı (alt) -->
+  <rect x="10" y="426" width="800" height="40" rx="5" fill="#ffffff" stroke="#ff8f00" stroke-width="1.5"/>
+  <text x="30" y="442" font-size="10" font-weight="bold" fill="#ff8f00">GUC HATTI: </text>
+  <text x="115" y="442" font-size="10" fill="#4a5a70">Kaliteli 5V/3A+ PSU → Pi | Bias-tee: RTL-SDR V3/V4 DC bias komutuyla LNA'ya besleme | SD kart değil USB SSD kayit icin</text>
+  <text x="30" y="458" font-size="9" fill="#6b7a90">Survey ile kendi gürültü tabanını av: cihazları tek tek kapat, NF değişimini izle (Proje 6)</text>
+</svg>

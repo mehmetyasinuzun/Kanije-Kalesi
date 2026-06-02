@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" font-family="Segoe UI, Arial, sans-serif">
+  <rect x="0" y="0" width="820" height="420" fill="#f4f7fb"/>
+  <text x="410" y="27" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">SDR Blok Mimarisi — RX ve TX Yolu</text>
+
+  <!-- SDR DONANUM CERCEVESI -->
+  <rect x="160" y="42" width="490" height="186" fill="#ffffff" stroke="#9fb3c8" stroke-width="1.5" rx="4"/>
+  <text x="405" y="38" text-anchor="middle" font-size="11" fill="#6b7a90">SDR DONANIMI</text>
+
+  <!-- ===== RX YOLU (ust) ===== -->
+  <text x="10" y="78" font-size="11" fill="#1565c0" font-weight="bold">RX</text>
+  <text x="10" y="90" font-size="11" fill="#1565c0" font-weight="bold">YOLU</text>
+
+  <!-- 1) Anten RX -->
+  <rect x="20" y="58" width="70" height="52" fill="#e8f0fa" stroke="#1565c0" stroke-width="1.2" rx="3"/>
+  <line x1="55" y1="58" x2="55" y2="46" stroke="#1565c0" stroke-width="2"/>
+  <line x1="44" y1="46" x2="66" y2="46" stroke="#1565c0" stroke-width="2"/>
+  <line x1="44" y1="42" x2="66" y2="42" stroke="#1565c0" stroke-width="2"/>
+  <text x="55" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">ANTEN</text>
+  <text x="55" y="93" text-anchor="middle" font-size="10" fill="#36506e">EM→elekt.</text>
+  <text x="55" y="103" text-anchor="middle" font-size="9" fill="#6b7a90">RX</text>
+  <!-- ok -->
+  <line x1="90" y1="84" x2="168" y2="84" stroke="#1565c0" stroke-width="1.8"/>
+  <polygon points="168,84 160,80 160,88" fill="#1565c0"/>
+
+  <!-- 2) LNA + Filtre -->
+  <rect x="170" y="56" width="90" height="56" fill="#e8f0fa" stroke="#1565c0" stroke-width="1.2" rx="3"/>
+  <text x="215" y="76" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">LNA</text>
+  <text x="215" y="89" text-anchor="middle" font-size="10" fill="#36506e">Dusuk Gurultu</text>
+  <text x="215" y="101" text-anchor="middle" font-size="9" fill="#5a6b80">Yukselteci</text>
+  <text x="215" y="113" text-anchor="middle" font-size="9" fill="#6b7a90">NF kritik!</text>
+  <!-- ok -->
+  <line x1="260" y1="84" x2="272" y2="84" stroke="#1565c0" stroke-width="1.8"/>
+  <polygon points="272,84 264,80 264,88" fill="#1565c0"/>
+
+  <!-- 3) Bant Filtre -->
+  <rect x="274" y="56" width="70" height="56" fill="#e8f0fa" stroke="#1565c0" stroke-width="1.2" rx="3"/>
+  <text x="309" y="76" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">FILTRE</text>
+  <text x="309" y="89" text-anchor="middle" font-size="10" fill="#36506e">Bant secici</text>
+  <text x="309" y="101" text-anchor="middle" font-size="9" fill="#5a6b80">intermod</text>
+  <text x="309" y="113" text-anchor="middle" font-size="9" fill="#6b7a90">reddeder</text>
+  <!-- ok -->
+  <line x1="344" y1="84" x2="356" y2="84" stroke="#1565c0" stroke-width="1.8"/>
+  <polygon points="356,84 348,80 348,88" fill="#1565c0"/>
+
+  <!-- 4) Mikser/Tuner -->
+  <rect x="358" y="56" width="80" height="56" fill="#e8f0fa" stroke="#1565c0" stroke-width="1.2" rx="3"/>
+  <text x="398" y="74" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">MIKSER</text>
+  <text x="398" y="87" text-anchor="middle" font-size="10" fill="#36506e">/ TUNER</text>
+  <text x="398" y="99" text-anchor="middle" font-size="9" fill="#5a6b80">RF → IF</text>
+  <text x="398" y="111" text-anchor="middle" font-size="9" fill="#6b7a90">frekans sec</text>
+  <!-- ok -->
+  <line x1="438" y1="84" x2="450" y2="84" stroke="#1565c0" stroke-width="1.8"/>
+  <polygon points="450,84 442,80 442,88" fill="#1565c0"/>
+
+  <!-- 5) ADC -->
+  <rect x="452" y="56" width="80" height="56" fill="#e8f0fa" stroke="#1565c0" stroke-width="1.2" rx="3"/>
+  <text x="492" y="74" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">ADC</text>
+  <text x="492" y="87" text-anchor="middle" font-size="10" fill="#36506e">Analog→Sayisal</text>
+  <text x="492" y="99" text-anchor="middle" font-size="9" fill="#5a6b80">8/12/14/16-bit</text>
+  <text x="492" y="111" text-anchor="middle" font-size="9" fill="#6b7a90">dinamik aralik</text>
+  <!-- ok -->
+  <line x1="532" y1="84" x2="544" y2="84" stroke="#1565c0" stroke-width="1.8"/>
+  <polygon points="544,84 536,80 536,88" fill="#1565c0"/>
+
+  <!-- 6) DSP/FPGA -->
+  <rect x="546" y="56" width="90" height="56" fill="#e8f0fa" stroke="#1565c0" stroke-width="1.2" rx="3"/>
+  <text x="591" y="74" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">DSP/FPGA</text>
+  <text x="591" y="87" text-anchor="middle" font-size="10" fill="#36506e">Paketleme</text>
+  <text x="591" y="99" text-anchor="middle" font-size="9" fill="#5a6b80">USB akisi</text>
+  <text x="591" y="111" text-anchor="middle" font-size="9" fill="#6b7a90">decimation</text>
+  <!-- ok -->
+  <line x1="636" y1="84" x2="648" y2="84" stroke="#1565c0" stroke-width="1.8"/>
+  <polygon points="648,84 640,80 640,88" fill="#1565c0"/>
+
+  <!-- 7) USB -->
+  <rect x="650" y="64" width="50" height="36" fill="#e8f0fa" stroke="#1565c0" stroke-width="1.2" rx="3"/>
+  <text x="675" y="79" text-anchor="middle" font-size="11" font-weight="bold" fill="#1565c0">USB</text>
+  <text x="675" y="92" text-anchor="middle" font-size="9" fill="#5a6b80">2.0/3.0</text>
+  <line x1="700" y1="82" x2="720" y2="82" stroke="#1565c0" stroke-width="1.8"/>
+  <polygon points="720,82 712,78 712,86" fill="#1565c0"/>
+
+  <!-- 8) Bilgisayar -->
+  <rect x="722" y="56" width="80" height="56" fill="#1565c0" stroke="#0a3a70" stroke-width="1" rx="3"/>
+  <text x="762" y="76" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">BILGISAYAR</text>
+  <text x="762" y="89" text-anchor="middle" font-size="9.5" fill="#cfe4fa">GNU Radio</text>
+  <text x="762" y="100" text-anchor="middle" font-size="9.5" fill="#cfe4fa">SDR#/SDRangel</text>
+  <text x="762" y="111" text-anchor="middle" font-size="9" fill="#cfe4fa">IQ akisi</text>
+
+  <!-- RX yol etiketi -->
+  <rect x="20" y="118" width="120" height="20" fill="none"/>
+  <text x="250" y="126" font-size="10" fill="#1565c0">Ham IQ ornekleri akisi →→→→→→→→→→→→→→→→→→</text>
+
+  <!-- AYRAC -->
+  <line x1="20" y1="142" x2="800" y2="142" stroke="#d3dde8" stroke-width="1.2"/>
+
+  <!-- ===== TX YOLU (alt, yalnizca TX'li cihazlarda) ===== -->
+  <text x="10" y="165" font-size="11" fill="#c0392b" font-weight="bold">TX</text>
+  <text x="10" y="177" font-size="11" fill="#c0392b" font-weight="bold">YOLU</text>
+  <text x="120" y="175" font-size="10" fill="#c0392b">(yalnizca TX'li cihazlarda: HackRF, LimeSDR, USRP, PlutoSDR)</text>
+
+  <!-- TX yolu ters yonde: Bilgisayar -> DAC -> PA -> Anten -->
+  <!-- Bilgisayar TX -->
+  <rect x="722" y="186" width="80" height="44" fill="#c0392b" stroke="#800000" stroke-width="1" rx="3"/>
+  <text x="762" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">BILGISAYAR</text>
+  <text x="762" y="216" text-anchor="middle" font-size="9" fill="#fdd">IQ olustur</text>
+  <text x="762" y="226" text-anchor="middle" font-size="9" fill="#fdd">modulasyon</text>
+  <!-- ok sol -->
+  <line x1="722" y1="208" x2="710" y2="208" stroke="#c0392b" stroke-width="1.8"/>
+  <polygon points="710,208 718,204 718,212" fill="#c0392b"/>
+
+  <!-- DAC -->
+  <rect x="640" y="186" width="68" height="44" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="3"/>
+  <text x="674" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">DAC</text>
+  <text x="674" y="216" text-anchor="middle" font-size="9" fill="#5a6b80">Sayisal→Analog</text>
+  <text x="674" y="228" text-anchor="middle" font-size="9" fill="#6b7a90">IQ→RF sinyali</text>
+  <line x1="640" y1="208" x2="628" y2="208" stroke="#c0392b" stroke-width="1.8"/>
+  <polygon points="628,208 636,204 636,212" fill="#c0392b"/>
+
+  <!-- PA (Guc Yukselteci) -->
+  <rect x="548" y="186" width="78" height="44" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="3"/>
+  <text x="587" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">PA</text>
+  <text x="587" y="216" text-anchor="middle" font-size="9" fill="#5a6b80">Guc Yukselteci</text>
+  <text x="587" y="228" text-anchor="middle" font-size="9" fill="#6b7a90">RF → anten</text>
+  <line x1="548" y1="208" x2="536" y2="208" stroke="#c0392b" stroke-width="1.8"/>
+  <polygon points="536,208 544,204 544,212" fill="#c0392b"/>
+
+  <!-- Anten TX -->
+  <rect x="452" y="186" width="82" height="44" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="3"/>
+  <text x="493" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ANTEN TX</text>
+  <text x="493" y="216" text-anchor="middle" font-size="9" fill="#5a6b80">elekt.→EM</text>
+  <text x="493" y="228" text-anchor="middle" font-size="9" fill="#c0392b">lisans/izin!</text>
+
+  <!-- TX yolu etiketi -->
+  <text x="330" y="215" font-size="10" fill="#c0392b">←←←←  yazilimdan uretilen IQ, DAC'tan gecip PA'ya, antenden havaya</text>
+
+  <!-- Alt bilgi kutulari -->
+  <rect x="20" y="250" width="240" height="78" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="2"/>
+  <text x="140" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">ADC Bit Derinligi</text>
+  <text x="30" y="282" font-size="11" fill="#c0392b">8-bit:</text>
+  <text x="68" y="282" font-size="11" fill="#4a5a70">~48 dB dinamik aralik</text>
+  <text x="30" y="296" font-size="11" fill="#ff8f00">12-bit:</text>
+  <text x="72" y="296" font-size="11" fill="#4a5a70">~72 dB  (Airspy, USRP)</text>
+  <text x="30" y="310" font-size="11" fill="#1a8a3a">14-bit:</text>
+  <text x="72" y="310" font-size="11" fill="#4a5a70">~84 dB  (SDRplay)</text>
+  <text x="30" y="323" font-size="11" fill="#1565c0">16-bit:</text>
+  <text x="72" y="323" font-size="11" fill="#4a5a70">~96 dB  (Airspy HF+)</text>
+
+  <rect x="280" y="250" width="240" height="78" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="2"/>
+  <text x="400" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">Duplex Tipleri</text>
+  <text x="290" y="282" font-size="11" fill="#1565c0" font-weight="bold">RX-only:</text>
+  <text x="353" y="282" font-size="11" fill="#4a5a70">Yalnizca dinler</text>
+  <text x="290" y="296" font-size="11" fill="#ff8f00" font-weight="bold">Half-duplex:</text>
+  <text x="366" y="296" font-size="11" fill="#4a5a70">Ya TX ya RX (HackRF)</text>
+  <text x="290" y="310" font-size="11" fill="#1a8a3a" font-weight="bold">Full-duplex:</text>
+  <text x="364" y="310" font-size="11" fill="#4a5a70">TX+RX ayni anda</text>
+  <text x="290" y="323" font-size="11" fill="#4a5a70">LimeSDR, USRP, PlutoSDR</text>
+
+  <rect x="540" y="250" width="260" height="78" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="2"/>
+  <text x="670" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">Ornekleme Hizi (MSPS)</text>
+  <text x="550" y="282" font-size="11" fill="#4a5a70">RTL-SDR: ~2.4 MSPS → ~2.4 MHz BW</text>
+  <text x="550" y="296" font-size="11" fill="#4a5a70">HackRF: 20 MSPS → ~20 MHz BW</text>
+  <text x="550" y="310" font-size="11" fill="#4a5a70">USRP B210: 56 MSPS → ~56 MHz BW</text>
+  <text x="550" y="323" font-size="11" fill="#6b7a90">Genis BW = daha fazla kanal gozlemi</text>
+
+  <!-- Altta ozet -->
+  <text x="400" y="350" text-anchor="middle" font-size="11" fill="#1a2b40">Anten → LNA → Filtre → Mikser → ADC → DSP/FPGA → USB → Yazilim</text>
+  <text x="400" y="366" text-anchor="middle" font-size="11" fill="#6b7a90">Tum demodulasyon / filtreleme / kod cozme yazilimda yapilir — SDR budur</text>
+
+  <!-- Frekans etiketi -->
+  <text x="400" y="385" text-anchor="middle" font-size="10" fill="#1565c0">Tipik frekans araliklari: RTL-SDR 500kHz-1.7GHz  |  HackRF 1MHz-6GHz  |  LimeSDR 100kHz-3.8GHz  |  USRP 70MHz-6GHz</text>
+</svg>

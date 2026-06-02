@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="760" height="420" fill="#f4f7fb"/>
+  <text x="380" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Bilgi Kaynagi Piramidi — Guvenirlil ve Teyit Gerekliligi</text>
+
+  <!-- PIRAMIT UCGEN -->
+  <!-- Katman 1 (Birincil) — ust, en guclu -->
+  <polygon points="380,52 220,170 540,170" fill="#1565c0" opacity="0.92"/>
+  <text x="380" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">BIRINCİL</text>
+  <text x="380" y="118" text-anchor="middle" font-size="10" fill="#e3f0fd">Birincil belge</text>
+  <text x="380" y="133" text-anchor="middle" font-size="10" fill="#e3f0fd">Olcumun kendisi</text>
+  <text x="380" y="148" text-anchor="middle" font-size="9" fill="#c8e0ff">Uretici datasheet'i</text>
+
+  <!-- Katman 2 (Ikincil) — orta -->
+  <polygon points="220,172 100,300 660,300" fill="#1565c0" opacity="0.60"/>
+  <text x="380" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">IKİNCİL</text>
+  <text x="380" y="233" text-anchor="middle" font-size="10" fill="#e3f0fd">Birincili yorumlayan</text>
+  <text x="380" y="250" text-anchor="middle" font-size="10" fill="#e3f0fd">Akademik makale / teknik kitap</text>
+  <text x="380" y="267" text-anchor="middle" font-size="9" fill="#c8e0ff">Uretici uygulama notu</text>
+
+  <!-- Katman 3 (Ucuncul) — alt, en genis -->
+  <polygon points="100,302 20,385 740,385" fill="#1565c0" opacity="0.32"/>
+  <text x="380" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a2b40">UCUNCUL</text>
+  <text x="380" y="346" text-anchor="middle" font-size="10" fill="#36506e">Blog / forum / video / sosyal medya</text>
+  <text x="380" y="363" text-anchor="middle" font-size="10" fill="#36506e">Teyit gerekli; kaynak belirtmiyorsa dusuk guven</text>
+
+  <!-- Sag taraf etiketler -->
+  <rect x="556" y="92" width="190" height="64" rx="5" fill="#ffffff" stroke="#1565c0" stroke-width="1.5"/>
+  <text x="651" y="109" text-anchor="middle" font-size="9" font-weight="bold" fill="#1565c0">Guven: EN YUKSEK</text>
+  <text x="651" y="124" text-anchor="middle" font-size="8.5" fill="#36506e">3GPP spec, ITU Radyo Yonetmeligi</text>
+  <text x="651" y="138" text-anchor="middle" font-size="8.5" fill="#36506e">CVE kaydinin uretici advisory'si</text>
+  <text x="651" y="152" text-anchor="middle" font-size="8.5" fill="#36506e">Kendi IQ kaydin / olcumun</text>
+  <line x1="540" y1="124" x2="556" y2="124" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <rect x="670" y="208" width="80" height="72" rx="5" fill="#ffffff" stroke="#1565c0" stroke-width="1" opacity="0.85"/>
+  <text x="710" y="224" text-anchor="middle" font-size="9" font-weight="bold" fill="#1565c0">Guven:</text>
+  <text x="710" y="237" text-anchor="middle" font-size="9" fill="#1565c0">YUKSEK</text>
+  <text x="710" y="252" text-anchor="middle" font-size="8" fill="#36506e">kaynak</text>
+  <text x="710" y="264" text-anchor="middle" font-size="8" fill="#36506e">belirtirse</text>
+  <text x="710" y="276" text-anchor="middle" font-size="8" fill="#6b7a90">Yorumdur</text>
+  <line x1="660" y1="245" x2="670" y2="245" stroke="#1565c0" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <rect x="20" y="320" width="80" height="58" rx="5" fill="#ffffff" stroke="#7a8aa0" stroke-width="1"/>
+  <text x="60" y="337" text-anchor="middle" font-size="9" font-weight="bold" fill="#7a8aa0">Guven:</text>
+  <text x="60" y="350" text-anchor="middle" font-size="9" fill="#7a8aa0">DEGİSKEN</text>
+  <text x="60" y="363" text-anchor="middle" font-size="8" fill="#6b7a90">Teyit</text>
+  <text x="60" y="375" text-anchor="middle" font-size="8" fill="#6b7a90">SART</text>
+  <line x1="100" y1="350" x2="80" y2="350" stroke="#7a8aa0" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Teyit gerekliligi sag taraf -->
+  <rect x="556" y="175" width="190" height="20" rx="3" fill="#e8f5e9" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="651" y="189" text-anchor="middle" font-size="9" fill="#1a8a3a">Teyit: Neredeyse gerekli degil</text>
+
+  <rect x="556" y="282" width="190" height="20" rx="3" fill="#fff3e0" stroke="#ff8f00" stroke-width="1"/>
+  <text x="651" y="296" text-anchor="middle" font-size="9" fill="#ff8f00">Teyit: Onerilen</text>
+
+  <!-- Kural notu -->
+  <rect x="20" y="392" width="720" height="22" rx="4" fill="#e3f0fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="380" y="407" text-anchor="middle" font-size="10" fill="#36506e">Senior kurali: Bir iddiay kullanmadan once en az bir birincil ya da iyi ikincil kaynaga kadar takip et.</text>
+</svg>

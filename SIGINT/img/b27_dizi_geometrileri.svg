@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="860" height="520" fill="#f4f7fb"/>
+  <text x="430" y="28" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a2b40">Dizi Geometrileri: ULA, UCA, URA, Seyrek</text>
+
+  <!-- 4 panel 2x2 -->
+
+  <!-- Panel 1: ULA (sol ust) -->
+  <rect x="15" y="45" width="410" height="225" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="220" y="66" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">ULA — Duzgun Dogrusal Dizi</text>
+
+  <!-- Dizi ekseni -->
+  <line x1="50" y1="155" x2="390" y2="155" stroke="#d3dde8" stroke-width="1.5"/>
+  <!-- 8 eleman -->
+  <circle cx="80" cy="155" r="9" fill="#e8f0fb" stroke="#1565c0" stroke-width="2"/>
+  <circle cx="120" cy="155" r="9" fill="#e8f0fb" stroke="#1565c0" stroke-width="2"/>
+  <circle cx="160" cy="155" r="9" fill="#e8f0fb" stroke="#1565c0" stroke-width="2"/>
+  <circle cx="200" cy="155" r="9" fill="#e8f0fb" stroke="#1565c0" stroke-width="2"/>
+  <circle cx="240" cy="155" r="9" fill="#e8f0fb" stroke="#1565c0" stroke-width="2"/>
+  <circle cx="280" cy="155" r="9" fill="#e8f0fb" stroke="#1565c0" stroke-width="2"/>
+  <circle cx="320" cy="155" r="9" fill="#e8f0fb" stroke="#1565c0" stroke-width="2"/>
+  <circle cx="360" cy="155" r="9" fill="#e8f0fb" stroke="#1565c0" stroke-width="2"/>
+
+  <!-- d etiketi -->
+  <line x1="80" y1="172" x2="120" y2="172" stroke="#9fb3c8" stroke-width="1"/>
+  <line x1="80" y1="168" x2="80" y2="176" stroke="#9fb3c8" stroke-width="1"/>
+  <line x1="120" y1="168" x2="120" y2="176" stroke="#9fb3c8" stroke-width="1"/>
+  <text x="100" y="185" text-anchor="middle" font-size="10" fill="#6b7a90">d=λ/2</text>
+
+  <!-- Kapsama gostergesi: azimut yay -->
+  <text x="220" y="105" text-anchor="middle" font-size="11" fill="#1565c0">→ Yalnizca azimut, 1B cozum</text>
+  <!-- Yay: sol-sag -->
+  <path d="M80,140 Q220,80 360,140" fill="none" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="220" y="90" text-anchor="middle" font-size="10" fill="#6b7a90">kapsama yonu</text>
+
+  <!-- On-arka belirsizligi -->
+  <path d="M80,170 Q220,230 360,170" fill="none" stroke="#9fb3c8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="220" y="220" text-anchor="middle" font-size="10" fill="#9fb3c8">on-arka belirsizligi (±θ ayirt edilemez)</text>
+
+  <!-- Alt bilgi -->
+  <rect x="22" y="230" width="396" height="32" rx="3" fill="#e8f0fb"/>
+  <text x="220" y="243" text-anchor="middle" font-size="10" fill="#1565c0">Guc: Kapalı-form matematik, MUSIC/ESPRIT en temiz</text>
+  <text x="220" y="256" text-anchor="middle" font-size="10" fill="#6b7a90">p_n = (n·d, 0, 0)  |  N=8 → ~9 dB dizi kazanci</text>
+
+  <!-- Panel 2: UCA (sag ust) -->
+  <rect x="435" y="45" width="410" height="225" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="640" y="66" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a8a3a">UCA — Duzgun Dairesel Dizi</text>
+
+  <!-- Daire merkezi: 640, 155 -->
+  <circle cx="640" cy="155" r="65" fill="none" stroke="#d3dde8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="640" cy="155" r="4" fill="#1a8a3a" opacity="0.5"/>
+
+  <!-- 8 eleman dairede, açılar: 0, 45, 90, 135, 180, 225, 270, 315 -->
+  <circle cx="705" cy="155" r="9" fill="#f0fff4" stroke="#1a8a3a" stroke-width="2"/>
+  <circle cx="686" cy="109" r="9" fill="#f0fff4" stroke="#1a8a3a" stroke-width="2"/>
+  <circle cx="640" cy="90" r="9" fill="#f0fff4" stroke="#1a8a3a" stroke-width="2"/>
+  <circle cx="594" cy="109" r="9" fill="#f0fff4" stroke="#1a8a3a" stroke-width="2"/>
+  <circle cx="575" cy="155" r="9" fill="#f0fff4" stroke="#1a8a3a" stroke-width="2"/>
+  <circle cx="594" cy="201" r="9" fill="#f0fff4" stroke="#1a8a3a" stroke-width="2"/>
+  <circle cx="640" cy="220" r="9" fill="#f0fff4" stroke="#1a8a3a" stroke-width="2"/>
+  <circle cx="686" cy="201" r="9" fill="#f0fff4" stroke="#1a8a3a" stroke-width="2"/>
+
+  <!-- R etiketi -->
+  <line x1="640" y1="155" x2="705" y2="155" stroke="#1a8a3a" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="672" y="150" text-anchor="middle" font-size="10" fill="#1a8a3a">R</text>
+
+  <!-- 360 derece kapsama gostergesi -->
+  <text x="770" y="105" text-anchor="end" font-size="11" fill="#1a8a3a">360° azimut</text>
+  <text x="770" y="118" text-anchor="end" font-size="11" fill="#1a8a3a">kapsama!</text>
+
+  <!-- Yay oklarla -->
+  <path d="M720,115 A85,85 0 0,1 720,195" fill="none" stroke="#1a8a3a" stroke-width="1.5" marker-end="url(#arrowG)"/>
+
+  <!-- KrakenSDR notu -->
+  <rect x="440" y="185" width="175" height="20" rx="3" fill="#f0fff4" stroke="#1a8a3a" stroke-width="1"/>
+  <text x="528" y="199" text-anchor="middle" font-size="10" fill="#1a8a3a">KrakenSDR: N=5 UCA</text>
+
+  <!-- Alt bilgi -->
+  <rect x="442" y="230" width="396" height="32" rx="3" fill="#f0fff4"/>
+  <text x="640" y="243" text-anchor="middle" font-size="10" fill="#1a8a3a">Guc: 360° azimut, on-arka belirsizligi yok</text>
+  <text x="640" y="256" text-anchor="middle" font-size="10" fill="#6b7a90">p_n = (R·cos(2πn/N), R·sin(2πn/N), 0)</text>
+
+  <!-- Panel 3: URA (sol alt) -->
+  <rect x="15" y="280" width="410" height="225" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="220" y="301" text-anchor="middle" font-size="13" font-weight="bold" fill="#ff8f00">URA — Duzgun Dikdortgensel Dizi (4×4=16 el.)</text>
+
+  <!-- 4x4 ızgara -->
+  <!-- merkez: 220, 380, aralık 45px -->
+  <line x1="80" y1="310" x2="370" y2="310" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="80" y1="355" x2="370" y2="355" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="80" y1="400" x2="370" y2="400" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="80" y1="445" x2="370" y2="445" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="80" y1="310" x2="80" y2="445" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="178" y1="310" x2="178" y2="445" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="276" y1="310" x2="276" y2="445" stroke="#d3dde8" stroke-width="1"/>
+  <line x1="370" y1="310" x2="370" y2="445" stroke="#d3dde8" stroke-width="1"/>
+
+  <!-- 4x4 elemanlar (x: 80,178,276,370 / y: 310,355,400,445) -->
+  <circle cx="80" cy="310" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="178" cy="310" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="276" cy="310" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="370" cy="310" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="80" cy="355" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="178" cy="355" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="276" cy="355" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="370" cy="355" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="80" cy="400" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="178" cy="400" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="276" cy="400" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="370" cy="400" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="80" cy="445" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="178" cy="445" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="276" cy="445" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="370" cy="445" r="8" fill="#fff8e1" stroke="#ff8f00" stroke-width="2"/>
+
+  <!-- Eksenler -->
+  <text x="390" y="448" font-size="10" fill="#ff8f00">x</text>
+  <text x="372" y="295" font-size="10" fill="#ff8f00">y</text>
+  <!-- dx, dy etiket -->
+  <text x="129" y="478" text-anchor="middle" font-size="10" fill="#6b7a90">d_x=λ/2</text>
+  <text x="22" y="380" text-anchor="middle" font-size="10" fill="#6b7a90" transform="rotate(-90,22,380)">d_y=λ/2</text>
+
+  <!-- Azimut+Elevation kapsama -->
+  <rect x="22" y="455" width="396" height="40" rx="3" fill="#fff8e1"/>
+  <text x="220" y="469" text-anchor="middle" font-size="10" fill="#ff8f00" font-weight="bold">2B kapsama: azimut + yukselis (yari-kure)</text>
+  <text x="220" y="481" text-anchor="middle" font-size="10" fill="#36506e">5G Massive MIMO (Kronecker: a_x ⊗ a_y)  |  M×N dizi</text>
+  <text x="220" y="493" text-anchor="middle" font-size="10" fill="#36506e">Bu ornekte M=N=4, toplam 16 eleman</text>
+
+  <!-- Panel 4: Seyrek dizi (sag alt) -->
+  <rect x="435" y="280" width="410" height="225" fill="#ffffff" stroke="#9fb3c8" stroke-width="1" rx="4"/>
+  <text x="640" y="301" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Seyrek / Es-asal Dizi</text>
+
+  <!-- Dizi ekseni -->
+  <line x1="450" y1="375" x2="830" y2="375" stroke="#d3dde8" stroke-width="1.5"/>
+
+  <!-- Ust: ULA dolu (karsilastirma) -->
+  <text x="452" y="325" font-size="10" fill="#6b7a90">ULA (dolu, 8 el.):</text>
+  <circle cx="480" cy="335" r="7" fill="#e8f0fb" stroke="#6b7a90" stroke-width="1.5"/>
+  <circle cx="510" cy="335" r="7" fill="#e8f0fb" stroke="#6b7a90" stroke-width="1.5"/>
+  <circle cx="540" cy="335" r="7" fill="#e8f0fb" stroke="#6b7a90" stroke-width="1.5"/>
+  <circle cx="570" cy="335" r="7" fill="#e8f0fb" stroke="#6b7a90" stroke-width="1.5"/>
+  <circle cx="600" cy="335" r="7" fill="#e8f0fb" stroke="#6b7a90" stroke-width="1.5"/>
+  <circle cx="630" cy="335" r="7" fill="#e8f0fb" stroke="#6b7a90" stroke-width="1.5"/>
+  <circle cx="660" cy="335" r="7" fill="#e8f0fb" stroke="#6b7a90" stroke-width="1.5"/>
+  <circle cx="690" cy="335" r="7" fill="#e8f0fb" stroke="#6b7a90" stroke-width="1.5"/>
+
+  <!-- Seyrek dizi -->
+  <text x="452" y="358" font-size="10" fill="#c0392b">Seyrek (4 el., genis aciklik):</text>
+  <circle cx="480" cy="375" r="9" fill="#fdf0f0" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="570" cy="375" r="9" fill="#fdf0f0" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="660" cy="375" r="9" fill="#fdf0f0" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="820" cy="375" r="9" fill="#fdf0f0" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Es-asal dizi -->
+  <text x="452" y="400" font-size="10" fill="#c0392b">Es-asal (alt-dizi 1: aralik 2d, alt-dizi 2: aralik 3d):</text>
+  <!-- Alt-dizi 1: aralik 60px, 3 eleman -->
+  <circle cx="480" cy="420" r="8" fill="#fdf0f0" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="540" cy="420" r="8" fill="#fdf0f0" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="600" cy="420" r="8" fill="#fdf0f0" stroke="#c0392b" stroke-width="2"/>
+  <!-- Alt-dizi 2: aralik 90px, 2 eleman -->
+  <circle cx="660" cy="420" r="8" fill="#fff0e0" stroke="#ff8f00" stroke-width="2"/>
+  <circle cx="750" cy="420" r="8" fill="#fff0e0" stroke="#ff8f00" stroke-width="2"/>
+  <!-- Renk aciklamasi -->
+  <text x="452" y="440" font-size="9" fill="#c0392b">kirmizi: alt-dizi 1 (2d aralik)</text>
+  <text x="620" y="440" font-size="9" fill="#ff8f00">turuncu: alt-dizi 2 (3d aralik)</text>
+
+  <!-- Aciklik karsilastirmasi -->
+  <!-- ULA aciklik: 7*d, Seyrek aciklik: 340px = ~11d -->
+  <line x1="480" y1="450" x2="820" y2="450" stroke="#c0392b" stroke-width="1"/>
+  <line x1="480" y1="447" x2="480" y2="453" stroke="#c0392b" stroke-width="1"/>
+  <line x1="820" y1="447" x2="820" y2="453" stroke="#c0392b" stroke-width="1"/>
+  <text x="650" y="463" text-anchor="middle" font-size="9" fill="#c0392b">Seyrek aciklik ~ 11d  (ULA 7d)</text>
+
+  <!-- Alt bilgi -->
+  <rect x="442" y="468" width="396" height="30" rx="3" fill="#fdf0f0"/>
+  <text x="640" y="481" text-anchor="middle" font-size="10" fill="#c0392b">Es-asal: N fiz. eleman → O(N²) sanal eleman (fark co-array)</text>
+  <text x="640" y="493" text-anchor="middle" font-size="10" fill="#36506e">Az donanim, genis aciklik, yuksek acısal cozunurluk</text>
+
+</svg>
